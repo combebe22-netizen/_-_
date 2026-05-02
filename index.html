@@ -1,173 +1,236 @@
-<index.htmll>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مراجعة معمارية الحاسوب | زميلكم علي خالد</title>
+    <title>منصة علي خالد للاختبارات | معمارية الحاسوب</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #1a5276;
-            --accent: #d35400;
-            --bg: #f4f7f6;
-            --text: #2e4053;
+            --edu-blue: #0d47a1;
+            --edu-light-blue: #e3f2fd;
+            --success-green: #2e7d32;
+            --error-red: #c62828;
+            --text-dark: #202124;
+            --bg-gray: #f8f9fa;
         }
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-gray);
             margin: 0;
             padding: 0;
-            line-height: 1.6;
+            color: var(--text-dark);
         }
         header {
-            background: linear-gradient(135deg, #1a5276, #2980b9);
+            background-color: var(--edu-blue);
             color: white;
-            text-align: center;
             padding: 3rem 1rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            text-align: center;
+            border-bottom: 5px solid #1565c0;
         }
         header h1 { margin: 0; font-size: 2.2rem; }
-        .intro {
-            max-width: 700px;
-            margin: 1rem auto;
-            font-size: 1.1rem;
-            background: rgba(255,255,255,0.1);
-            padding: 10px;
-            border-radius: 8px;
-        }
-        .container {
-            max-width: 850px;
-            margin: 2rem auto;
-            padding: 0 1.5rem;
-        }
+        .branding { color: #ffca28; font-weight: bold; margin-top: 10px; font-size: 1.1rem; }
+        
+        .container { max-width: 800px; margin: -40px auto 40px; padding: 20px; }
+        
         .card {
             background: white;
             border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            border-right: 6px solid var(--primary);
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
         }
-        .q-meta {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.85rem;
-            color: #7f8c8d;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
-        }
-        .q-en { font-family: 'Courier New', Courier, monospace; direction: ltr; text-align: left; color: #566573; }
-        .q-ar { font-size: 1.4rem; font-weight: bold; color: var(--primary); margin: 15px 0; }
         
-        .ans-box {
-            display: none;
-            background: #fdfefe;
-            padding: 1.2rem;
+        .quiz-intro { text-align: center; margin-bottom: 20px; }
+        
+        .question-box { margin-bottom: 25px; display: none; }
+        .question-box.active { display: block; }
+        
+        .q-text { font-size: 1.3rem; font-weight: 700; color: var(--edu-blue); margin-bottom: 15px; }
+        .q-en { font-size: 0.9rem; color: #757575; font-style: italic; margin-bottom: 15px; direction: ltr; text-align: left; }
+        
+        .options-list { list-style: none; padding: 0; }
+        .option-item {
+            background: var(--edu-light-blue);
+            padding: 12px 20px;
+            margin: 10px 0;
             border-radius: 8px;
-            border: 1px dashed var(--primary);
-            margin-top: 1rem;
-            animation: fadeIn 0.4s;
-        }
-        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
-
-        .controls { display: flex; gap: 10px; flex-wrap: wrap; }
-        button {
-            border: none;
-            padding: 0.7rem 1.2rem;
-            border-radius: 6px;
             cursor: pointer;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: 0.2s;
+            transition: 0.3s;
+            border: 2px solid transparent;
         }
-        .btn-ans { background: var(--primary); color: white; }
-        .btn-speak { background: #27ae60; color: white; }
-        .btn-stop { background: #c0392b; color: white; display: none; }
-        button:hover { opacity: 0.9; transform: scale(1.02); }
-
-        footer { text-align: center; padding: 2rem; color: #7f8c8d; border-top: 1px solid #ddd; margin-top: 3rem; }
+        .option-item:hover { background: #bbdefb; }
+        .option-item.selected { border-color: var(--edu-blue); background: #90caf9; }
+        
+        .controls { display: flex; justify-content: space-between; margin-top: 30px; }
+        
+        button {
+            padding: 12px 25px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+        .btn-primary { background-color: var(--edu-blue); color: white; }
+        .btn-audio { background-color: var(--success-green); color: white; }
+        .btn-stop { background-color: var(--error-red); color: white; display: none; }
+        
+        #result-screen { text-align: center; display: none; }
+        .score { font-size: 4rem; font-weight: bold; color: var(--edu-blue); }
+        
+        footer {
+            background: #263238;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>مراجعة معمارية الحاسوب الشاملة</h1>
-    <div class="intro">
-        مرحباً يا زملائي، أنا زميلكم <strong>علي خالد</strong>. قمت ببرمجة هذا الموقع لنراجع معاً كافة الأسئلة (17 سؤالاً) بشكل تفاعلي. بالتوفيق لنا جميعاً!
-    </div>
+    <h1>مركز علي خالد للاختبارات التقنية</h1>
+    <div class="branding">الملكية الفكرية والحقوق محفوظة لـ: علي خالد</div>
 </header>
 
-<div class="container" id="content"></div>
+<div class="container">
+    <div class="card" id="quiz-container">
+        <div id="start-screen" class="quiz-intro">
+            <h2>اختبار معمارية الحاسوب الشامل</h2>
+            <p>سيتم اختيار 10 أسئلة عشوائية من المنهج المعتمد. هل أنت مستعد؟</p>
+            <button class="btn-primary" onclick="startQuiz()">ابدأ الاختبار الآن</button>
+        </div>
+
+        <div id="quiz-screen" style="display:none;">
+            <div id="progress">سؤال 1 من 10</div>
+            <hr>
+            <div id="questions-area"></div>
+            <div class="controls">
+                <button class="btn-audio" id="audio-btn" onclick="speakCurrent()">🔊 قراءة السؤال</button>
+                <button class="btn-stop" id="stop-btn" onclick="stopAudio()">⏹️ إيقاف</button>
+                <button class="btn-primary" id="next-btn" onclick="nextQuestion()">السؤال التالي</button>
+            </div>
+        </div>
+
+        <div id="result-screen">
+            <h2>انتهى الاختبار!</h2>
+            <p>نتيجتك النهائية هي:</p>
+            <div class="score" id="final-score">0/10</div>
+            <button class="btn-primary" onclick="location.reload()">إعادة الاختبار</button>
+        </div>
+    </div>
+</div>
 
 <footer>
-    مجهود شخصي من الزميل علي خالد لخدمة زملائه | 2026
+    &copy; 2026 جميع الحقوق محفوظة لـ علي خالد | معمارية الحاسوب
 </footer>
 
 <script>
-const data = [
-    {en: "Explain the role of the Control Unit (CU) in coordinating computer operations.", ar: "اشرح دور وحدة التحكم (CU) في تنسيق عمليات الحاسوب.", ans: "وحدة التحكم (CU) هي مدير النظام؛ تقوم بجلب التعليمات من الذاكرة وتفكيك تشفيرها وإرسال إشارات لباقي المكونات للتنفيذ."},
-    {en: "Describe the function of the Arithmetic Logic Unit (ALU) in data processing.", ar: "صف وظيفة وحدة الحساب والمنطق (ALU) في معالجة البيانات.", ans: "وحدة (ALU) تنفذ كافة العمليات الحسابية والمنطقية اللازمة لمعالجة البيانات داخل المعالج[cite: 1]."},
-    {en: "Compare primary storage and secondary storage with suitable examples.", ar: "قارن بين التخزين الأساسي والثانوي مع أمثلة.", ans: "الأساسي (كالـ RAM) سريع ومتطاير ويحتاجه المعالج فوراً؛ الثانوي (كالـ HDD) دائم وسعته كبيرة لتخزين الملفات[cite: 1]."},
-    {en: "Outline the key differences between Hard Disk Drives (HDDs) and Solid-State Drives (SSDs).", ar: "ما الفرق الجوهري بين أقراص (HDDs) وأقراص (SSDs)؟", ans: "الـ HDD ميكانيكي يعتمد على أقراص دوارة وهو أرخص؛ أما الـ SSD فهو الكتروني (Flash) وأسرع بكثير وأكثر مقاومة للصدمات[cite: 1]."},
-    {en: "Explain the concept of data access methods, including sequential and direct access.", ar: "اشرح طرق الوصول للبيانات (التسلسلي والمباشر).", ans: "الوصول التسلسلي يمر بكل البيانات السابقة للوصول للمطلوب (كالشريط)؛ المباشر ينتقل للعنوان المطلوب فوراً (كالقرص الصلب)[cite: 1]."},
-    {en: "Describe the function of registers in the CPU and their importance in processing speed.", ar: "صف دور المسجلات (Registers) في المعالج وأهميتها للسرعة.", ans: "المسجلات هي أماكن تخزين فائقة السرعة داخل المعالج مباشرة؛ استخدامها يقلل زمن انتظار البيانات من الذاكرة الخارجية مما يرفع سرعة المعالجة[cite: 1]."},
-    {en: "Explain the importance of system buses in computer architecture.", ar: "ما أهمية نواقل النظام (System Buses) في معمارية الحاسوب؟", ans: "هي المسارات التي تربط المكونات (المعالج، الذاكرة، الإدخال/الإخراج) وتسمح بتبادل البيانات والإشارات بينها[cite: 1]."},
-    {en: "Outline the role of input and output devices in a computer system.", ar: "ما هو دور أجهزة الإدخال والإخراج في نظام الحاسوب؟", ans: "أجهزة الإدخال تسمح بإدخال البيانات (كلوحة المفاتيح)؛ وأجهزة الإخراج تظهر النتائج للمستخدم (كالشاشة)[cite: 1]."},
-    {en: "Outline key differences among generations of computer architecture and define it.", ar: "لخص فروقات أجيال الحاسوب ومعنى معمارية الحاسوب.", ans: "بدأت الأجيال بالصمامات المفرغة ثم الترانزستور ثم الدوائر المتكاملة؛ ومعمارية الحاسوب هي القواعد التي تصف عمل وتنظيم أنظمة الحاسوب وأهميتها تكمن في تحسين الأداء[cite: 1]."},
-    {en: "Compare Von Neumann architecture and Harvard architecture with clear examples.", ar: "قارن بين معمارية فون نيومان ومعمارية هارفارد.", ans: "فون نيومان تستخدم ذاكرة ونقلاً واحداً للبيانات والتعليمات؛ هارفارد تفصل بينهما بذاكرتين ونواقل مستقلة مما يزيد السرعة[cite: 1]."},
-    {en: "Identify main functional units and explain their cooperation during execution.", ar: "حدد الوحدات الوظيفية وكيف تعمل معاً أثناء تنفيذ البرنامج.", ans: "تشمل: المعالج، الذاكرة، المدخلات والمخرجات؛ تعمل معاً بنقل التعليمات من الذاكرة للمعالج ثم إرسال النتائج للمخرجات[cite: 1]."},
-    {en: "Outline the major components of the Central Processing Unit (CPU) and their roles.", ar: "ما هي المكونات الرئيسية للمعالج ودور كل منها؟", ans: "تشمل وحدة التحكم (CU) للتنسيق، وحدة الحساب والمنطق (ALU) للعمليات، والمسجلات لتخزين البيانات المؤقتة[cite: 1]."},
-    {en: "Summarize the steps involved in the fetch–decode–execute cycle.", ar: "لخص خطوات دورة الجلب، فك التشفير، والتنفيذ.", ans: "الجلب: إحضار التعليمة؛ فك التشفير: فهم المطلوب؛ التنفيذ: القيام بالعملية وتخزين النتيجة[cite: 1]."},
-    {en: "Contrast RISC and CISC architectures.", ar: "قارن بين معماريات RISC و CISC.", ans: "RISC تستخدم تعليمات بسيطة وسريعة؛ CISC تستخدم تعليمات معقدة تقوم بمهام متعددة في تعليمة واحدة[cite: 1]."},
-    {en: "State the meaning of primary memory and compare RAM and ROM.", ar: "ما هي الذاكرة الأساسية؟ وقارن بين RAM و ROM.", ans: "الأساسية هي ذاكرة العمل؛ RAM للقراءة والكتابة وهي متطايرة، ROM للقراءة فقط وتحفظ إعدادات التشغيل ولا تتطاير[cite: 1]."},
-    {en: "Outline the structure of the memory hierarchy and its role.", ar: "ما هو هيكل تسلسل الذاكرة الهرمي ودوره؟", ans: "يبدأ من المسجلات (أسرع وأصغر) وصولاً للقرص الصلب؛ دوره موازنة السرعة مقابل التكلفة والسعة[cite: 1]."},
-    {en: "Explain the purpose of cache memory in enhancing system speed.", ar: "ما الغرض من الذاكرة المخبئية (Cache) في تحسين سرعة النظام؟", ans: "تعمل كمخزن مؤقت سريع جداً بين المعالج والـ RAM لتخزين البيانات المتكررة وتقليل زمن الوصول[cite: 1]."}
+// البيانات مستخرجة من المحتوى التعليمي
+const allQuestions = [
+    {q: "ما هو دور وحدة التحكم (CU)؟", en: "Role of Control Unit", options: ["تنسيق تدفق البيانات والتعليمات", "تنفيذ العمليات الحسابية", "تخزين البيانات الدائم", "إظهار المخرجات"], correct: 0, ans: "تقوم وحدة التحكم بتنسيق تدفق البيانات والتعليمات بين المعالج والمكونات الأخرى."},
+    {q: "ما هي وظيفة وحدة الحساب والمنطق (ALU)؟", en: "Function of ALU", options: ["إدارة الذاكرة", "تنفيذ العمليات الحسابية والمنطقية", "تخزين الملفات", "ربط الحاسوب بالإنترنت"], correct: 1, ans: "تقوم الـ ALU بتنفيذ كافة العمليات الحسابية والمنطقية اللازمة للمعالجة[cite: 1]."},
+    {q: "أي مما يلي يعتبر ذاكرة متطايرة؟", en: "Volatile Memory", options: ["HDD", "SSD", "RAM", "ROM"], correct: 2, ans: "تعتبر ذاكرة الـ RAM متطايرة لأنها تفقد محتواها عند انقطاع التيار[cite: 1]."},
+    {q: "ما الفرق الجوهري للـ SSD عن الـ HDD؟", en: "SSD vs HDD", options: ["أبطأ في السرعة", "يعتمد على أقراص مغناطيسية", "أسرع ولا يحتوي قطع متحركة", "أرخص ثمناً"], correct: 2, ans: "الـ SSD إلكتروني بالكامل وأسرع بكثير من الـ HDD الميكانيكي[cite: 1]."},
+    {q: "ما وظيفة المسجلات (Registers)؟", en: "Function of Registers", options: ["تخزين طويل الأمد", "تخزين فوري وفائق السرعة داخل المعالج", "طباعة المستندات", "إدخال البيانات"], correct: 1, ans: "المسجلات هي مخازن فائقة السرعة داخل المعالج مباشرة لسرعة المعالجة[cite: 1]."},
+    {q: "ما هي معمارية فون نيومان؟", en: "Von Neumann Architecture", options: ["تستخدم ذاكرة واحدة للبيانات والتعليمات", "تفصل بين الذاكرتين", "تستخدم الورق للتخزين", "خاصة بالهواتف فقط"], correct: 0, ans: "معمارية فون نيومان تستخدم ذاكرة ونواقل مشتركة للبيانات والتعليمات[cite: 1]."},
+    {q: "ما هي دورة جلب وتشفير وتنفيذ التعليمة؟", en: "Fetch-Decode-Execute Cycle", options: ["طريقة تنظيف الحاسوب", "خطوات تنفيذ المعالج لكل تعليمة", "طريقة شحن البطارية", "إعدادات الشاشة"], correct: 1, ans: "هي الخطوات التي يتبعها المعالج لجلب التعليمة ثم فهمها ثم تنفيذها[cite: 1]."},
+    {q: "ما الفرق بين RISC و CISC؟", en: "RISC vs CISC", options: ["RISC تعليمات بسيطة وسريعة", "CISC تعليمات أبسط", "لا يوجد فرق", "كلاهما للذاكرة فقط"], correct: 0, ans: "الـ RISC تعتمد على مجموعة تعليمات بسيطة وسريعة التنفيذ[cite: 1]."},
+    {q: "ما دور ذاكرة الكاش (Cache)؟", en: "Purpose of Cache", options: ["زيادة سعة التخزين", "تحسين سرعة النظام بتقليل وقت الوصول للبيانات", "تبريد المعالج", "حفظ كلمات المرور"], correct: 1, ans: "ذاكرة الكاش تزيد سرعة النظام بتخزين البيانات المتكررة قرب المعالج[cite: 1]."},
+    {q: "أي من هؤلاء يمثل الوصول المباشر للبيانات؟", en: "Direct Access", options: ["شريط الكاسيت", "القرص الصلب (Hard Disk)", "الورق المطبوع", "الفأرة"], correct: 1, ans: "القرص الصلب يسمح بالوصول المباشر للبيانات دون المرور بكل ما قبله[cite: 1]."},
+    {q: "ما هي معمارية هارفارد؟", en: "Harvard Architecture", options: ["ذاكرة مشتركة", "ذاكرتان منفصلتان للبيانات والتعليمات", "لا تستخدم ذاكرة", "قديمة جداً"], correct: 1, ans: "تتميز معمارية هارفارد بفصل مسارات وذاكرة التعليمات عن البيانات[cite: 1]."},
+    {q: "مما تتكون وحدة المعالجة المركزية (CPU)؟", en: "CPU Components", options: ["CU, ALU, Registers", "Screen, Keyboard", "HDD, RAM", "Power Supply"], correct: 0, ans: "تتكون الـ CPU أساساً من وحدة التحكم ووحدة الحساب والمنطق والمسجلات[cite: 1]."},
+    {q: "ما هي الذاكرة التي تحفظ تعليمات الإقلاع؟", en: "Boot instructions memory", options: ["RAM", "ROM", "Cache", "Virtual Memory"], correct: 1, ans: "ذاكرة الـ ROM هي التي تحفظ تعليمات الإقلاع الأساسية ولا تتأثر بانقطاع الكهرباء[cite: 1]."},
+    {q: "ما دور نواقل النظام (System Buses)؟", en: "System Buses role", options: ["توليد الكهرباء", "ربط المكونات ونقل البيانات بينها", "تبريد الجهاز", "عرض الصور"], correct: 1, ans: "نواقل النظام هي المسارات التي تربط المعالج بالذاكرة وبقية الأجزاء[cite: 1]."},
+    {q: "أين تقع أسرع ذاكرة في الحاسوب؟", en: "Fastest Memory Location", options: ["داخل المعالج (Registers)", "في القرص الصلب", "في الـ RAM", "في الإنترنت"], correct: 0, ans: "المسجلات هي أسرع أنواع الذاكرة لكونها داخل المعالج مباشرة[cite: 1]."},
+    {q: "ما هو التخزين الثانوي؟", en: "Secondary Storage", options: ["الـ RAM", "القرص الصلب وذاكرة الفلاش", "الشاشة", "لوحة المفاتيح"], correct: 1, ans: "التخزين الثانوي هو التخزين الدائم مثل HDD و SSD[cite: 1]."},
+    {q: "ما هي معمارية الحاسوب؟", en: "Definition of Computer Architecture", options: ["قواعد تنظيم وعمل أنظمة الحاسوب", "تصميم هيكل الحاسوب الخارجي", "طريقة صنع الشاشات", "برامج الألعاب"], correct: 0, ans: "معمارية الحاسوب هي القواعد والأساليب التي تصف تنظيم وعمل أنظمة الحاسوب[cite: 1]."}
 ];
 
-const container = document.getElementById('content');
-let currentSpeech = null;
+let selectedQuestions = [];
+let currentIdx = 0;
+let userScore = 0;
 
-data.forEach((item, i) => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-        <div class="q-meta"><span>سؤال ${i+1}</span> <span class="q-en">Item ${i+1}</span></div>
-        <div class="q-en">${item.en}</div>
-        <div class="q-ar">${item.ar}</div>
-        <div class="controls">
-            <button class="btn-ans" onclick="toggle(${i})">📖 عرض الإجابة</button>
-            <button class="btn-speak" id="spk-${i}" onclick="speak('${item.ans}', ${i})">🔊 استمع</button>
-            <button class="btn-stop" id="stop-${i}" onclick="stopSpeech(${i})">⏹️ إيقاف</button>
-        </div>
-        <div class="ans-box" id="ans-${i}">${item.ans}</div>
-    `;
-    container.appendChild(card);
-});
-
-function toggle(i) {
-    const el = document.getElementById(`ans-${i}`);
-    el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+function startQuiz() {
+    // اختيار 10 عشوائياً
+    selectedQuestions = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 10);
+    document.getElementById('start-screen').style.display = 'none';
+    document.getElementById('quiz-screen').style.display = 'block';
+    renderQuestion();
 }
 
-function speak(text, i) {
+function renderQuestion() {
+    const q = selectedQuestions[currentIdx];
+    document.getElementById('progress').innerText = `سؤال ${currentIdx + 1} من 10`;
+    let html = `
+        <div class="q-text">${q.q}</div>
+        <div class="q-en">${q.en}</div>
+        <div class="options-list">
+            ${q.options.map((opt, i) => `
+                <div class="option-item" onclick="selectOption(${i})" id="opt-${i}">${opt}</div>
+            `).join('')}
+        </div>
+    `;
+    document.getElementById('questions-area').innerHTML = html;
+}
+
+let selectedAnswer = null;
+function selectOption(i) {
+    selectedAnswer = i;
+    document.querySelectorAll('.option-item').forEach(el => el.classList.remove('selected'));
+    document.getElementById(`opt-${i}`).classList.add('selected');
+}
+
+function nextQuestion() {
+    if (selectedAnswer === null) {
+        alert("يرجى اختيار إجابة قبل الانتقال!");
+        return;
+    }
+    
+    if (selectedAnswer === selectedQuestions[currentIdx].correct) {
+        userScore++;
+    }
+
+    selectedAnswer = null;
+    currentIdx++;
+    
+    if (currentIdx < 10) {
+        renderQuestion();
+        stopAudio();
+    } else {
+        showResult();
+    }
+}
+
+function showResult() {
+    document.getElementById('quiz-screen').style.display = 'none';
+    document.getElementById('result-screen').style.display = 'block';
+    document.getElementById('final-score').innerText = `${userScore}/10`;
+}
+
+function speakCurrent() {
     window.speechSynthesis.cancel();
+    const q = selectedQuestions[currentIdx];
+    const text = `السؤال: ${q.q}. الخيارات هي: ${q.options.join('... ')}`;
     const utter = new SpeechSynthesisUtterance(text);
     utter.lang = 'ar-SA';
     utter.onstart = () => {
-        document.getElementById(`spk-${i}`).style.display = 'none';
-        document.getElementById(`stop-${i}`).style.display = 'flex';
+        document.getElementById('audio-btn').style.display = 'none';
+        document.getElementById('stop-btn').style.display = 'inline-block';
     };
-    utter.onend = () => stopSpeech(i);
+    utter.onend = () => stopAudio();
     window.speechSynthesis.speak(utter);
 }
 
-function stopSpeech(i) {
+function stopAudio() {
     window.speechSynthesis.cancel();
-    document.getElementById(`spk-${i}`).style.display = 'flex';
-    document.getElementById(`stop-${i}`).style.display = 'none';
+    document.getElementById('audio-btn').style.display = 'inline-block';
+    document.getElementById('stop-btn').style.display = 'none';
 }
 </script>
 </body>
