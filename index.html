@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<index.html>
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
@@ -93,6 +93,24 @@
         .c-ans { color: var(--correct-green); font-weight: bold; }
         .u-ans.is-correct { color: var(--correct-green); }
 
+        /* Glossary Section Styles */
+        .term-card {
+            background: #fff;
+            border: 2px solid #e0e0e0;
+            border-left: 6px solid var(--accent-gold);
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            transition: 0.3s;
+        }
+        .term-card:hover { border-color: var(--secondary-blue); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .t-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px; }
+        .t-title-en { font-size: 1.3rem; font-weight: bold; color: var(--primary-blue); }
+        .t-title-ar { font-family: 'Cairo'; font-size: 1.1rem; color: #7f8c8d; font-weight: bold; }
+        .t-desc-en { font-size: 1rem; color: var(--text-main); margin-bottom: 8px; font-weight: bold; }
+        .t-desc-ar { font-family: 'Cairo'; font-size: 1rem; color: #555; direction: rtl; text-align: right; }
+        .btn-pronounce { background: transparent; border: none; font-size: 1.8rem; cursor: pointer; transition: 0.2s; }
+        .btn-pronounce:hover { transform: scale(1.2); }
     </style>
 </head>
 <body>
@@ -105,10 +123,22 @@
 <div class="container">
     <div class="exam-card">
         <div id="intro-section" style="text-align: center;">
-            <h2 style="color: var(--primary-blue);">Academic Examination Portal</h2>
-            <p>This assessment evaluates your knowledge of core computer architecture concepts including processing units, memory hierarchy, and execution cycles.</p>
-            <p>The exam contains <strong>10 randomized questions</strong> (Multiple Choice, Definitions, and Fill-in-the-blanks). Conducted strictly in English.</p>
-            <button class="btn-action btn-next" onclick="startExam()" style="margin-top: 20px;">Start Examination</button>
+            <h2 style="color: var(--primary-blue);">Academic Learning & Examination Portal</h2>
+            <p>Welcome to the comprehensive learning platform. You can review the core concepts or test your knowledge directly.</p>
+            <div style="margin-top: 25px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <button class="btn-action" style="background: var(--secondary-blue); color: white;" onclick="showGlossary()">📚 Study Terms</button>
+                <button class="btn-action btn-next" onclick="startExam()">📝 Start Exam</button>
+            </div>
+        </div>
+
+        <div id="glossary-section" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="color: var(--primary-blue); margin: 0;">Core Terminology Review</h2>
+                <button class="btn-action" style="background: var(--wrong-red); color: white; padding: 8px 15px;" onclick="hideGlossary()">🔙 Back to Menu</button>
+            </div>
+            <div id="terms-list">
+                <!-- سيتم وضع المصطلحات هنا برمجياً -->
+            </div>
         </div>
 
         <div id="exam-section" style="display: none;">
@@ -169,12 +199,61 @@ const bank = [
 let activeQ = [];
 let current = 0;
 let score = 0;
-let userSelectionText = ""; // To store what the user answered
+let userSelectionText = ""; 
 let summaryData = [];
+
+// قسم المصطلحات والشرح المستخرج من المنهج
+const glossaryTerms = [
+    { enTerm: "Control Unit (CU)", arTerm: "وحدة التحكم", enDesc: "Coordinates computer operations and manages the flow of data.", arDesc: "تنسق عمليات الحاسوب وتدير تدفق البيانات بين المكونات[cite: 1]." },
+    { enTerm: "Arithmetic Logic Unit (ALU)", arTerm: "وحدة الحساب والمنطق", enDesc: "Performs mathematical calculations and logical comparisons.", arDesc: "تنفذ العمليات الحسابية والمقارنات المنطقية لمعالجة البيانات[cite: 1]." },
+    { enTerm: "Registers", arTerm: "المسجلات", enDesc: "High-speed memory inside the CPU for immediate data storage.", arDesc: "ذاكرة فائقة السرعة داخل المعالج لتخزين البيانات الفوري[cite: 1]." },
+    { enTerm: "Primary Storage (RAM)", arTerm: "التخزين الأساسي", enDesc: "Volatile memory used by the CPU for active programs.", arDesc: "ذاكرة متطايرة سريعة يستخدمها المعالج للبرامج المفتوحة حالياً[cite: 1]." },
+    { enTerm: "Secondary Storage", arTerm: "التخزين الثانوي", enDesc: "Non-volatile memory (like SSD/HDD) for long-term data retention.", arDesc: "ذاكرة غير متطايرة لحفظ البيانات على المدى الطويل[cite: 1]." },
+    { enTerm: "Cache Memory", arTerm: "ذاكرة الكاش", enDesc: "Enhances system speed by storing frequently accessed data close to CPU.", arDesc: "تزيد من سرعة النظام بتخزين البيانات المتكررة بالقرب من المعالج[cite: 1]." },
+    { enTerm: "Fetch-Decode-Execute Cycle", arTerm: "دورة الجلب والتشفير والتنفيذ", enDesc: "The complete process of retrieving, understanding, and processing an instruction.", arDesc: "الخطوات الكاملة لاسترجاع التعليمات من الذاكرة، فهمها، ثم تنفيذها[cite: 1]." }
+];
+
+function showGlossary() {
+    document.getElementById('intro-section').style.display = 'none';
+    document.getElementById('glossary-section').style.display = 'block';
+    
+    let termsHTML = "";
+    glossaryTerms.forEach((term) => {
+        termsHTML += `
+            <div class="term-card">
+                <div class="t-header">
+                    <div>
+                        <div class="t-title-en">${term.enTerm}</div>
+                        <div class="t-title-ar">${term.arTerm}</div>
+                    </div>
+                    <button class="btn-pronounce" onclick="speakTerm('${term.enTerm.replace(/'/g, "\\'")}')" title="Pronounce Term">🔊</button>
+                </div>
+                <div class="t-desc-en">${term.enDesc}</div>
+                <div class="t-desc-ar">${term.arDesc}</div>
+            </div>
+        `;
+    });
+    document.getElementById('terms-list').innerHTML = termsHTML;
+}
+
+function hideGlossary() {
+    document.getElementById('glossary-section').style.display = 'none';
+    document.getElementById('intro-section').style.display = 'block';
+    window.speechSynthesis.cancel();
+}
+
+function speakTerm(text) {
+    window.speechSynthesis.cancel();
+    const speech = new SpeechSynthesisUtterance(text);
+    speech.lang = 'en-US';
+    speech.rate = 0.85;
+    window.speechSynthesis.speak(speech);
+}
 
 function startExam() {
     activeQ = bank.sort(() => 0.5 - Math.random()).slice(0, 10);
     document.getElementById('intro-section').style.display = 'none';
+    document.getElementById('glossary-section').style.display = 'none';
     document.getElementById('exam-section').style.display = 'block';
     showQ();
 }
@@ -201,7 +280,7 @@ function showQ() {
     
     html += `</div>`;
     document.getElementById('question-area').innerHTML = html;
-    userSelectionText = ""; // Reset for new question
+    userSelectionText = ""; 
 }
 
 function selectMCQ(element, answerText) {
@@ -236,7 +315,6 @@ function processNext() {
 
     if (isCorrect) score++;
 
-    // Save for summary
     summaryData.push({
         questionEn: data.en,
         userAns: userSelectionText,
