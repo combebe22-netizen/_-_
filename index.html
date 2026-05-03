@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تحدي أسرار الكمبيوتر 🚀</title>
+    <title>مراجعة بسيطه للأمتحان 🚀</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -134,8 +134,12 @@
     <div class="exam-card">
         
         <div id="intro-section" style="text-align: center;">
-            <h2 style="color: var(--primary-blue); font-size: 2rem;">حبابك يا مكنة البرمجة! 💻</h2>
-            <p style="font-size: 1.3rem; color: #555; font-weight: bold;">. ده شغل اختصرتو ليكم لاكن ما تعتمدو عليهو هو بس بدون مراجعة الشيتات. جاهز للتحدي يا مكنة؟ 🔥</p>
+            <h2 style="color: var(--primary-blue); font-size: 2rem;">حبابك! 💻</h2>
+            <p style="font-size: 1.3rem; color: #555; font-weight: bold; line-height: 1.6;">
+                هنا مافي تنظير وكلام معقد. حنلعب ونتعلم أسرار الكمبيوتر بالدارجي عشان تفهم الزيت، <br>
+                <span style="color: var(--wrong-red); font-size: 1.4rem;">🚨 بس خت في بالك يا مكنة: الامتحان الحقيقي حيجيك بالإنجليزي! 🚨</span><br>
+                يعني افهم الشرح هنا، بس ركز شديد وتحفظ المصطلحات بالإنجليزي. جاهز للتحدي؟ 🔥
+            </p>
             <div style="margin-top: 30px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
                 <button class="btn-action" style="background: var(--secondary-blue); color: white; box-shadow: 0 4px 0 #2980b9;" onclick="showGlossary()">📖 أضرب لفة في الخلاصة أول</button>
                 <button class="btn-action btn-next" onclick="startExam()">🎮 خش في التحدي طوالي!</button>
@@ -144,7 +148,7 @@
 
         <div id="glossary-section" style="display: none;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; direction: rtl;">
-                <h2 style="color: var(--primary-blue); margin: 0; font-size: 1.8rem;">🧠 الزيت كله هنا:</h2>
+                <h2 style="color: var(--primary-blue); margin: 0; font-size: 1.8rem;">🧠 الزيت كله هنا (احفظ الإنجليزي!):</h2>
                 <button class="btn-action" style="background: var(--wrong-red); color: white; padding: 10px 20px; font-size: 1rem; box-shadow: 0 4px 0 #c0392b;" onclick="hideGlossary()">🔙 ارجع ورا</button>
             </div>
             <div id="terms-list">
@@ -161,7 +165,7 @@
             <div id="question-area" style="direction: ltr;"></div>
             
             <div class="controls" style="direction: ltr;">
-                <button class="btn-action btn-audio" id="speak-btn" onclick="readQuestion()">🔊 أسمع السؤال</button>
+                <button class="btn-action btn-audio" id="speak-btn" onclick="readQuestion()">🔊 أسمع السؤال بالإنجليزي</button>
                 <button class="btn-action btn-next" id="next-btn" onclick="processNext()">أرح للبعدو 🚀</button>
             </div>
         </div>
@@ -178,7 +182,7 @@
 </div>
 
 <footer class="footer-branding">
-    &copy; 2026 اتبسطت عشانك يا زول 😉 | Ali Khalid <br>
+    &copy; 2026 ركز يامان ما تعتمد على الملخص ده 😉 | Ali Khalid <br>
     <span style="font-size: 0.9rem; opacity: 0.8; margin-top: 5px; display: inline-block;">ULK Polytechnic Institute</span>
 </footer>
 
@@ -206,7 +210,7 @@ let summaryData = [];
 
 const glossaryTerms = [
     { enTerm: "Control Unit (CU)", arTerm: "المعلم الكبير 👑", enDesc: "The Boss. Gives orders to the computer.", arDesc: "ده المعلم! هو البدي الأوامر لأي قطعة في الكمبيوتر وبوريهم يشتغلوا كيف ومتين." },
-    { enTerm: "ALU", arTerm: "الشفاتي بتاع الحسابات 🧮", enDesc: "Math Brain. Does all calculations.", arDesc: "ده الآلة الحاسبة الذكية حقت الجهاز، بحسب وبقارن بسرعة خيالية." },
+    { enTerm: "ALU", arTerm: "الشفاتة بتاع الحسابات 🧮", enDesc: "Math Brain. Does all calculations.", arDesc: "دي الآلة الحاسبة الذكية حقت الجهاز، بحسب وبقارن بسرعة خيالية." },
     { enTerm: "Registers", arTerm: "الجيوب السريعة ⚡", enDesc: "Super fast, tiny memory inside CPU.", arDesc: "دي جيوب المعالج السريعة طلقة، بخت فيها الحاجات الشغال بيها هسي عشان ينجز." },
     { enTerm: "RAM", arTerm: "الذاكرة النشيطة (بس بتنسى) 🧠", enDesc: "Memory for open apps. Forgets without power.", arDesc: "دي البتشغل برامجك هسي، بس عيبها إنها بتطير أي حاجة لو الكهربا قطعت!" },
     { enTerm: "Storage (HDD/SSD)", arTerm: "المخزن الكبير 🗄️", enDesc: "Keeps files safe forever.", arDesc: "ده المخزن البنشيل فيهو ملفاتك وألعابك، ومابنسى حاجة حتى لو قفلت الجهاز. وطبعاً الـ SSD طلقة مقارنة بالـ HDD." },
