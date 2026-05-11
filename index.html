@@ -1,814 +1,623 @@
 <index.html>
-<html lang="ar" dir="rtl" class="scroll-smooth">
+<html lang="en" dir="ltr" class="scroll-smooth">
 <head>
+    <!-- ============ META & TITLE ============ -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="G10 Academy - منصة تعليمية متكاملة مع شروحات شاملة">
-    <title>G10 Academy | منصة متكاملة مع شرح كامل</title>
+    <meta name="description" content="G10 Computer Architecture Academy - Advanced Gamified Learning Platform by Ali Khaled">
+    <title>G10 Academy | Advanced Learning Platform - Dev: Ali Khaled</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&family=Poppins:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- ============ FONTS & CSS FRAMEWORKS ============ -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&family=Poppins:wght@400;500;700;900&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- ============ TAILWIND CONFIG ============ -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { 50: '#f0f9ff', 100: '#e0f2fe', 500: '#0ea5e9', 600: '#0284c7', 800: '#075985', 900: '#0c4a6e' },
+                        sudanese: { gold: '#f59e0b' }
+                    },
+                    fontFamily: {
+                        ar: ['Cairo', 'sans-serif'],
+                        en: ['Poppins', 'sans-serif'],
+                        code: ['Fira Code', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- ============ CUSTOM STYLES ============ -->
     <style>
-        * { box-sizing: border-box; }
-        body { font-family: 'Cairo', sans-serif; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeIn 0.3s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .tab-btn.active { @apply bg-blue-600 text-white; }
-        .tab-btn { @apply px-4 py-2 rounded-lg font-bold transition cursor-pointer hover:bg-blue-500 hover:text-white; }
+        /* ---- Base Typography & Transitions ---- */
+        body { font-family: 'Poppins', sans-serif; transition: background-color 0.3s, color 0.3s; }
+        .ar-text { font-family: 'Cairo', sans-serif; direction: rtl; text-align: right; }
         
-        .code-block { 
-            background: #1e293b; 
-            color: #e2e8f0; 
-            padding: 15px; 
-            border-radius: 8px; 
-            overflow-x: auto;
-            font-family: 'Courier New', monospace;
-            margin: 10px 0;
-            font-size: 13px;
+        /* ---- Draggable Watermark ---- */
+        #draggable-watermark {
+            position: fixed; bottom: 20px; right: 20px; z-index: 9999;
+            background: rgba(15, 23, 42, 0.85); color: #fff;
+            padding: 8px 16px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.2);
+            font-weight: 700; font-size: 0.9rem; backdrop-filter: blur(5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: grab; user-select: none;
+            display: flex; align-items: center; gap: 8px;
         }
-        
-        .section-title {
-            @apply text-3xl font-black mb-6 text-blue-700 border-b-4 border-blue-600 pb-3;
+        #draggable-watermark:active { cursor: grabbing; }
+
+        /* ---- Support Widget ---- */
+        #support-widget {
+            position: fixed; bottom: 20px; left: 20px; z-index: 9998;
+            display: flex; flex-direction: column; align-items: flex-start;
         }
-        
-        .subsection-title {
-            @apply text-2xl font-bold text-blue-600 mt-8 mb-4;
+        .support-box {
+            display: none; background: white; padding: 20px; border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); margin-bottom: 15px;
+            width: 300px; border: 2px solid #0ea5e9;
         }
-        
-        .highlight-box {
-            @apply bg-blue-50 border-r-4 border-blue-600 p-4 rounded-lg mb-4;
+        .dark .support-box { background: #1e293b; border-color: #0284c7; }
+
+        /* ---- Glass Panel Cards ---- */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid #e2e8f0; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-radius: 20px; transition: transform 0.2s;
         }
+        .glass-panel:hover { transform: translateY(-5px); }
+        .dark .glass-panel { background: rgba(30, 41, 59, 0.95); border-color: #334155; }
         
-        .table-custom {
-            @apply w-full border-collapse mt-4 mb-4;
-        }
-        
-        .table-custom th, .table-custom td {
-            @apply border border-gray-300 px-4 py-2 text-right;
-        }
-        
-        .table-custom th {
-            @apply bg-blue-600 text-white font-bold;
-        }
-        
-        .table-custom tr:nth-child(even) {
-            @apply bg-gray-50;
+        /* ---- Wallet UI (Coins Display) ---- */
+        .wallet-ui {
+            background: linear-gradient(135deg, #f59e0b, #d97706); color: white;
+            border-radius: 50px; padding: 5px 15px; font-weight: 900;
+            display: flex; align-items: center; gap: 8px; border: 2px solid #fbbf24;
         }
 
-        .quiz-preview {
-            @apply bg-gradient-to-r from-blue-500 to-blue-700 text-white p-8 rounded-xl mb-6;
-        }
-
-        .feature-card {
-            @apply bg-white border-2 border-blue-300 rounded-xl p-6 mb-4 hover:shadow-lg transition;
-        }
-
-        .progress-bar {
-            @apply bg-blue-200 rounded-full h-2 mb-4;
-        }
-
-        .progress-fill {
-            @apply bg-blue-600 h-2 rounded-full transition-all duration-300;
-        }
+        /* ---- Animations ---- */
+        @keyframes floatUp { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-50px); } }
+        .coin-animation { position: fixed; font-size: 2rem; z-index: 10000; animation: floatUp 1s ease-out forwards; pointer-events: none; }
+        
+        /* ---- Custom Scrollbar ---- */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        .dark ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #0ea5e9; border-radius: 10px; }
     </style>
 </head>
-<body class="bg-gray-50">
 
-    <!-- Navigation Tabs -->
-    <nav class="sticky top-0 z-50 bg-white shadow-lg border-b-4 border-blue-600">
-        <div class="max-w-7xl mx-auto px-4 py-4">
-            <div class="flex flex-wrap gap-2 justify-center md:justify-start items-center">
-                <h1 class="text-2xl font-black text-blue-700">G10 Academy</h1>
-                <div class="flex flex-wrap gap-2">
-                    <button class="tab-btn active" onclick="switchTab('academy')">🎓 الأكاديمية</button>
-                    <button class="tab-btn" onclick="switchTab('sudanese')">🎭 الشرح السوداني</button>
-                    <button class="tab-btn" onclick="switchTab('simple')">📖 الشرح المبسط</button>
-                    <button class="tab-btn" onclick="switchTab('technical')">🔬 الشرح الأكاديمي</button>
-                    <button class="tab-btn" onclick="switchTab('summary')">📊 الملخص</button>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-200" id="main-body">
+
+    <!-- ============ AUDIO ELEMENTS ============ -->
+    <audio id="coin-sound" src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3" preload="auto"></audio>
+    <audio id="wrong-sound" src="https://assets.mixkit.co/active_storage/sfx/2955/2955-preview.mp3" preload="auto"></audio>
+
+    <!-- ============ FLOATING WIDGETS ============ -->
+    <!-- Draggable Watermark (Developer Credit) -->
+    <div id="draggable-watermark" title="Drag me anywhere!">
+        <span>👨‍💻</span> Dev: Ali Khaled <span>✥</span>
+    </div>
+
+    <!-- Support/Help Widget -->
+    <div id="support-widget">
+        <div class="support-box" id="support-form-container">
+            <div class="flex justify-between items-center mb-4 border-b pb-2 dark:border-slate-700">
+                <h4 class="font-bold text-brand-600 dark:text-brand-400">Ask the Engineer</h4>
+                <button onclick="toggleSupport()" class="text-red-500 font-bold hover:bg-red-100 px-2 rounded">X</button>
+            </div>
+            <form action="https://formsubmit.co/combebe22@gmail.com" method="POST" target="_blank" class="flex flex-col gap-3">
+                <input type="hidden" name="_subject" value="New Question from G10 Academy!">
+                <input type="hidden" name="_captcha" value="false">
+                
+                <input type="text" name="name" placeholder="Your Name" required class="w-full p-2 border rounded bg-slate-50 dark:bg-slate-800 dark:border-slate-700 outline-none focus:border-brand-500">
+                <textarea name="question" placeholder="Write your question here..." required rows="3" class="w-full p-2 border rounded bg-slate-50 dark:bg-slate-800 dark:border-slate-700 outline-none focus:border-brand-500"></textarea>
+                <button type="submit" onclick="setTimeout(toggleSupport, 1000)" class="bg-brand-600 text-white font-bold py-2 rounded hover:bg-brand-700 transition">Send Question 🚀</button>
+            </form>
+            <p class="text-xs text-center mt-2 text-slate-500 ar-text">سيصل سؤالك للمهندس مباشرة</p>
+        </div>
+        <button onclick="toggleSupport()" class="bg-brand-600 hover:bg-brand-800 text-white p-4 rounded-full shadow-xl font-bold text-xl transition transform hover:scale-110 flex items-center justify-center h-14 w-14">
+            ❓
+        </button>
+    </div>
+
+    <!-- ============ STICKY NAVIGATION ============ -->
+    <nav class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+                    <span class="font-black text-2xl tracking-tight text-brand-900 dark:text-white">G10 <span class="text-brand-600">Academy</span></span>
+                </div>
+                
+                <!-- Right Controls -->
+                <div class="flex items-center gap-4">
+                    <div class="hidden sm:flex flex-col items-end mr-4 font-bold">
+                        <div class="text-sm text-brand-600 dark:text-brand-400" id="ui-level">Novice 🎒</div>
+                    </div>
+                    <div class="wallet-ui" title="G-Coins">
+                        <span>🪙</span> <span id="ui-coins">0</span>
+                    </div>
+                    <button id="theme-toggle" class="p-2 bg-slate-100 dark:bg-slate-800 rounded-full hover:bg-slate-200 transition">
+                        <span id="theme-icon">🌙</span>
+                    </button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <div class="max-w-7xl mx-auto px-4 py-8">
+    <!-- ============ SECTION 1: HERO & INTRODUCTION ============ -->
+    <header class="bg-brand-900 text-white py-20 text-center relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 600%22><defs><pattern id=%22p%22 x=%220%22 y=%220%22 width=%22100%22 height=%22100%22 patternUnits=%22userSpaceOnUse%22><path d=%22M0,50 Q25,0 50,50 T100,50%22 stroke=%22white%22 stroke-width=%222%22 fill=%22none%22/></pattern></defs><rect width=%221200%22 height=%22600%22 fill=%22%230c4a6e%22/><rect width=%221200%22 height=%22600%22 fill=%22url(%23p)%22/></svg>')"></div>
+        <div class="relative z-10">
+            <h1 class="text-5xl md:text-7xl font-black mb-6 drop-shadow-lg">G10 Computer Architecture</h1>
+            <p class="text-xl md:text-2xl mb-8 font-semibold text-blue-200">🎮 Advanced Gamified Learning Platform</p>
+            <p class="text-lg text-blue-100 max-w-2xl mx-auto leading-relaxed mb-8">Master the fundamentals of computer hardware, system architecture, and troubleshooting through interactive lessons and challenging quizzes. Earn coins and unlock special features as you progress!</p>
+            <div class="flex gap-4 justify-center flex-wrap">
+                <button onclick="document.getElementById('lessons-section').scrollIntoView({behavior:'smooth'})" class="bg-yellow-400 text-brand-900 px-8 py-3 rounded-lg font-bold text-lg hover:bg-yellow-300 transition transform hover:scale-105">📚 View Lessons</button>
+                <button onclick="document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'})" class="bg-white text-brand-900 px-8 py-3 rounded-lg font-bold text-lg hover:bg-slate-100 transition transform hover:scale-105">⚡ Start Quiz</button>
+            </div>
+        </div>
+    </header>
 
-        <!-- ============ TAB 1: ACADEMY ============ -->
-        <div id="academy" class="tab-content active">
-            <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-12 rounded-xl mb-8 text-center">
-                <h1 class="text-5xl font-black mb-4">G10 Computer Architecture Academy</h1>
-                <p class="text-xl mb-6">منصة تعليمية متكاملة مع نظام ألعاب تفاعلي</p>
-                <a href="#" class="bg-yellow-400 text-blue-900 px-8 py-3 rounded-lg font-bold inline-block hover:bg-yellow-300 transition">
-                    👉 افتح الأكاديمية الكاملة
-                </a>
+    <!-- ============ SECTION 2: CURRICULUM & LESSONS ============ -->
+    <section id="lessons-section" class="py-16 bg-white dark:bg-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-black mb-4 text-brand-900 dark:text-white">📚 Computer Architecture Curriculum</h2>
+                <p class="text-xl text-slate-600 dark:text-slate-300">10 Essential Topics to Master Hardware Fundamentals</p>
+            </div>
+            <div id="lessons-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Lessons will be injected here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ SECTION 3: SHOP & GAMIFICATION ============ -->
+    <section class="py-16 bg-slate-100 dark:bg-slate-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-black mb-4 text-brand-900 dark:text-white">🛍️ Premium Shop</h2>
+                <p class="text-lg text-slate-600 dark:text-slate-300">Unlock special features with your earned G-Coins!</p>
+            </div>
+            <div id="shop-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Shop items will be injected here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ SECTION 4: QUIZ & ASSESSMENT ============ -->
+    <section id="quiz-section" class="py-16 bg-white dark:bg-slate-800">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-black mb-4 text-brand-900 dark:text-white">⚡ Knowledge Assessment</h2>
+                <p class="text-lg text-slate-600 dark:text-slate-300">Test your understanding with our comprehensive quiz</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div class="feature-card">
-                    <h3 class="text-2xl font-bold mb-3 text-blue-600">📚 10 دروس تعليمية</h3>
-                    <p class="text-gray-700 mb-3">دروس منظمة تغطي أساسيات معمارية الكمبيوتر:</p>
-                    <ul class="list-disc list-inside text-gray-600 space-y-1">
-                        <li>نظام التشغيل (OS)</li>
-                        <li>فتحات التوسعة</li>
-                        <li>ترقيات الهاردوير</li>
-                        <li>نواقل النظام (Buses)</li>
-                        <li>و 6 دروس أخرى مهمة</li>
-                    </ul>
+            <!-- Quiz Start Screen -->
+            <div id="quiz-start" class="glass-panel p-8 text-center">
+                <h3 class="text-2xl font-bold mb-4 text-brand-700 dark:text-brand-400">Ready for the Challenge?</h3>
+                <p class="text-slate-600 dark:text-slate-300 mb-6">Complete 17 questions covering all aspects of computer architecture. Each correct answer earns 10 G-Coins!</p>
+                <div class="mb-6">
+                    <input type="text" id="student-name" placeholder="Enter your name..." class="w-full p-4 border-2 border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-900 outline-none focus:border-brand-500 font-bold text-center text-lg">
                 </div>
-
-                <div class="feature-card">
-                    <h3 class="text-2xl font-bold mb-3 text-blue-600">🧪 17 سؤال متقدم</h3>
-                    <p class="text-gray-700 mb-3">اختبارات شاملة مع:</p>
-                    <ul class="list-disc list-inside text-gray-600 space-y-1">
-                        <li>أسئلة عربي + إنجليزي</li>
-                        <li>30 ثانية لكل سؤال</li>
-                        <li>+10 عملة للإجابة الصحيحة</li>
-                        <li>تقارير مفصلة</li>
-                        <li>شروحات لكل سؤال</li>
-                    </ul>
-                </div>
-
-                <div class="feature-card">
-                    <h3 class="text-2xl font-bold mb-3 text-blue-600">🛍️ متجر بـ 3 عناصر</h3>
-                    <p class="text-gray-700 mb-3">اشتري عناصر خاصة بالعملات:</p>
-                    <ul class="list-disc list-inside text-gray-600 space-y-1">
-                        <li>Matrix Theme (150 عملة)</li>
-                        <li>Genius Badge (200 عملة)</li>
-                        <li>Neon Theme (100 عملة)</li>
-                    </ul>
-                </div>
-
-                <div class="feature-card">
-                    <h3 class="text-2xl font-bold mb-3 text-blue-600">🎮 نظام ألعاب</h3>
-                    <p class="text-gray-700 mb-3">مميزات تفاعلية:</p>
-                    <ul class="list-disc list-inside text-gray-600 space-y-1">
-                        <li>5 مستويات تقدم</li>
-                        <li>نظام عملات</li>
-                        <li>Dark Mode</li>
-                        <li>Animations جميلة</li>
-                        <li>شرح تفاعلي</li>
-                    </ul>
-                </div>
+                <button onclick="quizEngine.start()" class="bg-brand-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-brand-700 transition transform hover:scale-105">🚀 Start Quiz</button>
             </div>
 
-            <div class="bg-yellow-50 border-r-4 border-yellow-600 p-6 rounded-lg mb-8">
-                <h3 class="text-xl font-bold text-yellow-700 mb-3">📌 ملاحظة مهمة</h3>
-                <p class="text-gray-700">الملف المدمج الكامل موجود في التبويب الأول من هذه الصفحة. يمكنك فتحه مباشرة أو تحميله وفتحه في المتصفح.</p>
+            <!-- Quiz Active Screen -->
+            <div id="quiz-core" class="hidden">
+                <!-- Progress Bar -->
+                <div class="mb-8">
+                    <div class="flex justify-between items-center mb-2">
+                        <span id="q-counter" class="font-bold text-slate-700 dark:text-slate-300">Question 1 of 17</span>
+                        <span id="timer-text" class="font-black text-2xl text-brand-600 dark:text-brand-400">30</span>
+                    </div>
+                    <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                        <div id="q-progress" class="bg-brand-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <!-- Question Cards -->
+                <div class="glass-panel p-8 mb-8">
+                    <h3 id="q-text-en" class="text-2xl font-bold mb-4 text-brand-800 dark:text-brand-300"></h3>
+                    <p id="q-text-ar" class="ar-text text-xl font-bold text-slate-700 dark:text-slate-300 mb-6"></p>
+                </div>
+
+                <!-- Answer Options -->
+                <div id="q-options" class="grid gap-3 mb-8">
+                    <!-- Options will be injected here -->
+                </div>
+
+                <!-- Next Button -->
+                <button id="btn-next" class="hidden w-full bg-brand-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-brand-700 transition">
+                    Next Question →
+                </button>
             </div>
 
-            <div class="bg-blue-100 border-r-4 border-blue-600 p-6 rounded-lg">
-                <h3 class="text-xl font-bold text-blue-700 mb-4">🔍 معاينة سريعة للملف المدمج</h3>
-                <div class="code-block">
-&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;title&gt;G10 Academy&lt;/title&gt;
-    &lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;!-- Navigation --&gt;
-    &lt;nav class="sticky top-0 z-50"&gt;...&lt;/nav&gt;
-    
-    &lt;!-- Header --&gt;
-    &lt;header class="bg-brand-900 text-white"&gt;...&lt;/header&gt;
-    
-    &lt;!-- Lessons Section --&gt;
-    &lt;section id="lessons-section"&gt;...&lt;/section&gt;
-    
-    &lt;!-- Shop Section --&gt;
-    &lt;section id="shop-section"&gt;...&lt;/section&gt;
-    
-    &lt;!-- Quiz Section --&gt;
-    &lt;section id="quiz-section"&gt;...&lt;/section&gt;
-    
-    &lt;!-- JavaScript Core --&gt;
-    &lt;script&gt;
-        const themeManager = {...};
-        const gamification = {...};
-        const quizEngine = {...};
-    &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+            <!-- Quiz Results Screen -->
+            <div id="quiz-result" class="hidden">
+                <div class="glass-panel p-8 text-center mb-8">
+                    <h3 class="text-3xl font-black mb-4 text-brand-700 dark:text-brand-400">Quiz Complete! 🎉</h3>
+                    <div class="text-5xl font-black text-brand-600 dark:text-brand-300 mb-2" id="res-score">0 / 17</div>
+                    <p class="text-lg font-semibold text-slate-600 dark:text-slate-300">
+                        <span id="res-name">User</span>, great effort!
+                    </p>
+                    <div id="res-msg" class="mt-6"></div>
+                    <button onclick="quizEngine.reset()" class="mt-8 bg-brand-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-brand-700 transition">
+                        🔄 Try Again
+                    </button>
+                </div>
+
+                <!-- Detailed Report -->
+                <div class="text-center mb-4">
+                    <h4 class="text-2xl font-bold text-brand-800 dark:text-brand-300 mb-6">📋 Detailed Review</h4>
+                </div>
+                <div id="res-report" class="space-y-4">
+                    <!-- Report items will be injected here -->
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- ============ TAB 2: SUDANESE EXPLANATION ============ -->
-        <div id="sudanese" class="tab-content">
-            <div class="section-title">🎭 تفكيك الشفرة - اللهجة السودانية</div>
-
-            <div class="highlight-box">
-                <h3 class="font-bold text-lg mb-2">كلام الشارع - شنو الحتة دي؟</h3>
-                <p>أنت قاعد عندك ملفات اتنين، كل واحد عنده قطعته من الكود. الحاجة الكويسة أننا دمجنا الاتنين بطريقة ذكية في ملف واحد قوي!</p>
-            </div>
-
-            <div class="subsection-title">🏗️ هيكل الصفحة (الهندسة الحامية)</div>
-            <div class="code-block">
-┌─────────────────────────────────────────┐
-│    رأس الصفحة (HEADER)                  │
-│   صورة زي ما بتشوف في أول الموقع       │
-└─────────────────────────────────────────┘
-        ↓
-┌─────────────────────────────────────────┐
-│   قسم الدروس (LESSONS)                 │
-│   10 بطاقات بتتكلم عن الهاردوير        │
-│   كل بطاقة فيها نقاط مهمة              │
-└─────────────────────────────────────────┘
-        ↓
-┌─────────────────────────────────────────┐
-│   قسم الدكان (SHOP)                   │
-│   بتشتري أشياء بالعملات اللي كسبتها    │
-│   زي الـ Matrix Theme والـ Badge       │
-└─────────────────────────────────────────┘
-        ↓
-┌─────────────────────────────────────────┐
-│   قسم الاختبار (QUIZ)                  │
-│   تحت الضغط - 30 ثانية لكل سؤال        │
-│   إجابة صح = +10 عملة                  │
-│   إجابة غلط = -2 عملة                  │
-└─────────────────────────────────────────┘
-            </div>
-
-            <div class="subsection-title">🎮 الـ Gamification (اللعبة)</div>
-            <table class="table-custom">
-                <tr>
-                    <th>الحدث</th>
-                    <th>ماذا يحدث؟</th>
-                    <th>الإحساس</th>
-                </tr>
-                <tr>
-                    <td>إجابة صح</td>
-                    <td>اللون يتحول لأخضر + عملة تطير + صوت كويس</td>
-                    <td>✅ "إيوه يا مشطور!"</td>
-                </tr>
-                <tr>
-                    <td>إجابة غلط</td>
-                    <td>اللون يتحول لأحمر + عملة تقل + صوت حزين</td>
-                    <td>❌ "خسارة يا حاج!"</td>
-                </tr>
-                <tr>
-                    <td>انتهاء الوقت</td>
-                    <td>السؤال بينتقل للتاني تلقائي</td>
-                    <td>⏰ "الوقت خلص!"</td>
-                </tr>
-            </table>
-
-            <div class="subsection-title">🌙 الـ Dark Mode (الموضة السمراء)</div>
-            <p class="text-gray-700 mb-4">
-                في الزاوية اليمين قاعد بطن القمر 🌙. تضغط عليه مرة فالموقع يصير رمادي غامق، والمرة التانية يرجع أبيض. والكود الذكي بيخزن اختيارك، المرة القاعدة تدخل الموقع بتجد الموضة اللي كانت آخر مرة!
-            </p>
-
-            <div class="subsection-title">🎯 أهم الحاجات في الكود</div>
-            
-            <div class="feature-card">
-                <h4 class="font-bold text-lg mb-2">1️⃣ الـ Head (الرأس الحامي)</h4>
-                <p class="text-gray-700">الـ Fonts: Cairo (عربي)، Poppins (إنجليزي)، الـ Tailwind (framework للتصميم)، الـ Meta Tags (عشان Google والمتصفح)</p>
-            </div>
-
-            <div class="feature-card">
-                <h4 class="font-bold text-lg mb-2">2️⃣ الـ Navigation (الشريط في الأول)</h4>
-                <p class="text-gray-700">اسم الأكاديمية بالبرتقالي والأزرق، العملات في الشمال، الموضة (🌙/☀️)، وكل حاجة fixed ما تتحرك لما تسكرول</p>
-            </div>
-
-            <div class="feature-card">
-                <h4 class="font-bold text-lg mb-2">3️⃣ الـ Support Widget (الزر الأزرق)</h4>
-                <p class="text-gray-700">زر فيه علامة استفهام ❓. لو ضغطت عليه ينزل بوكس، تكتب اسمك والسؤال وبتبعته للمهندس علي خالد مباشرة!</p>
-            </div>
-
-            <div class="feature-card">
-                <h4 class="font-bold text-lg mb-2">4️⃣ الـ Watermark (الـ "Dev: Ali Khaled")</h4>
-                <p class="text-gray-700">بتقدر تسحبها لأي جهة تبيها (Draggable)! كل ما بتقدر تسحب عنصر في الصفحة كدا، فيها قطع كود mousedown و mousemove و mouseup</p>
-            </div>
+    <!-- ============ FOOTER ============ -->
+    <footer class="bg-slate-900 text-white py-12 text-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="text-lg font-bold mb-2">G10 Computer Architecture Academy</p>
+            <p class="text-slate-300">Developed with ❤️ by Ali Khaled</p>
+            <p class="text-slate-400 text-sm mt-4">© 2024 G10 Academy. All rights reserved.</p>
         </div>
-
-        <!-- ============ TAB 3: SIMPLE EXPLANATION ============ -->
-        <div id="simple" class="tab-content">
-            <div class="section-title">📖 الشرح المبسط</div>
-
-            <div class="subsection-title">🎯 المشكلة والحل</div>
-            
-            <div class="feature-card">
-                <h4 class="font-bold text-blue-600 mb-2">❌ المشكلة الأصلية</h4>
-                <ul class="list-disc list-inside text-gray-700 space-y-1">
-                    <li>ملفان HTML منفصلان</li>
-                    <li>كل واحد فيه نفس الأدوات (CSS, JavaScript, Navigation)</li>
-                    <li>ما فيش تكامل بينهم</li>
-                    <li>التكرار يجعل الملفات أكبر</li>
-                </ul>
-            </div>
-
-            <div class="feature-card">
-                <h4 class="font-bold text-green-600 mb-2">✅ الحل المقترح</h4>
-                <p class="text-gray-700 mb-3">دمج الملفات بطريقة احترافية يضمن:</p>
-                <ul class="list-disc list-inside text-gray-700 space-y-1">
-                    <li><strong>عدم التكرار:</strong> head واحد فقط</li>
-                    <li><strong>التنظيم الجيد:</strong> كل قسم معلّق بوضوح</li>
-                    <li><strong>الأداء الأفضل:</strong> حجم الملف أصغر، التحميل أسرع</li>
-                    <li><strong>التجربة الموحدة:</strong> كل الأقسام تعمل معاً</li>
-                </ul>
-            </div>
-
-            <div class="subsection-title">🏢 أقسام الصفحة الرئيسية</div>
-
-            <div class="feature-card">
-                <h4 class="font-bold text-lg mb-2">📌 1. الـ Head (الرأس)</h4>
-                <p class="text-gray-700 mb-2"><strong>يحتوي على:</strong></p>
-                <ul class="list-disc list-inside text-gray-700 space-y-1">
-                    <li>معلومات البيانات (Meta Tags)</li>
-                    <li>روابط الخطوط (Google Fonts)</li>
-                    <li>إطار التصميم (Tailwind CSS)</li>
-                    <li>الأنماط المخصصة (Custom Styles)</li>
-                </ul>
-            </div>
-
-            <div class="feature-card">
-                <h4 class="font-bold text-lg mb-2">🎨 2. الـ Navigation Bar</h4>
-                <p class="text-gray-700 mb-2"><strong>الميزات:</strong></p>
-                <ul class="list-disc list-inside text-gray-700 space-y-1">
-                    <li>ثابتة في الأعلى (Sticky)</li>
-                    <li>تحتوي على شعار الأكاديمية</li>
-                    <li>تعرض رصيد العملات والمستوى</li>
-                    <li>زر تبديل الموضة (Dark/Light)</li>
-                </ul>
-            </div>
-
-            <div class="feature-card">
-                <h4 class="font-bold text-lg mb-2">📚 3. قسم الدروس</h4>
-                <p class="text-gray-700 mb-2"><strong>المحتوى:</strong></p>
-                <ul class="list-disc list-inside text-gray-700 space-y-1">
-                    <li>10 دروس منظمة بطاقات جميلة</li>
-                    <li>كل درس: عنوان إنجليزي + نقاط + شرح عربي</li>
-                    <li>تأثيرات عند الحوم (Hover effects)</li>
-                    <li>Responsive على جميع الأجهزة</li>
-                </ul>
-            </div>
-
-            <div class="feature-card">
-                <h4 class="font-bold text-lg mb-2">🛍️ 4. قسم المتجر</h4>
-                <p class="text-gray-700 mb-2"><strong>المشتريات المتاحة:</strong></p>
-                <ul class="list-disc list-inside text-gray-700 space-y-1">
-                    <li>Matrix Theme (150 عملة)</li>
-                    <li>Genius Badge (200 عملة)</li>
-                    <li>Neon Theme (100 عملة)</li>
-                </ul>
-            </div>
-
-            <div class="feature-card">
-                <h4 class="font-bold text-lg mb-2">🧪 5. قسم الاختبار</h4>
-                <p class="text-gray-700 mb-2"><strong>ثلاث مراحل:</strong></p>
-                <ul class="list-disc list-inside text-gray-700 space-y-1">
-                    <li><strong>البداية:</strong> إدخال الاسم + توضيح الجوائز</li>
-                    <li><strong>الإجابة:</strong> 4 خيارات + 30 ثانية + شريط تقدم</li>
-                    <li><strong>النتائج:</strong> العلامة + رسالة تحفيزية + تقرير مفصل</li>
-                </ul>
-            </div>
-
-            <div class="subsection-title">🎮 نظام الألعاب</div>
-            
-            <table class="table-custom">
-                <tr>
-                    <th>الحدث</th>
-                    <th>العملات</th>
-                    <th>الفعل</th>
-                </tr>
-                <tr>
-                    <td>إجابة صحيحة</td>
-                    <td>+10</td>
-                    <td>🟢 سعادة + animation</td>
-                </tr>
-                <tr>
-                    <td>إجابة خاطئة</td>
-                    <td>-2</td>
-                    <td>🔴 حزن + animation</td>
-                </tr>
-                <tr>
-                    <td>شراء عنصر</td>
-                    <td>-التكلفة</td>
-                    <td>💳 عملية شراء</td>
-                </tr>
-            </table>
-
-            <div class="subsection-title">📊 نظام المستويات</div>
-            <table class="table-custom">
-                <tr>
-                    <th>النطاق</th>
-                    <th>المستوى</th>
-                    <th>الرمز</th>
-                </tr>
-                <tr>
-                    <td>0-99 عملة</td>
-                    <td>Novice</td>
-                    <td>🎒</td>
-                </tr>
-                <tr>
-                    <td>100-199 عملة</td>
-                    <td>Apprentice</td>
-                    <td>📖</td>
-                </tr>
-                <tr>
-                    <td>200-299 عملة</td>
-                    <td>Scholar</td>
-                    <td>🎓</td>
-                </tr>
-                <tr>
-                    <td>300-399 عملة</td>
-                    <td>Expert</td>
-                    <td>🚀</td>
-                </tr>
-                <tr>
-                    <td>400+ عملة</td>
-                    <td>Genius</td>
-                    <td>👑</td>
-                </tr>
-            </table>
-        </div>
-
-        <!-- ============ TAB 4: TECHNICAL EXPLANATION ============ -->
-        <div id="technical" class="tab-content">
-            <div class="section-title">🔬 الشرح الأكاديمي العميق</div>
-
-            <div class="subsection-title">1. DOM STRUCTURE & ARCHITECTURE</div>
-            <div class="code-block">
-HTML Structure:
-├── &lt;head&gt;
-│   ├── Meta Information
-│   ├── External Resources (Fonts, Scripts)
-│   ├── Custom Styles
-│   └── Configuration (Tailwind)
-│
-└── &lt;body&gt;
-    ├── Fixed Elements (Navigation, Widgets)
-    ├── Header Section
-    ├── Main Content
-    │   ├── Lessons (Section 2)
-    │   ├── Shop (Section 3)
-    │   └── Quiz (Section 4)
-    └── Footer
-            </div>
-
-            <div class="subsection-title">2. CSS ARCHITECTURE</div>
-            <div class="feature-card">
-                <h4 class="font-bold mb-2">Utility-First Framework (Tailwind CSS)</h4>
-                <div class="code-block">
-tailwind.config = {
-    darkMode: 'class',
-    theme: {
-        extend: {
-            colors: { /* Custom color palette */ },
-            fontFamily: { /* Language-specific fonts */ }
-        }
-    }
-}
-                </div>
-            </div>
-
-            <div class="feature-card">
-                <h4 class="font-bold mb-2">Glass Morphism Effect</h4>
-                <div class="code-block">
-.glass-panel {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(5px);
-    border: 1px solid #e2e8f0;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    transition: transform 0.2s;
-}
-.glass-panel:hover { transform: translateY(-5px); }
-                </div>
-            </div>
-
-            <div class="subsection-title">3. JAVASCRIPT ARCHITECTURE</div>
-            <div class="feature-card">
-                <h4 class="font-bold mb-2">Object-Oriented Design Pattern</h4>
-                <div class="code-block">
-const ObjectName = {
-    property: initialValue,
-    method1: function() { /* implementation */ },
-    method2: function() { /* implementation */ }
-};
-
-Core Modules:
-├── themeManager
-│   ├── toggle()
-│   └── init()
-├── watermarkManager
-│   └── init()
-├── gamification
-│   ├── coins
-│   ├── level
-│   ├── addCoins()
-│   ├── deductCoins()
-│   └── buyItem()
-└── quizEngine
-    ├── idx, score, timer
-    ├── start()
-    ├── load()
-    ├── next()
-    └── end()
-                </div>
-            </div>
-
-            <div class="subsection-title">4. STATE MANAGEMENT</div>
-            <div class="highlight-box">
-                <h4 class="font-bold mb-2">Local State (JavaScript Objects)</h4>
-                <p>gamification { coins, level } | quizEngine { idx, score, history }</p>
-            </div>
-            <div class="highlight-box">
-                <h4 class="font-bold mb-2">Persistent State (localStorage)</h4>
-                <p>g10_coins → Current coins | theme → dark/light | shop_* → Ownership flags</p>
-            </div>
-
-            <div class="subsection-title">5. RESPONSIVE DESIGN</div>
-            <table class="table-custom">
-                <tr>
-                    <th>Breakpoint</th>
-                    <th>Size</th>
-                    <th>Example</th>
-                </tr>
-                <tr>
-                    <td>sm</td>
-                    <td>640px</td>
-                    <td>Small screens (tablets)</td>
-                </tr>
-                <tr>
-                    <td>md</td>
-                    <td>768px</td>
-                    <td>Medium tablets</td>
-                </tr>
-                <tr>
-                    <td>lg</td>
-                    <td>1024px</td>
-                    <td>Desktops</td>
-                </tr>
-                <tr>
-                    <td>xl</td>
-                    <td>1280px</td>
-                    <td>Large monitors</td>
-                </tr>
-            </table>
-
-            <div class="subsection-title">6. ACCESSIBILITY</div>
-            <div class="feature-card">
-                <h4 class="font-bold mb-2">Current Implementation</h4>
-                <ul class="list-disc list-inside text-gray-700 space-y-1">
-                    <li>✅ Semantic HTML (nav, header, section, footer)</li>
-                    <li>✅ Language Attributes (lang, dir)</li>
-                    <li>✅ Form Accessibility (placeholder, required)</li>
-                    <li>⚠️ Missing: ARIA labels, screen reader support</li>
-                </ul>
-            </div>
-
-            <div class="subsection-title">7. PERFORMANCE</div>
-            <table class="table-custom">
-                <tr>
-                    <th>Category</th>
-                    <th>Optimization</th>
-                </tr>
-                <tr>
-                    <td>CSS</td>
-                    <td>CDN-hosted Tailwind + Single stylesheet</td>
-                </tr>
-                <tr>
-                    <td>JavaScript</td>
-                    <td>Synchronous execution + No external API calls</td>
-                </tr>
-                <tr>
-                    <td>Assets</td>
-                    <td>External fonts from Google CDN + Preload audio</td>
-                </tr>
-            </table>
-        </div>
-
-        <!-- ============ TAB 5: SUMMARY ============ -->
-        <div id="summary" class="tab-content">
-            <div class="section-title">📊 ملخص الدمج والتحسينات</div>
-
-            <div class="subsection-title">📈 مقارنة الملفات</div>
-            <table class="table-custom">
-                <tr>
-                    <th>المعيار</th>
-                    <th>الملف الأول</th>
-                    <th>الملف الثاني</th>
-                    <th>الملف المدمج ✨</th>
-                </tr>
-                <tr>
-                    <td>عدد الأسئلة</td>
-                    <td>10 متقدمة</td>
-                    <td>7 سريعة</td>
-                    <td><strong>17 متنوع</strong></td>
-                </tr>
-                <tr>
-                    <td>الدروس</td>
-                    <td>لا يوجد</td>
-                    <td>10 منظمة</td>
-                    <td><strong>10 + اختبار</strong></td>
-                </tr>
-                <tr>
-                    <td>الـ Shop</td>
-                    <td>موجود</td>
-                    <td>موجود</td>
-                    <td><strong>محسّن</strong></td>
-                </tr>
-                <tr>
-                    <td>حجم الملف</td>
-                    <td>~30 KB</td>
-                    <td>~28 KB</td>
-                    <td><strong>~48 KB</strong></td>
-                </tr>
-                <tr>
-                    <td>التعليقات</td>
-                    <td>قليلة</td>
-                    <td>قليلة</td>
-                    <td><strong>50+ تعليق</strong></td>
-                </tr>
-            </table>
-
-            <div class="subsection-title">✅ ما تم دمجه وتحسينه</div>
-
-            <div class="feature-card">
-                <h4 class="font-bold text-lg mb-2">1️⃣ إزالة التكرار</h4>
-                <table class="table-custom text-sm">
-                    <tr>
-                        <th>العنصر</th>
-                        <th>الملف الأول</th>
-                        <th>الملف الثاني</th>
-                        <th>المدمج</th>
-                    </tr>
-                    <tr>
-                        <td>&lt;meta&gt; tags</td>
-                        <td>✓</td>
-                        <td>✓</td>
-                        <td>✓ (واحد)</td>
-                    </tr>
-                    <tr>
-                        <td>Google Fonts</td>
-                        <td>✓</td>
-                        <td>✓</td>
-                        <td>✓ (واحد)</td>
-                    </tr>
-                    <tr>
-                        <td>CSS Custom</td>
-                        <td>✓</td>
-                        <td>✓</td>
-                        <td>✓ (موحد)</td>
-                    </tr>
-                    <tr>
-                        <td>Navigation</td>
-                        <td>✓</td>
-                        <td>✓</td>
-                        <td>✓ (واحد)</td>
-                    </tr>
-                </table>
-            </div>
-
-            <div class="feature-card">
-                <h4 class="font-bold text-lg mb-2">2️⃣ إضافة تعليقات واضحة</h4>
-                <p class="text-gray-700 mb-2">كل قسم له تعليق يوضح بدايته ونهايته:</p>
-                <div class="code-block">
-<!-- ============ SECTION 1: HERO & INTRODUCTION ============ -->
-<!-- ============ SECTION 2: CURRICULUM & LESSONS ============ -->
-<!-- ============ SECTION 3: SHOP & GAMIFICATION ============ -->
-<!-- ============ SECTION 4: QUIZ & ASSESSMENT ============ -->
-                </div>
-            </div>
-
-            <div class="feature-card">
-                <h4 class="font-bold text-lg mb-2">3️⃣ تحسين نظام JavaScript</h4>
-                <ul class="list-disc list-inside text-gray-700 space-y-1">
-                    <li>منظم في 7 وحدات رئيسية</li>
-                    <li>كل وحدة مسؤولة عن جزء محدد</li>
-                    <li>الكود سهل الصيانة والتطوير</li>
-                    <li>بدون تكرار في الوظائف</li>
-                </ul>
-            </div>
-
-            <div class="feature-card">
-                <h4 class="font-bold text-lg mb-2">4️⃣ الميزات الجديدة المضافة</h4>
-                <ul class="list-disc list-inside text-gray-700 space-y-1">
-                    <li>Hero Section محسّن مع صورة خلفية</li>
-                    <li>5 مستويات تقدم (بدل 2 فقط)</li>
-                    <li>تقرير مفصل لكل سؤال مع شروحات</li>
-                    <li>نصائح تحفيزية حسب الأداء</li>
-                    <li>تأثيرات بصرية محسّنة</li>
-                </ul>
-            </div>
-
-            <div class="subsection-title">📊 الإحصائيات النهائية</div>
-            <table class="table-custom">
-                <tr>
-                    <th>العنصر</th>
-                    <th>القيمة</th>
-                </tr>
-                <tr>
-                    <td>حجم الملف</td>
-                    <td>~48 KB</td>
-                </tr>
-                <tr>
-                    <td>عدد الأسئلة</td>
-                    <td>17</td>
-                </tr>
-                <tr>
-                    <td>عدد الدروس</td>
-                    <td>10</td>
-                </tr>
-                <tr>
-                    <td>عدد الأقسام الرئيسية</td>
-                    <td>5</td>
-                </tr>
-                <tr>
-                    <td>عدد التعليقات</td>
-                    <td>50+</td>
-                </tr>
-                <tr>
-                    <td>عدد الوظائف الرئيسية</td>
-                    <td>7</td>
-                </tr>
-                <tr>
-                    <td>الدعم متعدد اللغات</td>
-                    <td>عربي + إنجليزي</td>
-                </tr>
-            </table>
-
-            <div class="subsection-title">🚀 كيفية الاستخدام</div>
-
-            <div class="feature-card">
-                <h4 class="font-bold text-green-600 mb-2">للمبتدئين</h4>
-                <ol class="list-decimal list-inside text-gray-700 space-y-1">
-                    <li>افتح الملف في المتصفح</li>
-                    <li>اقرأ الدروس العشرة</li>
-                    <li>ابدأ الاختبار بهدوء</li>
-                    <li>تعلم من الأخطاء</li>
-                </ol>
-            </div>
-
-            <div class="feature-card">
-                <h4 class="font-bold text-green-600 mb-2">للمطورين</h4>
-                <ol class="list-decimal list-inside text-gray-700 space-y-1">
-                    <li>افتح الملف في VS Code</li>
-                    <li>ادرس الهيكل المنظم</li>
-                    <li>أضف ميزات جديدة</li>
-                    <li>حسّن الأمان</li>
-                </ol>
-            </div>
-
-            <div class="feature-card">
-                <h4 class="font-bold text-green-600 mb-2">للمعلمين</h4>
-                <ol class="list-decimal list-inside text-gray-700 space-y-1">
-                    <li>شارك الملف مع الطلاب</li>
-                    <li>اطلب منهم إكمال الدروس</li>
-                    <li>أعد الاختبار</li>
-                    <li>عرّف النتائج لمتابعة التقدم</li>
-                </ol>
-            </div>
-
-            <div class="subsection-title">✨ النتيجة النهائية</div>
-            <div class="bg-gradient-to-r from-green-500 to-green-700 text-white p-6 rounded-xl">
-                <h3 class="text-2xl font-bold mb-3">🎓 منصة تعليمية متكاملة احترافية</h3>
-                <ul class="space-y-2">
-                    <li>✨ تصميم حديث وجميل</li>
-                    <li>🎮 نظام ألعاب تفاعلي</li>
-                    <li>📚 محتوى تعليمي منظم</li>
-                    <li>🔐 آمن وموثوق</li>
-                    <li>📱 متجاوب مع جميع الأجهزة</li>
-                    <li>📖 موثق بالكامل</li>
-                </ul>
-                <p class="mt-4 text-lg font-bold">كل هذا في ملف HTML واحد فقط! 🚀</p>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-8 text-center mt-12">
-        <p class="text-lg font-bold mb-2">G10 Computer Architecture Academy</p>
-        <p class="text-gray-400">Developed with ❤️ by Ali Khaled</p>
-        <p class="text-gray-500 text-sm mt-4">© 2024 G10 Academy. All rights reserved.</p>
     </footer>
 
+    <!-- ============ JAVASCRIPT CORE LOGIC ============ -->
     <script>
-        function switchTab(tabName) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // Remove active class from all buttons
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            // Show selected tab
-            document.getElementById(tabName).classList.add('active');
-            
-            // Add active class to clicked button
-            event.target.classList.add('active');
-            
-            // Scroll to top
-            window.scrollTo(0, 0);
-        }
-    </script>
+        /* ==================== 1. THEME MANAGEMENT ==================== */
+        const themeManager = {
+            toggle: function() {
+                const html = document.documentElement;
+                if(html.classList.contains('dark')) {
+                    html.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                    document.getElementById('theme-icon').innerText = '🌙';
+                } else {
+                    html.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                    document.getElementById('theme-icon').innerText = '☀️';
+                }
+            },
+            init: function() {
+                if(localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                    document.getElementById('theme-icon').innerText = '☀️';
+                }
+                document.getElementById('theme-toggle').onclick = () => this.toggle();
+            }
+        };
 
+        /* ==================== 2. DRAGGABLE WATERMARK ==================== */
+        const watermarkManager = {
+            init: function() {
+                const watermark = document.getElementById('draggable-watermark');
+                let isDragging = false, offsetX = 0, offsetY = 0;
+
+                watermark.addEventListener('mousedown', (e) => {
+                    isDragging = true;
+                    offsetX = e.clientX - watermark.offsetLeft;
+                    offsetY = e.clientY - watermark.offsetTop;
+                });
+
+                document.addEventListener('mousemove', (e) => {
+                    if(isDragging) {
+                        watermark.style.left = (e.clientX - offsetX) + 'px';
+                        watermark.style.right = 'auto';
+                        watermark.style.top = (e.clientY - offsetY) + 'px';
+                        watermark.style.bottom = 'auto';
+                    }
+                });
+
+                document.addEventListener('mouseup', () => { isDragging = false; });
+            }
+        };
+
+        /* ==================== 3. SUPPORT WIDGET ==================== */
+        function toggleSupport() {
+            document.getElementById('support-form-container').classList.toggle('hidden');
+        }
+
+        /* ==================== 4. GAMIFICATION & COINS ==================== */
+        const gamification = {
+            coins: 0,
+            level: 0,
+            init: function() {
+                const saved = localStorage.getItem('g10_coins');
+                if(saved) this.coins = parseInt(saved);
+                this.updateUI();
+            },
+            addCoins: function(amount, e) {
+                this.coins += amount;
+                this.updateUI();
+                this.playAudio('coin-sound');
+                this.animateCoins(`+${amount}`, e);
+                this.save();
+            },
+            deductCoins: function(amount, e) {
+                this.coins = Math.max(0, this.coins - amount);
+                this.updateUI();
+                this.playAudio('wrong-sound');
+                this.animateCoins(`-${amount}`, e, true);
+                this.save();
+            },
+            updateUI: function() {
+                document.getElementById('ui-coins').innerText = this.coins;
+                this.level = Math.floor(this.coins / 100);
+                const levels = ['Novice 🎒', 'Apprentice 📖', 'Scholar 🎓', 'Expert 🚀', 'Genius 👑'];
+                document.getElementById('ui-level').innerText = levels[Math.min(this.level, 4)];
+            },
+            save: function() {
+                localStorage.setItem('g10_coins', this.coins);
+            },
+            playAudio: function(id) {
+                const audio = document.getElementById(id);
+                if(audio) { audio.currentTime = 0; audio.play().catch(() => {}); }
+            },
+            animateCoins: function(txt, e, isNeg = false) {
+                const anim = document.createElement('div');
+                anim.innerText = txt;
+                anim.className = `coin-animation font-black ${isNeg ? 'text-red-500' : 'text-green-500'}`;
+                if(e && e.clientX) {
+                    anim.style.left = (e.clientX - 20) + 'px';
+                    anim.style.top = (e.clientY - 20) + 'px';
+                } else {
+                    anim.style.left = '50%'; anim.style.top = '50%';
+                }
+                document.body.appendChild(anim);
+                setTimeout(() => anim.remove(), 1000);
+            },
+            buyItem: function(id, cost, btn) {
+                if(localStorage.getItem(`shop_${id}`) === 'true') return alert("Already owned!");
+                if(this.coins >= cost) {
+                    this.coins -= cost; 
+                    localStorage.setItem(`shop_${id}`, 'true'); 
+                    this.save();
+                    btn.innerText = "Owned ✅"; 
+                    btn.className = "bg-slate-500 text-white px-3 py-1 rounded font-bold";
+                    if(id === 'matrix') this.applyMatrixTheme();
+                    if(id === 'badge') this.updateUI();
+                    this.playAudio('coin-sound');
+                } else alert(`Need ${cost} coins!`);
+            },
+            applyMatrixTheme: function() {
+                document.getElementById('main-body').style.backgroundColor = '#000';
+                document.documentElement.classList.add('dark');
+                document.querySelectorAll('.glass-panel').forEach(el => { 
+                    el.style.border = '1px solid #0f0'; 
+                    el.style.boxShadow = '0 0 10px #0f0'; 
+                });
+            }
+        };
+
+        /* ==================== 5. CURRICULUM CONTENT ==================== */
+        const curriculumContent = [
+            { en: "1. Operating System (OS)", points: ["💻 The Core Manager.", "🧠 Handles RAM & Apps."], ar: "المدير الأساسي للكمبيوتر (مدير الشركة)." },
+            { en: "2. Expansion Slots", points: ["🎮 Empty spaces on Motherboard.", "🔌 Used to plug extra cards (GPU)."], ar: "مساحات فاضية لتركيب كروت إضافية." },
+            { en: "3. Hardware Upgrades", points: ["🚀 Replace old parts with new.", "⏳ Makes PC faster & live longer."], ar: "تغيير القطع القديمة عشان الجهاز يصير أسرع." },
+            { en: "4. System Buses", points: ["🛣️ Data Bus: Moves info.", "📍 Address Bus: Finds location."], ar: "الـ Data بينقل، والـ Address بيحدد المكان." },
+            { en: "5. OS Installation", points: ["💿 Boot from USB.", "🧹 Format Disk -> Install."], ar: "أقلع من الفلاشة، فرمت الهاردسك، ونزل الويندوز." },
+            { en: "6. ESD Protection", points: ["⚡ Static electricity kills parts.", "🖐️ Wear Anti-static wrist strap."], ar: "البس سوار تفريغ الكهرباء عشان ما تحرق اللوحة." },
+            { en: "7. Input vs Output", points: ["⌨️ Input: Keyboard, Mouse, Scanner.", "🖨️ Output: Monitor, Printer."], ar: "الإدخال زي الكيبورد، الإخراج زي الشاشة." },
+            { en: "8. Power Supply (PSU)", points: ["⚡ Converts wall AC to safe DC.", "🔋 Distributes power to parts."], ar: "بيحول كهرباء الحيطة لتيار هادي عشان الجهاز." },
+            { en: "9. Overheating Causes", points: ["🔥 Dust & Broken Fans.", "💧 Dry Thermal Paste."], ar: "الغبار، المراوح الخربانة، أو المعجون الناشف." },
+            { en: "10. Troubleshooting", points: ["🧩 Step-by-step logic fixing.", "🛑 Don't just guess."], ar: "خطوات منطقية لحل المشكلة، ما تخمن ساي." }
+        ];
+
+        const lessonsBox = document.getElementById('lessons-container');
+        curriculumContent.forEach(lec => {
+            let bullets = lec.points.map(p => `<li>${p}</li>`).join('');
+            lessonsBox.innerHTML += `
+                <div class="glass-panel p-5">
+                    <h3 class="text-xl font-black text-brand-800 dark:text-brand-400 mb-3">${lec.en}</h3>
+                    <ul class="text-sm font-semibold mb-3 space-y-1 text-slate-700 dark:text-slate-300">${bullets}</ul>
+                    <div class="ar-text text-sm font-bold text-sudanese-gold bg-slate-900/5 p-2 rounded-lg border-r-4 border-sudanese-gold">${lec.ar}</div>
+                </div>
+            `;
+        });
+
+        /* ==================== 6. SHOP ITEMS ==================== */
+        const shopItems = [
+            { id: 'matrix', name: 'Matrix Theme', cost: 150, desc: '🟢 Neo vibes with green matrix style', emoji: '🕶️' },
+            { id: 'badge', name: 'Genius Badge', cost: 200, desc: '👑 Show off your expert status', emoji: '🏆' },
+            { id: 'theme', name: 'Neon Theme', cost: 100, desc: '💜 Cyberpunk neon color scheme', emoji: '⚡' }
+        ];
+
+        const shopContainer = document.getElementById('shop-container');
+        shopItems.forEach(item => {
+            const owned = localStorage.getItem(`shop_${item.id}`) === 'true';
+            shopContainer.innerHTML += `
+                <div class="glass-panel p-6 text-center">
+                    <div class="text-5xl mb-4">${item.emoji}</div>
+                    <h3 class="text-xl font-bold mb-2 text-brand-800 dark:text-brand-300">${item.name}</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">${item.desc}</p>
+                    <div class="mb-4 text-xl font-bold text-sudanese-gold">🪙 ${item.cost} coins</div>
+                    <button 
+                        onclick="gamification.buyItem('${item.id}', ${item.cost}, this)"
+                        class="${owned ? 'bg-slate-500' : 'bg-brand-600 hover:bg-brand-700'} text-white px-4 py-2 rounded font-bold transition"
+                    >
+                        ${owned ? '✅ Owned' : '🛒 Buy'}
+                    </button>
+                </div>
+            `;
+        });
+
+        /* ==================== 7. QUIZ ENGINE (ADVANCED) ==================== */
+        const quizData = [
+            { qAr: "ما هو نظام التشغيل (Operating System)؟", qEn: "What is an Operating System?", opts: ["Browser web فقط", "مدير الموارد والتطبيقات والهاردوير", "لعبة فيديو"], correct: 1, exp: "نظام التشغيل هو الوسيط بينك وبين الجهاز - يدير الذاكرة والتطبيقات والموارد بشكل ذكي." },
+            { qAr: "فتحات التوسعة (Expansion Slots) تستخدم لـ:", qEn: "Expansion Slots are used for:", opts: ["تبريد الجهاز فقط", "تركيب كروت إضافية (GPU, Sound Card)", "شحن البطارية"], correct: 1, exp: "الفتحات تسمح بإضافة كروت التوسعة مثل كرت الرسوميات الخارجي لأداء أفضل." },
+            { qAr: "للحماية من الكهرباء الساكنة (ESD)، تحتاج إلى:", qEn: "To protect against ESD (electrostatic discharge), wear:", opts: ["قفازات مطاطية", "سوار تفريغ الكهرباء", "لا تحتاج للحماية"], correct: 1, exp: "سوار التفريغ الثابت يحمي المكونات الحساسة من الكهرباء الساكنة التي قد تحرقها فوراً." },
+            { qAr: "الطابعة تُصنّف ضمن أجهزة:", qEn: "A Printer is classified as:", opts: ["جهاز إدخال", "جهاز إخراج", "جهاز تخزين"], correct: 1, exp: "الطابعة تخرج البيانات على ورقة - لذا هي جهاز إخراج (Output Device)." },
+            { qAr: "وظيفة مزود الطاقة (PSU):", qEn: "The Power Supply (PSU) function:", opts: ["تبريد وحدة المعالجة", "تحويل التيار الكهربائي AC إلى DC آمن", "تخزين البيانات"], correct: 1, exp: "PSU تحول التيار الكهربائي من الحيطة (AC) إلى تيار آمن (DC) لتشغيل الأجهزة." },
+            { qAr: "أسباب ارتفاع حرارة الجهاز:", qEn: "What causes PC overheating?", opts: ["وجود ملفات كثيرة", "الأتربة والمراوح المعطلة والمعجون الناشف", "استخدام ماوس سلكي"], correct: 1, exp: "الأتربة تسد فتحات التهوية والمعجون الناشف يمنع نقل الحرارة من المعالج - النتيجة حرارة عالية." },
+            { qAr: "أي ناقل (Bus) ينقل البيانات الفعلية؟", qEn: "Which Bus carries actual data?", opts: ["Control Bus", "Data Bus", "Address Bus"], correct: 1, exp: "Data Bus هو الممر الذي تنتقل فيه البيانات الفعلية (الصفر والواحد) بين المعالج والذاكرة." },
+            { qAr: "تنزيل نظام التشغيل يتطلب:", qEn: "Installing Windows requires:", opts: ["سماعات رأس فقط", "بوت من USB وتهيئة القرص الصلب", "إنترنت عالي السرعة فقط"], correct: 1, exp: "الخطوات: 1-أقلع من USB 2-اختر القرص 3-هيء القرص (Format) 4-نزل الويندوز." },
+            { qAr: "تحديث الهاردوير من HDD إلى SSD يؤثر على:", qEn: "Upgrading HDD to SSD affects:", opts: ["جودة الصوت", "سرعة الإقلاع والبرامج بشكل جذري", "حجم الشاشة"], correct: 1, exp: "SSD أسرع بأضعاف من HDD - يجعل الكمبيوتر يقلع في ثواني بدلاً من دقائق." },
+            { qAr: "بدون تعريفات (Drivers) الجهاز الجديد:", qEn: "Without Drivers, a new hardware:", opts: ["يعمل بأقصى سرعة", "قد لا يعمل أو يعمل بكفاءة منخفضة", "ينفجر"], correct: 1, exp: "التعريفات هي المترجم بين الويندوز والقطعة - بدونها النظام لا يعرف كيف يتحكم بها." },
+            { qAr: "استكشاف الأخطاء وإصلاحها (Troubleshooting):", qEn: "Troubleshooting means:", opts: ["غرفة مظلمة", "نهج منطقي منهجي لحل المشاكل من السبب الجذري", "استخدام أدوات عشوائية"], correct: 1, exp: "التفكير المنطقي خطوة بخطوة - اعزل المشكلة وحدد السبب بدون تخمين عشوائي." },
+            { qAr: "عملية تنشئ نظام ملفات (File System) جاهز:", qEn: "A process that creates a File System:", opts: ["التقسيم (Partitioning)", "التهيئة (Formatting)", "الترقية"], correct: 1, exp: "التهيئة تضع نظام الملفات (مثل NTFS) ليكون جاهزاً لحفظ البيانات والويندوز." },
+            { qEn: "What is the primary responsibility of an OS?", qAr: "ماهي وظيفة نظام التشغيل الأساسية؟", opts: ["Run Games Only", "Cool CPU", "Manage Resources (RAM/Apps)"], correct: 2, exp: "The OS manages all system resources and applications efficiently." },
+            { qEn: "What is the benefit of Expansion Slots?", qAr: "ما فائدة فتحات التوسعة؟", opts: ["Increase Internet Speed", "Add Extra Cards (GPU)", "Connect Monitor"], correct: 1, exp: "Slots allow adding components like GPUs for better performance." },
+            { qEn: "A Printer is classified as:", qAr: "الطابعة تعتبر جهاز:", opts: ["Output Device", "Input Device", "Storage Device"], correct: 0, exp: "Printers output data - they're Output devices." },
+            { qEn: "What causes PC overheating?", qAr: "أسباب ارتفاع حرارة الجهاز؟", opts: ["Too many files", "Dust & Dry Thermal Paste", "Wired Mouse"], correct: 1, exp: "Dust blocks airflow, and dry thermal paste prevents heat transfer." },
+            { qEn: "Which Bus moves the actual information?", qAr: "أي ناقل ينقل البيانات الفعلية؟", opts: ["Control Bus", "Data Bus", "Address Bus"], correct: 1, exp: "The Data Bus carries the actual data between components." }
+        ];
+
+        const quizEngine = {
+            idx: 0, score: 0, timer: null, timeLeft: 30, history: [], selectedAns: null, studentName: "User",
+            elCore: document.getElementById('quiz-core'), 
+            elRes: document.getElementById('quiz-result'), 
+            elStart: document.getElementById('quiz-start'),
+            elOpts: document.getElementById('q-options'), 
+            elNextBtn: document.getElementById('btn-next'), 
+            elProgress: document.getElementById('q-progress'),
+            
+            start: function() {
+                const nameInp = document.getElementById('student-name').value.trim();
+                if(nameInp) this.studentName = nameInp;
+                this.idx = 0; 
+                this.score = 0; 
+                this.history = [];
+                this.elStart.classList.add('hidden'); 
+                this.elRes.classList.add('hidden'); 
+                this.elCore.classList.remove('hidden');
+                this.load();
+            },
+            load: function() {
+                this.selectedAns = null; 
+                this.elNextBtn.classList.add('hidden');
+                const q = quizData[this.idx];
+                document.getElementById('q-counter').innerText = `Question ${this.idx+1} of ${quizData.length}`;
+                this.elProgress.style.width = `${(this.idx / quizData.length) * 100}%`;
+                document.getElementById('q-text-en').innerText = q.qEn;
+                document.getElementById('q-text-ar').innerText = q.qAr;
+                
+                this.elOpts.innerHTML = '';
+                q.opts.forEach((o, i) => {
+                    const b = document.createElement('button');
+                    b.className = "w-full text-left p-4 rounded-lg border-2 border-slate-200 dark:border-slate-700 font-bold hover:border-brand-500 transition bg-white dark:bg-slate-800";
+                    b.innerText = o;
+                    b.onclick = () => this.selectOpt(i, b);
+                    this.elOpts.appendChild(b);
+                });
+                this.startTimer();
+            },
+            startTimer: function() {
+                clearInterval(this.timer); 
+                this.timeLeft = 30; 
+                document.getElementById('timer-text').innerText = this.timeLeft;
+                this.timer = setInterval(() => {
+                    this.timeLeft--; 
+                    document.getElementById('timer-text').innerText = this.timeLeft;
+                    if(this.timeLeft <= 0) { 
+                        clearInterval(this.timer); 
+                        this.next(true, null); 
+                    }
+                }, 1000);
+            },
+            selectOpt: function(i, btn) {
+                this.selectedAns = i;
+                Array.from(this.elOpts.children).forEach(b => {
+                    b.classList.remove('border-brand-500', 'bg-brand-50', 'dark:bg-slate-700');
+                    b.classList.add('border-slate-200', 'dark:border-slate-700');
+                });
+                btn.classList.remove('border-slate-200', 'dark:border-slate-700');
+                btn.classList.add('border-brand-500', 'bg-brand-50', 'dark:bg-slate-700');
+                this.elNextBtn.classList.remove('hidden');
+            },
+            next: function(isTimeout = false, e = null) {
+                if(this.selectedAns === null && !isTimeout) return;
+                clearInterval(this.timer);
+                
+                const q = quizData[this.idx];
+                const ansIdx = isTimeout ? -1 : this.selectedAns;
+                const isCorrect = (ansIdx === q.correct);
+                
+                if(isCorrect) {
+                    this.score++; 
+                    gamification.addCoins(10, e);
+                } else {
+                    gamification.deductCoins(2, e);
+                }
+
+                this.history.push({
+                    qAr: q.qAr,
+                    userAns: ansIdx === -1 ? "لم يتم الإجابة (انتهى الوقت)" : q.opts[ansIdx],
+                    correctAns: q.opts[q.correct],
+                    isCorrect: isCorrect,
+                    exp: q.exp
+                });
+
+                Array.from(this.elOpts.children).forEach(b => b.disabled = true);
+                this.elNextBtn.classList.add('hidden');
+
+                setTimeout(() => {
+                    this.idx++;
+                    if(this.idx < quizData.length) this.load(); 
+                    else this.end();
+                }, 800);
+            },
+            end: function() {
+                this.elProgress.style.width = '100%';
+                this.elCore.classList.add('hidden'); 
+                this.elRes.classList.remove('hidden');
+                
+                document.getElementById('res-name').innerText = this.studentName;
+                document.getElementById('res-score').innerText = `${this.score} / ${quizData.length}`;
+                
+                const ratio = this.score / quizData.length;
+                const msgEl = document.getElementById('res-msg');
+                if(ratio === 1) {
+                    msgEl.innerText = "أداء مثالي! لقد أتقنت المادة بالكامل 💯";
+                    msgEl.className = "ar-text text-lg font-bold rounded-lg p-4 bg-green-100 text-green-800 border-2 border-green-500 block mt-4";
+                } else if(ratio >= 0.6) {
+                    msgEl.innerText = "عمل رائع! راجع بعض الملاحظات لتصل للعلامة الكاملة 👍";
+                    msgEl.className = "ar-text text-lg font-bold rounded-lg p-4 bg-yellow-100 text-yellow-800 border-2 border-yellow-500 block mt-4";
+                } else {
+                    msgEl.innerText = "تحتاج إلى مزيد من المراجعة، اقرأ الخلاصة وجرب مرة أخرى 💪";
+                    msgEl.className = "ar-text text-lg font-bold rounded-lg p-4 bg-red-100 text-red-800 border-2 border-red-500 block mt-4";
+                }
+
+                this.generateReport();
+            },
+            generateReport: function() {
+                const reportBox = document.getElementById('res-report');
+                reportBox.innerHTML = '';
+                this.history.forEach((item, index) => {
+                    const div = document.createElement('div');
+                    div.className = `p-5 rounded-xl border-2 text-right ar-text ${item.isCorrect ? 'border-green-400 bg-green-50 dark:bg-green-900/20' : 'border-red-400 bg-red-50 dark:bg-red-900/20'}`;
+                    div.innerHTML = `
+                        <h5 class="text-lg font-black mb-2 dark:text-white">س ${index + 1}: ${item.qAr}</h5>
+                        ${item.isCorrect 
+                            ? `<p class="text-green-700 dark:text-green-400 font-bold mb-2">✅ إجابة صحيحة: ${item.userAns}</p>` 
+                            : `<p class="text-red-600 dark:text-red-400 font-bold mb-1 line-through opacity-80">❌ إجابتك: ${item.userAns}</p>
+                               <p class="text-green-700 dark:text-green-400 font-black mb-3">✅ الإجابة الصحيحة: ${item.correctAns}</p>`
+                        }
+                        <div class="mt-3 p-3 bg-white dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 text-sm text-slate-700 dark:text-slate-300">
+                            <strong>💡 التفسير:</strong> ${item.exp}
+                        </div>
+                    `;
+                    reportBox.appendChild(div);
+                });
+            },
+            reset: function() {
+                this.elRes.classList.add('hidden'); 
+                this.start();
+            }
+        };
+
+        /* ==================== INITIALIZATION ==================== */
+        window.addEventListener('DOMContentLoaded', () => {
+            themeManager.init();
+            watermarkManager.init();
+            gamification.init();
+        });
+    </script>
 </body>
 </html>
