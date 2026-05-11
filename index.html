@@ -1,663 +1,814 @@
 <index.html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة التعلم الذكي | معمارية الحاسوب G10</title>
+    <meta name="description" content="G10 Academy - منصة تعليمية متكاملة مع شروحات شاملة">
+    <title>G10 Academy | منصة متكاملة مع شرح كامل</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&family=Poppins:wght@400;500;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#1e3a8a', // أزرق داكن
-                        secondary: '#3b82f6', // أزرق فاتح
-                        accent: '#f59e0b', // برتقالي/ذهبي للتنبيهات
-                        darkBg: '#0f172a',
-                        lightBg: '#f8fafc',
-                    },
-                    fontFamily: {
-                        arabic: ['Cairo', 'sans-serif'],
-                        english: ['Poppins', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-
     <style>
-        /* التنسيقات العامة */
-        body {
-            font-family: 'Cairo', sans-serif;
-            background-color: #f8fafc;
-            color: #334155;
-            scroll-behavior: smooth;
+        * { box-sizing: border-box; }
+        body { font-family: 'Cairo', sans-serif; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .tab-btn.active { @apply bg-blue-600 text-white; }
+        .tab-btn { @apply px-4 py-2 rounded-lg font-bold transition cursor-pointer hover:bg-blue-500 hover:text-white; }
+        
+        .code-block { 
+            background: #1e293b; 
+            color: #e2e8f0; 
+            padding: 15px; 
+            border-radius: 8px; 
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            font-size: 13px;
+        }
+        
+        .section-title {
+            @apply text-3xl font-black mb-6 text-blue-700 border-b-4 border-blue-600 pb-3;
+        }
+        
+        .subsection-title {
+            @apply text-2xl font-bold text-blue-600 mt-8 mb-4;
+        }
+        
+        .highlight-box {
+            @apply bg-blue-50 border-r-4 border-blue-600 p-4 rounded-lg mb-4;
+        }
+        
+        .table-custom {
+            @apply w-full border-collapse mt-4 mb-4;
+        }
+        
+        .table-custom th, .table-custom td {
+            @apply border border-gray-300 px-4 py-2 text-right;
+        }
+        
+        .table-custom th {
+            @apply bg-blue-600 text-white font-bold;
+        }
+        
+        .table-custom tr:nth-child(even) {
+            @apply bg-gray-50;
         }
 
-        /* تنسيق العلامة المائية */
-        .watermark {
-            position: fixed;
-            bottom: 15px;
-            right: 15px;
-            font-size: 0.85rem;
-            color: rgba(100, 116, 139, 0.6);
-            z-index: 1000;
-            pointer-events: none;
-            font-weight: 800;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 5px 10px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        .quiz-preview {
+            @apply bg-gradient-to-r from-blue-500 to-blue-700 text-white p-8 rounded-xl mb-6;
         }
 
-        /* تأثيرات النصوص القابلة للنطق (Smart Speech) */
-        .speakable {
-            position: relative;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-bottom: 2px dashed #cbd5e1;
-            padding-bottom: 2px;
-        }
-        .speakable:hover {
-            background-color: #dbeafe;
-            color: #1d4ed8;
-            border-bottom-color: #1d4ed8;
-            border-radius: 4px;
-        }
-        .speakable::after {
-            content: "🔊 أنقر للاستماع";
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1e3a8a;
-            color: #fff;
-            font-size: 0.75rem;
-            padding: 4px 8px;
-            border-radius: 4px;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.2s;
-            white-space: nowrap;
-        }
-        .speakable-en::after {
-            content: "🔊 Click to listen";
-        }
-        .speakable:hover::after {
-            opacity: 1;
-            visibility: visible;
+        .feature-card {
+            @apply bg-white border-2 border-blue-300 rounded-xl p-6 mb-4 hover:shadow-lg transition;
         }
 
-        /* تخصيص اللغة الإنجليزية */
-        .lang-en {
-            font-family: 'Poppins', sans-serif;
-            direction: ltr;
-            text-align: left;
+        .progress-bar {
+            @apply bg-blue-200 rounded-full h-2 mb-4;
         }
 
-        /* تأثيرات البطاقات */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-            border-radius: 1rem;
-            transition: transform 0.3s ease;
-        }
-        .glass-card:hover {
-            transform: translateY(-5px);
-        }
-
-        /* أزرار الخيارات في الاختبار */
-        .quiz-option {
-            width: 100%;
-            text-align: right;
-            padding: 1rem;
-            margin-bottom: 0.75rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 0.75rem;
-            background-color: white;
-            transition: all 0.2s;
-            font-weight: 600;
-        }
-        .quiz-option:hover {
-            border-color: #3b82f6;
-            background-color: #eff6ff;
-        }
-        .quiz-option.selected {
-            border-color: #1e3a8a;
-            background-color: #1e3a8a;
-            color: white;
-        }
-
-        /* تنسيقات تقرير الاختبار النهائي */
-        .report-item {
-            border-right: 4px solid #f59e0b;
-            padding: 1rem 1.5rem;
-            margin-bottom: 1rem;
-            background-color: #fffbeb;
-            border-radius: 0.5rem;
-        }
-        .report-item.correct {
-            border-right-color: #10b981;
-            background-color: #ecfdf5;
-        }
-        .report-item.wrong {
-            border-right-color: #ef4444;
-            background-color: #fef2f2;
-        }
-
-        /* تأثير تحميل بسيط للاختبار */
-        .fade-in {
-            animation: fadeIn 0.5s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .progress-fill {
+            @apply bg-blue-600 h-2 rounded-full transition-all duration-300;
         }
     </style>
 </head>
-<body class="antialiased">
+<body class="bg-gray-50">
 
-    <div class="watermark">تطوير: علي خالد</div>
-
-    <header class="bg-primary text-white shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center flex-wrap">
-            <div class="flex items-center gap-3">
-                <span class="text-3xl">💻</span>
-                <h1 class="text-2xl font-bold tracking-wide">أكاديمية الحاسوب G10</h1>
+    <!-- Navigation Tabs -->
+    <nav class="sticky top-0 z-50 bg-white shadow-lg border-b-4 border-blue-600">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+            <div class="flex flex-wrap gap-2 justify-center md:justify-start items-center">
+                <h1 class="text-2xl font-black text-blue-700">G10 Academy</h1>
+                <div class="flex flex-wrap gap-2">
+                    <button class="tab-btn active" onclick="switchTab('academy')">🎓 الأكاديمية</button>
+                    <button class="tab-btn" onclick="switchTab('sudanese')">🎭 الشرح السوداني</button>
+                    <button class="tab-btn" onclick="switchTab('simple')">📖 الشرح المبسط</button>
+                    <button class="tab-btn" onclick="switchTab('technical')">🔬 الشرح الأكاديمي</button>
+                    <button class="tab-btn" onclick="switchTab('summary')">📊 الملخص</button>
+                </div>
             </div>
-            <nav class="mt-4 md:mt-0 flex gap-6 font-semibold">
-                <a href="#study-section" class="hover:text-secondary transition">شرح المادة</a>
-                <a href="#quiz-section" class="hover:text-secondary transition">اختبر نفسك</a>
-                <a href="#qa-section" class="hover:text-secondary transition">اسأل المعلم</a>
-            </nav>
         </div>
-    </header>
+    </nav>
 
-    <section class="bg-gradient-to-b from-primary to-secondary text-white py-20 text-center">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl md:text-5xl font-extrabold mb-6">مرحباً بك في مقرر معمارية الحاسوب</h2>
-            <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8 text-blue-100">
-                استكشف المكونات المادية للحاسوب، أنظمة التشغيل، والصيانة. اضغط على أي نص لسماع النطق الذكي!
+    <div class="max-w-7xl mx-auto px-4 py-8">
+
+        <!-- ============ TAB 1: ACADEMY ============ -->
+        <div id="academy" class="tab-content active">
+            <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-12 rounded-xl mb-8 text-center">
+                <h1 class="text-5xl font-black mb-4">G10 Computer Architecture Academy</h1>
+                <p class="text-xl mb-6">منصة تعليمية متكاملة مع نظام ألعاب تفاعلي</p>
+                <a href="#" class="bg-yellow-400 text-blue-900 px-8 py-3 rounded-lg font-bold inline-block hover:bg-yellow-300 transition">
+                    👉 افتح الأكاديمية الكاملة
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="feature-card">
+                    <h3 class="text-2xl font-bold mb-3 text-blue-600">📚 10 دروس تعليمية</h3>
+                    <p class="text-gray-700 mb-3">دروس منظمة تغطي أساسيات معمارية الكمبيوتر:</p>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1">
+                        <li>نظام التشغيل (OS)</li>
+                        <li>فتحات التوسعة</li>
+                        <li>ترقيات الهاردوير</li>
+                        <li>نواقل النظام (Buses)</li>
+                        <li>و 6 دروس أخرى مهمة</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h3 class="text-2xl font-bold mb-3 text-blue-600">🧪 17 سؤال متقدم</h3>
+                    <p class="text-gray-700 mb-3">اختبارات شاملة مع:</p>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1">
+                        <li>أسئلة عربي + إنجليزي</li>
+                        <li>30 ثانية لكل سؤال</li>
+                        <li>+10 عملة للإجابة الصحيحة</li>
+                        <li>تقارير مفصلة</li>
+                        <li>شروحات لكل سؤال</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h3 class="text-2xl font-bold mb-3 text-blue-600">🛍️ متجر بـ 3 عناصر</h3>
+                    <p class="text-gray-700 mb-3">اشتري عناصر خاصة بالعملات:</p>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1">
+                        <li>Matrix Theme (150 عملة)</li>
+                        <li>Genius Badge (200 عملة)</li>
+                        <li>Neon Theme (100 عملة)</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h3 class="text-2xl font-bold mb-3 text-blue-600">🎮 نظام ألعاب</h3>
+                    <p class="text-gray-700 mb-3">مميزات تفاعلية:</p>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1">
+                        <li>5 مستويات تقدم</li>
+                        <li>نظام عملات</li>
+                        <li>Dark Mode</li>
+                        <li>Animations جميلة</li>
+                        <li>شرح تفاعلي</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-yellow-50 border-r-4 border-yellow-600 p-6 rounded-lg mb-8">
+                <h3 class="text-xl font-bold text-yellow-700 mb-3">📌 ملاحظة مهمة</h3>
+                <p class="text-gray-700">الملف المدمج الكامل موجود في التبويب الأول من هذه الصفحة. يمكنك فتحه مباشرة أو تحميله وفتحه في المتصفح.</p>
+            </div>
+
+            <div class="bg-blue-100 border-r-4 border-blue-600 p-6 rounded-lg">
+                <h3 class="text-xl font-bold text-blue-700 mb-4">🔍 معاينة سريعة للملف المدمج</h3>
+                <div class="code-block">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;G10 Academy&lt;/title&gt;
+    &lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Navigation --&gt;
+    &lt;nav class="sticky top-0 z-50"&gt;...&lt;/nav&gt;
+    
+    &lt;!-- Header --&gt;
+    &lt;header class="bg-brand-900 text-white"&gt;...&lt;/header&gt;
+    
+    &lt;!-- Lessons Section --&gt;
+    &lt;section id="lessons-section"&gt;...&lt;/section&gt;
+    
+    &lt;!-- Shop Section --&gt;
+    &lt;section id="shop-section"&gt;...&lt;/section&gt;
+    
+    &lt;!-- Quiz Section --&gt;
+    &lt;section id="quiz-section"&gt;...&lt;/section&gt;
+    
+    &lt;!-- JavaScript Core --&gt;
+    &lt;script&gt;
+        const themeManager = {...};
+        const gamification = {...};
+        const quizEngine = {...};
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ TAB 2: SUDANESE EXPLANATION ============ -->
+        <div id="sudanese" class="tab-content">
+            <div class="section-title">🎭 تفكيك الشفرة - اللهجة السودانية</div>
+
+            <div class="highlight-box">
+                <h3 class="font-bold text-lg mb-2">كلام الشارع - شنو الحتة دي؟</h3>
+                <p>أنت قاعد عندك ملفات اتنين، كل واحد عنده قطعته من الكود. الحاجة الكويسة أننا دمجنا الاتنين بطريقة ذكية في ملف واحد قوي!</p>
+            </div>
+
+            <div class="subsection-title">🏗️ هيكل الصفحة (الهندسة الحامية)</div>
+            <div class="code-block">
+┌─────────────────────────────────────────┐
+│    رأس الصفحة (HEADER)                  │
+│   صورة زي ما بتشوف في أول الموقع       │
+└─────────────────────────────────────────┘
+        ↓
+┌─────────────────────────────────────────┐
+│   قسم الدروس (LESSONS)                 │
+│   10 بطاقات بتتكلم عن الهاردوير        │
+│   كل بطاقة فيها نقاط مهمة              │
+└─────────────────────────────────────────┘
+        ↓
+┌─────────────────────────────────────────┐
+│   قسم الدكان (SHOP)                   │
+│   بتشتري أشياء بالعملات اللي كسبتها    │
+│   زي الـ Matrix Theme والـ Badge       │
+└─────────────────────────────────────────┘
+        ↓
+┌─────────────────────────────────────────┐
+│   قسم الاختبار (QUIZ)                  │
+│   تحت الضغط - 30 ثانية لكل سؤال        │
+│   إجابة صح = +10 عملة                  │
+│   إجابة غلط = -2 عملة                  │
+└─────────────────────────────────────────┘
+            </div>
+
+            <div class="subsection-title">🎮 الـ Gamification (اللعبة)</div>
+            <table class="table-custom">
+                <tr>
+                    <th>الحدث</th>
+                    <th>ماذا يحدث؟</th>
+                    <th>الإحساس</th>
+                </tr>
+                <tr>
+                    <td>إجابة صح</td>
+                    <td>اللون يتحول لأخضر + عملة تطير + صوت كويس</td>
+                    <td>✅ "إيوه يا مشطور!"</td>
+                </tr>
+                <tr>
+                    <td>إجابة غلط</td>
+                    <td>اللون يتحول لأحمر + عملة تقل + صوت حزين</td>
+                    <td>❌ "خسارة يا حاج!"</td>
+                </tr>
+                <tr>
+                    <td>انتهاء الوقت</td>
+                    <td>السؤال بينتقل للتاني تلقائي</td>
+                    <td>⏰ "الوقت خلص!"</td>
+                </tr>
+            </table>
+
+            <div class="subsection-title">🌙 الـ Dark Mode (الموضة السمراء)</div>
+            <p class="text-gray-700 mb-4">
+                في الزاوية اليمين قاعد بطن القمر 🌙. تضغط عليه مرة فالموقع يصير رمادي غامق، والمرة التانية يرجع أبيض. والكود الذكي بيخزن اختيارك، المرة القاعدة تدخل الموقع بتجد الموضة اللي كانت آخر مرة!
             </p>
-            <a href="#study-section" class="bg-accent text-darkBg px-8 py-3 rounded-full font-bold text-lg hover:bg-yellow-400 transition shadow-lg inline-block">
-                ابدأ التعلم الآن 🚀
-            </a>
-        </div>
-    </section>
 
-    <main class="container mx-auto px-4 py-12" id="study-section">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-primary inline-block relative border-b-4 border-accent pb-2">
-                نظام الشرح الذكي المتزامن
-            </h2>
-            <p class="mt-4 text-gray-600">اقرأ الشرح باللغة العربية، وقابله بالمصطلحات الإنجليزية المبسطة. (اضغط للاستماع)</p>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="subsection-title">🎯 أهم الحاجات في الكود</div>
             
-            <div class="glass-card p-6">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-bold text-primary">نظام التشغيل (OS)</h3>
-                    <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">Concept 1</span>
-                </div>
-                <div class="space-y-4">
-                    <p class="text-lg leading-relaxed speakable" onclick="speakAr(this.innerText)">
-                        نظام التشغيل هو البرنامج الأساسي الذي يدير موارد الحاسوب. تتمثل مسؤولياته الأساسية في توفير واجهة للمستخدم، وإدارة الذاكرة، والتحكم في الأجهزة الملحقة.
-                    </p>
-                    <hr class="border-gray-200">
-                    <div class="lang-en text-gray-600">
-                        <p class="speakable speakable-en" onclick="speakEn(this.innerText)">
-                            An Operating System (OS) manages computer hardware. Its primary responsibilities include user interface, memory management, and device control.
-                        </p>
-                    </div>
-                </div>
+            <div class="feature-card">
+                <h4 class="font-bold text-lg mb-2">1️⃣ الـ Head (الرأس الحامي)</h4>
+                <p class="text-gray-700">الـ Fonts: Cairo (عربي)، Poppins (إنجليزي)، الـ Tailwind (framework للتصميم)، الـ Meta Tags (عشان Google والمتصفح)</p>
             </div>
 
-            <div class="glass-card p-6">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-bold text-primary">النواقل (System Buses)</h3>
-                    <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">Concept 2</span>
-                </div>
-                <div class="space-y-4">
-                    <p class="text-lg leading-relaxed speakable" onclick="speakAr(this.innerText)">
-                        تنقسم النواقل إلى ثلاثة أنواع: ناقل البيانات لنقل المعلومات، ناقل العناوين لتحديد مكان الذاكرة، وناقل التحكم لإرسال إشارات الأوامر بين القطع.
-                    </p>
-                    <hr class="border-gray-200">
-                    <div class="lang-en text-gray-600">
-                        <p class="speakable speakable-en" onclick="speakEn(this.innerText)">
-                            Buses are divided into three types: Data Bus for information, Address Bus for memory locations, and Control Bus for command signals.
-                        </p>
-                    </div>
-                </div>
+            <div class="feature-card">
+                <h4 class="font-bold text-lg mb-2">2️⃣ الـ Navigation (الشريط في الأول)</h4>
+                <p class="text-gray-700">اسم الأكاديمية بالبرتقالي والأزرق، العملات في الشمال، الموضة (🌙/☀️)، وكل حاجة fixed ما تتحرك لما تسكرول</p>
             </div>
 
-            <div class="glass-card p-6">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-bold text-primary">ترقية المكونات (Upgrading)</h3>
-                    <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">Concept 3</span>
-                </div>
-                <div class="space-y-4">
-                    <p class="text-lg leading-relaxed speakable" onclick="speakAr(this.innerText)">
-                        ترقية الهاردوير مثل زيادة حجم الرام أو استخدام قرص SSD يحسن من سرعة النظام وكفاءته بشكل كبير ويقلل من أوقات التحميل.
-                    </p>
-                    <hr class="border-gray-200">
-                    <div class="lang-en text-gray-600">
-                        <p class="speakable speakable-en" onclick="speakEn(this.innerText)">
-                            Hardware upgrading, like increasing RAM or using an SSD, highly improves system speed, efficiency, and reduces loading times.
-                        </p>
-                    </div>
-                </div>
+            <div class="feature-card">
+                <h4 class="font-bold text-lg mb-2">3️⃣ الـ Support Widget (الزر الأزرق)</h4>
+                <p class="text-gray-700">زر فيه علامة استفهام ❓. لو ضغطت عليه ينزل بوكس، تكتب اسمك والسؤال وبتبعته للمهندس علي خالد مباشرة!</p>
             </div>
 
-            <div class="glass-card p-6">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-bold text-primary">الحماية الكهربائية (Safety)</h3>
-                    <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">Concept 4</span>
-                </div>
-                <div class="space-y-4">
-                    <p class="text-lg leading-relaxed speakable" onclick="speakAr(this.innerText)">
-                        أثناء الصيانة، يجب على الفني استخدام سوار المعصم المضاد للكهرباء الساكنة لمنع تلف القطع الإلكترونية الحساسة.
-                    </p>
-                    <hr class="border-gray-200">
-                    <div class="lang-en text-gray-600">
-                        <p class="speakable speakable-en" onclick="speakEn(this.innerText)">
-                            During maintenance, technicians must use an anti-static wrist strap to prevent damage to sensitive electronic components.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </main>
-
-    <section class="bg-gray-100 py-16 border-t border-gray-200" id="quiz-section">
-        <div class="container mx-auto px-4 max-w-3xl">
-            <div class="text-center mb-10">
-                <h2 class="text-3xl font-bold text-primary">اختبار القدرات (Quiz)</h2>
-                <p class="mt-2 text-gray-600">اختبر معلوماتك بناءً على ما تعلمته. سيظهر تقرير مفصل بأخطائك في النهاية.</p>
-            </div>
-
-            <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100" id="quiz-container">
-                
-                <div id="quiz-intro" class="text-center fade-in">
-                    <div class="text-5xl mb-4">📝</div>
-                    <h3 class="text-2xl font-bold mb-4">اختبار معمارية الحاسوب الشامل</h3>
-                    <p class="text-gray-600 mb-6">يحتوي الاختبار على 5 أسئلة اختيار من متعدد. ركز جيداً!</p>
-                    <button onclick="startQuiz()" class="bg-primary text-white px-8 py-3 rounded-xl font-bold hover:bg-blue-800 transition shadow-md w-full md:w-auto">
-                        ابدأ الاختبار الآن
-                    </button>
-                </div>
-
-                <div id="quiz-active" class="hidden fade-in">
-                    <div class="flex justify-between items-center mb-6">
-                        <span id="question-counter" class="text-sm font-bold text-gray-500 bg-gray-100 px-3 py-1 rounded-full">السؤال 1 / 5</span>
-                        <div class="w-1/2 bg-gray-200 rounded-full h-2">
-                            <div id="progress-bar" class="bg-secondary h-2 rounded-full transition-all duration-300" style="width: 20%"></div>
-                        </div>
-                    </div>
-                    
-                    <h3 id="question-text" class="text-xl font-bold text-gray-800 mb-2">نص السؤال هنا؟</h3>
-                    <p id="question-text-en" class="text-sm text-gray-500 mb-6 lang-en">English text here</p>
-                    
-                    <div id="options-container" class="space-y-3">
-                        </div>
-                    
-                    <div class="mt-8 text-left">
-                        <button id="next-btn" onclick="nextQuestion()" class="bg-secondary text-white px-8 py-3 rounded-xl font-bold hover:bg-blue-600 transition shadow-md hidden">
-                            التالي ⟸
-                        </button>
-                    </div>
-                </div>
-
-                <div id="quiz-result" class="hidden fade-in">
-                    <div class="text-center mb-8">
-                        <h3 class="text-3xl font-bold text-primary mb-2">النتيجة النهائية</h3>
-                        <div class="text-5xl font-extrabold text-accent mb-4" id="final-score">0/5</div>
-                        <p id="result-message" class="text-lg font-bold text-gray-700"></p>
-                    </div>
-                    
-                    <h4 class="text-xl font-bold mb-4 border-b pb-2">تقرير الأداء والتصحيح:</h4>
-                    <div id="report-container" class="space-y-4">
-                        </div>
-                    
-                    <div class="mt-8 text-center">
-                        <button onclick="resetQuiz()" class="bg-gray-800 text-white px-8 py-3 rounded-xl font-bold hover:bg-gray-900 transition">
-                            إعادة الاختبار 🔄
-                        </button>
-                    </div>
-                </div>
-
+            <div class="feature-card">
+                <h4 class="font-bold text-lg mb-2">4️⃣ الـ Watermark (الـ "Dev: Ali Khaled")</h4>
+                <p class="text-gray-700">بتقدر تسحبها لأي جهة تبيها (Draggable)! كل ما بتقدر تسحب عنصر في الصفحة كدا، فيها قطع كود mousedown و mousemove و mouseup</p>
             </div>
         </div>
-    </section>
 
-    <section class="py-16 bg-white" id="qa-section">
-        <div class="container mx-auto px-4 max-w-2xl">
-            <div class="text-center mb-10">
-                <h2 class="text-3xl font-bold text-primary">اسأل المعلم 💬</h2>
-                <p class="mt-2 text-gray-600">هل واجهتك صعوبة في فهم جزئية معينة؟ اترك سؤالك هنا.</p>
-            </div>
+        <!-- ============ TAB 3: SIMPLE EXPLANATION ============ -->
+        <div id="simple" class="tab-content">
+            <div class="section-title">📖 الشرح المبسط</div>
+
+            <div class="subsection-title">🎯 المشكلة والحل</div>
             
-            <form id="qa-form" class="bg-gray-50 p-8 rounded-2xl border border-gray-200 shadow-sm">
-                <div class="mb-4">
-                    <label for="student-name" class="block text-gray-700 font-bold mb-2">الاسم الثلاثي:</label>
-                    <input type="text" id="student-name" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition">
-                </div>
-                <div class="mb-6">
-                    <label for="student-question" class="block text-gray-700 font-bold mb-2">سؤالك بالتفصيل:</label>
-                    <textarea id="student-question" rows="4" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition resize-none" placeholder="اكتب سؤالك هنا..."></textarea>
-                </div>
-                <button type="submit" class="w-full bg-primary text-white font-bold py-3 rounded-lg hover:bg-blue-800 transition shadow-md">
-                    إرسال السؤال 📤
-                </button>
-                <div id="form-success" class="hidden mt-4 bg-green-100 text-green-800 p-3 rounded-lg text-center font-bold">
-                    تم إرسال سؤالك بنجاح! سيتم الرد عليك قريباً.
-                </div>
-            </form>
-        </div>
-    </section>
+            <div class="feature-card">
+                <h4 class="font-bold text-blue-600 mb-2">❌ المشكلة الأصلية</h4>
+                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                    <li>ملفان HTML منفصلان</li>
+                    <li>كل واحد فيه نفس الأدوات (CSS, JavaScript, Navigation)</li>
+                    <li>ما فيش تكامل بينهم</li>
+                    <li>التكرار يجعل الملفات أكبر</li>
+                </ul>
+            </div>
 
-    <footer class="bg-darkBg text-gray-400 py-8 border-t border-gray-800">
-        <div class="container mx-auto px-4 text-center">
-            <p class="mb-2">© 2026 أكاديمية الحاسوب G10. جميع الحقوق محفوظة.</p>
-            <p class="text-sm">تم تصميم هذه المنصة خصيصاً لتبسيط مفاهيم معمارية الحاسوب والصيانة.</p>
+            <div class="feature-card">
+                <h4 class="font-bold text-green-600 mb-2">✅ الحل المقترح</h4>
+                <p class="text-gray-700 mb-3">دمج الملفات بطريقة احترافية يضمن:</p>
+                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                    <li><strong>عدم التكرار:</strong> head واحد فقط</li>
+                    <li><strong>التنظيم الجيد:</strong> كل قسم معلّق بوضوح</li>
+                    <li><strong>الأداء الأفضل:</strong> حجم الملف أصغر، التحميل أسرع</li>
+                    <li><strong>التجربة الموحدة:</strong> كل الأقسام تعمل معاً</li>
+                </ul>
+            </div>
+
+            <div class="subsection-title">🏢 أقسام الصفحة الرئيسية</div>
+
+            <div class="feature-card">
+                <h4 class="font-bold text-lg mb-2">📌 1. الـ Head (الرأس)</h4>
+                <p class="text-gray-700 mb-2"><strong>يحتوي على:</strong></p>
+                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                    <li>معلومات البيانات (Meta Tags)</li>
+                    <li>روابط الخطوط (Google Fonts)</li>
+                    <li>إطار التصميم (Tailwind CSS)</li>
+                    <li>الأنماط المخصصة (Custom Styles)</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h4 class="font-bold text-lg mb-2">🎨 2. الـ Navigation Bar</h4>
+                <p class="text-gray-700 mb-2"><strong>الميزات:</strong></p>
+                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                    <li>ثابتة في الأعلى (Sticky)</li>
+                    <li>تحتوي على شعار الأكاديمية</li>
+                    <li>تعرض رصيد العملات والمستوى</li>
+                    <li>زر تبديل الموضة (Dark/Light)</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h4 class="font-bold text-lg mb-2">📚 3. قسم الدروس</h4>
+                <p class="text-gray-700 mb-2"><strong>المحتوى:</strong></p>
+                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                    <li>10 دروس منظمة بطاقات جميلة</li>
+                    <li>كل درس: عنوان إنجليزي + نقاط + شرح عربي</li>
+                    <li>تأثيرات عند الحوم (Hover effects)</li>
+                    <li>Responsive على جميع الأجهزة</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h4 class="font-bold text-lg mb-2">🛍️ 4. قسم المتجر</h4>
+                <p class="text-gray-700 mb-2"><strong>المشتريات المتاحة:</strong></p>
+                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                    <li>Matrix Theme (150 عملة)</li>
+                    <li>Genius Badge (200 عملة)</li>
+                    <li>Neon Theme (100 عملة)</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h4 class="font-bold text-lg mb-2">🧪 5. قسم الاختبار</h4>
+                <p class="text-gray-700 mb-2"><strong>ثلاث مراحل:</strong></p>
+                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                    <li><strong>البداية:</strong> إدخال الاسم + توضيح الجوائز</li>
+                    <li><strong>الإجابة:</strong> 4 خيارات + 30 ثانية + شريط تقدم</li>
+                    <li><strong>النتائج:</strong> العلامة + رسالة تحفيزية + تقرير مفصل</li>
+                </ul>
+            </div>
+
+            <div class="subsection-title">🎮 نظام الألعاب</div>
+            
+            <table class="table-custom">
+                <tr>
+                    <th>الحدث</th>
+                    <th>العملات</th>
+                    <th>الفعل</th>
+                </tr>
+                <tr>
+                    <td>إجابة صحيحة</td>
+                    <td>+10</td>
+                    <td>🟢 سعادة + animation</td>
+                </tr>
+                <tr>
+                    <td>إجابة خاطئة</td>
+                    <td>-2</td>
+                    <td>🔴 حزن + animation</td>
+                </tr>
+                <tr>
+                    <td>شراء عنصر</td>
+                    <td>-التكلفة</td>
+                    <td>💳 عملية شراء</td>
+                </tr>
+            </table>
+
+            <div class="subsection-title">📊 نظام المستويات</div>
+            <table class="table-custom">
+                <tr>
+                    <th>النطاق</th>
+                    <th>المستوى</th>
+                    <th>الرمز</th>
+                </tr>
+                <tr>
+                    <td>0-99 عملة</td>
+                    <td>Novice</td>
+                    <td>🎒</td>
+                </tr>
+                <tr>
+                    <td>100-199 عملة</td>
+                    <td>Apprentice</td>
+                    <td>📖</td>
+                </tr>
+                <tr>
+                    <td>200-299 عملة</td>
+                    <td>Scholar</td>
+                    <td>🎓</td>
+                </tr>
+                <tr>
+                    <td>300-399 عملة</td>
+                    <td>Expert</td>
+                    <td>🚀</td>
+                </tr>
+                <tr>
+                    <td>400+ عملة</td>
+                    <td>Genius</td>
+                    <td>👑</td>
+                </tr>
+            </table>
         </div>
+
+        <!-- ============ TAB 4: TECHNICAL EXPLANATION ============ -->
+        <div id="technical" class="tab-content">
+            <div class="section-title">🔬 الشرح الأكاديمي العميق</div>
+
+            <div class="subsection-title">1. DOM STRUCTURE & ARCHITECTURE</div>
+            <div class="code-block">
+HTML Structure:
+├── &lt;head&gt;
+│   ├── Meta Information
+│   ├── External Resources (Fonts, Scripts)
+│   ├── Custom Styles
+│   └── Configuration (Tailwind)
+│
+└── &lt;body&gt;
+    ├── Fixed Elements (Navigation, Widgets)
+    ├── Header Section
+    ├── Main Content
+    │   ├── Lessons (Section 2)
+    │   ├── Shop (Section 3)
+    │   └── Quiz (Section 4)
+    └── Footer
+            </div>
+
+            <div class="subsection-title">2. CSS ARCHITECTURE</div>
+            <div class="feature-card">
+                <h4 class="font-bold mb-2">Utility-First Framework (Tailwind CSS)</h4>
+                <div class="code-block">
+tailwind.config = {
+    darkMode: 'class',
+    theme: {
+        extend: {
+            colors: { /* Custom color palette */ },
+            fontFamily: { /* Language-specific fonts */ }
+        }
+    }
+}
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <h4 class="font-bold mb-2">Glass Morphism Effect</h4>
+                <div class="code-block">
+.glass-panel {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(5px);
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+.glass-panel:hover { transform: translateY(-5px); }
+                </div>
+            </div>
+
+            <div class="subsection-title">3. JAVASCRIPT ARCHITECTURE</div>
+            <div class="feature-card">
+                <h4 class="font-bold mb-2">Object-Oriented Design Pattern</h4>
+                <div class="code-block">
+const ObjectName = {
+    property: initialValue,
+    method1: function() { /* implementation */ },
+    method2: function() { /* implementation */ }
+};
+
+Core Modules:
+├── themeManager
+│   ├── toggle()
+│   └── init()
+├── watermarkManager
+│   └── init()
+├── gamification
+│   ├── coins
+│   ├── level
+│   ├── addCoins()
+│   ├── deductCoins()
+│   └── buyItem()
+└── quizEngine
+    ├── idx, score, timer
+    ├── start()
+    ├── load()
+    ├── next()
+    └── end()
+                </div>
+            </div>
+
+            <div class="subsection-title">4. STATE MANAGEMENT</div>
+            <div class="highlight-box">
+                <h4 class="font-bold mb-2">Local State (JavaScript Objects)</h4>
+                <p>gamification { coins, level } | quizEngine { idx, score, history }</p>
+            </div>
+            <div class="highlight-box">
+                <h4 class="font-bold mb-2">Persistent State (localStorage)</h4>
+                <p>g10_coins → Current coins | theme → dark/light | shop_* → Ownership flags</p>
+            </div>
+
+            <div class="subsection-title">5. RESPONSIVE DESIGN</div>
+            <table class="table-custom">
+                <tr>
+                    <th>Breakpoint</th>
+                    <th>Size</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td>sm</td>
+                    <td>640px</td>
+                    <td>Small screens (tablets)</td>
+                </tr>
+                <tr>
+                    <td>md</td>
+                    <td>768px</td>
+                    <td>Medium tablets</td>
+                </tr>
+                <tr>
+                    <td>lg</td>
+                    <td>1024px</td>
+                    <td>Desktops</td>
+                </tr>
+                <tr>
+                    <td>xl</td>
+                    <td>1280px</td>
+                    <td>Large monitors</td>
+                </tr>
+            </table>
+
+            <div class="subsection-title">6. ACCESSIBILITY</div>
+            <div class="feature-card">
+                <h4 class="font-bold mb-2">Current Implementation</h4>
+                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                    <li>✅ Semantic HTML (nav, header, section, footer)</li>
+                    <li>✅ Language Attributes (lang, dir)</li>
+                    <li>✅ Form Accessibility (placeholder, required)</li>
+                    <li>⚠️ Missing: ARIA labels, screen reader support</li>
+                </ul>
+            </div>
+
+            <div class="subsection-title">7. PERFORMANCE</div>
+            <table class="table-custom">
+                <tr>
+                    <th>Category</th>
+                    <th>Optimization</th>
+                </tr>
+                <tr>
+                    <td>CSS</td>
+                    <td>CDN-hosted Tailwind + Single stylesheet</td>
+                </tr>
+                <tr>
+                    <td>JavaScript</td>
+                    <td>Synchronous execution + No external API calls</td>
+                </tr>
+                <tr>
+                    <td>Assets</td>
+                    <td>External fonts from Google CDN + Preload audio</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- ============ TAB 5: SUMMARY ============ -->
+        <div id="summary" class="tab-content">
+            <div class="section-title">📊 ملخص الدمج والتحسينات</div>
+
+            <div class="subsection-title">📈 مقارنة الملفات</div>
+            <table class="table-custom">
+                <tr>
+                    <th>المعيار</th>
+                    <th>الملف الأول</th>
+                    <th>الملف الثاني</th>
+                    <th>الملف المدمج ✨</th>
+                </tr>
+                <tr>
+                    <td>عدد الأسئلة</td>
+                    <td>10 متقدمة</td>
+                    <td>7 سريعة</td>
+                    <td><strong>17 متنوع</strong></td>
+                </tr>
+                <tr>
+                    <td>الدروس</td>
+                    <td>لا يوجد</td>
+                    <td>10 منظمة</td>
+                    <td><strong>10 + اختبار</strong></td>
+                </tr>
+                <tr>
+                    <td>الـ Shop</td>
+                    <td>موجود</td>
+                    <td>موجود</td>
+                    <td><strong>محسّن</strong></td>
+                </tr>
+                <tr>
+                    <td>حجم الملف</td>
+                    <td>~30 KB</td>
+                    <td>~28 KB</td>
+                    <td><strong>~48 KB</strong></td>
+                </tr>
+                <tr>
+                    <td>التعليقات</td>
+                    <td>قليلة</td>
+                    <td>قليلة</td>
+                    <td><strong>50+ تعليق</strong></td>
+                </tr>
+            </table>
+
+            <div class="subsection-title">✅ ما تم دمجه وتحسينه</div>
+
+            <div class="feature-card">
+                <h4 class="font-bold text-lg mb-2">1️⃣ إزالة التكرار</h4>
+                <table class="table-custom text-sm">
+                    <tr>
+                        <th>العنصر</th>
+                        <th>الملف الأول</th>
+                        <th>الملف الثاني</th>
+                        <th>المدمج</th>
+                    </tr>
+                    <tr>
+                        <td>&lt;meta&gt; tags</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>✓ (واحد)</td>
+                    </tr>
+                    <tr>
+                        <td>Google Fonts</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>✓ (واحد)</td>
+                    </tr>
+                    <tr>
+                        <td>CSS Custom</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>✓ (موحد)</td>
+                    </tr>
+                    <tr>
+                        <td>Navigation</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>✓ (واحد)</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="feature-card">
+                <h4 class="font-bold text-lg mb-2">2️⃣ إضافة تعليقات واضحة</h4>
+                <p class="text-gray-700 mb-2">كل قسم له تعليق يوضح بدايته ونهايته:</p>
+                <div class="code-block">
+<!-- ============ SECTION 1: HERO & INTRODUCTION ============ -->
+<!-- ============ SECTION 2: CURRICULUM & LESSONS ============ -->
+<!-- ============ SECTION 3: SHOP & GAMIFICATION ============ -->
+<!-- ============ SECTION 4: QUIZ & ASSESSMENT ============ -->
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <h4 class="font-bold text-lg mb-2">3️⃣ تحسين نظام JavaScript</h4>
+                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                    <li>منظم في 7 وحدات رئيسية</li>
+                    <li>كل وحدة مسؤولة عن جزء محدد</li>
+                    <li>الكود سهل الصيانة والتطوير</li>
+                    <li>بدون تكرار في الوظائف</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h4 class="font-bold text-lg mb-2">4️⃣ الميزات الجديدة المضافة</h4>
+                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                    <li>Hero Section محسّن مع صورة خلفية</li>
+                    <li>5 مستويات تقدم (بدل 2 فقط)</li>
+                    <li>تقرير مفصل لكل سؤال مع شروحات</li>
+                    <li>نصائح تحفيزية حسب الأداء</li>
+                    <li>تأثيرات بصرية محسّنة</li>
+                </ul>
+            </div>
+
+            <div class="subsection-title">📊 الإحصائيات النهائية</div>
+            <table class="table-custom">
+                <tr>
+                    <th>العنصر</th>
+                    <th>القيمة</th>
+                </tr>
+                <tr>
+                    <td>حجم الملف</td>
+                    <td>~48 KB</td>
+                </tr>
+                <tr>
+                    <td>عدد الأسئلة</td>
+                    <td>17</td>
+                </tr>
+                <tr>
+                    <td>عدد الدروس</td>
+                    <td>10</td>
+                </tr>
+                <tr>
+                    <td>عدد الأقسام الرئيسية</td>
+                    <td>5</td>
+                </tr>
+                <tr>
+                    <td>عدد التعليقات</td>
+                    <td>50+</td>
+                </tr>
+                <tr>
+                    <td>عدد الوظائف الرئيسية</td>
+                    <td>7</td>
+                </tr>
+                <tr>
+                    <td>الدعم متعدد اللغات</td>
+                    <td>عربي + إنجليزي</td>
+                </tr>
+            </table>
+
+            <div class="subsection-title">🚀 كيفية الاستخدام</div>
+
+            <div class="feature-card">
+                <h4 class="font-bold text-green-600 mb-2">للمبتدئين</h4>
+                <ol class="list-decimal list-inside text-gray-700 space-y-1">
+                    <li>افتح الملف في المتصفح</li>
+                    <li>اقرأ الدروس العشرة</li>
+                    <li>ابدأ الاختبار بهدوء</li>
+                    <li>تعلم من الأخطاء</li>
+                </ol>
+            </div>
+
+            <div class="feature-card">
+                <h4 class="font-bold text-green-600 mb-2">للمطورين</h4>
+                <ol class="list-decimal list-inside text-gray-700 space-y-1">
+                    <li>افتح الملف في VS Code</li>
+                    <li>ادرس الهيكل المنظم</li>
+                    <li>أضف ميزات جديدة</li>
+                    <li>حسّن الأمان</li>
+                </ol>
+            </div>
+
+            <div class="feature-card">
+                <h4 class="font-bold text-green-600 mb-2">للمعلمين</h4>
+                <ol class="list-decimal list-inside text-gray-700 space-y-1">
+                    <li>شارك الملف مع الطلاب</li>
+                    <li>اطلب منهم إكمال الدروس</li>
+                    <li>أعد الاختبار</li>
+                    <li>عرّف النتائج لمتابعة التقدم</li>
+                </ol>
+            </div>
+
+            <div class="subsection-title">✨ النتيجة النهائية</div>
+            <div class="bg-gradient-to-r from-green-500 to-green-700 text-white p-6 rounded-xl">
+                <h3 class="text-2xl font-bold mb-3">🎓 منصة تعليمية متكاملة احترافية</h3>
+                <ul class="space-y-2">
+                    <li>✨ تصميم حديث وجميل</li>
+                    <li>🎮 نظام ألعاب تفاعلي</li>
+                    <li>📚 محتوى تعليمي منظم</li>
+                    <li>🔐 آمن وموثوق</li>
+                    <li>📱 متجاوب مع جميع الأجهزة</li>
+                    <li>📖 موثق بالكامل</li>
+                </ul>
+                <p class="mt-4 text-lg font-bold">كل هذا في ملف HTML واحد فقط! 🚀</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 text-center mt-12">
+        <p class="text-lg font-bold mb-2">G10 Computer Architecture Academy</p>
+        <p class="text-gray-400">Developed with ❤️ by Ali Khaled</p>
+        <p class="text-gray-500 text-sm mt-4">© 2024 G10 Academy. All rights reserved.</p>
     </footer>
 
     <script>
-        /**
-         * ==========================================
-         * 1. Smart Pronunciation System (Web Speech API)
-         * ==========================================
-         */
-        
-        // التحقق من دعم المتصفح لميزة النطق
-        const synth = window.speechSynthesis;
-
-        // دالة نطق النص العربي
-        const speakAr = (text) => {
-            if (synth.speaking) { synth.cancel(); } // إيقاف أي نطق سابق
-            const utterance = new SpeechSynthesisUtterance(text.replace('🔊 أنقر للاستماع', '').trim());
-            utterance.lang = 'ar-SA';
-            utterance.rate = 0.85; // سرعة متوسطة مريحة للطلاب (Medium Speed)
-            utterance.pitch = 1;
-            synth.speak(utterance);
-        };
-
-        // دالة نطق النص الإنجليزي
-        const speakEn = (text) => {
-            if (synth.speaking) { synth.cancel(); }
-            const utterance = new SpeechSynthesisUtterance(text.replace('🔊 Click to listen', '').trim());
-            utterance.lang = 'en-US';
-            utterance.rate = 0.8; // سرعة متوسطة للغة الإنجليزية
-            utterance.pitch = 1;
-            synth.speak(utterance);
-        };
-
-        /**
-         * ==========================================
-         * 2. Interactive Quiz System
-         * ==========================================
-         */
-
-        // بنك الأسئلة مبني على ملف FAT_REVISION المستهدف
-        const quizData = [
-            {
-                questionAr: "ما هو الدور الأساسي لمزود الطاقة (PSU) في الحاسوب؟",
-                questionEn: "What is the primary role of a Power Supply Unit (PSU)?",
-                options: [
-                    "معالجة البيانات والرسوميات",
-                    "تخزين الملفات بشكل دائم",
-                    "تحويل الكهرباء لدعم عمل مكونات الحاسوب",
-                    "تبريد المعالج المركزي"
-                ],
-                correctIndex: 2,
-                explanation: "مزود الطاقة (PSU) يقوم بتحويل التيار المتردد (AC) من المقبس إلى تيار مستمر (DC) لدعم تشغيل قطع الحاسوب المختلفة بشكل آمن."
-            },
-            {
-                questionAr: "لماذا نقوم بعملية تقسيم (Partitioning) لوسائط التخزين؟",
-                questionEn: "Why do we partition storage media?",
-                options: [
-                    "لتنظيم المساحة إلى أقسام منطقية قبل تنزيل نظام التشغيل",
-                    "لزيادة السعة الفيزيائية للقرص الصلب",
-                    "لحذف الفيروسات من الجهاز نهائياً",
-                    "لتسريع سرعة الإنترنت"
-                ],
-                correctIndex: 0,
-                explanation: "عملية التقسيم (Partitioning) والتهيئة (Formatting) ضرورية لإنشاء قطاعات منطقية تسمح لنظام التشغيل بإدارة وتخزين الملفات بفعالية."
-            },
-            {
-                questionAr: "أي من التالي يعتبر من إجراءات الحماية الكهربائية للفنيين؟",
-                questionEn: "Which of the following is an electrical protection measure for technicians?",
-                options: [
-                    "ارتداء قفازات صوفية",
-                    "استخدام سوار المعصم المضاد للكهرباء الساكنة",
-                    "تنظيف اللوحة الأم بالماء",
-                    "إبقاء الحاسوب متصلاً بالكهرباء أثناء الصيانة"
-                ],
-                correctIndex: 1,
-                explanation: "سوار المعصم يمنع التفريغ الكهروستاتيكي (ESD) الذي قد يؤدي إلى إتلاف المكونات الدقيقة للوحة الأم."
-            },
-            {
-                questionAr: "ما هي وظيفة (Device Drivers) برامج التعريفات؟",
-                questionEn: "What is the function of Device Drivers?",
-                options: [
-                    "تسهيل التواصل الفعال بين نظام التشغيل وقطع الهاردوير",
-                    "حماية الحاسوب من الاختراق",
-                    "تشغيل ألعاب الفيديو فقط",
-                    "زيادة حجم الذاكرة العشوائية (RAM)"
-                ],
-                correctIndex: 0,
-                explanation: "التعريفات (Drivers) تعمل كمترجم بين نظام التشغيل (OS) والمكونات المادية لتضمن كفاءة عمل النظام."
-            },
-            {
-                questionAr: "ما الذي يميز ناقل العناوين (Address Bus) عن ناقل البيانات؟",
-                questionEn: "What distinguishes the Address Bus from the Data Bus?",
-                options: [
-                    "ينقل البيانات الفعالة بين المكونات",
-                    "يحدد المواقع في الذاكرة التي سيتم القراءة منها أو الكتابة إليها",
-                    "يرسل إشارات للتحكم في توقيت العمليات",
-                    "يزود اللوحة الأم بالطاقة"
-                ],
-                correctIndex: 1,
-                explanation: "في حين أن ناقل البيانات ينقل المعلومات الفعلية، فإن ناقل العناوين (Address Bus) مسؤوليته تحديد 'أين' توجد هذه البيانات داخل الذاكرة."
-            }
-        ];
-
-        // متغيرات حالة الاختبار
-        let currentQuestionIndex = 0;
-        let userScore = 0;
-        let selectedOptionIndex = null;
-        let userAnswersHistory = [];
-
-        // عناصر DOM للاختبار
-        const quizIntro = document.getElementById('quiz-intro');
-        const quizActive = document.getElementById('quiz-active');
-        const quizResult = document.getElementById('quiz-result');
-        const questionText = document.getElementById('question-text');
-        const questionTextEn = document.getElementById('question-text-en');
-        const optionsContainer = document.getElementById('options-container');
-        const nextBtn = document.getElementById('next-btn');
-        const questionCounter = document.getElementById('question-counter');
-        const progressBar = document.getElementById('progress-bar');
-
-        // بدء الاختبار
-        const startQuiz = () => {
-            quizIntro.classList.add('hidden');
-            quizActive.classList.remove('hidden');
-            currentQuestionIndex = 0;
-            userScore = 0;
-            userAnswersHistory = [];
-            loadQuestion();
-        };
-
-        // تحميل سؤال جديد
-        const loadQuestion = () => {
-            selectedOptionIndex = null;
-            nextBtn.classList.add('hidden');
-            const currentData = quizData[currentQuestionIndex];
-            
-            // تحديث العداد وشريط التقدم
-            questionCounter.innerText = `السؤال ${currentQuestionIndex + 1} / ${quizData.length}`;
-            progressBar.style.width = `${((currentQuestionIndex) / quizData.length) * 100}%`;
-
-            // وضع النصوص
-            questionText.innerText = currentData.questionAr;
-            questionTextEn.innerText = currentData.questionEn;
-
-            // مسح وإنشاء الخيارات
-            optionsContainer.innerHTML = '';
-            currentData.options.forEach((optionText, index) => {
-                const btn = document.createElement('button');
-                btn.className = 'quiz-option block w-full text-right';
-                btn.innerText = optionText;
-                btn.onclick = () => selectOption(index, btn);
-                optionsContainer.appendChild(btn);
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
             });
-        };
-
-        // تحديد خيار
-        const selectOption = (index, buttonElement) => {
-            selectedOptionIndex = index;
-            // إزالة التحديد من جميع الأزرار
-            const allOptions = optionsContainer.children;
-            for (let i = 0; i < allOptions.length; i++) {
-                allOptions[i].classList.remove('selected');
-            }
-            // إضافة التحديد للزر الحالي
-            buttonElement.classList.add('selected');
-            // إظهار زر التالي
-            nextBtn.classList.remove('hidden');
-        };
-
-        // الانتقال للسؤال التالي أو إنهاء الاختبار
-        const nextQuestion = () => {
-            if (selectedOptionIndex === null) return; // تحقق أمان
-
-            const currentData = quizData[currentQuestionIndex];
-            const isCorrect = (selectedOptionIndex === currentData.correctIndex);
             
-            // تسجيل إجابة الطالب للتقرير النهائي
-            userAnswersHistory.push({
-                question: currentData.questionAr,
-                userAnswer: currentData.options[selectedOptionIndex],
-                correctAnswer: currentData.options[currentData.correctIndex],
-                isCorrect: isCorrect,
-                explanation: currentData.explanation
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
             });
-
-            if (isCorrect) userScore++;
-
-            currentQuestionIndex++;
-
-            if (currentQuestionIndex < quizData.length) {
-                // تحديث تقدم الشريط للخطوة الأخيرة قبل تحميل السؤال
-                progressBar.style.width = `${((currentQuestionIndex) / quizData.length) * 100}%`;
-                loadQuestion();
-            } else {
-                progressBar.style.width = `100%`;
-                setTimeout(showResults, 300); // تأخير بسيط لتأثير بصري
-            }
-        };
-
-        // عرض التقرير النهائي
-        const showResults = () => {
-            quizActive.classList.add('hidden');
-            quizResult.classList.remove('hidden');
             
-            document.getElementById('final-score').innerText = `${userScore} / ${quizData.length}`;
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
             
-            const resultMsg = document.getElementById('result-message');
-            if (userScore === quizData.length) {
-                resultMsg.innerText = "ممتاز! أنت جاهز تماماً للامتحان 🌟";
-                resultMsg.className = "text-lg font-bold text-green-600";
-            } else if (userScore >= quizData.length / 2) {
-                resultMsg.innerText = "أداء جيد، ولكن راجع أخطائك لرفع مستواك 👍";
-                resultMsg.className = "text-lg font-bold text-yellow-600";
-            } else {
-                resultMsg.innerText = "تحتاج إلى مراجعة المادة بشكل أعمق. لا تيأس! 💪";
-                resultMsg.className = "text-lg font-bold text-red-600";
-            }
-
-            generateReport();
-        };
-
-        // توليد تقرير الأخطاء وتصحيحها
-        const generateReport = () => {
-            const reportContainer = document.getElementById('report-container');
-            reportContainer.innerHTML = ''; // مسح القديم
-
-            userAnswersHistory.forEach((record, index) => {
-                const itemDiv = document.createElement('div');
-                
-                if (record.isCorrect) {
-                    itemDiv.className = 'report-item correct';
-                    itemDiv.innerHTML = `
-                        <h5 class="font-bold text-gray-800 mb-1">س ${index + 1}: ${record.question}</h5>
-                        <p class="text-sm text-green-700 font-bold mb-1">✔ إجابتك صحيحة: ${record.userAnswer}</p>
-                    `;
-                } else {
-                    itemDiv.className = 'report-item wrong';
-                    itemDiv.innerHTML = `
-                        <h5 class="font-bold text-gray-800 mb-2">س ${index + 1}: ${record.question}</h5>
-                        <p class="text-sm text-red-600 mb-1 line-through">❌ إجابتك: ${record.userAnswer}</p>
-                        <p class="text-sm text-green-700 font-bold mb-2">✔ الإجابة الصحيحة: ${record.correctAnswer}</p>
-                        <div class="bg-white p-3 rounded border border-red-100 text-sm text-gray-700">
-                            <strong>💡 التفسير:</strong> ${record.explanation}
-                        </div>
-                    `;
-                }
-                reportContainer.appendChild(itemDiv);
-            });
-        };
-
-        // إعادة ضبط الاختبار
-        const resetQuiz = () => {
-            quizResult.classList.add('hidden');
-            quizIntro.classList.remove('hidden');
-        };
-
-        /**
-         * ==========================================
-         * 3. Q&A Form Handling
-         * ==========================================
-         */
-        document.getElementById('qa-form').addEventListener('submit', function(e) {
-            e.preventDefault(); // منع إعادة تحميل الصفحة
+            // Add active class to clicked button
+            event.target.classList.add('active');
             
-            const btn = this.querySelector('button[type="submit"]');
-            const successMsg = document.getElementById('form-success');
-            
-            // تأثير تحميل وهمي
-            btn.innerText = "جاري الإرسال... ⏳";
-            btn.disabled = true;
-            btn.classList.add('opacity-70');
-
-            setTimeout(() => {
-                btn.innerText = "إرسال السؤال 📤";
-                btn.disabled = false;
-                btn.classList.remove('opacity-70');
-                
-                // إظهار رسالة النجاح
-                successMsg.classList.remove('hidden');
-                
-                // تفريغ الحقول
-                document.getElementById('student-name').value = '';
-                document.getElementById('student-question').value = '';
-
-                // إخفاء رسالة النجاح بعد 5 ثواني
-                setTimeout(() => {
-                    successMsg.classList.add('hidden');
-                }, 5000);
-            }, 1500);
-        });
-
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
     </script>
+
 </body>
 </html>
