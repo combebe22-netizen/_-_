@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مراجعة بسيطه للأمتحان 🚀</title>
+    <title>مراجعة معمارية الحاسوب | علي دي 💻</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-blue: #2c3e50;
-            --secondary-blue: #3498db;
+            --primary-blue: #1a2a6c;
+            --secondary-blue: #2a4858;
             --accent-gold: #f1c40f;
-            --bg-light: #ecf0f1;
+            --bg-light: #f4f7f6;
             --text-main: #2c3e50;
-            --correct-green: #2ecc71;
-            --wrong-red: #e74c3c;
+            --correct-green: #27ae60;
+            --wrong-red: #c0392b;
         }
         body {
             font-family: 'Cairo', sans-serif;
@@ -23,356 +23,264 @@
             color: var(--text-main);
         }
         header {
-            background-color: var(--primary-blue);
+            background: linear-gradient(to right, #b21f1f, #fdbb2d, #1a2a6c);
             color: white;
-            padding: 2rem 1rem;
+            padding: 3rem 1rem;
             text-align: center;
-            border-bottom: 5px solid var(--accent-gold);
+            border-bottom: 8px solid var(--accent-gold);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
-        header h1 { margin: 0; font-size: 2.5rem; }
-        .ip-notice { font-size: 1.1rem; margin-top: 10px; color: var(--accent-gold); font-weight: bold; }
+        header h1 { margin: 0; font-size: 2.8rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .ip-notice { font-size: 1.2rem; margin-top: 15px; color: #fff; font-weight: bold; background: rgba(0,0,0,0.3); display: inline-block; padding: 5px 20px; border-radius: 20px; }
         
-        .container { max-width: 800px; margin: -30px auto 40px; padding: 20px; }
+        .container { max-width: 900px; margin: -40px auto 40px; padding: 20px; }
         
         .exam-card {
             background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border: 3px solid #e0e0e0;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border: 4px solid #fff;
         }
         
-        .q-english { font-size: 1.5rem; font-weight: 900; color: var(--primary-blue); margin-bottom: 5px; direction: ltr; text-align: left; }
-        .q-arabic { font-size: 1.3rem; color: #555; margin-bottom: 20px; direction: rtl; text-align: right; font-weight: 700;}
-        .q-type-badge { display: inline-block; background: var(--secondary-blue); color: white; padding: 5px 15px; border-radius: 20px; font-size: 1rem; margin-bottom: 15px; font-weight: bold;}
+        .q-english { font-size: 1.4rem; font-weight: 700; color: #7f8c8d; margin-bottom: 10px; direction: ltr; text-align: left; font-family: sans-serif; }
+        .q-arabic { font-size: 1.6rem; color: var(--primary-blue); margin-bottom: 25px; direction: rtl; text-align: right; font-weight: 900; line-height: 1.5;}
+        .q-type-badge { display: inline-block; background: var(--secondary-blue); color: white; padding: 8px 20px; border-radius: 25px; font-size: 1rem; margin-bottom: 20px; font-weight: bold;}
 
-        /* MCQ Styles */
+        /* MCQ Options */
         .option-btn {
             display: block;
             width: 100%;
-            padding: 15px 20px;
-            margin: 12px 0;
-            background: #f8f9fa;
-            border: 3px solid #bdc3c7;
-            border-radius: 12px;
+            padding: 18px 25px;
+            margin: 15px 0;
+            background: #fff;
+            border: 3px solid #dee2e6;
+            border-radius: 15px;
             text-align: left;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: bold;
-            font-family: 'Cairo';
             cursor: pointer;
-            transition: 0.2s;
+            transition: 0.3s;
             direction: ltr;
         }
-        .option-btn:hover { background-color: #e1f0fa; border-color: var(--secondary-blue); transform: scale(1.02); }
-        .option-btn.selected { background-color: var(--secondary-blue); color: white; border-color: var(--primary-blue); }
+        .option-btn:hover { border-color: var(--accent-gold); background-color: #fffdf2; transform: translateX(5px); }
+        .option-btn.selected { background-color: var(--primary-blue); color: white; border-color: var(--primary-blue); }
         
-        /* Fill in Blank Styles */
-        .fill-input {
-            width: 100%;
-            padding: 18px;
-            font-size: 1.5rem;
-            text-align: center;
-            border: 3px solid #bdc3c7;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            box-sizing: border-box;
-            font-weight: bold;
-            direction: ltr;
-        }
-        .fill-input:focus { border-color: var(--secondary-blue); outline: none; background: #f0f8ff;}
-
-        .footer-branding { text-align: center; padding: 20px; font-size: 1rem; color: #fff; background: var(--primary-blue); margin-top: 40px; font-weight: bold;}
-        
-        .controls { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; direction: ltr; }
-        .btn-action { padding: 15px 30px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; font-size: 1.2rem; font-family: 'Cairo'; transition: 0.2s;}
-        .btn-action:hover { opacity: 0.9; transform: translateY(-2px); }
-        .btn-next { background: var(--primary-blue); color: white; box-shadow: 0 4px 0 #1a252f; }
-        .btn-audio { background: #27ae60; color: white; box-shadow: 0 4px 0 #219653; }
-        
-        /* Summary Screen */
-        #summary-section { display: none; }
-        .final-result { font-size: 5rem; color: var(--primary-blue); font-weight: 900; text-align: center; margin-bottom: 20px;}
-        .summary-item { background: #fdfdfd; border: 2px solid #eee; border-right: 8px solid #ccc; padding: 15px; margin-bottom: 15px; border-radius: 10px; direction: rtl; text-align: right;}
-        .summary-item.correct { border-right-color: var(--correct-green); }
-        .summary-item.wrong { border-right-color: var(--wrong-red); }
-        .s-q { font-weight: bold; font-size: 1.2rem; margin-bottom: 10px; }
-        .s-ans { display: flex; flex-direction: column; gap: 5px; font-size: 1.1rem; }
-        .u-ans { color: var(--wrong-red); font-weight: bold; }
-        .c-ans { color: var(--correct-green); font-weight: bold; }
-        .u-ans.is-correct { color: var(--correct-green); }
-
-        /* Glossary Section Styles */
+        /* Glossary Section */
         .term-card {
             background: #fff;
-            border: 3px solid #e0e0e0;
-            border-right: 8px solid var(--accent-gold);
-            border-radius: 12px;
-            padding: 20px;
+            border: 2px solid #eee;
+            border-right: 10px solid var(--accent-gold);
+            border-radius: 15px;
+            padding: 25px;
             margin-bottom: 20px;
-            transition: 0.3s;
             direction: rtl;
             text-align: right;
         }
-        .term-card:hover { border-color: var(--secondary-blue); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .t-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px dashed #eee; padding-bottom: 10px; margin-bottom: 15px; }
-        .t-title-en { font-size: 1.4rem; font-weight: 900; color: var(--primary-blue); font-family: sans-serif; direction: ltr; text-align: left;}
-        .t-title-ar { font-size: 1.5rem; color: #d35400; font-weight: 900; }
-        .t-desc-en { font-size: 1.1rem; color: #7f8c8d; margin-bottom: 8px; font-weight: bold; direction: ltr; text-align: left; font-family: sans-serif;}
-        .t-desc-ar { font-size: 1.2rem; color: var(--text-main); font-weight: bold; line-height: 1.6;}
-        .btn-pronounce { background: #f1f2f6; border: none; font-size: 1.8rem; cursor: pointer; border-radius: 50%; width: 50px; height: 50px; transition: 0.2s; }
-        .btn-pronounce:hover { background: #dfe4ea; transform: scale(1.1); }
+        .t-title-ar { font-size: 1.6rem; color: #e67e22; font-weight: 900; margin-bottom: 5px; }
+        .t-title-en { font-size: 1.2rem; color: var(--primary-blue); font-weight: 700; direction: ltr; text-align: left; margin-bottom: 15px; }
+        .t-desc-ar { font-size: 1.25rem; color: #2c3e50; line-height: 1.7; margin-bottom: 10px; font-weight: 600;}
+        
+        .footer-branding { text-align: center; padding: 30px; background: var(--primary-blue); color: white; margin-top: 50px; }
+        
+        .btn-action { padding: 18px 35px; border-radius: 12px; border: none; font-weight: 900; cursor: pointer; font-size: 1.3rem; font-family: 'Cairo'; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .btn-next { background: var(--accent-gold); color: #000; }
+        .btn-next:hover { background: #d4ac0d; transform: scale(1.05); }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>🚀 ملخص ماده عمارة الحاسوب| العب واتعلم</h1>
-    <div class="ip-notice">حاجة بسيطه كده عشان ماتكون ماشي ساي 😎</div>
+    <h1>🇸🇩 مراجعة الكمبيوتر مع "علي دي"</h1>
+    <div class="ip-notice">ركز يا بطل.. المادة دي حقتنا! 😎</div>
 </header>
 
 <div class="container">
     <div class="exam-card">
         
         <div id="intro-section" style="text-align: center;">
-            <h2 style="color: var(--primary-blue); font-size: 2rem;">حبابك! 💻</h2>
-            <p style="font-size: 1.3rem; color: #555; font-weight: bold; line-height: 1.6;">
-                المحتوى ده عشان تفهم الحاصل بس يعني الحاصل في الماده شنو ماخوذ من المودل، <br>
-                <span style="color: var(--wrong-red); font-size: 1.4rem;">🚨 بس خت في بالك يا مكنة: الامتحان الحقيقي حيجيك بالإنجليزي! 🚨</span><br>
-                يعني افهم الشرح هنا، بس ركز شديد وتحفظ المصطلحات بالإنجليزي. جاهز للتحدي؟ 🔥
-            </p>
-            <div style="margin-top: 30px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                <button class="btn-action" style="background: var(--secondary-blue); color: white; box-shadow: 0 4px 0 #2980b9;" onclick="showGlossary()">📖 أضرب لفة في الخلاصة أول</button>
-                <button class="btn-action btn-next" onclick="startExam()">🎮 خش في التحدي طوالي!</button>
+            <h2 style="color: var(--primary-blue); font-size: 2.2rem;">حبابك يا هندسة! 🛠️</h2>
+            <p style="font-size: 1.4rem; font-weight: 600;">الأسئلة دي مأخوذة من ورقة المراجعة الرسمية بتاعتك. حنشرحها ونلعب فيها بالدارجي عشان المعلومة تثبت.</p>
+            <div style="margin-top: 40px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <button class="btn-action" style="background: #fff; color: var(--primary-blue); border: 3px solid var(--primary-blue);" onclick="showGlossary()">📖 أقرا "الزبدة" أول</button>
+                <button class="btn-action btn-next" onclick="startExam()">🎮 أبدى التحدي طوالي!</button>
             </div>
         </div>
 
         <div id="glossary-section" style="display: none;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; direction: rtl;">
-                <h2 style="color: var(--primary-blue); margin: 0; font-size: 1.8rem;">🧠 الزيت كله هنا (احفظ الإنجليزي!):</h2>
-                <button class="btn-action" style="background: var(--wrong-red); color: white; padding: 10px 20px; font-size: 1rem; box-shadow: 0 4px 0 #c0392b;" onclick="hideGlossary()">🔙 ارجع ورا</button>
-            </div>
-            <div id="terms-list">
-                </div>
-        </div>
-
-        <div id="exam-section" style="display: none; direction: rtl;">
-            <div style="display: flex; justify-content: space-between; align-items: center; direction: ltr;">
-                <div id="q-counter" style="font-weight: 900; color: var(--secondary-blue); font-size: 1.4rem;">سؤال 1 / 10</div>
-                <div id="q-badge" class="q-type-badge">اختياري</div>
-            </div>
-            <hr style="opacity: 0.2; margin: 20px 0; border: 2px dashed #ccc;">
-            
-            <div id="question-area" style="direction: ltr;"></div>
-            
-            <div class="controls" style="direction: ltr;">
-                <button class="btn-action btn-audio" id="speak-btn" onclick="readQuestion()">🔊 أسمع السؤال بالإنجليزي</button>
-                <button class="btn-action btn-next" id="next-btn" onclick="processNext()">أرح للبعدو 🚀</button>
+            <h2 style="text-align: center; color: var(--primary-blue); font-size: 2rem; border-bottom: 3px solid var(--accent-gold); padding-bottom: 10px;">🧠 ملخص المادة بالسوداني</h2>
+            <div id="terms-list"></div>
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn-action btn-next" onclick="startExam()">جاهز.. خش في الأسئلة! 🚀</button>
             </div>
         </div>
 
-        <div id="summary-section">
-            <h2 style="text-align: center; color: var(--primary-blue); font-size: 2rem;">🏆 نتيجتك يا مكنة</h2>
-            <div class="final-result" id="res-val">0/10</div>
-            <div id="summary-list"></div>
-            <div style="text-align: center; margin-top: 40px;">
-                <button class="btn-action btn-next" onclick="location.reload()">🔄 العب تاني يا مكنة</button>
+        <div id="exam-section" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div id="q-counter" style="font-weight: 900; color: var(--primary-blue); font-size: 1.5rem;">Question 1 / 8</div>
+                <div id="q-badge" class="q-type-badge">أختار الصح</div>
+            </div>
+            <div id="question-area"></div>
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn-action btn-next" onclick="processNext()">السؤال البعدو ➡</button>
             </div>
         </div>
+
+        <div id="summary-section" style="display: none; text-align: center;">
+            <h2 style="font-size: 2.5rem; color: var(--primary-blue);">🏆 نتيجتك النهائية</h2>
+            <div id="res-val" style="font-size: 5rem; font-weight: 900; color: var(--accent-gold);">0/8</div>
+            <div id="summary-list" style="margin-top: 30px;"></div>
+            <button class="btn-action btn-next" style="margin-top: 30px;" onclick="location.reload()">🔄 مراجعة تانية؟</button>
+        </div>
+
     </div>
 </div>
 
 <footer class="footer-branding">
-    &copy; 2026 ركز يامان ما تعتمد على الملخص ده 😉 | Ali Khalid <br>
-    <span style="font-size: 0.9rem; opacity: 0.8; margin-top: 5px; display: inline-block;">ULK Polytechnic Institute</span>
+    كل التوفيق يا علي دي في دراستك 🎓 <br>
+    <small>Computer Architecture & Hardware Maintenance Revision</small>
 </footer>
 
 <script>
-const bank = [
-    { type: "mcq", en: "Who is 'The Boss' of the computer?", ar: "منو 'المعلم الكبير' البمشي كلامو على كل حاجة؟ 👑", opts: ["Control Unit (CU)", "Screen", "Mouse", "Keyboard"], correctText: "Control Unit (CU)" },
-    { type: "mcq", en: "Which part does all the Math?", ar: "منو 'الشفاتة' البحل كل الحسابات؟ 🧮", opts: ["Arithmetic Logic Unit (ALU)", "Hard Disk", "Battery", "Camera"], correctText: "Arithmetic Logic Unit (ALU)" },
-    { type: "mcq", en: "Which storage is FASTER because it has NO moving parts?", ar: "ياتو مخزن 'طلقة' عشان ما فيهو أجزاء بتتحرك جوة؟ 🚀", opts: ["SSD", "HDD (Hard Disk)", "CD-ROM", "Floppy Disk"], correctText: "SSD" },
-    { type: "mcq", en: "Which memory FORGETS everything when power is off?", ar: "ياتي ذاكرة شغالة كويس بس 'بتطير' منها الحاجات أول ما الكهربا تقطع؟ ⚡", opts: ["RAM (Primary)", "ROM", "Hard Disk", "Flash Memory"], correctText: "RAM (Primary)" },
-    { type: "mcq", en: "What are the SUPER FAST, tiny memories inside the CPU?", ar: "شنو هي 'الجيوب الصغيرة السريعة طلقة' الجوة المعالج ذاتو؟ 🏃‍♂️", opts: ["Registers", "RAM", "Monitor", "USB Cable"], correctText: "Registers" },
-    
-    { type: "def", en: "What does 'Cache Memory' do?", ar: "ذاكرة الـ Cache دي لازمتها شنو؟ 🤔", opts: ["Keeps things ready and fast for the CPU 🏎️", "Prints paper 🖨️", "Plays music 🎵", "Connects to Wi-Fi 📶"], correctText: "Keeps things ready and fast for the CPU 🏎️" },
-    { type: "def", en: "What is a 'System Bus'?", ar: "الـ System Bus (ناقل النظام) ده بيعمل شنو؟ 🚌", opts: ["Wires that transfer data between parts ⚡", "A game you play 🎮", "The laptop charger 🔌", "The mouse pad 🖱️"], correctText: "Wires that transfer data between parts ⚡" },
-    
-    { type: "fill", en: "Type: ROM", ar: "الذاكرة المابتنسى ومكتوب فيها تعليمات التشغيل اسمها شنو؟ (أكتب ROM بالإنجليزي) 🛡️", correctText: "rom", accepted: ["rom", "r.o.m"] },
-    { type: "fill", en: "Type: RAM", ar: "الذاكرة البتنسى أي حاجة لو فصلت الفيشة اسمها شنو؟ (أكتب RAM بالإنجليزي) 🧠", correctText: "ram", accepted: ["ram", "r.a.m"] },
-    { type: "fill", en: "Type: SSD", ar: "الهارد السريع شديد الما فيهو إبرة بتتحرك ده شنو؟ (أكتب SSD بالإنجليزي) 🚀", correctText: "ssd", accepted: ["ssd", "s.s.d"] }
+const revisionBank = [
+    {
+        en: "What is the primary role of an Operating System (OS)?",
+        ar: "نظام التشغيل (OS) ده أساساً شغال شنو في الكمبيوتر؟ 🤔",
+        opts: ["Connecting hardware and user", "Printing photos", "Increasing internet speed", "Cleaning dust"],
+        correct: "Connecting hardware and user"
+    },
+    {
+        en: "What is the function of the 'Address Bus'?",
+        ar: "الـ Address Bus ده شايل شنو في جيبو وهو ماشي؟ 🚌",
+        opts: ["Actual data", "Memory locations (Addresses)", "Power signals", "Sound files"],
+        correct: "Memory locations (Addresses)"
+    },
+    {
+        en: "Why do we use expansion slots on a motherboard?",
+        ar: "فتحات التوسعة (Expansion Slots) دي فايدتها شنو في اللوحة الأم؟ 🔌",
+        opts: ["Adding more features (e.g. Graphics card)", "Cooling the CPU", "Storing permanent files", "Connecting the power cable"],
+        correct: "Adding more features (e.g. Graphics card)"
+    },
+    {
+        en: "What happens during 'Hard Disk Partitioning'?",
+        ar: "لما نقول بنعمل 'Partitioning' للهاردسك، قاصدين شنو؟ 🗄️",
+        opts: ["Dividing space into logical sections", "Deleting all files forever", "Increasing physical storage", "Changing the disk color"],
+        correct: "Dividing space into logical sections"
+    },
+    {
+        en: "Which safety tool protects hardware from static electricity?",
+        ar: "أهم حاجة بتلبسها في يدك عشان تحمي القطع من الكهرباء الساكنة هي شنو؟ ⚡",
+        opts: ["Anti-static wrist strap", "Rubber gloves", "Plastic watch", "Silver ring"],
+        correct: "Anti-static wrist strap"
+    },
+    {
+        en: "What is a 'Device Driver'?",
+        ar: "الـ Device Driver (التعريف) ده لازمتو شنو في الحياة؟ 🛠️",
+        opts: ["Translator between OS and hardware", "A program to play games", "Hardware cleaning tool", "External storage"],
+        correct: "Translator between OS and hardware"
+    },
+    {
+        en: "Why upgrade to an SSD from an HDD?",
+        ar: "ليه الناس هسي بقت تغير الهاردسك القديم بـ SSD؟ 🚀",
+        opts: ["Faster data access speed", "It makes the monitor bigger", "It works without electricity", "It is cheaper"],
+        correct: "Faster data access speed"
+    },
+    {
+        en: "What does the PSU do in a computer?",
+        ar: "مزود الطاقة (PSU) ده وظيفتو الأساسية شنو؟ 🔌",
+        opts: ["Converts electricity for components", "Calculates math problems", "Saves movies", "Connects to Wi-Fi"],
+        correct: "Converts electricity for components"
+    }
 ];
 
-let activeQ = [];
-let current = 0;
+const glossary = [
+    {
+        arT: "نظام التشغيل (OS) 💻", enT: "Operating System",
+        arD: "هو 'الريس' بتاع الجهاز، حلقة الوصل البتخليك تقدر تستعمل الهاردوير بدون ما تتعب.",
+        enD: "The bridge between the user and the computer hardware."
+    },
+    {
+        arT: "النواقل (Buses) 🚌", enT: "Data, Address & Control Buses",
+        arD: "دي المواسير البتنقل البيانات (Data)، والعناوين (Address)، وأوامر التحكم (Control) بين القطع.",
+        enD: "Communication pathways that transfer data and signals between components."
+    },
+    {
+        arT: "ترقية الهاردوير 🚀", enT: "Hardware Upgrading",
+        arD: "إنك تبدل قطعة قديمة بجديدة (زي زيادة الرام أو تركيب SSD) عشان الجهاز يبقى 'صاروخ'.",
+        enD: "Replacing old components with newer ones to enhance performance."
+    },
+    {
+        arT: "الصيانة الوقائية 🛠️", enT: "Maintenance & Safety",
+        arD: "أهم حاجة تلبس الـ Anti-static strap وتفصل الكهرباء عشان ما تحرق القطع ولا تتكهرب.",
+        enD: "Safety measures like using wrist straps to prevent ESD damage."
+    }
+];
+
+let currentQ = 0;
 let score = 0;
-let userSelectionText = ""; 
-let summaryData = [];
-
-const glossaryTerms = [
-    { enTerm: "Control Unit (CU)", arTerm: "المعلم الكبير 👑", enDesc: "The Boss. Gives orders to the computer.", arDesc: "ده المعلم! هو البدي الأوامر لأي قطعة في الكمبيوتر وبوريهم يشتغلوا كيف ومتين." },
-    { enTerm: "ALU", arTerm: "الشفاتة بتاع الحسابات 🧮", enDesc: "Math Brain. Does all calculations.", arDesc: "دي الآلة الحاسبة الذكية حقت الجهاز، بحسب وبقارن بسرعة خيالية." },
-    { enTerm: "Registers", arTerm: "الجيوب السريعة ⚡", enDesc: "Super fast, tiny memory inside CPU.", arDesc: "دي جيوب المعالج السريعة طلقة، بخت فيها الحاجات الشغال بيها هسي عشان ينجز." },
-    { enTerm: "RAM", arTerm: "الذاكرة النشيطة (بس بتنسى) 🧠", enDesc: "Memory for open apps. Forgets without power.", arDesc: "دي البتشغل برامجك هسي، بس عيبها إنها بتطير أي حاجة لو الكهربا قطعت!" },
-    { enTerm: "Storage (HDD/SSD)", arTerm: "المخزن الكبير 🗄️", enDesc: "Keeps files safe forever.", arDesc: "ده المخزن البنشيل فيهو ملفاتك وألعابك، ومابنسى حاجة حتى لو قفلت الجهاز. وطبعاً الـ SSD طلقة مقارنة بالـ HDD." },
-    { enTerm: "Cache Memory", arTerm: "المساعد السريع 🚀", enDesc: "Keeps things ready for the CPU.", arDesc: "ده المساعد البجهز الشغل للمدير بسرعة عشان ما يضيع ليهو زمنو." }
-];
+let userSelection = "";
 
 function showGlossary() {
     document.getElementById('intro-section').style.display = 'none';
     document.getElementById('glossary-section').style.display = 'block';
-    
-    let termsHTML = "";
-    glossaryTerms.forEach((term) => {
-        termsHTML += `
+    let html = "";
+    glossary.forEach(item => {
+        html += `
             <div class="term-card">
-                <div class="t-header">
-                    <button class="btn-pronounce" onclick="speakTerm('${term.enTerm.replace(/'/g, "\\'")}')" title="اسمع النطق">🔊</button>
-                    <div style="text-align: right;">
-                        <div class="t-title-ar">${term.arTerm}</div>
-                        <div class="t-title-en">${term.enTerm}</div>
-                    </div>
-                </div>
-                <div class="t-desc-ar">${term.arDesc}</div>
-                <div class="t-desc-en">${term.enDesc}</div>
+                <div class="t-title-ar">${item.arT}</div>
+                <div class="t-title-en">${item.enT}</div>
+                <div class="t-desc-ar">${item.arD}</div>
+                <div style="direction: ltr; text-align: left; color: #7f8c8d; font-family: sans-serif;">${item.enD}</div>
             </div>
         `;
     });
-    document.getElementById('terms-list').innerHTML = termsHTML;
-}
-
-function hideGlossary() {
-    document.getElementById('glossary-section').style.display = 'none';
-    document.getElementById('intro-section').style.display = 'block';
-    window.speechSynthesis.cancel();
-}
-
-function speakTerm(text) {
-    window.speechSynthesis.cancel();
-    const speech = new SpeechSynthesisUtterance(text);
-    speech.lang = 'en-US';
-    speech.rate = 0.8;
-    window.speechSynthesis.speak(speech);
+    document.getElementById('terms-list').innerHTML = html;
 }
 
 function startExam() {
-    activeQ = bank.sort(() => 0.5 - Math.random()).slice(0, 10);
     document.getElementById('intro-section').style.display = 'none';
     document.getElementById('glossary-section').style.display = 'none';
     document.getElementById('exam-section').style.display = 'block';
-    showQ();
+    renderQuestion();
 }
 
-function showQ() {
-    const data = activeQ[current];
-    document.getElementById('q-counter').innerText = `سؤال ${current + 1} من 10`;
-    
-    let typeLabel = data.type === 'mcq' ? 'عاين واختار 👇' : (data.type === 'def' ? 'ركز هنا 👇' : 'أكتبها هنا ⌨️');
-    document.getElementById('q-badge').innerText = typeLabel;
-    document.getElementById('q-badge').style.backgroundColor = data.type === 'fill' ? '#e67e22' : 'var(--secondary-blue)';
-
+function renderQuestion() {
+    const q = revisionBank[currentQ];
+    document.getElementById('q-counter').innerText = `سؤال ${currentQ + 1} من ${revisionBank.length}`;
     let html = `
-        <div class="q-arabic">${data.ar}</div>
-        <div class="q-english">${data.en}</div>
-        <div id="options-container" style="margin-top: 25px; direction: ltr;">
+        <div class="q-arabic">${q.ar}</div>
+        <div class="q-english">${q.en}</div>
+        <div id="options">
+            ${q.opts.map(opt => `<button class="option-btn" onclick="selectOpt(this, '${opt}')">${opt}</button>`).join('')}
+        </div>
     `;
-
-    if (data.type === 'mcq' || data.type === 'def') {
-        html += data.opts.map((o) => `<button class="option-btn" onclick="selectMCQ(this, '${o.replace(/'/g, "\\'")}')">${o}</button>`).join('');
-    } else if (data.type === 'fill') {
-        html += `<input type="text" id="fill-input" class="fill-input" placeholder="... أكتب هنا بالإنجليزي ..." autocomplete="off" onkeyup="selectFill(this.value)">`;
-    }
-    
-    html += `</div>`;
     document.getElementById('question-area').innerHTML = html;
-    userSelectionText = ""; 
+    userSelection = "";
 }
 
-function selectMCQ(element, answerText) {
-    userSelectionText = answerText;
+function selectOpt(btn, val) {
+    userSelection = val;
     document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
-    element.classList.add('selected');
-}
-
-function selectFill(val) {
-    userSelectionText = val.trim();
+    btn.classList.add('selected');
 }
 
 function processNext() {
-    const data = activeQ[current];
+    if(!userSelection) return alert("يا علي دي، أختار إجابة أول يا هندسة! 😂");
     
-    if (data.type === 'fill') {
-        let inputEl = document.getElementById('fill-input');
-        if(inputEl) userSelectionText = inputEl.value.trim();
-    }
-
-    if (!userSelectionText || userSelectionText === "") {
-        return alert("يا مكنة ركز! لازم تختار أو تكتب إجابة قبل ما نمشي للبعدو 😉");
-    }
-
-    let isCorrect = false;
-    if (data.type === 'fill') {
-        let lowerAns = userSelectionText.toLowerCase();
-        isCorrect = data.accepted.includes(lowerAns);
-    } else {
-        isCorrect = (userSelectionText === data.correctText);
-    }
-
-    if (isCorrect) score++;
-
-    summaryData.push({
-        questionAr: data.ar,
-        userAns: userSelectionText,
-        correctAns: data.correctText,
-        isCorrect: isCorrect
-    });
+    if(userSelection === revisionBank[currentQ].correct) score++;
     
-    current++;
-    if (current < 10) {
-        showQ();
-        window.speechSynthesis.cancel();
+    currentQ++;
+    if(currentQ < revisionBank.length) {
+        renderQuestion();
     } else {
-        showSummary();
+        showFinal();
     }
 }
 
-function showSummary() {
+function showFinal() {
     document.getElementById('exam-section').style.display = 'none';
     document.getElementById('summary-section').style.display = 'block';
-    
-    let resMsg = score >= 8 ? "🔥 يا مكنة إنت خطير ومقفل اللعبة!" : (score >= 5 ? "😎 شغل نضيف والله!" : "😅 محتاج تراجع الزيت وتجي راجع يا مكنة!");
-    document.getElementById('res-val').innerHTML = `${score}/10 <br><span style="font-size: 2rem; color: #555;">${resMsg}</span>`;
-
-    let summaryHTML = "";
-    summaryData.forEach((item, index) => {
-        let statusClass = item.isCorrect ? "correct" : "wrong";
-        let uClass = item.isCorrect ? "is-correct" : "";
-        let icon = item.isCorrect ? "✅ صاح" : "❌ غلط";
-        
-        summaryHTML += `
-            <div class="summary-item ${statusClass}">
-                <div class="s-q">${index + 1}. ${item.questionAr}</div>
-                <div class="s-ans">
-                    <div>إجابتك: <span class="u-ans ${uClass}" style="direction: ltr; display: inline-block;">${item.userAns}</span> ${icon}</div>
-                    ${!item.isCorrect ? `<div>الصح هو: <span class="c-ans" style="direction: ltr; display: inline-block;">${item.correctAns}</span></div>` : ''}
-                </div>
-            </div>
-        `;
-    });
-    
-    document.getElementById('summary-list').innerHTML = summaryHTML;
-}
-
-function readQuestion() {
-    window.speechSynthesis.cancel();
-    const q = activeQ[current];
-    let speechText = q.en;
-    if(q.type === 'fill') {
-        speechText = speechText.replace(/Type:/g, "Type");
-    }
-    const speech = new SpeechSynthesisUtterance(speechText);
-    speech.lang = 'en-US'; 
-    speech.rate = 0.8;
-    window.speechSynthesis.speak(speech);
+    document.getElementById('res-val').innerText = `${score} / ${revisionBank.length}`;
 }
 </script>
 </body>
