@@ -3,285 +3,661 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مراجعة معمارية الحاسوب | علي دي 💻</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-blue: #1a2a6c;
-            --secondary-blue: #2a4858;
-            --accent-gold: #f1c40f;
-            --bg-light: #f4f7f6;
-            --text-main: #2c3e50;
-            --correct-green: #27ae60;
-            --wrong-red: #c0392b;
+    <title>منصة التعلم الذكي | معمارية الحاسوب G10</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e3a8a', // أزرق داكن
+                        secondary: '#3b82f6', // أزرق فاتح
+                        accent: '#f59e0b', // برتقالي/ذهبي للتنبيهات
+                        darkBg: '#0f172a',
+                        lightBg: '#f8fafc',
+                    },
+                    fontFamily: {
+                        arabic: ['Cairo', 'sans-serif'],
+                        english: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
         }
+    </script>
+
+    <style>
+        /* التنسيقات العامة */
         body {
             font-family: 'Cairo', sans-serif;
-            background-color: var(--bg-light);
-            margin: 0;
-            padding: 0;
-            color: var(--text-main);
+            background-color: #f8fafc;
+            color: #334155;
+            scroll-behavior: smooth;
         }
-        header {
-            background: linear-gradient(to right, #b21f1f, #fdbb2d, #1a2a6c);
-            color: white;
-            padding: 3rem 1rem;
-            text-align: center;
-            border-bottom: 8px solid var(--accent-gold);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-        header h1 { margin: 0; font-size: 2.8rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-        .ip-notice { font-size: 1.2rem; margin-top: 15px; color: #fff; font-weight: bold; background: rgba(0,0,0,0.3); display: inline-block; padding: 5px 20px; border-radius: 20px; }
-        
-        .container { max-width: 900px; margin: -40px auto 40px; padding: 20px; }
-        
-        .exam-card {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-            border: 4px solid #fff;
-        }
-        
-        .q-english { font-size: 1.4rem; font-weight: 700; color: #7f8c8d; margin-bottom: 10px; direction: ltr; text-align: left; font-family: sans-serif; }
-        .q-arabic { font-size: 1.6rem; color: var(--primary-blue); margin-bottom: 25px; direction: rtl; text-align: right; font-weight: 900; line-height: 1.5;}
-        .q-type-badge { display: inline-block; background: var(--secondary-blue); color: white; padding: 8px 20px; border-radius: 25px; font-size: 1rem; margin-bottom: 20px; font-weight: bold;}
 
-        /* MCQ Options */
-        .option-btn {
-            display: block;
-            width: 100%;
-            padding: 18px 25px;
-            margin: 15px 0;
-            background: #fff;
-            border: 3px solid #dee2e6;
-            border-radius: 15px;
-            text-align: left;
-            font-size: 1.3rem;
-            font-weight: bold;
+        /* تنسيق العلامة المائية */
+        .watermark {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            font-size: 0.85rem;
+            color: rgba(100, 116, 139, 0.6);
+            z-index: 1000;
+            pointer-events: none;
+            font-weight: 800;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 5px 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* تأثيرات النصوص القابلة للنطق (Smart Speech) */
+        .speakable {
+            position: relative;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s ease;
+            border-bottom: 2px dashed #cbd5e1;
+            padding-bottom: 2px;
+        }
+        .speakable:hover {
+            background-color: #dbeafe;
+            color: #1d4ed8;
+            border-bottom-color: #1d4ed8;
+            border-radius: 4px;
+        }
+        .speakable::after {
+            content: "🔊 أنقر للاستماع";
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e3a8a;
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+        }
+        .speakable-en::after {
+            content: "🔊 Click to listen";
+        }
+        .speakable:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* تخصيص اللغة الإنجليزية */
+        .lang-en {
+            font-family: 'Poppins', sans-serif;
             direction: ltr;
+            text-align: left;
         }
-        .option-btn:hover { border-color: var(--accent-gold); background-color: #fffdf2; transform: translateX(5px); }
-        .option-btn.selected { background-color: var(--primary-blue); color: white; border-color: var(--primary-blue); }
-        
-        /* Glossary Section */
-        .term-card {
-            background: #fff;
-            border: 2px solid #eee;
-            border-right: 10px solid var(--accent-gold);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 20px;
-            direction: rtl;
+
+        /* تأثيرات البطاقات */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            border-radius: 1rem;
+            transition: transform 0.3s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* أزرار الخيارات في الاختبار */
+        .quiz-option {
+            width: 100%;
             text-align: right;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.75rem;
+            background-color: white;
+            transition: all 0.2s;
+            font-weight: 600;
         }
-        .t-title-ar { font-size: 1.6rem; color: #e67e22; font-weight: 900; margin-bottom: 5px; }
-        .t-title-en { font-size: 1.2rem; color: var(--primary-blue); font-weight: 700; direction: ltr; text-align: left; margin-bottom: 15px; }
-        .t-desc-ar { font-size: 1.25rem; color: #2c3e50; line-height: 1.7; margin-bottom: 10px; font-weight: 600;}
-        
-        .footer-branding { text-align: center; padding: 30px; background: var(--primary-blue); color: white; margin-top: 50px; }
-        
-        .btn-action { padding: 18px 35px; border-radius: 12px; border: none; font-weight: 900; cursor: pointer; font-size: 1.3rem; font-family: 'Cairo'; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        .btn-next { background: var(--accent-gold); color: #000; }
-        .btn-next:hover { background: #d4ac0d; transform: scale(1.05); }
+        .quiz-option:hover {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+        .quiz-option.selected {
+            border-color: #1e3a8a;
+            background-color: #1e3a8a;
+            color: white;
+        }
+
+        /* تنسيقات تقرير الاختبار النهائي */
+        .report-item {
+            border-right: 4px solid #f59e0b;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+            background-color: #fffbeb;
+            border-radius: 0.5rem;
+        }
+        .report-item.correct {
+            border-right-color: #10b981;
+            background-color: #ecfdf5;
+        }
+        .report-item.wrong {
+            border-right-color: #ef4444;
+            background-color: #fef2f2;
+        }
+
+        /* تأثير تحميل بسيط للاختبار */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
-<body>
+<body class="antialiased">
 
-<header>
-    <h1>🇸🇩 مراجعة الكمبيوتر مع "علي دي"</h1>
-    <div class="ip-notice">ركز يا بطل.. المادة دي حقتنا! 😎</div>
-</header>
+    <div class="watermark">تطوير: علي خالد</div>
 
-<div class="container">
-    <div class="exam-card">
+    <header class="bg-primary text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center flex-wrap">
+            <div class="flex items-center gap-3">
+                <span class="text-3xl">💻</span>
+                <h1 class="text-2xl font-bold tracking-wide">أكاديمية الحاسوب G10</h1>
+            </div>
+            <nav class="mt-4 md:mt-0 flex gap-6 font-semibold">
+                <a href="#study-section" class="hover:text-secondary transition">شرح المادة</a>
+                <a href="#quiz-section" class="hover:text-secondary transition">اختبر نفسك</a>
+                <a href="#qa-section" class="hover:text-secondary transition">اسأل المعلم</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="bg-gradient-to-b from-primary to-secondary text-white py-20 text-center">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl md:text-5xl font-extrabold mb-6">مرحباً بك في مقرر معمارية الحاسوب</h2>
+            <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8 text-blue-100">
+                استكشف المكونات المادية للحاسوب، أنظمة التشغيل، والصيانة. اضغط على أي نص لسماع النطق الذكي!
+            </p>
+            <a href="#study-section" class="bg-accent text-darkBg px-8 py-3 rounded-full font-bold text-lg hover:bg-yellow-400 transition shadow-lg inline-block">
+                ابدأ التعلم الآن 🚀
+            </a>
+        </div>
+    </section>
+
+    <main class="container mx-auto px-4 py-12" id="study-section">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-primary inline-block relative border-b-4 border-accent pb-2">
+                نظام الشرح الذكي المتزامن
+            </h2>
+            <p class="mt-4 text-gray-600">اقرأ الشرح باللغة العربية، وقابله بالمصطلحات الإنجليزية المبسطة. (اضغط للاستماع)</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <div class="glass-card p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold text-primary">نظام التشغيل (OS)</h3>
+                    <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">Concept 1</span>
+                </div>
+                <div class="space-y-4">
+                    <p class="text-lg leading-relaxed speakable" onclick="speakAr(this.innerText)">
+                        نظام التشغيل هو البرنامج الأساسي الذي يدير موارد الحاسوب. تتمثل مسؤولياته الأساسية في توفير واجهة للمستخدم، وإدارة الذاكرة، والتحكم في الأجهزة الملحقة.
+                    </p>
+                    <hr class="border-gray-200">
+                    <div class="lang-en text-gray-600">
+                        <p class="speakable speakable-en" onclick="speakEn(this.innerText)">
+                            An Operating System (OS) manages computer hardware. Its primary responsibilities include user interface, memory management, and device control.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold text-primary">النواقل (System Buses)</h3>
+                    <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">Concept 2</span>
+                </div>
+                <div class="space-y-4">
+                    <p class="text-lg leading-relaxed speakable" onclick="speakAr(this.innerText)">
+                        تنقسم النواقل إلى ثلاثة أنواع: ناقل البيانات لنقل المعلومات، ناقل العناوين لتحديد مكان الذاكرة، وناقل التحكم لإرسال إشارات الأوامر بين القطع.
+                    </p>
+                    <hr class="border-gray-200">
+                    <div class="lang-en text-gray-600">
+                        <p class="speakable speakable-en" onclick="speakEn(this.innerText)">
+                            Buses are divided into three types: Data Bus for information, Address Bus for memory locations, and Control Bus for command signals.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold text-primary">ترقية المكونات (Upgrading)</h3>
+                    <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">Concept 3</span>
+                </div>
+                <div class="space-y-4">
+                    <p class="text-lg leading-relaxed speakable" onclick="speakAr(this.innerText)">
+                        ترقية الهاردوير مثل زيادة حجم الرام أو استخدام قرص SSD يحسن من سرعة النظام وكفاءته بشكل كبير ويقلل من أوقات التحميل.
+                    </p>
+                    <hr class="border-gray-200">
+                    <div class="lang-en text-gray-600">
+                        <p class="speakable speakable-en" onclick="speakEn(this.innerText)">
+                            Hardware upgrading, like increasing RAM or using an SSD, highly improves system speed, efficiency, and reduces loading times.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold text-primary">الحماية الكهربائية (Safety)</h3>
+                    <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">Concept 4</span>
+                </div>
+                <div class="space-y-4">
+                    <p class="text-lg leading-relaxed speakable" onclick="speakAr(this.innerText)">
+                        أثناء الصيانة، يجب على الفني استخدام سوار المعصم المضاد للكهرباء الساكنة لمنع تلف القطع الإلكترونية الحساسة.
+                    </p>
+                    <hr class="border-gray-200">
+                    <div class="lang-en text-gray-600">
+                        <p class="speakable speakable-en" onclick="speakEn(this.innerText)">
+                            During maintenance, technicians must use an anti-static wrist strap to prevent damage to sensitive electronic components.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <section class="bg-gray-100 py-16 border-t border-gray-200" id="quiz-section">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-primary">اختبار القدرات (Quiz)</h2>
+                <p class="mt-2 text-gray-600">اختبر معلوماتك بناءً على ما تعلمته. سيظهر تقرير مفصل بأخطائك في النهاية.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100" id="quiz-container">
+                
+                <div id="quiz-intro" class="text-center fade-in">
+                    <div class="text-5xl mb-4">📝</div>
+                    <h3 class="text-2xl font-bold mb-4">اختبار معمارية الحاسوب الشامل</h3>
+                    <p class="text-gray-600 mb-6">يحتوي الاختبار على 5 أسئلة اختيار من متعدد. ركز جيداً!</p>
+                    <button onclick="startQuiz()" class="bg-primary text-white px-8 py-3 rounded-xl font-bold hover:bg-blue-800 transition shadow-md w-full md:w-auto">
+                        ابدأ الاختبار الآن
+                    </button>
+                </div>
+
+                <div id="quiz-active" class="hidden fade-in">
+                    <div class="flex justify-between items-center mb-6">
+                        <span id="question-counter" class="text-sm font-bold text-gray-500 bg-gray-100 px-3 py-1 rounded-full">السؤال 1 / 5</span>
+                        <div class="w-1/2 bg-gray-200 rounded-full h-2">
+                            <div id="progress-bar" class="bg-secondary h-2 rounded-full transition-all duration-300" style="width: 20%"></div>
+                        </div>
+                    </div>
+                    
+                    <h3 id="question-text" class="text-xl font-bold text-gray-800 mb-2">نص السؤال هنا؟</h3>
+                    <p id="question-text-en" class="text-sm text-gray-500 mb-6 lang-en">English text here</p>
+                    
+                    <div id="options-container" class="space-y-3">
+                        </div>
+                    
+                    <div class="mt-8 text-left">
+                        <button id="next-btn" onclick="nextQuestion()" class="bg-secondary text-white px-8 py-3 rounded-xl font-bold hover:bg-blue-600 transition shadow-md hidden">
+                            التالي ⟸
+                        </button>
+                    </div>
+                </div>
+
+                <div id="quiz-result" class="hidden fade-in">
+                    <div class="text-center mb-8">
+                        <h3 class="text-3xl font-bold text-primary mb-2">النتيجة النهائية</h3>
+                        <div class="text-5xl font-extrabold text-accent mb-4" id="final-score">0/5</div>
+                        <p id="result-message" class="text-lg font-bold text-gray-700"></p>
+                    </div>
+                    
+                    <h4 class="text-xl font-bold mb-4 border-b pb-2">تقرير الأداء والتصحيح:</h4>
+                    <div id="report-container" class="space-y-4">
+                        </div>
+                    
+                    <div class="mt-8 text-center">
+                        <button onclick="resetQuiz()" class="bg-gray-800 text-white px-8 py-3 rounded-xl font-bold hover:bg-gray-900 transition">
+                            إعادة الاختبار 🔄
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-white" id="qa-section">
+        <div class="container mx-auto px-4 max-w-2xl">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-primary">اسأل المعلم 💬</h2>
+                <p class="mt-2 text-gray-600">هل واجهتك صعوبة في فهم جزئية معينة؟ اترك سؤالك هنا.</p>
+            </div>
+            
+            <form id="qa-form" class="bg-gray-50 p-8 rounded-2xl border border-gray-200 shadow-sm">
+                <div class="mb-4">
+                    <label for="student-name" class="block text-gray-700 font-bold mb-2">الاسم الثلاثي:</label>
+                    <input type="text" id="student-name" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition">
+                </div>
+                <div class="mb-6">
+                    <label for="student-question" class="block text-gray-700 font-bold mb-2">سؤالك بالتفصيل:</label>
+                    <textarea id="student-question" rows="4" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition resize-none" placeholder="اكتب سؤالك هنا..."></textarea>
+                </div>
+                <button type="submit" class="w-full bg-primary text-white font-bold py-3 rounded-lg hover:bg-blue-800 transition shadow-md">
+                    إرسال السؤال 📤
+                </button>
+                <div id="form-success" class="hidden mt-4 bg-green-100 text-green-800 p-3 rounded-lg text-center font-bold">
+                    تم إرسال سؤالك بنجاح! سيتم الرد عليك قريباً.
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer class="bg-darkBg text-gray-400 py-8 border-t border-gray-800">
+        <div class="container mx-auto px-4 text-center">
+            <p class="mb-2">© 2026 أكاديمية الحاسوب G10. جميع الحقوق محفوظة.</p>
+            <p class="text-sm">تم تصميم هذه المنصة خصيصاً لتبسيط مفاهيم معمارية الحاسوب والصيانة.</p>
+        </div>
+    </footer>
+
+    <script>
+        /**
+         * ==========================================
+         * 1. Smart Pronunciation System (Web Speech API)
+         * ==========================================
+         */
         
-        <div id="intro-section" style="text-align: center;">
-            <h2 style="color: var(--primary-blue); font-size: 2.2rem;">حبابك يا هندسة! 🛠️</h2>
-            <p style="font-size: 1.4rem; font-weight: 600;">الأسئلة دي مأخوذة من ورقة المراجعة الرسمية بتاعتك. حنشرحها ونلعب فيها بالدارجي عشان المعلومة تثبت.</p>
-            <div style="margin-top: 40px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                <button class="btn-action" style="background: #fff; color: var(--primary-blue); border: 3px solid var(--primary-blue);" onclick="showGlossary()">📖 أقرا "الزبدة" أول</button>
-                <button class="btn-action btn-next" onclick="startExam()">🎮 أبدى التحدي طوالي!</button>
-            </div>
-        </div>
+        // التحقق من دعم المتصفح لميزة النطق
+        const synth = window.speechSynthesis;
 
-        <div id="glossary-section" style="display: none;">
-            <h2 style="text-align: center; color: var(--primary-blue); font-size: 2rem; border-bottom: 3px solid var(--accent-gold); padding-bottom: 10px;">🧠 ملخص المادة بالسوداني</h2>
-            <div id="terms-list"></div>
-            <div style="text-align: center; margin-top: 30px;">
-                <button class="btn-action btn-next" onclick="startExam()">جاهز.. خش في الأسئلة! 🚀</button>
-            </div>
-        </div>
+        // دالة نطق النص العربي
+        const speakAr = (text) => {
+            if (synth.speaking) { synth.cancel(); } // إيقاف أي نطق سابق
+            const utterance = new SpeechSynthesisUtterance(text.replace('🔊 أنقر للاستماع', '').trim());
+            utterance.lang = 'ar-SA';
+            utterance.rate = 0.85; // سرعة متوسطة مريحة للطلاب (Medium Speed)
+            utterance.pitch = 1;
+            synth.speak(utterance);
+        };
 
-        <div id="exam-section" style="display: none;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <div id="q-counter" style="font-weight: 900; color: var(--primary-blue); font-size: 1.5rem;">Question 1 / 8</div>
-                <div id="q-badge" class="q-type-badge">أختار الصح</div>
-            </div>
-            <div id="question-area"></div>
-            <div style="text-align: center; margin-top: 30px;">
-                <button class="btn-action btn-next" onclick="processNext()">السؤال البعدو ➡</button>
-            </div>
-        </div>
+        // دالة نطق النص الإنجليزي
+        const speakEn = (text) => {
+            if (synth.speaking) { synth.cancel(); }
+            const utterance = new SpeechSynthesisUtterance(text.replace('🔊 Click to listen', '').trim());
+            utterance.lang = 'en-US';
+            utterance.rate = 0.8; // سرعة متوسطة للغة الإنجليزية
+            utterance.pitch = 1;
+            synth.speak(utterance);
+        };
 
-        <div id="summary-section" style="display: none; text-align: center;">
-            <h2 style="font-size: 2.5rem; color: var(--primary-blue);">🏆 نتيجتك النهائية</h2>
-            <div id="res-val" style="font-size: 5rem; font-weight: 900; color: var(--accent-gold);">0/8</div>
-            <div id="summary-list" style="margin-top: 30px;"></div>
-            <button class="btn-action btn-next" style="margin-top: 30px;" onclick="location.reload()">🔄 مراجعة تانية؟</button>
-        </div>
+        /**
+         * ==========================================
+         * 2. Interactive Quiz System
+         * ==========================================
+         */
 
-    </div>
-</div>
+        // بنك الأسئلة مبني على ملف FAT_REVISION المستهدف
+        const quizData = [
+            {
+                questionAr: "ما هو الدور الأساسي لمزود الطاقة (PSU) في الحاسوب؟",
+                questionEn: "What is the primary role of a Power Supply Unit (PSU)?",
+                options: [
+                    "معالجة البيانات والرسوميات",
+                    "تخزين الملفات بشكل دائم",
+                    "تحويل الكهرباء لدعم عمل مكونات الحاسوب",
+                    "تبريد المعالج المركزي"
+                ],
+                correctIndex: 2,
+                explanation: "مزود الطاقة (PSU) يقوم بتحويل التيار المتردد (AC) من المقبس إلى تيار مستمر (DC) لدعم تشغيل قطع الحاسوب المختلفة بشكل آمن."
+            },
+            {
+                questionAr: "لماذا نقوم بعملية تقسيم (Partitioning) لوسائط التخزين؟",
+                questionEn: "Why do we partition storage media?",
+                options: [
+                    "لتنظيم المساحة إلى أقسام منطقية قبل تنزيل نظام التشغيل",
+                    "لزيادة السعة الفيزيائية للقرص الصلب",
+                    "لحذف الفيروسات من الجهاز نهائياً",
+                    "لتسريع سرعة الإنترنت"
+                ],
+                correctIndex: 0,
+                explanation: "عملية التقسيم (Partitioning) والتهيئة (Formatting) ضرورية لإنشاء قطاعات منطقية تسمح لنظام التشغيل بإدارة وتخزين الملفات بفعالية."
+            },
+            {
+                questionAr: "أي من التالي يعتبر من إجراءات الحماية الكهربائية للفنيين؟",
+                questionEn: "Which of the following is an electrical protection measure for technicians?",
+                options: [
+                    "ارتداء قفازات صوفية",
+                    "استخدام سوار المعصم المضاد للكهرباء الساكنة",
+                    "تنظيف اللوحة الأم بالماء",
+                    "إبقاء الحاسوب متصلاً بالكهرباء أثناء الصيانة"
+                ],
+                correctIndex: 1,
+                explanation: "سوار المعصم يمنع التفريغ الكهروستاتيكي (ESD) الذي قد يؤدي إلى إتلاف المكونات الدقيقة للوحة الأم."
+            },
+            {
+                questionAr: "ما هي وظيفة (Device Drivers) برامج التعريفات؟",
+                questionEn: "What is the function of Device Drivers?",
+                options: [
+                    "تسهيل التواصل الفعال بين نظام التشغيل وقطع الهاردوير",
+                    "حماية الحاسوب من الاختراق",
+                    "تشغيل ألعاب الفيديو فقط",
+                    "زيادة حجم الذاكرة العشوائية (RAM)"
+                ],
+                correctIndex: 0,
+                explanation: "التعريفات (Drivers) تعمل كمترجم بين نظام التشغيل (OS) والمكونات المادية لتضمن كفاءة عمل النظام."
+            },
+            {
+                questionAr: "ما الذي يميز ناقل العناوين (Address Bus) عن ناقل البيانات؟",
+                questionEn: "What distinguishes the Address Bus from the Data Bus?",
+                options: [
+                    "ينقل البيانات الفعالة بين المكونات",
+                    "يحدد المواقع في الذاكرة التي سيتم القراءة منها أو الكتابة إليها",
+                    "يرسل إشارات للتحكم في توقيت العمليات",
+                    "يزود اللوحة الأم بالطاقة"
+                ],
+                correctIndex: 1,
+                explanation: "في حين أن ناقل البيانات ينقل المعلومات الفعلية، فإن ناقل العناوين (Address Bus) مسؤوليته تحديد 'أين' توجد هذه البيانات داخل الذاكرة."
+            }
+        ];
 
-<footer class="footer-branding">
-    كل التوفيق يا علي دي في دراستك 🎓 <br>
-    <small>Computer Architecture & Hardware Maintenance Revision</small>
-</footer>
+        // متغيرات حالة الاختبار
+        let currentQuestionIndex = 0;
+        let userScore = 0;
+        let selectedOptionIndex = null;
+        let userAnswersHistory = [];
 
-<script>
-const revisionBank = [
-    {
-        en: "What is the primary role of an Operating System (OS)?",
-        ar: "نظام التشغيل (OS) ده أساساً شغال شنو في الكمبيوتر؟ 🤔",
-        opts: ["Connecting hardware and user", "Printing photos", "Increasing internet speed", "Cleaning dust"],
-        correct: "Connecting hardware and user"
-    },
-    {
-        en: "What is the function of the 'Address Bus'?",
-        ar: "الـ Address Bus ده شايل شنو في جيبو وهو ماشي؟ 🚌",
-        opts: ["Actual data", "Memory locations (Addresses)", "Power signals", "Sound files"],
-        correct: "Memory locations (Addresses)"
-    },
-    {
-        en: "Why do we use expansion slots on a motherboard?",
-        ar: "فتحات التوسعة (Expansion Slots) دي فايدتها شنو في اللوحة الأم؟ 🔌",
-        opts: ["Adding more features (e.g. Graphics card)", "Cooling the CPU", "Storing permanent files", "Connecting the power cable"],
-        correct: "Adding more features (e.g. Graphics card)"
-    },
-    {
-        en: "What happens during 'Hard Disk Partitioning'?",
-        ar: "لما نقول بنعمل 'Partitioning' للهاردسك، قاصدين شنو؟ 🗄️",
-        opts: ["Dividing space into logical sections", "Deleting all files forever", "Increasing physical storage", "Changing the disk color"],
-        correct: "Dividing space into logical sections"
-    },
-    {
-        en: "Which safety tool protects hardware from static electricity?",
-        ar: "أهم حاجة بتلبسها في يدك عشان تحمي القطع من الكهرباء الساكنة هي شنو؟ ⚡",
-        opts: ["Anti-static wrist strap", "Rubber gloves", "Plastic watch", "Silver ring"],
-        correct: "Anti-static wrist strap"
-    },
-    {
-        en: "What is a 'Device Driver'?",
-        ar: "الـ Device Driver (التعريف) ده لازمتو شنو في الحياة؟ 🛠️",
-        opts: ["Translator between OS and hardware", "A program to play games", "Hardware cleaning tool", "External storage"],
-        correct: "Translator between OS and hardware"
-    },
-    {
-        en: "Why upgrade to an SSD from an HDD?",
-        ar: "ليه الناس هسي بقت تغير الهاردسك القديم بـ SSD؟ 🚀",
-        opts: ["Faster data access speed", "It makes the monitor bigger", "It works without electricity", "It is cheaper"],
-        correct: "Faster data access speed"
-    },
-    {
-        en: "What does the PSU do in a computer?",
-        ar: "مزود الطاقة (PSU) ده وظيفتو الأساسية شنو؟ 🔌",
-        opts: ["Converts electricity for components", "Calculates math problems", "Saves movies", "Connects to Wi-Fi"],
-        correct: "Converts electricity for components"
-    }
-];
+        // عناصر DOM للاختبار
+        const quizIntro = document.getElementById('quiz-intro');
+        const quizActive = document.getElementById('quiz-active');
+        const quizResult = document.getElementById('quiz-result');
+        const questionText = document.getElementById('question-text');
+        const questionTextEn = document.getElementById('question-text-en');
+        const optionsContainer = document.getElementById('options-container');
+        const nextBtn = document.getElementById('next-btn');
+        const questionCounter = document.getElementById('question-counter');
+        const progressBar = document.getElementById('progress-bar');
 
-const glossary = [
-    {
-        arT: "نظام التشغيل (OS) 💻", enT: "Operating System",
-        arD: "هو 'الريس' بتاع الجهاز، حلقة الوصل البتخليك تقدر تستعمل الهاردوير بدون ما تتعب.",
-        enD: "The bridge between the user and the computer hardware."
-    },
-    {
-        arT: "النواقل (Buses) 🚌", enT: "Data, Address & Control Buses",
-        arD: "دي المواسير البتنقل البيانات (Data)، والعناوين (Address)، وأوامر التحكم (Control) بين القطع.",
-        enD: "Communication pathways that transfer data and signals between components."
-    },
-    {
-        arT: "ترقية الهاردوير 🚀", enT: "Hardware Upgrading",
-        arD: "إنك تبدل قطعة قديمة بجديدة (زي زيادة الرام أو تركيب SSD) عشان الجهاز يبقى 'صاروخ'.",
-        enD: "Replacing old components with newer ones to enhance performance."
-    },
-    {
-        arT: "الصيانة الوقائية 🛠️", enT: "Maintenance & Safety",
-        arD: "أهم حاجة تلبس الـ Anti-static strap وتفصل الكهرباء عشان ما تحرق القطع ولا تتكهرب.",
-        enD: "Safety measures like using wrist straps to prevent ESD damage."
-    }
-];
+        // بدء الاختبار
+        const startQuiz = () => {
+            quizIntro.classList.add('hidden');
+            quizActive.classList.remove('hidden');
+            currentQuestionIndex = 0;
+            userScore = 0;
+            userAnswersHistory = [];
+            loadQuestion();
+        };
 
-let currentQ = 0;
-let score = 0;
-let userSelection = "";
+        // تحميل سؤال جديد
+        const loadQuestion = () => {
+            selectedOptionIndex = null;
+            nextBtn.classList.add('hidden');
+            const currentData = quizData[currentQuestionIndex];
+            
+            // تحديث العداد وشريط التقدم
+            questionCounter.innerText = `السؤال ${currentQuestionIndex + 1} / ${quizData.length}`;
+            progressBar.style.width = `${((currentQuestionIndex) / quizData.length) * 100}%`;
 
-function showGlossary() {
-    document.getElementById('intro-section').style.display = 'none';
-    document.getElementById('glossary-section').style.display = 'block';
-    let html = "";
-    glossary.forEach(item => {
-        html += `
-            <div class="term-card">
-                <div class="t-title-ar">${item.arT}</div>
-                <div class="t-title-en">${item.enT}</div>
-                <div class="t-desc-ar">${item.arD}</div>
-                <div style="direction: ltr; text-align: left; color: #7f8c8d; font-family: sans-serif;">${item.enD}</div>
-            </div>
-        `;
-    });
-    document.getElementById('terms-list').innerHTML = html;
-}
+            // وضع النصوص
+            questionText.innerText = currentData.questionAr;
+            questionTextEn.innerText = currentData.questionEn;
 
-function startExam() {
-    document.getElementById('intro-section').style.display = 'none';
-    document.getElementById('glossary-section').style.display = 'none';
-    document.getElementById('exam-section').style.display = 'block';
-    renderQuestion();
-}
+            // مسح وإنشاء الخيارات
+            optionsContainer.innerHTML = '';
+            currentData.options.forEach((optionText, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-option block w-full text-right';
+                btn.innerText = optionText;
+                btn.onclick = () => selectOption(index, btn);
+                optionsContainer.appendChild(btn);
+            });
+        };
 
-function renderQuestion() {
-    const q = revisionBank[currentQ];
-    document.getElementById('q-counter').innerText = `سؤال ${currentQ + 1} من ${revisionBank.length}`;
-    let html = `
-        <div class="q-arabic">${q.ar}</div>
-        <div class="q-english">${q.en}</div>
-        <div id="options">
-            ${q.opts.map(opt => `<button class="option-btn" onclick="selectOpt(this, '${opt}')">${opt}</button>`).join('')}
-        </div>
-    `;
-    document.getElementById('question-area').innerHTML = html;
-    userSelection = "";
-}
+        // تحديد خيار
+        const selectOption = (index, buttonElement) => {
+            selectedOptionIndex = index;
+            // إزالة التحديد من جميع الأزرار
+            const allOptions = optionsContainer.children;
+            for (let i = 0; i < allOptions.length; i++) {
+                allOptions[i].classList.remove('selected');
+            }
+            // إضافة التحديد للزر الحالي
+            buttonElement.classList.add('selected');
+            // إظهار زر التالي
+            nextBtn.classList.remove('hidden');
+        };
 
-function selectOpt(btn, val) {
-    userSelection = val;
-    document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
-    btn.classList.add('selected');
-}
+        // الانتقال للسؤال التالي أو إنهاء الاختبار
+        const nextQuestion = () => {
+            if (selectedOptionIndex === null) return; // تحقق أمان
 
-function processNext() {
-    if(!userSelection) return alert("يا علي دي، أختار إجابة أول يا هندسة! 😂");
-    
-    if(userSelection === revisionBank[currentQ].correct) score++;
-    
-    currentQ++;
-    if(currentQ < revisionBank.length) {
-        renderQuestion();
-    } else {
-        showFinal();
-    }
-}
+            const currentData = quizData[currentQuestionIndex];
+            const isCorrect = (selectedOptionIndex === currentData.correctIndex);
+            
+            // تسجيل إجابة الطالب للتقرير النهائي
+            userAnswersHistory.push({
+                question: currentData.questionAr,
+                userAnswer: currentData.options[selectedOptionIndex],
+                correctAnswer: currentData.options[currentData.correctIndex],
+                isCorrect: isCorrect,
+                explanation: currentData.explanation
+            });
 
-function showFinal() {
-    document.getElementById('exam-section').style.display = 'none';
-    document.getElementById('summary-section').style.display = 'block';
-    document.getElementById('res-val').innerText = `${score} / ${revisionBank.length}`;
-}
-</script>
+            if (isCorrect) userScore++;
+
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex < quizData.length) {
+                // تحديث تقدم الشريط للخطوة الأخيرة قبل تحميل السؤال
+                progressBar.style.width = `${((currentQuestionIndex) / quizData.length) * 100}%`;
+                loadQuestion();
+            } else {
+                progressBar.style.width = `100%`;
+                setTimeout(showResults, 300); // تأخير بسيط لتأثير بصري
+            }
+        };
+
+        // عرض التقرير النهائي
+        const showResults = () => {
+            quizActive.classList.add('hidden');
+            quizResult.classList.remove('hidden');
+            
+            document.getElementById('final-score').innerText = `${userScore} / ${quizData.length}`;
+            
+            const resultMsg = document.getElementById('result-message');
+            if (userScore === quizData.length) {
+                resultMsg.innerText = "ممتاز! أنت جاهز تماماً للامتحان 🌟";
+                resultMsg.className = "text-lg font-bold text-green-600";
+            } else if (userScore >= quizData.length / 2) {
+                resultMsg.innerText = "أداء جيد، ولكن راجع أخطائك لرفع مستواك 👍";
+                resultMsg.className = "text-lg font-bold text-yellow-600";
+            } else {
+                resultMsg.innerText = "تحتاج إلى مراجعة المادة بشكل أعمق. لا تيأس! 💪";
+                resultMsg.className = "text-lg font-bold text-red-600";
+            }
+
+            generateReport();
+        };
+
+        // توليد تقرير الأخطاء وتصحيحها
+        const generateReport = () => {
+            const reportContainer = document.getElementById('report-container');
+            reportContainer.innerHTML = ''; // مسح القديم
+
+            userAnswersHistory.forEach((record, index) => {
+                const itemDiv = document.createElement('div');
+                
+                if (record.isCorrect) {
+                    itemDiv.className = 'report-item correct';
+                    itemDiv.innerHTML = `
+                        <h5 class="font-bold text-gray-800 mb-1">س ${index + 1}: ${record.question}</h5>
+                        <p class="text-sm text-green-700 font-bold mb-1">✔ إجابتك صحيحة: ${record.userAnswer}</p>
+                    `;
+                } else {
+                    itemDiv.className = 'report-item wrong';
+                    itemDiv.innerHTML = `
+                        <h5 class="font-bold text-gray-800 mb-2">س ${index + 1}: ${record.question}</h5>
+                        <p class="text-sm text-red-600 mb-1 line-through">❌ إجابتك: ${record.userAnswer}</p>
+                        <p class="text-sm text-green-700 font-bold mb-2">✔ الإجابة الصحيحة: ${record.correctAnswer}</p>
+                        <div class="bg-white p-3 rounded border border-red-100 text-sm text-gray-700">
+                            <strong>💡 التفسير:</strong> ${record.explanation}
+                        </div>
+                    `;
+                }
+                reportContainer.appendChild(itemDiv);
+            });
+        };
+
+        // إعادة ضبط الاختبار
+        const resetQuiz = () => {
+            quizResult.classList.add('hidden');
+            quizIntro.classList.remove('hidden');
+        };
+
+        /**
+         * ==========================================
+         * 3. Q&A Form Handling
+         * ==========================================
+         */
+        document.getElementById('qa-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // منع إعادة تحميل الصفحة
+            
+            const btn = this.querySelector('button[type="submit"]');
+            const successMsg = document.getElementById('form-success');
+            
+            // تأثير تحميل وهمي
+            btn.innerText = "جاري الإرسال... ⏳";
+            btn.disabled = true;
+            btn.classList.add('opacity-70');
+
+            setTimeout(() => {
+                btn.innerText = "إرسال السؤال 📤";
+                btn.disabled = false;
+                btn.classList.remove('opacity-70');
+                
+                // إظهار رسالة النجاح
+                successMsg.classList.remove('hidden');
+                
+                // تفريغ الحقول
+                document.getElementById('student-name').value = '';
+                document.getElementById('student-question').value = '';
+
+                // إخفاء رسالة النجاح بعد 5 ثواني
+                setTimeout(() => {
+                    successMsg.classList.add('hidden');
+                }, 5000);
+            }, 1500);
+        });
+
+    </script>
 </body>
 </html>
