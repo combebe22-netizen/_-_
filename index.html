@@ -1,623 +1,588 @@
 <index.html>
 <html lang="en" dir="ltr" class="scroll-smooth">
 <head>
-    <!-- ============ META & TITLE ============ -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="G10 Computer Architecture Academy - Advanced Gamified Learning Platform by Ali Khaled">
-    <title>G10 Academy | Advanced Learning Platform - Dev: Ali Khaled</title>
+    <meta name="description" content="G10 Computer Architecture Academy - Professional Gamified Platform">
+    <title>G10 Academy | Dev: Ali Khaled</title>
     
-    <!-- ============ FONTS & CSS FRAMEWORKS ============ -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&family=Poppins:wght@400;500;700;900&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;900&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- ============ TAILWIND CONFIG ============ -->
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        brand: { 50: '#f0f9ff', 100: '#e0f2fe', 500: '#0ea5e9', 600: '#0284c7', 800: '#075985', 900: '#0c4a6e' },
+                        brand: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 800: '#1e40af', 900: '#1e3a8a' },
                         sudanese: { gold: '#f59e0b' }
                     },
                     fontFamily: {
-                        ar: ['Cairo', 'sans-serif'],
                         en: ['Poppins', 'sans-serif'],
-                        code: ['Fira Code', 'monospace'],
+                        ar: ['Cairo', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
 
-    <!-- ============ CUSTOM STYLES ============ -->
     <style>
-        /* ---- Base Typography & Transitions ---- */
-        body { font-family: 'Poppins', sans-serif; transition: background-color 0.3s, color 0.3s; }
+        body { font-family: 'Poppins', sans-serif; background-color: #f8fafc; transition: all 0.3s ease; }
+        .dark body { background-color: #0f172a; }
         .ar-text { font-family: 'Cairo', sans-serif; direction: rtl; text-align: right; }
         
-        /* ---- Draggable Watermark ---- */
+        /* Tabs System */
+        .tab-content { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .tab-btn { transition: all 0.3s ease; }
+        .tab-btn.active { background-color: #2563eb; color: white; box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.39); }
+        .dark .tab-btn.active { background-color: #3b82f6; }
+
+        /* Draggable Watermark */
         #draggable-watermark {
             position: fixed; bottom: 20px; right: 20px; z-index: 9999;
             background: rgba(15, 23, 42, 0.85); color: #fff;
             padding: 8px 16px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.2);
-            font-weight: 700; font-size: 0.9rem; backdrop-filter: blur(5px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: grab; user-select: none;
-            display: flex; align-items: center; gap: 8px;
+            font-weight: 700; font-size: 0.85rem; backdrop-filter: blur(5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3); cursor: grab; user-select: none;
+            display: flex; align-items: center; gap: 8px; transition: transform 0.1s;
         }
-        #draggable-watermark:active { cursor: grabbing; }
+        #draggable-watermark:active { cursor: grabbing; transform: scale(0.95); }
 
-        /* ---- Support Widget ---- */
+        /* Support Widget */
         #support-widget {
             position: fixed; bottom: 20px; left: 20px; z-index: 9998;
             display: flex; flex-direction: column; align-items: flex-start;
         }
         .support-box {
-            display: none; background: white; padding: 20px; border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2); margin-bottom: 15px;
-            width: 300px; border: 2px solid #0ea5e9;
+            display: none; background: white; padding: 24px; border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15); margin-bottom: 15px;
+            width: 320px; border: 1px solid #e2e8f0;
         }
-        .dark .support-box { background: #1e293b; border-color: #0284c7; }
+        .dark .support-box { background: #1e293b; border-color: #334155; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
 
-        /* ---- Glass Panel Cards ---- */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.95);
-            border: 1px solid #e2e8f0; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border-radius: 20px; transition: transform 0.2s;
+        /* Professional Cards */
+        .feature-card {
+            background: white; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); transition: all 0.3s ease;
         }
-        .glass-panel:hover { transform: translateY(-5px); }
-        .dark .glass-panel { background: rgba(30, 41, 59, 0.95); border-color: #334155; }
-        
-        /* ---- Wallet UI (Coins Display) ---- */
+        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); border-color: #3b82f6; }
+        .dark .feature-card { background: #1e293b; border-color: #334155; }
+        .dark .feature-card:hover { border-color: #3b82f6; }
+
+        /* Wallet */
         .wallet-ui {
             background: linear-gradient(135deg, #f59e0b, #d97706); color: white;
-            border-radius: 50px; padding: 5px 15px; font-weight: 900;
-            display: flex; align-items: center; gap: 8px; border: 2px solid #fbbf24;
+            border-radius: 50px; padding: 6px 16px; font-weight: 800;
+            display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
         }
 
-        /* ---- Animations ---- */
-        @keyframes floatUp { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-50px); } }
-        .coin-animation { position: fixed; font-size: 2rem; z-index: 10000; animation: floatUp 1s ease-out forwards; pointer-events: none; }
+        /* Animations */
+        @keyframes floatCoin { 0% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-80px) scale(1.5); } }
+        .coin-anim { position: fixed; font-size: 2.5rem; font-weight: 900; z-index: 10000; animation: floatCoin 1s ease-out forwards; pointer-events: none; }
         
-        /* ---- Custom Scrollbar ---- */
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        .dark ::-webkit-scrollbar-track { background: #0f172a; }
-        ::-webkit-scrollbar-thumb { background: #0ea5e9; border-radius: 10px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .dark ::-webkit-scrollbar-thumb { background: #475569; }
     </style>
 </head>
+<body id="main-body" class="text-slate-800 dark:text-slate-200">
 
-<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-200" id="main-body">
-
-    <!-- ============ AUDIO ELEMENTS ============ -->
     <audio id="coin-sound" src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3" preload="auto"></audio>
     <audio id="wrong-sound" src="https://assets.mixkit.co/active_storage/sfx/2955/2955-preview.mp3" preload="auto"></audio>
 
-    <!-- ============ FLOATING WIDGETS ============ -->
-    <!-- Draggable Watermark (Developer Credit) -->
     <div id="draggable-watermark" title="Drag me anywhere!">
         <span>👨‍💻</span> Dev: Ali Khaled <span>✥</span>
     </div>
 
-    <!-- Support/Help Widget -->
     <div id="support-widget">
         <div class="support-box" id="support-form-container">
-            <div class="flex justify-between items-center mb-4 border-b pb-2 dark:border-slate-700">
-                <h4 class="font-bold text-brand-600 dark:text-brand-400">Ask the Engineer</h4>
-                <button onclick="toggleSupport()" class="text-red-500 font-bold hover:bg-red-100 px-2 rounded">X</button>
+            <div class="flex justify-between items-center mb-4">
+                <h4 class="font-bold text-lg text-brand-600 dark:text-brand-400">Ask a Question</h4>
+                <button onclick="toggleSupport()" class="text-slate-400 hover:text-red-500 font-bold bg-slate-100 dark:bg-slate-700 w-8 h-8 rounded-full flex items-center justify-center transition">✕</button>
             </div>
             <form action="https://formsubmit.co/combebe22@gmail.com" method="POST" target="_blank" class="flex flex-col gap-3">
-                <input type="hidden" name="_subject" value="New Question from G10 Academy!">
+                <input type="hidden" name="_subject" value="New Student Question - G10 Academy">
                 <input type="hidden" name="_captcha" value="false">
                 
-                <input type="text" name="name" placeholder="Your Name" required class="w-full p-2 border rounded bg-slate-50 dark:bg-slate-800 dark:border-slate-700 outline-none focus:border-brand-500">
-                <textarea name="question" placeholder="Write your question here..." required rows="3" class="w-full p-2 border rounded bg-slate-50 dark:bg-slate-800 dark:border-slate-700 outline-none focus:border-brand-500"></textarea>
-                <button type="submit" onclick="setTimeout(toggleSupport, 1000)" class="bg-brand-600 text-white font-bold py-2 rounded hover:bg-brand-700 transition">Send Question 🚀</button>
+                <input type="text" name="Student_Name" placeholder="Your Name" required class="w-full p-3 border rounded-xl bg-slate-50 dark:bg-slate-800 dark:border-slate-600 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-200 transition">
+                <textarea name="Question" placeholder="How can I help you today?" required rows="3" class="w-full p-3 border rounded-xl bg-slate-50 dark:bg-slate-800 dark:border-slate-600 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-200 transition resize-none"></textarea>
+                <button type="submit" onclick="setTimeout(toggleSupport, 1000)" class="mt-2 bg-brand-600 text-white font-bold py-3 rounded-xl hover:bg-brand-700 shadow-lg shadow-brand-500/30 transition">Send Message 🚀</button>
             </form>
-            <p class="text-xs text-center mt-2 text-slate-500 ar-text">سيصل سؤالك للمهندس مباشرة</p>
+            <p class="text-xs text-center mt-4 text-slate-500 ar-text">سيصل سؤالك للمهندس علي خالد مباشرة</p>
         </div>
-        <button onclick="toggleSupport()" class="bg-brand-600 hover:bg-brand-800 text-white p-4 rounded-full shadow-xl font-bold text-xl transition transform hover:scale-110 flex items-center justify-center h-14 w-14">
-            ❓
+        <button onclick="toggleSupport()" class="bg-slate-900 dark:bg-white dark:text-slate-900 text-white p-4 rounded-full shadow-2xl font-bold text-xl transition transform hover:scale-105 flex items-center justify-center h-14 w-14 border-2 border-white dark:border-slate-800">
+            💬
         </button>
     </div>
 
-    <!-- ============ STICKY NAVIGATION ============ -->
-    <nav class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm">
+    <nav class="sticky top-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border-b border-slate-200 dark:border-slate-800 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 items-center">
-                <!-- Logo -->
                 <div class="flex items-center gap-3">
-                    <span class="font-black text-2xl tracking-tight text-brand-900 dark:text-white">G10 <span class="text-brand-600">Academy</span></span>
+                    <div class="bg-brand-600 text-white p-2 rounded-lg">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    </div>
+                    <span class="font-black text-2xl tracking-tight text-slate-900 dark:text-white">G10 <span class="text-brand-600">Academy</span></span>
                 </div>
                 
-                <!-- Right Controls -->
                 <div class="flex items-center gap-4">
-                    <div class="hidden sm:flex flex-col items-end mr-4 font-bold">
-                        <div class="text-sm text-brand-600 dark:text-brand-400" id="ui-level">Novice 🎒</div>
+                    <div class="hidden sm:block text-right mr-2">
+                        <div class="text-xs text-slate-500 font-bold uppercase tracking-wider">Rank</div>
+                        <div class="text-sm font-black text-brand-600 dark:text-brand-400" id="ui-level">Novice 🎒</div>
                     </div>
-                    <div class="wallet-ui" title="G-Coins">
+                    <div class="wallet-ui" title="G-Coins Balance">
                         <span>🪙</span> <span id="ui-coins">0</span>
                     </div>
-                    <button id="theme-toggle" class="p-2 bg-slate-100 dark:bg-slate-800 rounded-full hover:bg-slate-200 transition">
+                    <button id="theme-toggle" class="p-2 ml-2 bg-slate-100 dark:bg-slate-800 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition">
                         <span id="theme-icon">🌙</span>
                     </button>
                 </div>
             </div>
+            
+            <div class="flex gap-2 pb-3 overflow-x-auto">
+                <button class="tab-btn active px-5 py-2 rounded-xl font-bold text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 whitespace-nowrap" onclick="switchTab('tab-academy')">📚 Academy & Lessons</button>
+                <button class="tab-btn px-5 py-2 rounded-xl font-bold text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 whitespace-nowrap" onclick="switchTab('tab-quiz')">🎯 Final Quiz</button>
+                <button class="tab-btn px-5 py-2 rounded-xl font-bold text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 whitespace-nowrap" onclick="switchTab('tab-shop')">🛒 Store & Rewards</button>
+            </div>
         </div>
     </nav>
 
-    <!-- ============ SECTION 1: HERO & INTRODUCTION ============ -->
-    <header class="bg-brand-900 text-white py-20 text-center relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 600%22><defs><pattern id=%22p%22 x=%220%22 y=%220%22 width=%22100%22 height=%22100%22 patternUnits=%22userSpaceOnUse%22><path d=%22M0,50 Q25,0 50,50 T100,50%22 stroke=%22white%22 stroke-width=%222%22 fill=%22none%22/></pattern></defs><rect width=%221200%22 height=%22600%22 fill=%22%230c4a6e%22/><rect width=%221200%22 height=%22600%22 fill=%22url(%23p)%22/></svg>')"></div>
-        <div class="relative z-10">
-            <h1 class="text-5xl md:text-7xl font-black mb-6 drop-shadow-lg">G10 Computer Architecture</h1>
-            <p class="text-xl md:text-2xl mb-8 font-semibold text-blue-200">🎮 Advanced Gamified Learning Platform</p>
-            <p class="text-lg text-blue-100 max-w-2xl mx-auto leading-relaxed mb-8">Master the fundamentals of computer hardware, system architecture, and troubleshooting through interactive lessons and challenging quizzes. Earn coins and unlock special features as you progress!</p>
-            <div class="flex gap-4 justify-center flex-wrap">
-                <button onclick="document.getElementById('lessons-section').scrollIntoView({behavior:'smooth'})" class="bg-yellow-400 text-brand-900 px-8 py-3 rounded-lg font-bold text-lg hover:bg-yellow-300 transition transform hover:scale-105">📚 View Lessons</button>
-                <button onclick="document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'})" class="bg-white text-brand-900 px-8 py-3 rounded-lg font-bold text-lg hover:bg-slate-100 transition transform hover:scale-105">⚡ Start Quiz</button>
-            </div>
-        </div>
-    </header>
+    <div class="max-w-7xl mx-auto px-4 py-10">
 
-    <!-- ============ SECTION 2: CURRICULUM & LESSONS ============ -->
-    <section id="lessons-section" class="py-16 bg-white dark:bg-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-black mb-4 text-brand-900 dark:text-white">📚 Computer Architecture Curriculum</h2>
-                <p class="text-xl text-slate-600 dark:text-slate-300">10 Essential Topics to Master Hardware Fundamentals</p>
-            </div>
-            <div id="lessons-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Lessons will be injected here by JavaScript -->
-            </div>
-        </div>
-    </section>
-
-    <!-- ============ SECTION 3: SHOP & GAMIFICATION ============ -->
-    <section class="py-16 bg-slate-100 dark:bg-slate-700">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-black mb-4 text-brand-900 dark:text-white">🛍️ Premium Shop</h2>
-                <p class="text-lg text-slate-600 dark:text-slate-300">Unlock special features with your earned G-Coins!</p>
-            </div>
-            <div id="shop-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Shop items will be injected here by JavaScript -->
-            </div>
-        </div>
-    </section>
-
-    <!-- ============ SECTION 4: QUIZ & ASSESSMENT ============ -->
-    <section id="quiz-section" class="py-16 bg-white dark:bg-slate-800">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-black mb-4 text-brand-900 dark:text-white">⚡ Knowledge Assessment</h2>
-                <p class="text-lg text-slate-600 dark:text-slate-300">Test your understanding with our comprehensive quiz</p>
-            </div>
-
-            <!-- Quiz Start Screen -->
-            <div id="quiz-start" class="glass-panel p-8 text-center">
-                <h3 class="text-2xl font-bold mb-4 text-brand-700 dark:text-brand-400">Ready for the Challenge?</h3>
-                <p class="text-slate-600 dark:text-slate-300 mb-6">Complete 17 questions covering all aspects of computer architecture. Each correct answer earns 10 G-Coins!</p>
-                <div class="mb-6">
-                    <input type="text" id="student-name" placeholder="Enter your name..." class="w-full p-4 border-2 border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-900 outline-none focus:border-brand-500 font-bold text-center text-lg">
-                </div>
-                <button onclick="quizEngine.start()" class="bg-brand-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-brand-700 transition transform hover:scale-105">🚀 Start Quiz</button>
-            </div>
-
-            <!-- Quiz Active Screen -->
-            <div id="quiz-core" class="hidden">
-                <!-- Progress Bar -->
-                <div class="mb-8">
-                    <div class="flex justify-between items-center mb-2">
-                        <span id="q-counter" class="font-bold text-slate-700 dark:text-slate-300">Question 1 of 17</span>
-                        <span id="timer-text" class="font-black text-2xl text-brand-600 dark:text-brand-400">30</span>
-                    </div>
-                    <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
-                        <div id="q-progress" class="bg-brand-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
-                    </div>
-                </div>
-
-                <!-- Question Cards -->
-                <div class="glass-panel p-8 mb-8">
-                    <h3 id="q-text-en" class="text-2xl font-bold mb-4 text-brand-800 dark:text-brand-300"></h3>
-                    <p id="q-text-ar" class="ar-text text-xl font-bold text-slate-700 dark:text-slate-300 mb-6"></p>
-                </div>
-
-                <!-- Answer Options -->
-                <div id="q-options" class="grid gap-3 mb-8">
-                    <!-- Options will be injected here -->
-                </div>
-
-                <!-- Next Button -->
-                <button id="btn-next" class="hidden w-full bg-brand-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-brand-700 transition">
-                    Next Question →
-                </button>
-            </div>
-
-            <!-- Quiz Results Screen -->
-            <div id="quiz-result" class="hidden">
-                <div class="glass-panel p-8 text-center mb-8">
-                    <h3 class="text-3xl font-black mb-4 text-brand-700 dark:text-brand-400">Quiz Complete! 🎉</h3>
-                    <div class="text-5xl font-black text-brand-600 dark:text-brand-300 mb-2" id="res-score">0 / 17</div>
-                    <p class="text-lg font-semibold text-slate-600 dark:text-slate-300">
-                        <span id="res-name">User</span>, great effort!
-                    </p>
-                    <div id="res-msg" class="mt-6"></div>
-                    <button onclick="quizEngine.reset()" class="mt-8 bg-brand-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-brand-700 transition">
-                        🔄 Try Again
+        <div id="tab-academy" class="tab-content active">
+            
+            <div class="bg-brand-900 text-white rounded-3xl p-10 md:p-16 mb-10 relative overflow-hidden shadow-2xl">
+                <div class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-brand-300 via-brand-900 to-black"></div>
+                <div class="relative z-10 max-w-2xl">
+                    <span class="inline-block px-4 py-1 bg-brand-800 rounded-full text-xs font-bold tracking-widest uppercase mb-4 text-brand-200 border border-brand-700">Computer Architecture 101</span>
+                    <h1 class="text-4xl md:text-5xl font-black mb-4 leading-tight">Master the Core of <br><span class="text-sudanese-gold">Hardware & OS</span></h1>
+                    <p class="text-lg text-brand-100 mb-8 opacity-90 ar-text">تعلم المعمارية بالمصطلحات الجامعية الإنجليزية، وافهمها بالشرح المبسط. المعرفة قوة!</p>
+                    <button onclick="switchTab('tab-quiz')" class="bg-sudanese-gold text-slate-900 px-8 py-3 rounded-xl font-bold hover:bg-yellow-400 transition shadow-lg shadow-yellow-500/30">
+                        Take the Challenge 🚀
                     </button>
                 </div>
+            </div>
 
-                <!-- Detailed Report -->
-                <div class="text-center mb-4">
-                    <h4 class="text-2xl font-bold text-brand-800 dark:text-brand-300 mb-6">📋 Detailed Review</h4>
+            <div class="flex items-center justify-between mb-8 border-b border-slate-200 dark:border-slate-800 pb-4">
+                <h2 class="text-2xl font-black text-slate-800 dark:text-white">Curriculum <span class="text-brand-500">Modules</span></h2>
+                <span class="text-sm font-bold text-slate-500 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-lg">10 Essential Notes</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="lessons-container"></div>
+        </div>
+
+        <div id="tab-quiz" class="tab-content">
+            <div class="max-w-3xl mx-auto">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-black text-slate-800 dark:text-white mb-2">The <span class="text-brand-600">Engineer's</span> Challenge</h2>
+                    <p class="text-slate-500 font-medium bg-slate-100 dark:bg-slate-800 inline-block px-4 py-1 rounded-full text-sm ar-text">جاوب صح واكسب 10 🪙 | الإجابة الخاطئة تخصم 2 🪙</p>
                 </div>
-                <div id="res-report" class="space-y-4">
-                    <!-- Report items will be injected here -->
+
+                <div class="feature-card relative overflow-hidden" id="quiz-container">
+                    
+                    <div id="quiz-start" class="text-center py-10">
+                        <div class="w-20 h-20 bg-brand-100 dark:bg-brand-900/30 text-brand-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-6 dark:text-white">Ready to test your knowledge?</h3>
+                        <button onclick="quizEngine.start()" class="w-full sm:w-auto bg-brand-600 text-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-brand-700 transition shadow-xl shadow-brand-500/20">
+                            Start Assessment Now
+                        </button>
+                    </div>
+
+                    <div id="quiz-core" class="hidden">
+                        <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
+                            <div class="bg-slate-100 dark:bg-slate-800 px-4 py-1.5 rounded-lg font-bold text-sm text-slate-600 dark:text-slate-300" id="q-counter"></div>
+                            <div class="flex items-center gap-2 font-mono text-xl font-black text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/20 px-4 py-1.5 rounded-lg" id="q-timer">
+                                ⏱️ <span id="timer-text">20</span>s
+                            </div>
+                        </div>
+
+                        <div class="mb-8">
+                            <h4 id="q-text-en" class="text-2xl font-black text-slate-800 dark:text-white mb-3 leading-snug"></h4>
+                            <div class="flex items-start gap-2 bg-slate-50 dark:bg-slate-800/50 p-3 rounded-lg border border-slate-100 dark:border-slate-700">
+                                <span class="text-xl">💡</span>
+                                <p id="q-text-ar" class="ar-text text-sm font-semibold text-slate-500 dark:text-slate-400 mt-1"></p>
+                            </div>
+                        </div>
+
+                        <div id="q-options" class="space-y-3 flex flex-col"></div>
+                    </div>
+
+                    <div id="quiz-result" class="hidden text-center py-8">
+                        <h3 class="text-2xl font-black mb-2 dark:text-white text-slate-800">Assessment Complete</h3>
+                        <p class="text-slate-500 mb-6">Here is your final score</p>
+                        
+                        <div class="inline-block bg-slate-50 dark:bg-slate-800 p-8 rounded-3xl border border-slate-100 dark:border-slate-700 mb-8">
+                            <div class="text-7xl font-black text-brand-600" id="res-score"></div>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row justify-center gap-4">
+                            <button onclick="quizEngine.reset()" class="bg-brand-100 text-brand-700 hover:bg-brand-200 dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700 px-8 py-3 rounded-xl font-bold transition">
+                                Retake Assessment
+                            </button>
+                            <button onclick="switchTab('tab-shop')" class="bg-brand-600 text-white hover:bg-brand-700 px-8 py-3 rounded-xl font-bold transition shadow-lg shadow-brand-500/30">
+                                Visit Rewards Store 🛒
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- ============ FOOTER ============ -->
-    <footer class="bg-slate-900 text-white py-12 text-center">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p class="text-lg font-bold mb-2">G10 Computer Architecture Academy</p>
-            <p class="text-slate-300">Developed with ❤️ by Ali Khaled</p>
-            <p class="text-slate-400 text-sm mt-4">© 2024 G10 Academy. All rights reserved.</p>
+        <div id="tab-shop" class="tab-content">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-black text-slate-800 dark:text-white mb-2">Rewards <span class="text-brand-600">Store</span></h2>
+                    <p class="text-slate-500 font-medium ar-text">استخدم العملات (G-Coins) التي كسبتها من الاختبار لترقية حسابك.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    
+                    <div class="feature-card flex flex-col items-center text-center relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 bg-sudanese-gold text-white text-xs font-black px-3 py-1 rounded-bl-lg z-10">Popular</div>
+                        <div class="text-6xl mb-4 transform group-hover:scale-110 transition duration-300">🏅</div>
+                        <h3 class="text-xl font-black dark:text-white mb-2">Golden Engineer Badge</h3>
+                        <p class="text-sm text-slate-500 mb-6 ar-text">يظهر الوسام الذهبي بجانب مستوى حسابك في الأعلى ليميزك عن البقية.</p>
+                        <div class="mt-auto w-full">
+                            <button onclick="gamification.buyItem('badge', 150, this)" class="w-full bg-slate-900 dark:bg-white dark:text-slate-900 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition">
+                                Unlock for 150 🪙
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="feature-card flex flex-col items-center text-center group">
+                        <div class="text-6xl mb-4 transform group-hover:scale-110 transition duration-300">💻</div>
+                        <h3 class="text-xl font-black dark:text-white mb-2">Hacker Matrix Theme</h3>
+                        <p class="text-sm text-slate-500 mb-6 ar-text">يحول الموقع بالكامل إلى وضع الهاكر الاحترافي (خلفية سوداء وتوهج أخضر).</p>
+                        <div class="mt-auto w-full">
+                            <button onclick="gamification.buyItem('matrix', 300, this)" class="w-full bg-slate-900 dark:bg-white dark:text-slate-900 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition">
+                                Unlock for 300 🪙
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
+
+    </div>
+
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 text-center text-slate-500 mt-12">
+        <p class="font-bold text-slate-800 dark:text-white mb-1">G10 Academy &copy; 2026</p>
+        <p class="text-sm">Built for Computer Architecture Students</p>
     </footer>
 
-    <!-- ============ JAVASCRIPT CORE LOGIC ============ -->
     <script>
-        /* ==================== 1. THEME MANAGEMENT ==================== */
-        const themeManager = {
-            toggle: function() {
-                const html = document.documentElement;
-                if(html.classList.contains('dark')) {
-                    html.classList.remove('dark');
-                    localStorage.setItem('theme', 'light');
-                    document.getElementById('theme-icon').innerText = '🌙';
-                } else {
-                    html.classList.add('dark');
-                    localStorage.setItem('theme', 'dark');
-                    document.getElementById('theme-icon').innerText = '☀️';
-                }
-            },
-            init: function() {
-                if(localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                    document.documentElement.classList.add('dark');
-                    document.getElementById('theme-icon').innerText = '☀️';
-                }
-                document.getElementById('theme-toggle').onclick = () => this.toggle();
-            }
-        };
-
-        /* ==================== 2. DRAGGABLE WATERMARK ==================== */
-        const watermarkManager = {
-            init: function() {
-                const watermark = document.getElementById('draggable-watermark');
-                let isDragging = false, offsetX = 0, offsetY = 0;
-
-                watermark.addEventListener('mousedown', (e) => {
-                    isDragging = true;
-                    offsetX = e.clientX - watermark.offsetLeft;
-                    offsetY = e.clientY - watermark.offsetTop;
-                });
-
-                document.addEventListener('mousemove', (e) => {
-                    if(isDragging) {
-                        watermark.style.left = (e.clientX - offsetX) + 'px';
-                        watermark.style.right = 'auto';
-                        watermark.style.top = (e.clientY - offsetY) + 'px';
-                        watermark.style.bottom = 'auto';
-                    }
-                });
-
-                document.addEventListener('mouseup', () => { isDragging = false; });
-            }
-        };
-
-        /* ==================== 3. SUPPORT WIDGET ==================== */
-        function toggleSupport() {
-            document.getElementById('support-form-container').classList.toggle('hidden');
+        // --- 1. Tab Management ---
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active', 'bg-slate-100', 'dark:bg-slate-800'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        /* ==================== 4. GAMIFICATION & COINS ==================== */
+        // --- 2. Theme Management ---
+        const themeBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        function updateTheme() { themeIcon.innerText = document.documentElement.classList.contains('dark') ? '☀️' : '🌙'; }
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+        updateTheme();
+        themeBtn.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+            updateTheme();
+        });
+
+        // --- 3. Support Widget Toggle ---
+        function toggleSupport() {
+            const form = document.getElementById('support-form-container');
+            form.style.display = form.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // --- 4. Draggable Watermark (Vanilla JS) ---
+        dragElement(document.getElementById("draggable-watermark"));
+        function dragElement(elmnt) {
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            elmnt.onmousedown = dragMouseDown;
+            elmnt.ontouchstart = dragMouseDown; // Mobile support
+
+            function dragMouseDown(e) {
+                e = e || window.event;
+                // e.preventDefault(); // removed to allow clicking inside if needed, but safe here
+                if (e.type === 'touchstart') {
+                    pos3 = e.touches[0].clientX;
+                    pos4 = e.touches[0].clientY;
+                } else {
+                    pos3 = e.clientX;
+                    pos4 = e.clientY;
+                }
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+                document.ontouchend = closeDragElement;
+                document.ontouchmove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                // e.preventDefault();
+                let clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+                let clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+                pos1 = pos3 - clientX;
+                pos2 = pos4 - clientY;
+                pos3 = clientX;
+                pos4 = clientY;
+                
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+                elmnt.style.bottom = "auto";
+                elmnt.style.right = "auto";
+            }
+
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+                document.ontouchend = null;
+                document.ontouchmove = null;
+            }
+        }
+
+        // --- 5. Gamification Engine ---
         const gamification = {
             coins: 0,
-            level: 0,
+            levels: [ {t:0, n:"Novice 🎒"}, {t:50, n:"Explorer 🔍"}, {t:150, n:"Techie 🛠️"}, {t:300, n:"Engineer ⚙️"}, {t:500, n:"Master ⚡"} ],
+            
             init: function() {
-                const saved = localStorage.getItem('g10_coins');
-                if(saved) this.coins = parseInt(saved);
+                this.coins = parseInt(localStorage.getItem('g10_coins')) || 0;
+                if(localStorage.getItem('shop_matrix') === 'true') this.applyMatrixTheme();
                 this.updateUI();
             },
-            addCoins: function(amount, e) {
-                this.coins += amount;
-                this.updateUI();
-                this.playAudio('coin-sound');
-                this.animateCoins(`+${amount}`, e);
-                this.save();
+            
+            addCoins: function(amount, event) {
+                this.coins += amount; this.save(); this.playAudio('coin-sound');
+                this.showAnimation(`+${amount} 🪙`, event, false);
             },
-            deductCoins: function(amount, e) {
-                this.coins = Math.max(0, this.coins - amount);
-                this.updateUI();
-                this.playAudio('wrong-sound');
-                this.animateCoins(`-${amount}`, e, true);
-                this.save();
+            
+            deductCoins: function(amount, event) {
+                this.coins = Math.max(0, this.coins - amount); this.save(); this.playAudio('wrong-sound');
+                this.showAnimation(`-${amount} 🪙`, event, true);
             },
+            
+            save: function() { 
+                localStorage.setItem('g10_coins', this.coins); 
+                this.updateUI(); 
+            },
+            
             updateUI: function() {
+                let currentLevel = this.levels[0].n;
+                for(let l of this.levels) if(this.coins >= l.t) currentLevel = l.n;
+                if(localStorage.getItem('shop_badge') === 'true') currentLevel += " 🏅";
+                
                 document.getElementById('ui-coins').innerText = this.coins;
-                this.level = Math.floor(this.coins / 100);
-                const levels = ['Novice 🎒', 'Apprentice 📖', 'Scholar 🎓', 'Expert 🚀', 'Genius 👑'];
-                document.getElementById('ui-level').innerText = levels[Math.min(this.level, 4)];
+                document.getElementById('ui-level').innerText = currentLevel;
             },
-            save: function() {
-                localStorage.setItem('g10_coins', this.coins);
-            },
+            
             playAudio: function(id) {
-                const audio = document.getElementById(id);
-                if(audio) { audio.currentTime = 0; audio.play().catch(() => {}); }
+                let audio = document.getElementById(id);
+                if(audio) { audio.currentTime = 0; audio.play().catch(()=>{}); }
             },
-            animateCoins: function(txt, e, isNeg = false) {
+            
+            showAnimation: function(text, e, isNegative) {
                 const anim = document.createElement('div');
-                anim.innerText = txt;
-                anim.className = `coin-animation font-black ${isNeg ? 'text-red-500' : 'text-green-500'}`;
+                anim.innerText = text;
+                anim.className = `coin-anim ${isNegative ? 'text-red-500' : 'text-green-500'}`;
+                
                 if(e && e.clientX) {
                     anim.style.left = (e.clientX - 20) + 'px';
                     anim.style.top = (e.clientY - 20) + 'px';
                 } else {
-                    anim.style.left = '50%'; anim.style.top = '50%';
+                    anim.style.left = '50%'; anim.style.top = '40%';
                 }
                 document.body.appendChild(anim);
                 setTimeout(() => anim.remove(), 1000);
             },
-            buyItem: function(id, cost, btn) {
-                if(localStorage.getItem(`shop_${id}`) === 'true') return alert("Already owned!");
+            
+            buyItem: function(itemId, cost, btnEl) {
+                if(localStorage.getItem(`shop_${itemId}`) === 'true') {
+                    alert("You already own this item!"); return;
+                }
                 if(this.coins >= cost) {
                     this.coins -= cost; 
-                    localStorage.setItem(`shop_${id}`, 'true'); 
+                    localStorage.setItem(`shop_${itemId}`, 'true'); 
                     this.save();
-                    btn.innerText = "Owned ✅"; 
-                    btn.className = "bg-slate-500 text-white px-3 py-1 rounded font-bold";
-                    if(id === 'matrix') this.applyMatrixTheme();
-                    if(id === 'badge') this.updateUI();
+                    
+                    btnEl.innerText = "Purchased ✅"; 
+                    btnEl.className = "w-full bg-slate-200 text-slate-500 py-3 rounded-xl font-bold cursor-not-allowed";
+                    
+                    if(itemId === 'matrix') this.applyMatrixTheme();
+                    if(itemId === 'badge') this.updateUI();
                     this.playAudio('coin-sound');
-                } else alert(`Need ${cost} coins!`);
+                } else {
+                    alert(`Not enough G-Coins! You need ${cost} 🪙.`);
+                }
             },
+            
             applyMatrixTheme: function() {
                 document.getElementById('main-body').style.backgroundColor = '#000';
                 document.documentElement.classList.add('dark');
-                document.querySelectorAll('.glass-panel').forEach(el => { 
-                    el.style.border = '1px solid #0f0'; 
-                    el.style.boxShadow = '0 0 10px #0f0'; 
+                document.querySelectorAll('.feature-card').forEach(el => { 
+                    el.style.border = '1px solid #10b981'; 
+                    el.style.boxShadow = '0 0 15px rgba(16, 185, 129, 0.1)'; 
                 });
             }
         };
 
-        /* ==================== 5. CURRICULUM CONTENT ==================== */
-        const curriculumContent = [
-            { en: "1. Operating System (OS)", points: ["💻 The Core Manager.", "🧠 Handles RAM & Apps."], ar: "المدير الأساسي للكمبيوتر (مدير الشركة)." },
-            { en: "2. Expansion Slots", points: ["🎮 Empty spaces on Motherboard.", "🔌 Used to plug extra cards (GPU)."], ar: "مساحات فاضية لتركيب كروت إضافية." },
-            { en: "3. Hardware Upgrades", points: ["🚀 Replace old parts with new.", "⏳ Makes PC faster & live longer."], ar: "تغيير القطع القديمة عشان الجهاز يصير أسرع." },
-            { en: "4. System Buses", points: ["🛣️ Data Bus: Moves info.", "📍 Address Bus: Finds location."], ar: "الـ Data بينقل، والـ Address بيحدد المكان." },
-            { en: "5. OS Installation", points: ["💿 Boot from USB.", "🧹 Format Disk -> Install."], ar: "أقلع من الفلاشة، فرمت الهاردسك، ونزل الويندوز." },
-            { en: "6. ESD Protection", points: ["⚡ Static electricity kills parts.", "🖐️ Wear Anti-static wrist strap."], ar: "البس سوار تفريغ الكهرباء عشان ما تحرق اللوحة." },
-            { en: "7. Input vs Output", points: ["⌨️ Input: Keyboard, Mouse, Scanner.", "🖨️ Output: Monitor, Printer."], ar: "الإدخال زي الكيبورد، الإخراج زي الشاشة." },
-            { en: "8. Power Supply (PSU)", points: ["⚡ Converts wall AC to safe DC.", "🔋 Distributes power to parts."], ar: "بيحول كهرباء الحيطة لتيار هادي عشان الجهاز." },
-            { en: "9. Overheating Causes", points: ["🔥 Dust & Broken Fans.", "💧 Dry Thermal Paste."], ar: "الغبار، المراوح الخربانة، أو المعجون الناشف." },
-            { en: "10. Troubleshooting", points: ["🧩 Step-by-step logic fixing.", "🛑 Don't just guess."], ar: "خطوات منطقية لحل المشكلة، ما تخمن ساي." }
+        // --- 6. Curriculum Data (English First, Scannable) ---
+        const curriculumData = [
+            { en: "1. Operating System (OS)", points: ["💻 Manages hardware & software resources.", "🧠 Handles memory, scheduling, and files."], ar: "نظام التشغيل هو البرنامج الأساسي كمدير الكمبيوتر المُنظم." },
+            { en: "2. Expansion Slots", points: ["🔌 Empty slots on the Motherboard.", "🎮 Add printed circuit boards (like GPUs/NICs)."], ar: "مساحات لإضافة كروت تزيد من قدرات الجهاز مثل كرت الشاشة." },
+            { en: "3. Hardware Upgrades", points: ["🚀 Replace old components with newer ones.", "⏳ Increases processing speed & lifespan."], ar: "ترقية القطع تسرع الجهاز وتجعله يعيش أطول." },
+            { en: "4. System Buses", points: ["🛣️ Data Bus: Transfers actual data.", "📍 Address Bus: Determines memory location."], ar: "نواقل البيانات تنقل المعلومة، والعناوين تحدد مكانها." },
+            { en: "5. OS Installation Steps", points: ["💿 Configure BIOS/UEFI boot order.", "🧹 Partition, Format drive, then Install."], ar: "إعداد الإقلاع، تقسيم الهاردسك، فرمتة، ثم التثبيت." },
+            { en: "6. ESD Protection", points: ["⚡ Electrostatic Discharge destroys circuits.", "🖐️ Wear Anti-static wrist straps & mats."], ar: "استخدم سوار المعصم لتفريغ الكهرباء الساكنة وحماية اللوحة." },
+            { en: "7. Input vs Output Devices", points: ["⌨️ Input: Keyboard, Mouse, Scanner.", "🖨️ Output: Monitor, Printer, Speakers."], ar: "الإدخال يدخل البيانات للحاسب، الإخراج يعرضها لك." },
+            { en: "8. Power Supply Unit (PSU)", points: ["⚡ Converts wall AC to regulated DC.", "🔋 Distributes safe power to internal parts."], ar: "مزود الطاقة يحول كهرباء المقبس لتيار مناسب لقطع الكمبيوتر." },
+            { en: "9. Overheating Causes", points: ["🔥 Dust buildup & Fan failure.", "💧 Dried thermal paste & poor airflow."], ar: "تركم الغبار، توقف المراوح، أو جفاف المعجون الحراري." },
+            { en: "10. Troubleshooting", points: ["🧩 Systematic, logical approach to fix issues.", "🛑 Isolate root cause instead of guessing."], ar: "تتبع العطل بخطوات منطقية بدلاً من التخمين العشوائي." }
         ];
 
         const lessonsBox = document.getElementById('lessons-container');
-        curriculumContent.forEach(lec => {
-            let bullets = lec.points.map(p => `<li>${p}</li>`).join('');
+        curriculumData.forEach(lec => {
+            let bullets = lec.points.map(p => `
+                <li class="flex items-start gap-2 mb-2">
+                    <span class="text-brand-500 mt-1">•</span>
+                    <span class="text-slate-600 dark:text-slate-300 text-sm font-medium leading-relaxed">${p}</span>
+                </li>`).join('');
+            
             lessonsBox.innerHTML += `
-                <div class="glass-panel p-5">
-                    <h3 class="text-xl font-black text-brand-800 dark:text-brand-400 mb-3">${lec.en}</h3>
-                    <ul class="text-sm font-semibold mb-3 space-y-1 text-slate-700 dark:text-slate-300">${bullets}</ul>
-                    <div class="ar-text text-sm font-bold text-sudanese-gold bg-slate-900/5 p-2 rounded-lg border-r-4 border-sudanese-gold">${lec.ar}</div>
+                <div class="feature-card flex flex-col h-full">
+                    <h3 class="text-lg font-black text-slate-800 dark:text-white mb-4 leading-tight">${lec.en}</h3>
+                    <ul class="mb-5 flex-grow">${bullets}</ul>
+                    <div class="mt-auto bg-slate-50 dark:bg-slate-800/50 p-3 rounded-lg border-r-4 border-sudanese-gold">
+                        <p class="ar-text text-xs font-bold text-slate-500 dark:text-slate-400">${lec.ar}</p>
+                    </div>
                 </div>
             `;
         });
 
-        /* ==================== 6. SHOP ITEMS ==================== */
-        const shopItems = [
-            { id: 'matrix', name: 'Matrix Theme', cost: 150, desc: '🟢 Neo vibes with green matrix style', emoji: '🕶️' },
-            { id: 'badge', name: 'Genius Badge', cost: 200, desc: '👑 Show off your expert status', emoji: '🏆' },
-            { id: 'theme', name: 'Neon Theme', cost: 100, desc: '💜 Cyberpunk neon color scheme', emoji: '⚡' }
-        ];
-
-        const shopContainer = document.getElementById('shop-container');
-        shopItems.forEach(item => {
-            const owned = localStorage.getItem(`shop_${item.id}`) === 'true';
-            shopContainer.innerHTML += `
-                <div class="glass-panel p-6 text-center">
-                    <div class="text-5xl mb-4">${item.emoji}</div>
-                    <h3 class="text-xl font-bold mb-2 text-brand-800 dark:text-brand-300">${item.name}</h3>
-                    <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">${item.desc}</p>
-                    <div class="mb-4 text-xl font-bold text-sudanese-gold">🪙 ${item.cost} coins</div>
-                    <button 
-                        onclick="gamification.buyItem('${item.id}', ${item.cost}, this)"
-                        class="${owned ? 'bg-slate-500' : 'bg-brand-600 hover:bg-brand-700'} text-white px-4 py-2 rounded font-bold transition"
-                    >
-                        ${owned ? '✅ Owned' : '🛒 Buy'}
-                    </button>
-                </div>
-            `;
-        });
-
-        /* ==================== 7. QUIZ ENGINE (ADVANCED) ==================== */
+        // --- 7. Quiz Engine ---
         const quizData = [
-            { qAr: "ما هو نظام التشغيل (Operating System)؟", qEn: "What is an Operating System?", opts: ["Browser web فقط", "مدير الموارد والتطبيقات والهاردوير", "لعبة فيديو"], correct: 1, exp: "نظام التشغيل هو الوسيط بينك وبين الجهاز - يدير الذاكرة والتطبيقات والموارد بشكل ذكي." },
-            { qAr: "فتحات التوسعة (Expansion Slots) تستخدم لـ:", qEn: "Expansion Slots are used for:", opts: ["تبريد الجهاز فقط", "تركيب كروت إضافية (GPU, Sound Card)", "شحن البطارية"], correct: 1, exp: "الفتحات تسمح بإضافة كروت التوسعة مثل كرت الرسوميات الخارجي لأداء أفضل." },
-            { qAr: "للحماية من الكهرباء الساكنة (ESD)، تحتاج إلى:", qEn: "To protect against ESD (electrostatic discharge), wear:", opts: ["قفازات مطاطية", "سوار تفريغ الكهرباء", "لا تحتاج للحماية"], correct: 1, exp: "سوار التفريغ الثابت يحمي المكونات الحساسة من الكهرباء الساكنة التي قد تحرقها فوراً." },
-            { qAr: "الطابعة تُصنّف ضمن أجهزة:", qEn: "A Printer is classified as:", opts: ["جهاز إدخال", "جهاز إخراج", "جهاز تخزين"], correct: 1, exp: "الطابعة تخرج البيانات على ورقة - لذا هي جهاز إخراج (Output Device)." },
-            { qAr: "وظيفة مزود الطاقة (PSU):", qEn: "The Power Supply (PSU) function:", opts: ["تبريد وحدة المعالجة", "تحويل التيار الكهربائي AC إلى DC آمن", "تخزين البيانات"], correct: 1, exp: "PSU تحول التيار الكهربائي من الحيطة (AC) إلى تيار آمن (DC) لتشغيل الأجهزة." },
-            { qAr: "أسباب ارتفاع حرارة الجهاز:", qEn: "What causes PC overheating?", opts: ["وجود ملفات كثيرة", "الأتربة والمراوح المعطلة والمعجون الناشف", "استخدام ماوس سلكي"], correct: 1, exp: "الأتربة تسد فتحات التهوية والمعجون الناشف يمنع نقل الحرارة من المعالج - النتيجة حرارة عالية." },
-            { qAr: "أي ناقل (Bus) ينقل البيانات الفعلية؟", qEn: "Which Bus carries actual data?", opts: ["Control Bus", "Data Bus", "Address Bus"], correct: 1, exp: "Data Bus هو الممر الذي تنتقل فيه البيانات الفعلية (الصفر والواحد) بين المعالج والذاكرة." },
-            { qAr: "تنزيل نظام التشغيل يتطلب:", qEn: "Installing Windows requires:", opts: ["سماعات رأس فقط", "بوت من USB وتهيئة القرص الصلب", "إنترنت عالي السرعة فقط"], correct: 1, exp: "الخطوات: 1-أقلع من USB 2-اختر القرص 3-هيء القرص (Format) 4-نزل الويندوز." },
-            { qAr: "تحديث الهاردوير من HDD إلى SSD يؤثر على:", qEn: "Upgrading HDD to SSD affects:", opts: ["جودة الصوت", "سرعة الإقلاع والبرامج بشكل جذري", "حجم الشاشة"], correct: 1, exp: "SSD أسرع بأضعاف من HDD - يجعل الكمبيوتر يقلع في ثواني بدلاً من دقائق." },
-            { qAr: "بدون تعريفات (Drivers) الجهاز الجديد:", qEn: "Without Drivers, a new hardware:", opts: ["يعمل بأقصى سرعة", "قد لا يعمل أو يعمل بكفاءة منخفضة", "ينفجر"], correct: 1, exp: "التعريفات هي المترجم بين الويندوز والقطعة - بدونها النظام لا يعرف كيف يتحكم بها." },
-            { qAr: "استكشاف الأخطاء وإصلاحها (Troubleshooting):", qEn: "Troubleshooting means:", opts: ["غرفة مظلمة", "نهج منطقي منهجي لحل المشاكل من السبب الجذري", "استخدام أدوات عشوائية"], correct: 1, exp: "التفكير المنطقي خطوة بخطوة - اعزل المشكلة وحدد السبب بدون تخمين عشوائي." },
-            { qAr: "عملية تنشئ نظام ملفات (File System) جاهز:", qEn: "A process that creates a File System:", opts: ["التقسيم (Partitioning)", "التهيئة (Formatting)", "الترقية"], correct: 1, exp: "التهيئة تضع نظام الملفات (مثل NTFS) ليكون جاهزاً لحفظ البيانات والويندوز." },
-            { qEn: "What is the primary responsibility of an OS?", qAr: "ماهي وظيفة نظام التشغيل الأساسية؟", opts: ["Run Games Only", "Cool CPU", "Manage Resources (RAM/Apps)"], correct: 2, exp: "The OS manages all system resources and applications efficiently." },
-            { qEn: "What is the benefit of Expansion Slots?", qAr: "ما فائدة فتحات التوسعة؟", opts: ["Increase Internet Speed", "Add Extra Cards (GPU)", "Connect Monitor"], correct: 1, exp: "Slots allow adding components like GPUs for better performance." },
-            { qEn: "A Printer is classified as:", qAr: "الطابعة تعتبر جهاز:", opts: ["Output Device", "Input Device", "Storage Device"], correct: 0, exp: "Printers output data - they're Output devices." },
-            { qEn: "What causes PC overheating?", qAr: "أسباب ارتفاع حرارة الجهاز؟", opts: ["Too many files", "Dust & Dry Thermal Paste", "Wired Mouse"], correct: 1, exp: "Dust blocks airflow, and dry thermal paste prevents heat transfer." },
-            { qEn: "Which Bus moves the actual information?", qAr: "أي ناقل ينقل البيانات الفعلية؟", opts: ["Control Bus", "Data Bus", "Address Bus"], correct: 1, exp: "The Data Bus carries the actual data between components." }
+            { qEn: "What is the primary responsibility of an OS?", qAr: "ماهي وظيفة نظام التشغيل الأساسية؟", opts: ["Run Games Only", "Cool CPU", "Manage HW/SW Resources", "Send Emails"], correct: 2 },
+            { qEn: "What is the benefit of Expansion Slots?", qAr: "ما الفائدة من فتحات التوسعة؟", opts: ["Increase Internet Speed", "Add Extra Cards (GPU)", "Save Passwords", "Clean Dust"], correct: 1 },
+            { qEn: "Which Bus moves the actual information?", qAr: "أي ناقل مسؤول عن نقل البيانات الفعلية؟", opts: ["Control Bus", "Address Bus", "Data Bus", "USB Bus"], correct: 2 },
+            { qEn: "To protect against static electricity (ESD), a technician must wear:", qAr: "للحماية من الكهرباء الساكنة نستخدم:", opts: ["Rubber Gloves", "Anti-static wrist strap", "Safety Glasses", "Nothing"], correct: 1 },
+            { qEn: "A Printer is classified as an:", qAr: "الطابعة تصنف كجهاز:", opts: ["Output Device", "Input Device", "Storage Device", "Processing Device"], correct: 0 },
+            { qEn: "What does the Power Supply Unit (PSU) do?", qAr: "ما وظيفة مزود الطاقة؟", opts: ["Speeds up RAM", "Converts AC to safe DC", "Stores files", "Fixes software bugs"], correct: 1 },
+            { qEn: "A major reason for computer overheating is:", qAr: "من أسباب ارتفاع حرارة الكمبيوتر:", opts: ["Too many text files", "Dust & Dry Thermal Paste", "Wired Mouse", "Using Wi-Fi"], correct: 1 }
         ];
 
         const quizEngine = {
-            idx: 0, score: 0, timer: null, timeLeft: 30, history: [], selectedAns: null, studentName: "User",
-            elCore: document.getElementById('quiz-core'), 
-            elRes: document.getElementById('quiz-result'), 
-            elStart: document.getElementById('quiz-start'),
-            elOpts: document.getElementById('q-options'), 
-            elNextBtn: document.getElementById('btn-next'), 
-            elProgress: document.getElementById('q-progress'),
+            idx: 0, score: 0, timer: null, timeLeft: 20,
+            elCore: document.getElementById('quiz-core'), elRes: document.getElementById('quiz-result'), elStart: document.getElementById('quiz-start'),
             
             start: function() {
-                const nameInp = document.getElementById('student-name').value.trim();
-                if(nameInp) this.studentName = nameInp;
-                this.idx = 0; 
-                this.score = 0; 
-                this.history = [];
-                this.elStart.classList.add('hidden'); 
-                this.elRes.classList.add('hidden'); 
-                this.elCore.classList.remove('hidden');
+                this.idx = 0; this.score = 0;
+                this.elStart.classList.add('hidden'); this.elRes.classList.add('hidden'); this.elCore.classList.remove('hidden');
                 this.load();
             },
+            
             load: function() {
-                this.selectedAns = null; 
-                this.elNextBtn.classList.add('hidden');
                 const q = quizData[this.idx];
                 document.getElementById('q-counter').innerText = `Question ${this.idx+1} of ${quizData.length}`;
-                this.elProgress.style.width = `${(this.idx / quizData.length) * 100}%`;
                 document.getElementById('q-text-en').innerText = q.qEn;
                 document.getElementById('q-text-ar').innerText = q.qAr;
                 
-                this.elOpts.innerHTML = '';
+                const optsBox = document.getElementById('q-options'); 
+                optsBox.innerHTML = '';
+                
                 q.opts.forEach((o, i) => {
                     const b = document.createElement('button');
-                    b.className = "w-full text-left p-4 rounded-lg border-2 border-slate-200 dark:border-slate-700 font-bold hover:border-brand-500 transition bg-white dark:bg-slate-800";
+                    b.className = "w-full text-left p-4 rounded-xl border border-slate-200 dark:border-slate-700 font-bold text-slate-700 dark:text-slate-200 hover:border-brand-500 hover:bg-brand-50 dark:hover:bg-brand-900/20 transition bg-white dark:bg-slate-800 shadow-sm";
                     b.innerText = o;
-                    b.onclick = () => this.selectOpt(i, b);
-                    this.elOpts.appendChild(b);
+                    b.onclick = (e) => this.answer(i, b, e);
+                    optsBox.appendChild(b);
                 });
                 this.startTimer();
             },
+            
             startTimer: function() {
-                clearInterval(this.timer); 
-                this.timeLeft = 30; 
+                clearInterval(this.timer); this.timeLeft = 20; 
                 document.getElementById('timer-text').innerText = this.timeLeft;
+                document.getElementById('q-timer').classList.remove('text-red-500');
+                
                 this.timer = setInterval(() => {
                     this.timeLeft--; 
                     document.getElementById('timer-text').innerText = this.timeLeft;
-                    if(this.timeLeft <= 0) { 
-                        clearInterval(this.timer); 
-                        this.next(true, null); 
-                    }
+                    if(this.timeLeft <= 5) document.getElementById('q-timer').classList.add('text-red-500');
+                    if(this.timeLeft <= 0) { clearInterval(this.timer); this.answer(-1, null, null); }
                 }, 1000);
             },
-            selectOpt: function(i, btn) {
-                this.selectedAns = i;
-                Array.from(this.elOpts.children).forEach(b => {
-                    b.classList.remove('border-brand-500', 'bg-brand-50', 'dark:bg-slate-700');
-                    b.classList.add('border-slate-200', 'dark:border-slate-700');
-                });
-                btn.classList.remove('border-slate-200', 'dark:border-slate-700');
-                btn.classList.add('border-brand-500', 'bg-brand-50', 'dark:bg-slate-700');
-                this.elNextBtn.classList.remove('hidden');
-            },
-            next: function(isTimeout = false, e = null) {
-                if(this.selectedAns === null && !isTimeout) return;
+            
+            answer: function(ansIdx, btn, e) {
                 clearInterval(this.timer);
+                const isCorrect = (ansIdx === quizData[this.idx].correct);
                 
-                const q = quizData[this.idx];
-                const ansIdx = isTimeout ? -1 : this.selectedAns;
-                const isCorrect = (ansIdx === q.correct);
-                
+                // Disable all buttons immediately
+                Array.from(document.getElementById('q-options').children).forEach(b => {
+                    b.disabled = true; b.classList.add('opacity-70', 'cursor-not-allowed');
+                });
+
                 if(isCorrect) {
-                    this.score++; 
-                    gamification.addCoins(10, e);
+                    btn.classList.replace('border-slate-200', 'border-green-500');
+                    btn.classList.replace('dark:border-slate-700', 'border-green-500');
+                    btn.classList.add('bg-green-50', 'dark:bg-green-900/30', 'text-green-700', 'dark:text-green-400');
+                    this.score++; gamification.addCoins(10, e);
                 } else {
+                    if(btn) {
+                        btn.classList.replace('border-slate-200', 'border-red-500');
+                        btn.classList.replace('dark:border-slate-700', 'border-red-500');
+                        btn.classList.add('bg-red-50', 'dark:bg-red-900/30', 'text-red-700', 'dark:text-red-400');
+                    }
+                    // Highlight correct answer
+                    const correctBtn = document.getElementById('q-options').children[quizData[this.idx].correct];
+                    correctBtn.classList.replace('border-slate-200', 'border-green-500');
+                    correctBtn.classList.replace('dark:border-slate-700', 'border-green-500');
+                    correctBtn.classList.add('bg-green-50', 'dark:bg-green-900/30');
                     gamification.deductCoins(2, e);
                 }
 
-                this.history.push({
-                    qAr: q.qAr,
-                    userAns: ansIdx === -1 ? "لم يتم الإجابة (انتهى الوقت)" : q.opts[ansIdx],
-                    correctAns: q.opts[q.correct],
-                    isCorrect: isCorrect,
-                    exp: q.exp
-                });
-
-                Array.from(this.elOpts.children).forEach(b => b.disabled = true);
-                this.elNextBtn.classList.add('hidden');
-
                 setTimeout(() => {
                     this.idx++;
-                    if(this.idx < quizData.length) this.load(); 
-                    else this.end();
-                }, 800);
+                    if(this.idx < quizData.length) this.load(); else this.end();
+                }, 1200);
             },
+            
             end: function() {
-                this.elProgress.style.width = '100%';
-                this.elCore.classList.add('hidden'); 
-                this.elRes.classList.remove('hidden');
-                
-                document.getElementById('res-name').innerText = this.studentName;
-                document.getElementById('res-score').innerText = `${this.score} / ${quizData.length}`;
-                
-                const ratio = this.score / quizData.length;
-                const msgEl = document.getElementById('res-msg');
-                if(ratio === 1) {
-                    msgEl.innerText = "أداء مثالي! لقد أتقنت المادة بالكامل 💯";
-                    msgEl.className = "ar-text text-lg font-bold rounded-lg p-4 bg-green-100 text-green-800 border-2 border-green-500 block mt-4";
-                } else if(ratio >= 0.6) {
-                    msgEl.innerText = "عمل رائع! راجع بعض الملاحظات لتصل للعلامة الكاملة 👍";
-                    msgEl.className = "ar-text text-lg font-bold rounded-lg p-4 bg-yellow-100 text-yellow-800 border-2 border-yellow-500 block mt-4";
-                } else {
-                    msgEl.innerText = "تحتاج إلى مزيد من المراجعة، اقرأ الخلاصة وجرب مرة أخرى 💪";
-                    msgEl.className = "ar-text text-lg font-bold rounded-lg p-4 bg-red-100 text-red-800 border-2 border-red-500 block mt-4";
-                }
-
-                this.generateReport();
+                this.elCore.classList.add('hidden'); this.elRes.classList.remove('hidden');
+                document.getElementById('res-score').innerText = `${this.score}/${quizData.length}`;
             },
-            generateReport: function() {
-                const reportBox = document.getElementById('res-report');
-                reportBox.innerHTML = '';
-                this.history.forEach((item, index) => {
-                    const div = document.createElement('div');
-                    div.className = `p-5 rounded-xl border-2 text-right ar-text ${item.isCorrect ? 'border-green-400 bg-green-50 dark:bg-green-900/20' : 'border-red-400 bg-red-50 dark:bg-red-900/20'}`;
-                    div.innerHTML = `
-                        <h5 class="text-lg font-black mb-2 dark:text-white">س ${index + 1}: ${item.qAr}</h5>
-                        ${item.isCorrect 
-                            ? `<p class="text-green-700 dark:text-green-400 font-bold mb-2">✅ إجابة صحيحة: ${item.userAns}</p>` 
-                            : `<p class="text-red-600 dark:text-red-400 font-bold mb-1 line-through opacity-80">❌ إجابتك: ${item.userAns}</p>
-                               <p class="text-green-700 dark:text-green-400 font-black mb-3">✅ الإجابة الصحيحة: ${item.correctAns}</p>`
-                        }
-                        <div class="mt-3 p-3 bg-white dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 text-sm text-slate-700 dark:text-slate-300">
-                            <strong>💡 التفسير:</strong> ${item.exp}
-                        </div>
-                    `;
-                    reportBox.appendChild(div);
-                });
-            },
+            
             reset: function() {
-                this.elRes.classList.add('hidden'); 
-                this.start();
+                this.elRes.classList.add('hidden'); this.start();
             }
         };
 
-        /* ==================== INITIALIZATION ==================== */
-        window.addEventListener('DOMContentLoaded', () => {
-            themeManager.init();
-            watermarkManager.init();
+        // Initialize Gamification on load
+        window.onload = () => {
             gamification.init();
-        });
+            // Check purchased items for store UI update
+            if(localStorage.getItem('shop_badge') === 'true') {
+                const btn = document.querySelector('button[onclick*="badge"]');
+                if(btn) { btn.innerText = "Purchased ✅"; btn.className = "w-full bg-slate-200 text-slate-500 py-3 rounded-xl font-bold cursor-not-allowed"; }
+            }
+            if(localStorage.getItem('shop_matrix') === 'true') {
+                const btn = document.querySelector('button[onclick*="matrix"]');
+                if(btn) { btn.innerText = "Purchased ✅"; btn.className = "w-full bg-slate-200 text-slate-500 py-3 rounded-xl font-bold cursor-not-allowed"; }
+            }
+        };
     </script>
 </body>
 </html>
