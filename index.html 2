@@ -1,0 +1,296 @@
+<index.html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ULK - Computer Architecture Exam</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            color: #0056b3;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        .info-panel {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .instructions {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #fafafa;
+        }
+        .arabic-text {
+            color: #555;
+            font-size: 14px;
+            margin-top: 5px;
+            direction: rtl;
+            text-align: right;
+            font-family: 'Arial', sans-serif;
+        }
+        textarea {
+            width: 100%;
+            height: 60px;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            resize: vertical;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #218838;
+        }
+        #results-section {
+            display: none;
+            margin-top: 30px;
+        }
+        .result-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .correct {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+        }
+        .incorrect {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+        }
+        .partial {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+        }
+        .model-answer {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #0056b3;
+        }
+        .watermark {
+            text-align: center;
+            margin-top: 30px;
+            color: #888;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="exam-container">
+    <div class="header">
+        <h1>University of Kigali Independent (ULK) - Polytechnic Institute</h1>
+        <h3>School: Science and Technology</h3>
+    </div>
+
+    <div class="info-panel">
+        <p><strong>Year:</strong> 1 Computer Science / Networking</p>
+        <p><strong>Module Title:</strong> COMPUTER ARCHITECTURE AND HARDWARE MAINTENANCE</p>
+        <p><strong>Exam Type:</strong> WRITTEN TEST (Short Answers)</p>
+        <p><strong>Student Name:</strong> <input type="text" id="student-name" value="Ali D" style="padding:5px; font-size:16px; width:200px;"></p>
+        <p><strong>Time Allowed:</strong> 45 Minutes</p>
+    </div>
+
+    <div class="instructions">
+        <strong>Instructions (التعليمات):</strong>
+        <ul>
+            <li>Read each question carefully. <span class="arabic-text">(اقرأ كل سؤال بعناية)</span></li>
+            <li>Write your answers in simple English. <span class="arabic-text">(اكتب إجاباتك بلغة إنجليزية بسيطة)</span></li>
+        </ul>
+    </div>
+
+    <form id="exam-form">
+        <h3>Section A: Short Answer Questions (أسئلة الإجابات القصيرة)</h3>
+        
+        <div class="question-block">
+            <label><strong>Q1:</strong> What is the main difference between an Input device and an Output device? Give one example for each.</label>
+            <div class="arabic-text">(ما هو الفرق الرئيسي بين جهاز الإدخال وجهاز الإخراج؟ أعطِ مثالاً واحداً لكل منهما).</div>
+            <textarea id="q1" placeholder="Type your answer here..."></textarea>
+        </div>
+
+        <div class="question-block">
+            <label><strong>Q2:</strong> Mention two major causes that lead to computer overheating.</label>
+            <div class="arabic-text">(اذكر سببين رئيسيين يؤديان إلى ارتفاع حرارة الحاسوب).</div>
+            <textarea id="q2" placeholder="1. ...&#10;2. ..."></textarea>
+        </div>
+
+        <div class="question-block">
+            <label><strong>Q3:</strong> Name the three types of computer buses.</label>
+            <div class="arabic-text">(اذكر أنواع ناقلات الحاسوب الثلاثة).</div>
+            <textarea id="q3" placeholder="1. ...&#10;2. ...&#10;3. ..."></textarea>
+        </div>
+
+        <h3>Section B: Problem Solving (حل المشكلات)</h3>
+
+        <div class="question-block">
+            <label><strong>Q4:</strong> A computer is taking a very long time to load Windows and open files. Which hardware component should the user upgrade to fix this: RAM, SSD, or Graphics Card?</label>
+            <div class="arabic-text">(حاسوب يستغرق وقتاً طويلاً جداً في تحميل الويندوز وفتح الملفات. أي قطعة عتاد يجب على المستخدم ترقيتها لحل هذه المشكلة: الرام، أم الـ SSD، أم كرت الشاشة؟)</div>
+            <textarea id="q4" placeholder="Type your answer here..."></textarea>
+        </div>
+
+        <div class="question-block">
+            <label><strong>Q5:</strong> Before opening a computer case to fix it, what is one important safety step a technician must do to avoid electric shocks?</label>
+            <div class="arabic-text">(قبل فتح صندوق الحاسوب لإصلاحه، ما هي الخطوة الآمنة المهمة التي يجب على الفني القيام بها لتجنب الصدمات الكهربائية؟)</div>
+            <textarea id="q5" placeholder="Type your answer here..."></textarea>
+        </div>
+
+        <div class="question-block">
+            <label><strong>Q6:</strong> Why do we need to "Format" a hard drive before installing an Operating System?</label>
+            <div class="arabic-text">(لماذا نحتاج إلى "تهيئة/Format" القرص الصلب قبل تثبيت نظام التشغيل؟)</div>
+            <textarea id="q6" placeholder="Type your answer here..."></textarea>
+        </div>
+
+        <button type="button" onclick="submitExam()">Submit Exam (تسليم الامتحان)</button>
+    </form>
+
+    <div id="results-section">
+        <div class="header">
+            <h2>Exam Results (نتائج الامتحان)</h2>
+            <h3 id="score-display"></h3>
+        </div>
+        <div id="feedback-container"></div>
+        <button type="button" onclick="location.reload()" style="background:#0056b3; margin-top:20px;">Try Again (إعادة المحاولة)</button>
+    </div>
+
+    <div class="watermark">
+        Developed & Designed by Ali D © 2026
+    </div>
+</div>
+
+<script>
+    // نظام تصحيح يعتمد على الكلمات المفتاحية
+    const gradingRubric = {
+        q1: {
+            keywords: ['input', 'output', 'send', 'show', 'keyboard', 'mouse', 'monitor', 'printer'],
+            minKeywords: 2,
+            model: "Input sends data (e.g., Keyboard). Output shows data (e.g., Monitor)."
+        },
+        q2: {
+            keywords: ['dust', 'dirt', 'fan', 'broken', 'cooling'],
+            minKeywords: 2,
+            model: "1. Dust buildup. 2. Broken cooling fans."
+        },
+        q3: {
+            keywords: ['data', 'address', 'control'],
+            minKeywords: 3,
+            model: "1. Data Bus, 2. Address Bus, 3. Control Bus."
+        },
+        q4: {
+            keywords: ['ssd', 'solid state'],
+            minKeywords: 1,
+            model: "SSD (Because it makes loading and booting much faster)."
+        },
+        q5: {
+            keywords: ['unplug', 'power', 'cable', 'electricity', 'strap', 'anti-static'],
+            minKeywords: 1,
+            model: "Unplug the power cable from the electricity (or use an anti-static wrist strap)."
+        },
+        q6: {
+            keywords: ['file system', 'save', 'data', 'os', 'operating system', 'prepare'],
+            minKeywords: 2,
+            model: "To create a file system so the OS can save data."
+        }
+    };
+
+    function submitExam() {
+        let totalScore = 0;
+        let maxScore = 6;
+        let feedbackHTML = '';
+
+        for (let i = 1; i <= 6; i++) {
+            let qId = 'q' + i;
+            let userAnswer = document.getElementById(qId).value.trim().toLowerCase();
+            let rubric = gradingRubric[qId];
+            
+            // حساب الكلمات المفتاحية المتطابقة
+            let matchCount = 0;
+            rubric.keywords.forEach(keyword => {
+                if (userAnswer.includes(keyword)) {
+                    matchCount++;
+                }
+            });
+
+            let statusClass = 'incorrect';
+            let statusText = 'Incorrect (إجابة خاطئة أو غير مكتملة)';
+
+            if (matchCount >= rubric.minKeywords) {
+                statusClass = 'correct';
+                statusText = 'Correct (إجابة صحيحة)';
+                totalScore++;
+            } else if (matchCount > 0) {
+                statusClass = 'partial';
+                statusText = 'Needs Improvement (إجابة قريبة ولكن ينقصها التفاصيل)';
+                totalScore += 0.5; // نصف درجة
+            }
+
+            if(userAnswer === '') {
+                 statusText = 'No Answer (لم يتم الإجابة)';
+            }
+
+            feedbackHTML += `
+                <div class="result-item ${statusClass}">
+                    <strong>Question ${i}:</strong><br>
+                    <em>Your Answer:</em> ${userAnswer || '<span style="color:red">No answer provided</span>'}<br>
+                    <strong>Status:</strong> ${statusText}<br>
+                    <div class="model-answer">💡 Model Answer: ${rubric.model}</div>
+                </div>
+            `;
+        }
+
+        // إخفاء الامتحان وإظهار النتائج
+        document.getElementById('exam-form').style.display = 'none';
+        document.getElementById('results-section').style.display = 'block';
+        
+        let studentName = document.getElementById('student-name').value;
+        document.getElementById('score-display').innerHTML = `Student: ${studentName} <br> Estimated Score: ${totalScore} / ${maxScore}`;
+        document.getElementById('feedback-container').innerHTML = feedbackHTML;
+        window.scrollTo(0, 0);
+    }
+</script>
+
+</body>
+</html>
