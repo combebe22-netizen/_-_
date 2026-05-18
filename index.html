@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ULK Computer Architecture Academy - Professional Gamified Platform">
+    <meta name="description" content="ULK OS Academy - Professional Gamified Platform for Operating Systems">
     <meta name="author" content="Ali Khalid">
-    <title>ULK Hardware Academy | Architecture Mastery</title>
+    <title>ULK OS Academy | Operating Systems Mastery</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Changa:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -17,18 +17,26 @@
             theme: {
                 extend: {
                     colors: {
-                        brand: { 50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a' },
+                        brand: { 50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc', 400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 800: '#075985', 900: '#0c4a6e' },
                         sudanese: { light: '#fef3c7', gold: '#f59e0b', dark: '#b45309' },
-                        academic: { light: '#e0e7ff', base: '#4f46e5', dark: '#312e81' },
-                        arabic: { light: '#ecfdf5', base: '#10b981', dark: '#064e3b' }
+                        academic: { light: '#f3e8ff', base: '#9333ea', dark: '#581c87' },
+                        arabic: { light: '#ecfdf5', base: '#10b981', dark: '#064e3b' },
+                        paper: '#fcfcfc' // Reading comfort color
                     },
                     fontFamily: {
-                        en: ['Poppins', 'sans-serif'],
-                        ar: ['Cairo', 'sans-serif'],
+                        en: ['Outfit', 'sans-serif'],
+                        ar: ['Changa', 'sans-serif'],
                     },
                     animation: {
                         'bounce-slow': 'bounce 3s infinite',
                         'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'flip-in': 'flipIn 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        flipIn: {
+                            '0%': { transform: 'rotateY(-90deg)', opacity: '0' },
+                            '100%': { transform: 'rotateY(0)', opacity: '1' },
+                        }
                     }
                 }
             }
@@ -36,175 +44,173 @@
     </script>
 
     <style>
-        /* Base Styling & Typography */
+        /* Base Styling for Reading Comfort */
         body { 
-            font-family: 'Poppins', sans-serif; 
-            background-color: #f8fafc; 
+            font-family: 'Outfit', sans-serif;
+            background-color: #f1f5f9; /* Soft background */
             transition: background-color 0.4s ease, color 0.4s ease; 
+            font-size: 16px;
+            line-height: 1.6;
         }
         .dark body { 
-            background-color: #0f172a; 
-            color: #e2e8f0;
+            background-color: #0b1120; /* Deep blue for dark mode */
+            color: #f8fafc;
         }
         .ar-text { 
-            font-family: 'Cairo', sans-serif; 
+            font-family: 'Changa', sans-serif;
             direction: rtl; 
             text-align: right; 
         }
         
-        /* Smooth Scrolling & Scrollbar */
-        ::-webkit-scrollbar { width: 10px; }
+        /* Smooth Custom Scrollbar */
+        ::-webkit-scrollbar { width: 12px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 10px; border: 2px solid transparent; background-clip: padding-box; }
-        .dark ::-webkit-scrollbar-thumb { background: #475569; border: 2px solid transparent; background-clip: padding-box; }
-        ::-webkit-scrollbar-thumb:hover { background: #64748b; background-clip: padding-box; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; border: 3px solid transparent; background-clip: padding-box; }
+        .dark ::-webkit-scrollbar-thumb { background: #334155; border: 3px solid transparent; background-clip: padding-box; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; background-clip: padding-box; }
 
-        /* Navigation Tab System */
+        /* Navigation Tab System with Animations */
         .tab-content { 
-            display: none; 
-            animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1); 
+            display: none;
+            animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
         }
         .tab-content.active { display: block; }
         @keyframes slideUpFade { 
-            0% { opacity: 0; transform: translateY(20px); } 
-            100% { opacity: 1; transform: translateY(0); } 
+            0% { opacity: 0; transform: translateY(30px) scale(0.98); } 
+            100% { opacity: 1; transform: translateY(0) scale(1); } 
         }
         
         .tab-btn { 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
         .tab-btn::after {
-            content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-            width: 0; height: 3px; background-color: transparent; transition: width 0.3s ease;
-            border-radius: 3px 3px 0 0;
+            content: '';
+            position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 0; height: 4px; background-color: transparent; transition: width 0.3s ease;
+            border-radius: 4px 4px 0 0;
         }
         .tab-btn.active { 
-            background-color: #2563eb; 
+            background-color: #0284c7;
             color: white; 
-            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.4), 0 4px 6px -2px rgba(37, 99, 235, 0.2); 
-            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(2, 132, 199, 0.4), 0 4px 6px -2px rgba(2, 132, 199, 0.2);
+            transform: translateY(-3px);
         }
-        .dark .tab-btn.active { background-color: #3b82f6; }
-        .tab-btn.active::after { width: 40%; background-color: #fff; }
+        .dark .tab-btn.active { background-color: #0ea5e9; }
+        .tab-btn.active::after { width: 50%; background-color: #fff; }
 
-        /* Draggable Element Styling */
-        #draggable-watermark {
-            position: fixed; bottom: 30px; right: 30px; z-index: 9999;
-            background: rgba(15, 23, 42, 0.85); color: #fff;
-            padding: 10px 20px; border-radius: 50px; 
-            border: 1px solid rgba(255,255,255,0.1);
-            font-weight: 700; font-size: 0.9rem; 
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3), 0 10px 10px -5px rgba(0,0,0,0.2); 
-            cursor: grab; user-select: none;
-            display: flex; align-items: center; gap: 10px; 
-            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        /* Flashcard 3D System (New Feature) */
+        .flashcard-container {
+            perspective: 1000px;
+            height: 350px;
+            cursor: pointer;
         }
-        #draggable-watermark:active { cursor: grabbing; transform: scale(0.92) rotate(-2deg); }
-        #draggable-watermark:hover { border-color: rgba(59, 130, 246, 0.5); }
+        .flashcard {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .flashcard-container:hover .flashcard {
+            box-shadow: 0 20px 35px rgba(0,0,0,0.15);
+        }
+        .flashcard.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            border: 2px solid #e2e8f0;
+            background: #ffffff;
+        }
+        .dark .flashcard-front, .dark .flashcard-back {
+            background: #1e293b;
+            border-color: #334155;
+        }
+        .flashcard-front {
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+        }
+        .dark .flashcard-front {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+        }
+        .flashcard-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, #fef3c7, #fffbeb);
+            border-color: #f59e0b;
+        }
+        .dark .flashcard-back {
+            background: linear-gradient(135deg, #422006, #1e293b);
+            border-color: #b45309;
+        }
 
-        /* Floating Support Widget */
-        #support-widget {
-            position: fixed; bottom: 30px; left: 30px; z-index: 9998;
-            display: flex; flex-direction: column; align-items: flex-start;
-        }
-        .support-box {
-            display: none; background: #ffffff; padding: 28px; border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); margin-bottom: 20px;
-            width: 350px; border: 1px solid #e2e8f0;
-            transform-origin: bottom left;
-            animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .dark .support-box { 
-            background: #1e293b; border-color: #334155; 
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.7); 
-        }
-        @keyframes popIn { 
-            0% { opacity: 0; transform: scale(0.9) translateY(10px); } 
-            100% { opacity: 1; transform: scale(1) translateY(0); } 
-        }
-
-        /* Curriculum & Shop Feature Cards */
+        /* Feature Cards (Curriculum) */
         .feature-card {
-            background: white; border: 1px solid #e2e8f0; border-radius: 20px; padding: 28px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03); 
+            background: white;
+            border: 1px solid #e2e8f0; border-radius: 20px; padding: 32px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             z-index: 1;
         }
-        .feature-card::before {
-            content: ""; position: absolute; inset: 0; border-radius: 20px;
-            background: linear-gradient(135deg, rgba(59,130,246,0.1), transparent);
-            opacity: 0; transition: opacity 0.4s ease; z-index: -1;
-        }
         .feature-card:hover { 
-            transform: translateY(-8px); 
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); 
-            border-color: #3b82f6; 
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); 
+            border-color: #0ea5e9;
         }
-        .feature-card:hover::before { opacity: 1; }
         .dark .feature-card { background: #1e293b; border-color: #334155; }
-        .dark .feature-card:hover { border-color: #60a5fa; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4); }
+        .dark .feature-card:hover { border-color: #38bdf8; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
 
-        /* Level Badge & Wallet UI */
+        /* Wallet UI & Gamification */
         .wallet-ui {
-            background: linear-gradient(135deg, #f59e0b, #ea580c); color: white;
-            border-radius: 50px; padding: 8px 20px; font-weight: 800; font-size: 1.1rem;
-            display: flex; align-items: center; gap: 10px; 
-            box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.4);
+            background: linear-gradient(135deg, #0ea5e9, #2563eb);
+            color: white;
+            border-radius: 50px; padding: 10px 24px; font-weight: 800; font-size: 1.2rem;
+            display: flex; align-items: center; gap: 12px;
+            box-shadow: 0 10px 15px -3px rgba(14, 165, 233, 0.4);
             border: 2px solid rgba(255,255,255,0.2);
             transition: transform 0.2s ease;
         }
         .wallet-ui:hover { transform: scale(1.05); }
 
-        /* Dynamic Coin Animations */
         @keyframes floatCoin { 
             0% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); } 
             50% { opacity: 0.8; transform: translateY(-50px) scale(1.2) rotate(15deg); }
             100% { opacity: 0; transform: translateY(-100px) scale(1.5) rotate(30deg); } 
         }
         .coin-anim { 
-            position: fixed; font-size: 3rem; font-weight: 900; z-index: 10000; 
+            position: fixed; font-size: 3.5rem; font-weight: 900; z-index: 10000; 
             animation: floatCoin 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; 
-            pointer-events: none; text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            pointer-events: none; text-shadow: 0 5px 15px rgba(0,0,0,0.4);
         }
 
-        /* Matrix Theme Overrides (Purchasable in Shop) */
-        body.matrix-theme {
-            background-color: #050505 !important;
-            color: #10b981 !important;
-        }
-        .matrix-theme .feature-card {
-            background: #0a0a0a !important;
-            border: 1px solid #047857 !important;
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.15) !important;
-        }
-        .matrix-theme .feature-card:hover {
-            box-shadow: 0 0 30px rgba(16, 185, 129, 0.4) !important;
-            border-color: #10b981 !important;
-            transform: translateY(-5px) scale(1.02);
-        }
-        .matrix-theme * {
-            font-family: 'Courier New', Courier, monospace !important;
-        }
-        
-        /* Search Bar Setup */
-        .search-wrapper {
-            position: relative;
-            max-w-2xl;
-            margin: 0 auto 3rem auto;
-        }
-        .search-icon {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #94a3b8;
-        }
+        /* OS Hacker Theme (Shop Item) */
+        body.matrix-theme { background-color: #000000 !important; color: #00ff00 !important; font-family: monospace !important;}
+        .matrix-theme .feature-card, .matrix-theme .flashcard-front, .matrix-theme .flashcard-back { background: #050505 !important; border: 1px solid #00ff00 !important; box-shadow: 0 0 10px rgba(0,255,0,0.2) !important; }
+        .matrix-theme .wallet-ui { background: #002200 !important; border-color: #00ff00 !important; color: #00ff00 !important; }
 
-        /* Hidden Class Utility */
+        /* Draggable Helper */
+        #draggable-watermark {
+            position: fixed; bottom: 30px; right: 30px; z-index: 9999;
+            background: rgba(15, 23, 42, 0.9); color: #fff;
+            padding: 12px 24px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.1);
+            font-weight: 700; font-size: 1rem; backdrop-filter: blur(10px);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.4); cursor: grab; user-select: none;
+        }
+        #draggable-watermark:active { cursor: grabbing; transform: scale(0.95); }
+
         .hidden { display: none !important; }
     </style>
 </head>
@@ -214,70 +220,38 @@
     <audio id="coin-sound" src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3" preload="auto"></audio>
     <audio id="wrong-sound" src="https://assets.mixkit.co/active_storage/sfx/2955/2955-preview.mp3" preload="auto"></audio>
     <audio id="level-up-sound" src="https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3" preload="auto"></audio>
+    <audio id="flip-sound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
 
     <div id="draggable-watermark" title="Drag me anywhere!">
-        <span class="text-xl">👨‍💻</span> Dev: Ali Khalid <span class="text-brand-400">✥</span>
+        <span class="text-xl">🎓</span> OS Master: Ali Khalid
     </div>
 
-    <div id="support-widget">
-        <div class="support-box" id="support-form-container">
-            <div class="flex justify-between items-center mb-5 border-b border-slate-100 dark:border-slate-700 pb-3">
-                <h4 class="font-extrabold text-xl text-brand-600 dark:text-brand-400 flex items-center gap-2">
-                    <span>🛎️</span> Ask the Professor
-                </h4>
-                <button onclick="toggleSupport()" class="text-slate-400 hover:text-red-500 font-bold bg-slate-100 dark:bg-slate-800 w-8 h-8 rounded-full flex items-center justify-center transition-transform hover:rotate-90">✕</button>
-            </div>
-            <form action="https://formsubmit.co/your-email@example.com" method="POST" target="_blank" class="flex flex-col gap-4">
-                <input type="hidden" name="_subject" value="New Student Question - ULK Academy">
-                
-                <div class="relative">
-                    <input type="text" name="Student_Name" placeholder="Your Full Name" required class="w-full p-3 pl-4 border rounded-xl bg-slate-50 dark:bg-slate-900 dark:text-white dark:border-slate-700 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-200 dark:focus:ring-brand-900 transition font-medium">
-                </div>
-                
-                <div class="relative">
-                    <textarea name="Question" placeholder="Explain your hardware/OS question clearly..." required rows="4" class="w-full p-3 pl-4 border rounded-xl bg-slate-50 dark:bg-slate-900 dark:text-white dark:border-slate-700 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-200 dark:focus:ring-brand-900 transition resize-none font-medium"></textarea>
-                </div>
-                
-                <button type="submit" onclick="setTimeout(toggleSupport, 1500)" class="mt-1 bg-brand-600 text-white font-bold py-3 rounded-xl hover:bg-brand-700 active:transform active:scale-95 shadow-lg shadow-brand-500/30 transition flex items-center justify-center gap-2">
-                    <span>Send Message</span> 🚀
-                </button>
-            </form>
-            <p class="text-xs text-center mt-4 text-slate-500 dark:text-slate-400 ar-text font-bold">سيصل سؤالك للمهندس المختص مباشرة وسيتم الرد عليك.</p>
-        </div>
-        
-        <button onclick="toggleSupport()" class="bg-slate-900 dark:bg-brand-500 dark:text-white text-white p-4 rounded-full shadow-2xl font-black text-2xl transition-all duration-300 transform hover:scale-110 hover:-translate-y-2 flex items-center justify-center h-16 w-16 border-2 border-white dark:border-slate-800 ring-4 ring-slate-900/10 dark:ring-brand-500/20">
-            💬
-        </button>
-    </div>
-
-    <nav class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
+    <nav class="sticky top-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between md:h-24 py-4 md:py-0 items-center gap-4">
                 
                 <div class="flex items-center gap-4 group cursor-pointer" onclick="window.scrollTo(0,0)">
-                    <div class="bg-gradient-to-br from-brand-500 to-brand-700 text-white p-3 rounded-xl shadow-lg shadow-brand-500/30 group-hover:rotate-6 transition-transform">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
+                    <div class="bg-gradient-to-br from-brand-500 to-indigo-600 text-white p-3.5 rounded-xl shadow-lg shadow-brand-500/30 group-hover:rotate-6 transition-transform">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                     </div>
                     <div class="flex flex-col">
-                        <span class="font-black text-2xl tracking-tight text-slate-900 dark:text-white leading-none mb-1">ULK <span class="text-brand-600 dark:text-brand-400">Academy</span></span>
-                        <span class="text-xs font-bold text-slate-500 tracking-widest uppercase">Hardware Mastery</span>
+                        <span class="font-black text-3xl tracking-tight text-slate-900 dark:text-white leading-none mb-1">ULK <span class="text-brand-600 dark:text-brand-400">OS Academy</span></span>
+                        <span class="text-xs font-bold text-slate-500 tracking-widest uppercase">Operating Systems (CAT2)</span>
                     </div>
                 </div>
                 
                 <div class="flex items-center gap-4 md:gap-6">
-                    <div class="text-right hidden sm:block bg-slate-50 dark:bg-slate-800 px-4 py-2 rounded-xl border border-slate-100 dark:border-slate-700">
-                        <div class="text-[10px] text-slate-400 font-black uppercase tracking-widest mb-0.5">Current Rank</div>
-                        <div class="text-sm font-black text-brand-600 dark:text-brand-400 flex items-center justify-end gap-1" id="ui-level">
-                            Novice <span class="text-lg">🎒</span>
+                    <div class="text-right hidden sm:block bg-slate-50 dark:bg-slate-800 px-5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700">
+                        <div class="text-[11px] text-slate-400 font-black uppercase tracking-widest mb-0.5">Current Rank</div>
+                        <div class="text-base font-black text-brand-600 dark:text-brand-400 flex items-center justify-end gap-1" id="ui-level">
+                            User <span class="text-xl">👤</span>
                         </div>
                     </div>
                     
-                    <div class="wallet-ui cursor-help" title="G-Coins Balance: Earn by taking quizzes!">
-                        <span class="text-2xl animate-pulse-fast">🪙</span> 
-                        <span id="ui-coins" class="font-black tabular-nums">0</span>
+                    <div class="wallet-ui cursor-help" title="OS-Coins Balance: Earn by answering correctly!">
+                        <span class="text-2xl animate-pulse-fast">⚡</span> 
+                        <span id="ui-coins" class="font-black tabular-nums tracking-wider">0</span>
                     </div>
-                    
-                    <div class="h-8 w-px bg-slate-200 dark:bg-slate-700 hidden md:block"></div>
                     
                     <button id="theme-toggle" class="p-3 bg-slate-100 dark:bg-slate-800 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors border border-slate-200 dark:border-slate-700 text-xl" title="Toggle Dark Mode">
                         <span id="theme-icon">🌙</span>
@@ -287,13 +261,16 @@
             
             <div class="flex gap-2 pb-0 overflow-x-auto hide-scroll-bar border-t border-slate-100 dark:border-slate-800 pt-4 md:pt-0 md:border-none">
                 <button class="tab-btn active px-6 py-4 rounded-t-xl font-bold text-sm md:text-base text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 whitespace-nowrap flex gap-2 items-center" onclick="switchTab('tab-academy', this)">
-                    <span class="text-xl">📚</span> Comprehensive Curriculum
+                    <span class="text-xl">📚</span> OS Concepts
+                </button>
+                <button class="tab-btn px-6 py-4 rounded-t-xl font-bold text-sm md:text-base text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 whitespace-nowrap flex gap-2 items-center" onclick="switchTab('tab-flashcards', this)">
+                    <span class="text-xl">🎴</span> Study Flashcards
                 </button>
                 <button class="tab-btn px-6 py-4 rounded-t-xl font-bold text-sm md:text-base text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 whitespace-nowrap flex gap-2 items-center" onclick="switchTab('tab-quiz', this)">
-                    <span class="text-xl">🎯</span> Revision Assessment
+                    <span class="text-xl">🎯</span> CAT2 Exam
                 </button>
                 <button class="tab-btn px-6 py-4 rounded-t-xl font-bold text-sm md:text-base text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 whitespace-nowrap flex gap-2 items-center" onclick="switchTab('tab-shop', this)">
-                    <span class="text-xl">🛒</span> Rewards & Upgrades
+                    <span class="text-xl">🛒</span> System Store
                 </button>
             </div>
         </div>
@@ -302,33 +279,31 @@
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
         <div id="tab-academy" class="tab-content active">
-            
-            <div class="bg-slate-900 text-white rounded-3xl p-10 md:p-16 mb-12 relative overflow-hidden shadow-2xl border border-slate-800">
-                <div class="absolute -top-24 -right-24 w-96 h-96 bg-brand-600 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse-fast"></div>
-                <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-sudanese-gold rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
-                <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-50"></div>
+            <div class="bg-slate-900 text-white rounded-[2rem] p-10 md:p-16 mb-12 relative overflow-hidden shadow-2xl border border-slate-800">
+                <div class="absolute -top-24 -right-24 w-96 h-96 bg-brand-600 rounded-full mix-blend-multiply filter blur-[80px] opacity-40 animate-pulse-fast"></div>
+                <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-academic-base rounded-full mix-blend-multiply filter blur-[80px] opacity-30"></div>
                 
-                <div class="relative z-10 max-w-3xl">
-                    <div class="flex items-center gap-3 mb-6">
-                        <span class="inline-block px-4 py-1.5 bg-brand-500/20 text-brand-300 rounded-full text-xs font-bold tracking-widest uppercase border border-brand-500/30 backdrop-blur-sm">Module Code: CAHM-101</span>
-                        <span class="inline-block px-4 py-1.5 bg-emerald-500/20 text-emerald-300 rounded-full text-xs font-bold tracking-widest uppercase border border-emerald-500/30 backdrop-blur-sm">ULK Computer Science</span>
+                <div class="relative z-10 max-w-4xl">
+                    <div class="flex flex-wrap items-center gap-3 mb-6">
+                        <span class="inline-block px-4 py-1.5 bg-brand-500/20 text-brand-300 rounded-full text-sm font-bold tracking-widest uppercase border border-brand-500/30">Module: OS-CAT2</span>
+                        <span class="inline-block px-4 py-1.5 bg-emerald-500/20 text-emerald-300 rounded-full text-sm font-bold tracking-widest uppercase border border-emerald-500/30">ULK Computer Science</span>
                     </div>
                     
-                    <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight tracking-tight">
-                        Computer Architecture & <br>
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-sudanese-gold to-yellow-300">Hardware Maintenance</span>
+                    <h1 class="text-5xl md:text-6xl font-black mb-6 leading-tight tracking-tight">
+                        Operating Systems <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-indigo-400">Core Architecture</span>
                     </h1>
                     
-                    <p class="text-lg md:text-xl text-slate-300 mb-8 font-light max-w-2xl leading-relaxed ar-text text-right border-r-4 border-sudanese-gold pr-4">
-                        مرحباً بك في المنصة الشاملة. هنا نشرح مصطلحات هندسة الكمبيوتر باللغة الأكاديمية الإنجليزية، ثم نبسطها بالعربية الفصحى، وأخيراً نربطها بالواقع العملي باللهجة السودانية المباشرة لتثبيت الفهم.
+                    <p class="text-xl md:text-2xl text-slate-300 mb-10 font-light max-w-3xl leading-relaxed ar-text text-right border-r-4 border-brand-500 pr-6">
+                    أهلاً بك في منصة مراجعة مادة أنظمة التشغيل (OS). هنا بنبسط ليك المصطلحات الإنجليزية المعقدة بالعربي، وبنشرحها ليك بلهجتنا السودانية عشان تفهمها ومستحيل تنساها في الامتحان.
                     </p>
                     
                     <div class="flex flex-wrap gap-4">
-                        <button onclick="switchTab('tab-quiz', document.querySelectorAll('.tab-btn')[1])" class="bg-brand-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-brand-500 transition shadow-lg shadow-brand-500/30 flex items-center gap-2 text-lg">
-                            Take Final Exam 🚀
+                        <button onclick="switchTab('tab-quiz', document.querySelectorAll('.tab-btn')[2])" class="bg-brand-600 text-white px-8 py-4 rounded-xl font-black hover:bg-brand-500 transition shadow-lg shadow-brand-500/30 flex items-center gap-2 text-lg">
+                            Start CAT2 Exam 🚀
                         </button>
                         <button onclick="document.getElementById('search-input').focus()" class="bg-white/10 text-white backdrop-blur-md border border-white/20 px-8 py-4 rounded-xl font-bold hover:bg-white/20 transition flex items-center gap-2 text-lg">
-                            Browse Modules 🔍
+                            Search Concepts 🔍
                         </button>
                     </div>
                 </div>
@@ -338,71 +313,79 @@
                 <div>
                     <h2 class="text-3xl font-black text-slate-800 dark:text-white flex items-center gap-3">
                         <span class="bg-brand-100 text-brand-600 dark:bg-brand-900/30 dark:text-brand-400 p-2 rounded-lg">📖</span>
-                        Revision Topics
+                        Syllabus Modules
                     </h2>
-                    <p class="text-slate-500 dark:text-slate-400 mt-2 font-medium">All 18 required syllabus concepts fully explained.</p>
+                    <p class="text-slate-500 dark:text-slate-400 mt-2 font-medium text-lg">Comprehensive breakdown of all CAT2 topics.</p>
                 </div>
                 
                 <div class="w-full md:w-96 relative group">
                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <svg class="h-5 w-5 text-slate-400 group-focus-within:text-brand-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="h-6 w-6 text-slate-400 group-focus-within:text-brand-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </div>
-                    <input type="text" id="search-input" placeholder="Search concepts (e.g. Motherboard, PSU...)" class="w-full pl-11 pr-4 py-3.5 border border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-900 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all shadow-sm font-medium">
+                    <input type="text" id="search-input" placeholder="Search (e.g. Deadlock, Scheduling...)" class="w-full pl-12 pr-4 py-4 border-2 border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-900 text-slate-800 dark:text-white focus:outline-none focus:ring-4 focus:ring-brand-500/20 focus:border-brand-500 transition-all shadow-sm font-medium text-lg">
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8" id="lessons-container">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8" id="lessons-container">
                 </div>
             
             <div id="no-results" class="hidden text-center py-20 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 mt-8">
                 <div class="text-6xl mb-4">🕵️‍♂️</div>
-                <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-2">No concepts found</h3>
-                <p class="text-slate-500">Try adjusting your search terms.</p>
+                <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-2">Process Not Found (404)</h3>
+                <p class="text-slate-500 text-lg">Try searching for another concept.</p>
             </div>
+        </div>
+
+        <div id="tab-flashcards" class="tab-content">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-black text-slate-800 dark:text-white mb-4">Interactive <span class="text-brand-500">Flashcards</span></h2>
+                <p class="text-slate-500 text-lg font-medium">Click on a card to flip it and reveal the explanation. Best for quick memorization.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="flashcards-container">
+                </div>
         </div>
 
         <div id="tab-quiz" class="tab-content">
             <div class="max-w-4xl mx-auto">
-                
                 <div class="text-center mb-12">
-                    <span class="inline-block px-3 py-1 bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 rounded-full text-xs font-black tracking-widest uppercase mb-4">Strict Assessment Mode</span>
-                    <h2 class="text-4xl md:text-5xl font-black text-slate-800 dark:text-white mb-4">The <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-indigo-600">Architect's</span> Exam</h2>
-                    <div class="bg-white dark:bg-slate-800 inline-block px-6 py-3 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
-                        <p class="text-slate-600 dark:text-slate-300 font-bold ar-text flex items-center gap-3">
-                            <span>✅ إجابة صحيحة = +10 🪙</span>
-                            <span class="w-px h-5 bg-slate-300 dark:bg-slate-600"></span>
-                            <span>❌ إجابة خاطئة = -2 🪙</span>
+                    <span class="inline-block px-4 py-1.5 bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 rounded-full text-sm font-black tracking-widest uppercase mb-4">Exam Mode</span>
+                    <h2 class="text-4xl md:text-5xl font-black text-slate-800 dark:text-white mb-6">OS <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-indigo-600">CAT2 Test</span></h2>
+                    <div class="bg-white dark:bg-slate-800 inline-block px-8 py-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <p class="text-slate-600 dark:text-slate-300 font-bold ar-text flex items-center justify-center gap-6 text-lg">
+                            <span class="text-emerald-600 dark:text-emerald-400">✅ الصح = +10 ⚡</span>
+                            <span class="w-px h-8 bg-slate-300 dark:bg-slate-600"></span>
+                            <span class="text-red-600 dark:text-red-400">❌ الغلط = -2 ⚡</span>
                         </p>
                     </div>
                 </div>
 
                 <div class="feature-card relative overflow-hidden" id="quiz-container">
-                    
                     <div id="quiz-start" class="text-center py-16 px-4">
-                        <div class="w-24 h-24 bg-brand-50 dark:bg-brand-900/20 text-brand-600 dark:text-brand-400 rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner border border-brand-100 dark:border-brand-800">
-                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                        <div class="w-28 h-28 bg-brand-50 dark:bg-brand-900/20 text-brand-600 dark:text-brand-400 rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner border border-brand-100 dark:border-brand-800">
+                            <span class="text-6xl">📝</span>
                         </div>
-                        <h3 class="text-3xl font-black mb-4 dark:text-white">18-Question Comprehensive Test</h3>
-                        <p class="text-slate-500 mb-10 max-w-lg mx-auto text-lg leading-relaxed">This test evaluates your mastery over all revision topics. You have 25 seconds per question. Are your circuits ready?</p>
+                        <h3 class="text-3xl font-black mb-4 dark:text-white">Comprehensive 15-Question Test</h3>
+                        <p class="text-slate-500 mb-10 max-w-lg mx-auto text-lg leading-relaxed">This test contains all Multiple Choice and Conceptual questions from the official Review Document. 25 seconds per question.</p>
                         
                         <button onclick="quizEngine.start()" class="w-full sm:w-auto bg-gradient-to-r from-brand-600 to-indigo-600 text-white px-12 py-5 rounded-2xl font-black text-xl hover:from-brand-500 hover:to-indigo-500 transform hover:scale-105 transition-all shadow-xl shadow-brand-500/30 flex items-center justify-center gap-3 mx-auto">
-                            <span>Initialize Test Sequence</span>
+                            <span>Start Execution</span>
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                         </button>
                     </div>
 
                     <div id="quiz-core" class="hidden py-4">
-                        <div class="flex flex-col sm:flex-row justify-between items-center mb-8 pb-6 border-b border-slate-100 dark:border-slate-800 gap-4">
-                            <div class="flex items-center gap-3 w-full sm:w-auto">
-                                <div class="bg-slate-100 dark:bg-slate-800 h-3 w-48 rounded-full overflow-hidden border border-slate-200 dark:border-slate-700">
-                                    <div id="q-progress-bar" class="bg-brand-500 h-full w-0 transition-all duration-300"></div>
+                        <div class="flex flex-col sm:flex-row justify-between items-center mb-10 pb-6 border-b border-slate-100 dark:border-slate-800 gap-4">
+                            <div class="flex items-center gap-4 w-full sm:w-auto">
+                                <div class="bg-slate-100 dark:bg-slate-800 h-4 w-64 rounded-full overflow-hidden border border-slate-200 dark:border-slate-700">
+                                    <div id="q-progress-bar" class="bg-brand-500 h-full w-0 transition-all duration-500"></div>
                                 </div>
-                                <div class="font-black text-sm text-slate-500 uppercase tracking-widest" id="q-counter"></div>
+                                <div class="font-black text-base text-slate-500 uppercase tracking-widest" id="q-counter"></div>
                             </div>
                             
-                            <div class="flex items-center gap-3 font-mono text-2xl font-black text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/20 px-6 py-2 rounded-xl border border-brand-200 dark:border-brand-800/50 w-full sm:w-auto justify-center" id="q-timer">
+                            <div class="flex items-center gap-3 font-mono text-3xl font-black text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/20 px-6 py-3 rounded-xl border border-brand-200 dark:border-brand-800/50 w-full sm:w-auto justify-center transition-colors" id="q-timer">
                                 ⏱️ <span id="timer-text">25</span>s
                             </div>
                         </div>
@@ -410,34 +393,34 @@
                         <div class="mb-10 text-center sm:text-left">
                             <h4 id="q-text-en" class="text-2xl md:text-3xl font-black text-slate-800 dark:text-white mb-6 leading-snug"></h4>
                             
-                            <div class="inline-flex items-start gap-3 bg-slate-50 dark:bg-slate-800/80 p-4 rounded-xl border border-slate-200 dark:border-slate-700 max-w-2xl">
+                            <div class="inline-flex items-start gap-3 bg-slate-50 dark:bg-slate-800/80 p-5 rounded-xl border border-slate-200 dark:border-slate-700 max-w-3xl w-full">
                                 <span class="text-2xl mt-1">💡</span>
-                                <p id="q-text-ar" class="ar-text text-base md:text-lg font-bold text-slate-600 dark:text-slate-300 leading-relaxed"></p>
+                                <p id="q-text-ar" class="ar-text text-lg md:text-xl font-bold text-slate-600 dark:text-slate-300 leading-relaxed"></p>
                             </div>
                         </div>
 
-                        <div id="q-options" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div id="q-options" class="grid grid-cols-1 md:grid-cols-2 gap-5">
                             </div>
                         
-                        <div id="q-feedback" class="hidden mt-8 p-4 rounded-xl font-bold text-center text-lg border"></div>
+                        <div id="q-feedback" class="hidden mt-8 p-5 rounded-xl font-black text-center text-xl border"></div>
                     </div>
 
                     <div id="quiz-result" class="hidden text-center py-12 px-4">
                         <div id="res-icon" class="text-7xl mb-6">🏆</div>
-                        <h3 class="text-4xl font-black mb-3 dark:text-white text-slate-800" id="res-title">Assessment Complete</h3>
-                        <p class="text-slate-500 mb-8 text-lg font-medium">Your hardware diagnostic report is ready.</p>
+                        <h3 class="text-4xl font-black mb-3 dark:text-white text-slate-800" id="res-title">Test Terminated</h3>
+                        <p class="text-slate-500 mb-8 text-xl font-medium">Here is your system diagnostic report.</p>
                         
-                        <div class="inline-block bg-slate-50 dark:bg-slate-800 p-10 rounded-3xl border border-slate-200 dark:border-slate-700 mb-10 shadow-inner">
-                            <div class="text-[5rem] font-black text-brand-600 dark:text-brand-400 leading-none mb-2" id="res-score"></div>
-                            <div class="text-sm font-bold text-slate-400 uppercase tracking-widest">Final Score</div>
+                        <div class="inline-block bg-slate-50 dark:bg-slate-800 p-12 rounded-3xl border border-slate-200 dark:border-slate-700 mb-10 shadow-inner">
+                            <div class="text-[6rem] font-black text-brand-600 dark:text-brand-400 leading-none mb-4" id="res-score"></div>
+                            <div class="text-lg font-bold text-slate-400 uppercase tracking-widest">Questions Correct</div>
                         </div>
 
-                        <div class="flex flex-col sm:flex-row justify-center gap-4 max-w-xl mx-auto">
-                            <button onclick="quizEngine.reset()" class="flex-1 bg-white dark:bg-slate-800 text-slate-700 dark:text-white border-2 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 px-8 py-4 rounded-xl font-bold text-lg transition flex items-center justify-center gap-2">
-                                <span>↻</span> Retake Exam
+                        <div class="flex flex-col sm:flex-row justify-center gap-6 max-w-2xl mx-auto">
+                            <button onclick="quizEngine.reset()" class="flex-1 bg-white dark:bg-slate-800 text-slate-700 dark:text-white border-2 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 px-8 py-5 rounded-xl font-black text-xl transition flex items-center justify-center gap-3">
+                                <span>↻</span> Reboot Exam
                             </button>
-                            <button onclick="switchTab('tab-shop', document.querySelectorAll('.tab-btn')[2])" class="flex-1 bg-gradient-to-r from-sudanese-gold to-orange-500 text-white hover:from-sudanese-dark hover:to-orange-600 px-8 py-4 rounded-xl font-bold text-lg transition shadow-lg shadow-orange-500/30 flex items-center justify-center gap-2">
-                                <span>🛒</span> Visit Rewards Store
+                            <button onclick="switchTab('tab-shop', document.querySelectorAll('.tab-btn')[3])" class="flex-1 bg-gradient-to-r from-brand-600 to-indigo-600 text-white hover:from-brand-700 hover:to-indigo-700 px-8 py-5 rounded-xl font-black text-xl transition shadow-lg shadow-brand-500/30 flex items-center justify-center gap-3">
+                                <span>🛒</span> System Store
                             </button>
                         </div>
                     </div>
@@ -448,107 +431,187 @@
         <div id="tab-shop" class="tab-content">
             <div class="max-w-5xl mx-auto">
                 <div class="text-center mb-16">
-                    <span class="inline-block px-3 py-1 bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400 rounded-full text-xs font-black tracking-widest uppercase mb-4">G-Coin Exchange</span>
-                    <h2 class="text-4xl md:text-5xl font-black text-slate-800 dark:text-white mb-4">The <span class="text-sudanese-gold">Rewards</span> Hub</h2>
-                    <p class="text-slate-500 dark:text-slate-400 font-medium ar-text text-lg max-w-2xl mx-auto">
-                        استبدل العملات التي حصلت عليها من الإجابات الصحيحة بترقيات وميزات حصرية لتخصيص حسابك وتجربتك.
+                    <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400 rounded-full text-sm font-black tracking-widest uppercase mb-4">Kernel Upgrades</span>
+                    <h2 class="text-4xl md:text-5xl font-black text-slate-800 dark:text-white mb-6">System <span class="text-brand-500">Store</span></h2>
+                    <p class="text-slate-500 dark:text-slate-400 font-medium ar-text text-xl max-w-3xl mx-auto leading-relaxed">
+                        استخدم الـ OS-Coins اللي جمعتها من إجاباتك الصحيحة عشان تشتري ميزات وحركات تخصص بيها حسابك وتسهل بيها مراجعتك.
                     </p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    
-                    <div class="feature-card flex flex-col items-center text-center relative overflow-hidden group border-2 border-transparent hover:border-sudanese-gold">
-                        <div class="absolute top-0 right-0 bg-sudanese-gold text-white text-xs font-black px-4 py-1.5 rounded-bl-xl z-10 shadow-md">Best Seller</div>
-                        <div class="bg-yellow-50 dark:bg-yellow-900/20 p-6 rounded-full mb-6 mt-4">
-                            <div class="text-6xl transform group-hover:scale-110 group-hover:rotate-12 transition duration-300">🏅</div>
+                    <div class="feature-card flex flex-col items-center text-center relative overflow-hidden border-2 border-transparent hover:border-yellow-500">
+                        <div class="absolute top-0 right-0 bg-yellow-500 text-white text-xs font-black px-4 py-1.5 rounded-bl-xl z-10">Root User</div>
+                        <div class="bg-yellow-50 dark:bg-yellow-900/20 p-8 rounded-full mb-6 mt-4">
+                            <div class="text-7xl">👑</div>
                         </div>
-                        <h3 class="text-xl font-black dark:text-white mb-3">Golden Engineer Badge</h3>
-                        <p class="text-sm text-slate-500 dark:text-slate-400 mb-8 ar-text flex-grow">
-                            يضيف الوسام الذهبي اللامع بجانب مستوى حسابك في الأعلى ليميزك كطالب متفوق في الدفعة.
+                        <h3 class="text-2xl font-black dark:text-white mb-4">Root Privilege Badge</h3>
+                        <p class="text-base text-slate-500 dark:text-slate-400 mb-8 ar-text flex-grow">
+                            بيديك علامة التاج الملكي جنب اسمك فوق، عشان توريهم إنك المتحكم في النظام (Root) ومافي زول زيك.
                         </p>
-                        <div class="w-full mt-auto">
-                            <button id="btn-buy-badge" onclick="gamification.buyItem('badge', 150, this)" class="w-full bg-slate-900 dark:bg-white dark:text-slate-900 text-white py-4 rounded-xl font-black flex items-center justify-center gap-2 hover:bg-slate-800 dark:hover:bg-slate-100 transition shadow-lg shadow-slate-900/20">
-                                Unlock • 150 🪙
-                            </button>
-                        </div>
+                        <button id="btn-buy-badge" onclick="gamification.buyItem('badge', 150, this)" class="w-full bg-slate-900 dark:bg-white dark:text-slate-900 text-white py-4 rounded-xl font-black text-lg flex items-center justify-center gap-2 hover:bg-slate-800 transition">
+                            Unlock • 150 ⚡
+                        </button>
                     </div>
 
-                    <div class="feature-card flex flex-col items-center text-center group border-2 border-transparent hover:border-emerald-500">
-                        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 pointer-events-none"></div>
-                        <div class="bg-emerald-50 dark:bg-emerald-900/20 p-6 rounded-full mb-6 mt-4">
-                            <div class="text-6xl transform group-hover:scale-110 group-hover:-translate-y-2 transition duration-300">💻</div>
+                    <div class="feature-card flex flex-col items-center text-center border-2 border-transparent hover:border-green-500">
+                        <div class="bg-green-50 dark:bg-green-900/20 p-8 rounded-full mb-6 mt-4">
+                            <div class="text-7xl">💻</div>
                         </div>
-                        <h3 class="text-xl font-black dark:text-white mb-3">Hacker Matrix Theme</h3>
-                        <p class="text-sm text-slate-500 dark:text-slate-400 mb-8 ar-text flex-grow">
-                            تحويل شكل الموقع بالكامل إلى واجهة المبرمجين والهاكرز (خلفية سوداء بالكامل وخطوط خضراء مشعة).
+                        <h3 class="text-2xl font-black dark:text-white mb-4">Matrix Kernel Theme</h3>
+                        <p class="text-base text-slate-500 dark:text-slate-400 mb-8 ar-text flex-grow">
+                            بقلب ليك الموقع كلو لنظام الهاكرز (شاشة سوداء وخطوط خضراء)، زي المبرمجين المحترفين بالضبط.
                         </p>
-                        <div class="w-full mt-auto relative z-10">
-                            <button id="btn-buy-matrix" onclick="gamification.buyItem('matrix', 300, this)" class="w-full bg-slate-900 dark:bg-white dark:text-slate-900 text-white py-4 rounded-xl font-black flex items-center justify-center gap-2 hover:bg-slate-800 dark:hover:bg-slate-100 transition shadow-lg shadow-slate-900/20">
-                                Unlock • 300 🪙
-                            </button>
-                        </div>
+                        <button id="btn-buy-matrix" onclick="gamification.buyItem('matrix', 300, this)" class="w-full bg-slate-900 dark:bg-white dark:text-slate-900 text-white py-4 rounded-xl font-black text-lg flex items-center justify-center gap-2 hover:bg-slate-800 transition">
+                            Unlock • 300 ⚡
+                        </button>
                     </div>
 
-                    <div class="feature-card flex flex-col items-center text-center group border-2 border-transparent hover:border-purple-500">
-                        <div class="bg-purple-50 dark:bg-purple-900/20 p-6 rounded-full mb-6 mt-4">
-                            <div class="text-6xl transform group-hover:scale-110 transition duration-300">🧠</div>
+                    <div class="feature-card flex flex-col items-center text-center border-2 border-transparent hover:border-purple-500">
+                        <div class="bg-purple-50 dark:bg-purple-900/20 p-8 rounded-full mb-6 mt-4">
+                            <div class="text-7xl">🛡️</div>
                         </div>
-                        <h3 class="text-xl font-black dark:text-white mb-3">Exam Auto-Hint (x3)</h3>
-                        <p class="text-sm text-slate-500 dark:text-slate-400 mb-8 ar-text flex-grow">
-                            يسمح لك بحذف إجابتين خاطئتين أثناء الاختبار النهائي (يمكن استخدامها 3 مرات فقط).
+                        <h3 class="text-2xl font-black dark:text-white mb-4">Deadlock Shield</h3>
+                        <p class="text-base text-slate-500 dark:text-slate-400 mb-8 ar-text flex-grow">
+                            يسمح لك بحذف إجابتين خاطئتين أثناء الامتحان (استخدام لـ 3 مرات فقط) لإنقاذك في الأوقات الصعبة.
                         </p>
-                        <div class="w-full mt-auto">
-                            <button id="btn-buy-hints" onclick="gamification.buyItem('hints', 500, this)" class="w-full bg-slate-900 dark:bg-white dark:text-slate-900 text-white py-4 rounded-xl font-black flex items-center justify-center gap-2 hover:bg-slate-800 dark:hover:bg-slate-100 transition shadow-lg shadow-slate-900/20">
-                                Unlock • 500 🪙
-                            </button>
-                        </div>
+                        <button id="btn-buy-hints" onclick="gamification.buyItem('hints', 500, this)" class="w-full bg-slate-900 dark:bg-white dark:text-slate-900 text-white py-4 rounded-xl font-black text-lg flex items-center justify-center gap-2 hover:bg-slate-800 transition">
+                            Unlock • 500 ⚡
+                        </button>
                     </div>
-
                 </div>
             </div>
         </div>
 
     </main>
 
-    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-10 mt-16 transition-colors">
-        <div class="max-w-7xl mx-auto px-4 text-center flex flex-col items-center">
-            <div class="bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 p-3 rounded-xl inline-flex mb-4">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-            </div>
-            <h3 class="font-black text-xl text-slate-800 dark:text-white mb-2">ULK Academy of Engineering</h3>
-            <p class="text-slate-500 font-medium mb-6">Designed strictly for Computer Architecture Revision</p>
-            <div class="text-xs text-slate-400 tracking-widest uppercase font-bold ar-text">
-                التميز الأكاديمي يبدأ من الفهم العميق للأساسيات.
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-12 mt-16 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h3 class="font-black text-2xl text-slate-800 dark:text-white mb-3">ULK OS Academy 2026</h3>
+            <p class="text-slate-500 font-medium mb-6 text-lg">Designed exclusively for OS CAT2 Revision by Ali Khalid</p>
+            <div class="text-sm text-slate-400 tracking-widest uppercase font-bold ar-text">
+                فهم النظام من الداخل.. هو طريقك للبرمجة الحقيقية.
             </div>
         </div>
     </footer>
 
     <script>
-        /**
-         * 1. TAB MANAGEMENT SYSTEM
-         */
+        // ==========================================
+        // 1. DATA: CURRICULUM (ALL OS PDF CONCEPTS)
+        // ==========================================
+        const osCurriculum = [
+            {
+                title: "1. System Calls",
+                academic: "System calls provide the primary interface between an executing program and the operating system services.",
+                arabic: "توفر الواجهة الأساسية التي تطلب من خلالها البرامج الخدمات من نظام التشغيل.",
+                sudanese: "الـ System Call ده زي 'الكوبري' أو الواسطة، برنامجك ما بيقدر يلمس الهاردوير براهو، لازم يطلب من النظام يشغل ليهو الخدمة."
+            },
+            {
+                title: "2. Process vs. Program",
+                academic: "A program is a passive file on disk. A process is an active entity: a computer program in execution.",
+                arabic: "البرنامج هو ملف ساكن على القرص، بينما العملية هي برنامج نشط وقيد التنفيذ في الذاكرة.",
+                sudanese: "البرنامج ده زي وصفة الطبخة المكتوبة في الورقة (في الهاردسك). أما البروسيس (العملية) فهو الطبخة زاتها وهي شغالة بتغلي في النار (في المعالج)."
+            },
+            {
+                title: "3. CPU Scheduling Algorithms",
+                academic: "Methods OS uses to assign CPU time. Includes Priority, Round Robin (RR), and Shortest Job First (SJF).",
+                arabic: "خوارزميات إدارة وقت المعالج، وتشمل الأولوية، الدوران التناوبي، والعملية الأقصر أولاً.",
+                sudanese: "كيف المعالج بوزع وقته على البرامج المفتوحة؟ يا إما بالأولوية (الواسطة)، أو بالدور (Round Robin)، أو بيخلص الصغير أول (SJF)."
+            },
+            {
+                title: "4. Round Robin (RR) Scheduling",
+                academic: "A scheduling algorithm that gives each process a fixed time slice (quantum) before switching to the next.",
+                arabic: "خوارزمية تمنح كل عملية شريحة زمنية ثابتة ومحددة، وإذا لم تنتهِ تعود لآخر الصف.",
+                sudanese: "ده نظام 'الصف العادل'. كل زول بياخد 3 دقايق مثلاً، خلصت أمورك تمام، ما خلصت ترجع تقيف آخر الصف عشان غيرك يخش."
+            },
+            {
+                title: "5. Process States",
+                academic: "A process goes through Ready, Running, and Waiting (Blocked) states. 'Compiling' is NOT a state.",
+                arabic: "تمر العملية بحالات: جاهز، قيد التشغيل، والانتظار. الترجمة (Compiling) ليست من حالاتها.",
+                sudanese: "البرنامج إما يكون شغال (Running)، أو راجي دوره (Ready)، أو منتظر ليهو حاجة زي تحميل ملف (Waiting). الكومبايل ده ما عنده علاقة بالبروسيس الشغال."
+            },
+            {
+                title: "6. Command Interpreter",
+                academic: "Its main function is to get and execute the next user-specified command.",
+                arabic: "وظيفته الأساسية جلب وتنفيذ الأمر التالي الذي حدده المستخدم عبر الواجهة.",
+                sudanese: "ده شاشة الأوامر (الترمنال). شغلته الوحيدة قاعد يراجيك تكتب ليهو أمر، يشيلو وينفذو طوالي."
+            },
+            {
+                title: "7. Monolithic vs Microkernel",
+                academic: "Monolithic is faster but less secure (one crash breaks OS). Microkernel is secure but slower (more context switching).",
+                arabic: "النواة الكتلية أسرع ولكن عطل صغير يسقط النظام، النواة المصغرة آمنة ومعزولة لكنها أبطأ في الأداء.",
+                sudanese: "الـ Monolithic زي بيت كبير فاتح على بعضه، سريع بس لو شبت حريق البيت كلو بروح. الـ Microkernel زي غرف مقفولة، آمن بس مشوار من غرفه لغرفه بتعب."
+            },
+            {
+                title: "8. Deadlock & its 4 Conditions",
+                academic: "System halts due to: Mutual exclusion, Hold & wait, No preemption, and Circular wait.",
+                arabic: "يتوقف النظام بسبب حلقة انتظار مغلقة. شروطه: استبعاد متبادل، احتفاظ وانتظار، عدم انتزاع، وانتظار دائري.",
+                sudanese: "الـ Deadlock ده زي 'شكلة في كوبري ضيق'. عربيتين قابلو بعض، كل واحد راجي التاني يرجع، ومافي زول بتنازل، فالكوبري كلو بقيف."
+            },
+            {
+                title: "9. Thread vs Process",
+                academic: "A Thread is lightweight and shares resources/memory. A Process is heavyweight with its own isolated address space.",
+                arabic: "الخيط خفيف ويتشارك الذاكرة مع خيوط عمليته. العملية ثقيلة ولها مساحة عناوين منفصلة تماماً.",
+                sudanese: "البروسيس ده الشركة كاملة بحيطتها. الثريد (الخيط) ده الموظفين الجوه الشركة، بتشاركو نفس المكاتب والملفات، عشان كده أسرع وأخف."
+            },
+            {
+                title: "10. Context Switching",
+                academic: "Saving the state of one process and loading another. Causes overhead that negatively impacts performance.",
+                arabic: "حفظ حالة عملية وتحميل أخرى. يسبب وقتاً ضائعاً يؤثر سلباً على أداء النظام.",
+                sudanese: "عشان المعالج يغير من برنامج لبرنامج، بياخد زمن عشان 'يتذكر' كان واقف وين، الزمن الضائع ده بتعب الجهاز لو كان كتير."
+            },
+            {
+                title: "11. Paging vs Segmentation",
+                academic: "Paging uses fixed sizes (causes Internal Fragmentation). Segmentation uses logical variable sizes (causes External Fragmentation).",
+                arabic: "الـ Paging تقسيم ثابت يسبب تجزؤ داخلي. الـ Segmentation تقسيم متغير يسبب تجزؤ خارجي.",
+                sudanese: "Paging: تقطع الذاكرة غرف متساوية، ممكن الغرفة تكون كبيرة لزول واحد (مساحة ضائعة جوه). Segmentation: تبني غرف على مقاس كل زول، بس بعدين بتلقى بين الغرف مسافات ضيقة ما بتشيل زول."
+            },
+            {
+                title: "12. Page Fault & Demand Paging",
+                academic: "Page Fault occurs when data is not in RAM. Demand Paging only loads pages from disk to RAM when explicitly needed.",
+                arabic: "يحدث خطأ الصفحة حين يطلب البرنامج صفحة غير موجودة في الـ RAM فيتم جلبها من القرص الصلب.",
+                sudanese: "لما المعالج يفتش حاجة في الرام وما يلقاها، بيعمل (Page Fault) وبيوقف الشغل ثواني يمشي يجيبها من الهاردسك البطيء ويجي راجع."
+            }
+        ];
+
+        // ==========================================
+        // 2. DATA: QUIZ (ALL PDF QUESTIONS INCLUDED)
+        // ==========================================
+        const osQuizData = [
+            { qEn: "In Operating Systems, which of the following is/are CPU scheduling algorithms?", qAr: "أي من التالية يعتبر من خوارزميات جدولة المعالج؟", opts: ["Priority", "Round Robin", "Shortest Job First", "All of the mentioned"], correct: 3 },
+            { qEn: "To access the services of the operating system, the interface is provided by the:", qAr: "للوصول لخدمات نظام التشغيل، الواجهة المستخدمة هي:", opts: ["System calls", "Library", "Assembly instructions", "API"], correct: 0 },
+            { qEn: "Which scheduling algorithm gives each process a fixed time slice?", qAr: "ما الخوارزمية التي تمنح كل عملية شريحة زمنية ثابتة؟", opts: ["SJF", "FCFS", "Round Robin", "Priority Scheduling"], correct: 2 },
+            { qEn: "What is a process in an operating system?", qAr: "ما هو تعريف العملية (Process)؟", opts: ["A computer program in execution", "A file stored on disk", "A hardware device", "A compiler"], correct: 0 },
+            { qEn: "Which of the following is NOT a process state?", qAr: "أي من التالي ليست من حالات العملية؟", opts: ["Ready", "Running", "Waiting", "Compiling"], correct: 3 },
+            { qEn: "What is the main function of the command interpreter?", qAr: "ما هي الوظيفة الأساسية لمفسر الأوامر؟", opts: ["To get and execute the next user-specified command", "Provide API interface", "Handle hardware files", "Compile programs"], correct: 0 },
+            { qEn: "Which one of the following is NOT a real time operating system?", qAr: "أي من التالي ليس نظام تشغيل للوقت الفعلي (RTOS)؟", opts: ["RTLinux", "VxWorks", "QNX", "Palm OS"], correct: 3 },
+            { qEn: "What kind of kernel does OS X have?", qAr: "ما نوع النواة في نظام تشغيل ماك (OS X)؟", opts: ["Hybrid kernel", "Microkernel", "Monolithic kernel", "Monolithic with modules"], correct: 0 },
+            { qEn: "In operating system, each process has its own:", qAr: "في نظام التشغيل، كل عملية تمتلك بشكل خاص:", opts: ["open files", "pending alarms and signals", "address space", "all of the mentioned"], correct: 3 },
+            { qEn: "In a timeshare OS, when the time slot is completed, the process switches to:", qAr: "عند انتهاء الشريحة الزمنية لعملية ما، تتحول إلى حالة:", opts: ["Suspended state", "Ready state", "Terminated state", "Blocked state"], correct: 1 },
+            { qEn: "Which of the following is ONE of the 4 conditions for a Deadlock?", qAr: "أي مما يلي يعتبر شرطاً من شروط حدوث الـ Deadlock؟", opts: ["Circular Wait", "Unlimited memory", "Context Switching", "Fast CPU"], correct: 0 },
+            { qEn: "Comparing architectures, which statement is true?", qAr: "بمقارنة الهيكليات، أي عبارة صحيحة؟", opts: ["Microkernel is faster than Monolithic", "Monolithic is faster but less secure", "Both have the same speed", "Monolithic uses less memory"], correct: 1 },
+            { qEn: "What is a key difference between a Process and a Thread?", qAr: "ما الفرق الرئيسي بين العملية والخيط؟", opts: ["Processes share memory, Threads don't", "Threads are lightweight and share resources", "Processes only run on GPUs", "There is no difference"], correct: 1 },
+            { qEn: "What is the main consequence of Context Switching?", qAr: "ما النتيجة الأساسية لتبديل السياق (Context Switch)؟", opts: ["Speeds up the computer", "Generates performance overhead (wasted time)", "Cleans the hard drive", "Upgrades RAM"], correct: 1 },
+            { qEn: "When using Paging, what type of fragmentation occurs?", qAr: "عند استخدام تقنية Paging، أي نوع من التجزؤ يحدث؟", opts: ["External Fragmentation", "Internal Fragmentation", "Network Fragmentation", "No fragmentation at all"], correct: 1 }
+        ];
+
+        // ==========================================
+        // 3. CORE LOGIC & GAMIFICATION
+        // ==========================================
+        
+        // Tab System
         function switchTab(tabId, btnElement) {
-            // Hide all tabs
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            // Remove active state from all buttons
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            
-            // Show selected tab and activate button
             document.getElementById(tabId).classList.add('active');
             if(btnElement) btnElement.classList.add('active');
-            
-            // Scroll to top smoothly
             window.scrollTo({ top: 0, behavior: 'smooth' });
             
-            // Stop quiz timer if navigating away from quiz core
             if (tabId !== 'tab-quiz' && !document.getElementById('quiz-core').classList.contains('hidden')) {
                 clearInterval(quizEngine.timer);
             }
         }
 
-        /**
-         * 2. THEME / DARK MODE MANAGEMENT
-         */
+        // Theme Toggle
         const themeBtn = document.getElementById('theme-toggle');
         const themeIcon = document.getElementById('theme-icon');
         
@@ -556,52 +619,31 @@
             themeIcon.innerText = document.documentElement.classList.contains('dark') ? '☀️' : '🌙'; 
         }
         
-        // Initialize Theme
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        if (localStorage.getItem('os_theme') === 'dark' || (!('os_theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         }
         updateThemeIcon();
         
-        // Theme Toggle Event
         themeBtn.addEventListener('click', () => {
             document.documentElement.classList.toggle('dark');
-            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+            localStorage.setItem('os_theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
             updateThemeIcon();
         });
 
-        /**
-         * 3. SUPPORT WIDGET TOGGLE
-         */
-        function toggleSupport() {
-            const form = document.getElementById('support-form-container');
-            const isVisible = form.style.display === 'block';
-            form.style.display = isVisible ? 'none' : 'block';
-            if(!isVisible) {
-                // Focus on input when opened
-                setTimeout(() => form.querySelector('input').focus(), 100);
-            }
-        }
-
-        /**
-         * 4. DRAGGABLE ELEMENT UTILITY (Vanilla JS implementation)
-         */
+        // Draggable Widget
         dragElement(document.getElementById("draggable-watermark"));
         function dragElement(elmnt) {
             let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
             elmnt.onmousedown = dragMouseDown;
-            elmnt.ontouchstart = dragMouseDown; // Mobile touch support
+            elmnt.ontouchstart = dragMouseDown;
 
             function dragMouseDown(e) {
                 e = e || window.event;
-                if(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+                if(e.target.tagName === 'INPUT') return;
                 
-                if (e.type === 'touchstart') {
-                    pos3 = e.touches[0].clientX;
-                    pos4 = e.touches[0].clientY;
-                } else {
-                    pos3 = e.clientX;
-                    pos4 = e.clientY;
-                }
+                if (e.type === 'touchstart') { pos3 = e.touches[0].clientX; pos4 = e.touches[0].clientY; } 
+                else { pos3 = e.clientX; pos4 = e.clientY; }
+                
                 document.onmouseup = closeDragElement;
                 document.onmousemove = elementDrag;
                 document.ontouchend = closeDragElement;
@@ -618,87 +660,67 @@
                 pos3 = clientX;
                 pos4 = clientY;
                 
-                // Prevent dragging completely off screen
-                let newTop = elmnt.offsetTop - pos2;
-                let newLeft = elmnt.offsetLeft - pos1;
-                
-                elmnt.style.top = newTop + "px";
-                elmnt.style.left = newLeft + "px";
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
                 elmnt.style.bottom = "auto";
                 elmnt.style.right = "auto";
             }
 
             function closeDragElement() {
-                document.onmouseup = null;
-                document.onmousemove = null;
-                document.ontouchend = null;
-                document.ontouchmove = null;
+                document.onmouseup = null; document.onmousemove = null;
+                document.ontouchend = null; document.ontouchmove = null;
             }
         }
 
-        /**
-         * 5. GAMIFICATION & LOCAL STORAGE ENGINE
-         */
+        // Gamification Engine
         const gamification = {
             coins: 0,
             levels: [ 
-                {t:0, n:"Novice", i:"🎒"}, 
-                {t:80, n:"Explorer", i:"🔍"}, 
-                {t:180, n:"Techie", i:"🛠️"}, 
-                {t:350, n:"Engineer", i:"⚙️"}, 
-                {t:600, n:"Master", i:"⚡"},
-                {t:1000, n:"Architect", i:"🏛️"}
+                {t:0, n:"User", i:"👤"}, {t:80, n:"Admin", i:"🛡️"}, 
+                {t:150, n:"Developer", i:"👨‍💻"}, {t:300, n:"Architect", i:"🏛️"}, 
+                {t:500, n:"Kernel Master", i:"🧠"}
             ],
             
             init: function() {
-                this.coins = parseInt(localStorage.getItem('ulk_coins')) || 0;
-                
-                // Apply purchased shop items on load
+                this.coins = parseInt(localStorage.getItem('os_coins')) || 0;
                 if(localStorage.getItem('shop_matrix') === 'true') this.applyMatrixTheme();
                 this.updateShopButtons();
                 this.updateUI();
             },
             
             addCoins: function(amount, event) {
-                this.coins += amount; 
+                this.coins += amount;
                 this.save(); 
                 this.playAudio('coin-sound');
-                this.showAnimation(`+${amount} 🪙`, event, false);
-                this.checkLevelUp();
+                this.showAnimation(`+${amount} ⚡`, event, false);
             },
             
             deductCoins: function(amount, event) {
-                this.coins = Math.max(0, this.coins - amount); 
+                this.coins = Math.max(0, this.coins - amount);
                 this.save(); 
                 this.playAudio('wrong-sound');
-                this.showAnimation(`-${amount} 🪙`, event, true);
-                this.updateUI(); // downgrade rank if necessary
+                this.showAnimation(`-${amount} ⚡`, event, true);
             },
             
             save: function() { 
-                localStorage.setItem('ulk_coins', this.coins); 
+                localStorage.setItem('os_coins', this.coins);
                 this.updateUI(); 
             },
             
             updateUI: function() {
                 let currentLvl = this.levels[0];
-                for(let l of this.levels) {
-                    if(this.coins >= l.t) currentLvl = l;
-                }
+                for(let l of this.levels) { if(this.coins >= l.t) currentLvl = l; }
                 
                 let displayName = currentLvl.n;
                 let displayIcon = currentLvl.i;
                 
-                if(localStorage.getItem('shop_badge') === 'true') {
-                    displayIcon += " 🏅";
-                }
+                if(localStorage.getItem('shop_badge') === 'true') { displayIcon += " 👑"; }
                 
-                // Update DOM counters with animation
                 const coinEl = document.getElementById('ui-coins');
                 const start = parseInt(coinEl.innerText) || 0;
-                this.animateValue(coinEl, start, this.coins, 500);
+                this.animateValue(coinEl, start, this.coins, 600);
                 
-                document.getElementById('ui-level').innerHTML = `${displayName} <span class="text-lg ml-1">${displayIcon}</span>`;
+                document.getElementById('ui-level').innerHTML = `${displayName} <span class="text-xl ml-1">${displayIcon}</span>`;
             },
             
             animateValue: function(obj, start, end, duration) {
@@ -708,76 +730,58 @@
                     if (!startTimestamp) startTimestamp = timestamp;
                     const progress = Math.min((timestamp - startTimestamp) / duration, 1);
                     obj.innerHTML = Math.floor(progress * (end - start) + start);
-                    if (progress < 1) {
-                        window.requestAnimationFrame(step);
-                    }
+                    if (progress < 1) window.requestAnimationFrame(step);
                 };
                 window.requestAnimationFrame(step);
-            },
-            
-            checkLevelUp: function() {
-                // Logic to trigger modal or sound when crossing thresholds could go here
-                // For now, relies on UI update.
             },
             
             playAudio: function(id) {
                 let audio = document.getElementById(id);
                 if(audio) { 
-                    audio.currentTime = 0; 
-                    audio.volume = 0.5;
-                    audio.play().catch(()=>{ console.log("Audio play prevented by browser policy"); }); 
+                    audio.currentTime = 0; audio.volume = 0.6;
+                    audio.play().catch(()=>{});
                 }
             },
             
             showAnimation: function(text, e, isNegative) {
                 const anim = document.createElement('div');
                 anim.innerText = text;
-                anim.className = `coin-anim ${isNegative ? 'text-red-500' : 'text-emerald-400'}`;
-                
-                // Position at mouse click or center screen
+                anim.className = `coin-anim ${isNegative ? 'text-red-500' : 'text-yellow-400'}`;
                 if(e && e.clientX) {
                     anim.style.left = (e.clientX - 20) + 'px';
                     anim.style.top = (e.clientY - 20) + 'px';
                 } else {
-                    anim.style.left = '50%'; 
-                    anim.style.top = '40%';
+                    anim.style.left = '50%'; anim.style.top = '40%';
                     anim.style.transform = 'translate(-50%, -50%)';
                 }
-                
                 document.body.appendChild(anim);
                 setTimeout(() => anim.remove(), 1200);
             },
             
             buyItem: function(itemId, cost, btnEl) {
                 if(localStorage.getItem(`shop_${itemId}`) === 'true') {
-                    alert("You already unlocked this capability."); return;
+                    alert("Already unlocked!"); return;
                 }
-                
                 if(this.coins >= cost) {
-                    this.coins -= cost; 
+                    this.coins -= cost;
                     localStorage.setItem(`shop_${itemId}`, 'true'); 
                     this.save();
-                    
                     this.playAudio('level-up-sound');
                     this.updateShopButtons();
-                    
                     if(itemId === 'matrix') this.applyMatrixTheme();
                     if(itemId === 'badge') this.updateUI();
-                    
                 } else {
-                    const short = cost - this.coins;
-                    alert(`Insufficient funds! You need ${short} more G-Coins. Take more quizzes.`);
+                    alert(`Insufficient funds! Need ${cost - this.coins} more ⚡.`);
                 }
             },
             
             updateShopButtons: function() {
-                const items = ['badge', 'matrix', 'hints'];
-                items.forEach(id => {
+                ['badge', 'matrix', 'hints'].forEach(id => {
                     if(localStorage.getItem(`shop_${id}`) === 'true') {
                         const btn = document.getElementById(`btn-buy-${id}`);
                         if(btn) {
                             btn.innerHTML = "Unlocked ✅"; 
-                            btn.className = "w-full bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 py-4 rounded-xl font-black flex items-center justify-center gap-2 cursor-not-allowed";
+                            btn.className = "w-full bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 py-4 rounded-xl font-black text-lg flex items-center justify-center gap-2 cursor-not-allowed";
                             btn.onclick = null;
                         }
                     }
@@ -791,414 +795,201 @@
             }
         };
 
-        /**
-         * 6. COMPREHENSIVE CURRICULUM DATA (18 Questions Mapped)
-         * Each topic contains English, Arabic, and Sudanese explanations.
-         */
-        const curriculumData = [
-            { 
-                title: "1. Concept of Operating System", 
-                academic: "Manages hardware resources (CPU, RAM) and provides a stable interface for software execution.",
-                arabic: "يدير موارد الأجهزة ويوفر بيئة مستقرة لتشغيل التطبيقات والبرامج.",
-                sudanese: "ده 'المدير' البوزع المهام على القطع عشان البرامج تشتغل بدون جكّة."
-            },
-            { 
-                title: "2. Expansion Slots & Ports", 
-                academic: "Critical for system modularity, allowing the addition of NICs, GPUs, and specialized controllers.",
-                arabic: "تسمح بإضافة وظائف جديدة للجهاز مثل كروت الشاشة والشبكة وتوسعة قدراته.",
-                sudanese: "دي 'البرندات' الفاضية في الماذربورد، بتركب فيها أي كرت زيادة عشان تطور جهازك."
-            },
-            { 
-                title: "3. Hardware Upgrades", 
-                academic: "Enhances system throughput, reduces data latency, and extends the overall hardware lifecycle.",
-                arabic: "يحسن أداء النظام، يقلل التأخير في معالجة البيانات، ويزيد من العمر الافتراضي للجهاز.",
-                sudanese: "دي عملية 'تظبيط' عشان الجهاز يبقى سريع وما يعلق في الشغل التقيل."
-            },
-            { 
-                title: "4. System Buses (Data, Address, Control)", 
-                academic: "Data bus carries info, Address bus identifies memory locations, Control bus transmits execution commands.",
-                arabic: "نواقل البيانات تنقل الملفات، العناوين تحدد المسار، وناقل التحكم يعطي أوامر التشغيل.",
-                sudanese: "دي 'الشوارع' الجوه؛ واحد بنقل البيانات، وواحد بوصف البيوت، والتالت ده العسكري البدي الأوامر."
-            },
-            { 
-                title: "5. OS Installation Procedure", 
-                academic: "Involves boot priority configuration, disk partitioning, file system formatting, and driver integration.",
-                arabic: "تشمل ضبط الإقلاع، تقسيم القرص الصلب، تهيئة نظام الملفات، وتثبيت التعريفات.",
-                sudanese: "بتبدأ من تظبيط الـ 'بوت' وتقسم الهاردسك وتفرمتو لحدي ما الويندوز ينزل ويفتح."
-            },
-            { 
-                title: "6. ESD Protection Measures", 
-                academic: "Technicians must use anti-static wrist straps and grounded mats to prevent micro-circuit failure.",
-                arabic: "استخدام أحزمة المعصم المضادة للكهرباء الساكنة لحماية القطع الحساسة من التلف.",
-                sudanese: "لازم تفرغ الكهرباء 'الساكنة' من جسمك قبل ما تلمس القطع عشان ما تحرق الماذربورد بلمسة غلط."
-            },
-            { 
-                title: "7. Input Devices (Keyboard, Mouse, Scanner)", 
-                academic: "Translate human physical interactions and documents into digital signals for CPU processing.",
-                arabic: "تحويل الإجراءات المادية إلى إشارات رقمية يفهمها ويعالجها المعالج.",
-                sudanese: "دي القطع البتدخل بيها الأوامر للكمبيوتر عشان يشتغل زي ما داير إنت."
-            },
-            { 
-                title: "8. Hardware Upgrade Considerations", 
-                academic: "Key factors include component compatibility, avoiding bottlenecks, and ensuring adequate PSU wattage.",
-                arabic: "التأكد من توافق المكونات، تجنب عنق الزجاجة، وفحص قدرة مزود الطاقة.",
-                sudanese: "لازم تتأكد إنو القطعة الجديدة بتركب مع القدام وما تكون تقيلة على البور سبلاي وتحرقو."
-            },
-            { 
-                title: "9. Computer Overheating Controls", 
-                academic: "Caused by dust occlusion and degraded thermal paste; mitigated by cleaning and optimizing case airflow.",
-                arabic: "ناتج عن تراكم الغبار وجفاف المعجون، يعالج بالتنظيف الدوري وتحسين مسار التهوية.",
-                sudanese: "الجهاز بسخن لما المراوح تقيف أو التراب يسد الفتحات، لازم تنضفو وتغير معجون المعالج."
-            },
-            { 
-                title: "10. Input vs Output Hardware", 
-                academic: "Input sends external data to the system; output presents processed computational data to the user.",
-                arabic: "الإدخال يرسل البيانات للنظام، بينما الإخراج يعرض النتيجة المعالجة للمستخدم.",
-                sudanese: "الإدخال بتدي بيهو المعلومات للجهاز، والإخراج الجهاز بطلع ليك النتيجة في الشاشة أو الطابعة."
-            },
-            { 
-                title: "11. Power Supply Unit (PSU)", 
-                academic: "Converts unstable wall AC to precisely regulated low-voltage DC (+3.3V, +5V, +12V) for internals.",
-                arabic: "يحول التيار المتردد العالي لتيار مستمر بجهود منخفضة تناسب دوائر الكمبيوتر الدقيقة.",
-                sudanese: "ده 'القلب' البضخ الكهرباء الهادية والمنظمة لكل قطعة جوه عشان تشتغل تمام."
-            },
-            { 
-                title: "12. Diagnostic Utilities & Software", 
-                academic: "Software tools used for POST analysis, SMART disk health monitoring, and system registry optimization.",
-                arabic: "أدوات لفحص حالة الأقراص، تحليل أخطاء الذاكرة، واكتشاف الأعطال مبكراً.",
-                sudanese: "برامج 'كشّافة' بتوريك العطل وين قبل ما تفك المسمار، وبتحافظ على نظافة السيستم."
-            },
-            { 
-                title: "13. Role of the Motherboard", 
-                academic: "The primary printed circuit board that links the CPU, memory, and peripheral interfaces via chipsets.",
-                arabic: "الدائرة الرئيسية التي تسهل الاتصال والتنسيق بين المعالج والذاكرة وجميع الملحقات.",
-                sudanese: "دي الماذربورد، الحوش الجامع البيلم المعالج والرامات وكل القطع مع بعض في مكان واحد."
-            },
-            { 
-                title: "14. Diagnosing Hardware Faults", 
-                academic: "Sequential verification of beep codes, RAM seating, connection integrity, and peripheral testing.",
-                arabic: "يتطلب فحص متسلسل للرامات، كابلات الشاشة، وتوصيلات الطاقة بشكل منطقي.",
-                sudanese: "الجهاز لو ما فتح، تبدأ تنضف الرامات، وتتأكد من كابلات الشاشة والبور سبلاي."
-            },
-            { 
-                title: "15. Partitioning & Formatting Need", 
-                academic: "Essential for creating logical volume structures and file tables (e.g. NTFS) required by the OS.",
-                arabic: "ضروري لإنشاء الهياكل المنطقية وأنظمة الملفات اللازمة لنظام التشغيل لتخزين واسترجاع البيانات.",
-                sudanese: "دي عملية تهيئة الهاردسك وتقسيمو لغرف عشان الويندوز يقدر يرتب ملفاتو جوه بنظام."
-            },
-            { 
-                title: "16. Performance Impact (RAM vs SSD vs GPU)", 
-                academic: "RAM boosts multitasking, SSD slashes I/O latency, GPU accelerates complex graphical rendering.",
-                arabic: "الرام يحسن تعدد المهام، SSD يسرع التحميل العام، وكرت الشاشة يعالج الرسوميات الثقيلة.",
-                sudanese: "الرام بخليهو يفتح برامج كتيرة مع بعض، الـ SSD بخليهو يطير في الفتح، والشاشة للألعاب والتصميم."
-            },
-            { 
-                title: "17. Device Drivers Contribution", 
-                academic: "Specialized low-level software acting as translators, enabling the OS to interface with specific hardware.",
-                arabic: "برامج وسيطة تعمل كمترجم لتمكين نظام التشغيل من التفاعل والتحكم في القطع بسلاسة.",
-                sudanese: "ده 'المترجم' البخلي الويندوز يفهم لغة القطعة الجديدة ويشغلها صح من غير ما تضرب."
-            },
-            { 
-                title: "18. Computer Troubleshooting", 
-                academic: "A systematic, logical methodology used to isolate, identify, and rectify system anomalies effectively.",
-                arabic: "منهجية متسلسلة تعتمد على العزل المنطقي لتحديد المشكلة الأساسية وإصلاحها.",
-                sudanese: "ده الفحص المنطقي، تتبع المشكلة خطوة خطوة لحدي ما تلقى العيب وتصلحو بدل ما تعك ساي."
-            }
-        ];
-
-        // Render Curriculum Logic
-        const lessonsBox = document.getElementById('lessons-container');
-        const noResultsBox = document.getElementById('no-results');
+        // ==========================================
+        // 4. RENDERERS & QUIZ ENGINE
+        // ==========================================
         
+        // Render Modules
         function renderCurriculum(filterText = '') {
+            const lessonsBox = document.getElementById('lessons-container');
+            const noRes = document.getElementById('no-results');
             lessonsBox.innerHTML = '';
+            
             const lowerFilter = filterText.toLowerCase();
             let count = 0;
             
-            curriculumData.forEach((lec, index) => {
-                // Search filter check
-                if(filterText && !lec.title.toLowerCase().includes(lowerFilter) && !lec.academic.toLowerCase().includes(lowerFilter)) {
-                    return;
-                }
-                
+            osCurriculum.forEach((lec, i) => {
+                if(filterText && !lec.title.toLowerCase().includes(lowerFilter) && !lec.academic.toLowerCase().includes(lowerFilter)) return;
                 count++;
-                // Add staggered animation delay
-                const delay = (count % 10) * 0.05;
                 
                 lessonsBox.innerHTML += `
-                    <div class="feature-card flex flex-col h-full animate-fade-in" style="animation-delay: ${delay}s; animation-fill-mode: both;">
-                        <div class="flex items-start justify-between mb-5">
-                            <h3 class="text-xl font-black text-slate-800 dark:text-white leading-tight">${lec.title}</h3>
-                            <span class="text-2xl opacity-50 bg-slate-100 dark:bg-slate-800 rounded-lg p-2 leading-none">${index+1}</span>
+                    <div class="feature-card flex flex-col h-full" style="animation: slideUpFade 0.5s ease forwards; animation-delay: ${count*0.05}s; opacity:0;">
+                        <div class="flex items-start justify-between mb-6 border-b border-slate-100 dark:border-slate-700 pb-4">
+                            <h3 class="text-2xl font-black text-slate-800 dark:text-white leading-tight">${lec.title}</h3>
                         </div>
-
-                        <div class="mb-4 bg-academic-light/30 dark:bg-academic-dark/20 p-4 rounded-xl border-l-4 border-academic-base flex-grow">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="bg-academic-base text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-wider">Academic EN</span>
-                            </div>
-                            <p class="text-slate-700 dark:text-slate-300 text-sm font-medium leading-relaxed">${lec.academic}</p>
+                        <div class="mb-5 bg-blue-50 dark:bg-blue-900/10 p-5 rounded-xl border-l-4 border-blue-500">
+                            <span class="block text-xs font-black text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-2">Academic En</span>
+                            <p class="text-slate-700 dark:text-slate-300 font-medium text-lg">${lec.academic}</p>
                         </div>
-
-                        <div class="mb-4 bg-arabic-light/40 dark:bg-arabic-dark/20 p-4 rounded-xl border-r-4 border-arabic-base text-right flex-grow">
-                            <div class="flex items-center justify-end gap-2 mb-2">
-                                <span class="bg-arabic-base text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-wider ar-text">مبسط AR</span>
-                            </div>
-                            <p class="ar-text text-slate-700 dark:text-slate-300 text-sm font-bold leading-relaxed">${lec.arabic}</p>
+                        <div class="mb-5 bg-emerald-50 dark:bg-emerald-900/10 p-5 rounded-xl border-r-4 border-emerald-500 text-right">
+                            <span class="block text-xs font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-2">عربي أكاديمي</span>
+                            <p class="ar-text text-slate-700 dark:text-slate-300 font-bold text-lg">${lec.arabic}</p>
                         </div>
+                        <div class="mt-auto bg-amber-50 dark:bg-amber-900/10 p-5 rounded-xl border-r-4 border-amber-500 text-right">
+                            <span class="block text-xs font-black text-amber-600 dark:text-amber-400 uppercase tracking-widest mb-2">بالسوداني الفصيح</span>
+                            <p class="ar-text font-bold text-slate-800 dark:text-slate-300 text-lg leading-relaxed">${lec.sudanese}</p>
+                        </div>
+                    </div>`;
+            });
+            noRes.classList.toggle('hidden', count > 0);
+        }
+        
+        document.getElementById('search-input').addEventListener('input', (e) => renderCurriculum(e.target.value));
 
-                        <div class="mt-auto bg-sudanese-light/50 dark:bg-yellow-900/10 p-4 rounded-xl border-r-4 border-sudanese-gold text-right">
-                            <div class="flex items-center justify-end gap-2 mb-2">
-                                <span class="bg-sudanese-gold text-slate-900 text-[10px] px-2 py-0.5 rounded font-black uppercase tracking-wider ar-text">السوداني SD</span>
-                            </div>
-                            <p class="ar-text text-sm font-bold text-slate-800 dark:text-slate-400">${lec.sudanese}</p>
+        // Render Flashcards (New Feature)
+        function renderFlashcards() {
+            const container = document.getElementById('flashcards-container');
+            container.innerHTML = '';
+            
+            osCurriculum.forEach((lec) => {
+                const card = document.createElement('div');
+                card.className = "flashcard-container";
+                card.innerHTML = `
+                    <div class="flashcard" onclick="this.classList.toggle('is-flipped'); gamification.playAudio('flip-sound');">
+                        <div class="flashcard-front">
+                            <span class="text-4xl mb-4 text-brand-500">🤔</span>
+                            <h3 class="text-2xl font-black text-slate-800 dark:text-white">${lec.title}</h3>
+                            <p class="text-slate-400 mt-4 font-medium text-sm tracking-widest uppercase">Tap to flip</p>
+                        </div>
+                        <div class="flashcard-back">
+                            <span class="text-3xl mb-3">💡</span>
+                            <p class="text-slate-800 dark:text-slate-200 font-semibold text-lg mb-4 px-2">${lec.academic}</p>
+                            <div class="h-px w-16 bg-amber-500/50 mx-auto mb-4"></div>
+                            <p class="ar-text text-slate-700 dark:text-amber-100 font-bold text-lg px-2">${lec.sudanese}</p>
                         </div>
                     </div>
                 `;
+                container.appendChild(card);
             });
-            
-            if(count === 0) {
-                noResultsBox.classList.remove('hidden');
-            } else {
-                noResultsBox.classList.add('hidden');
-            }
         }
-        
-        // CSS for dynamic animation
-        const style = document.createElement('style');
-        style.innerHTML = `
-            @keyframes fadeInStagger {
-                from { opacity: 0; transform: translateY(15px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
-            .animate-fade-in { animation: fadeInStagger 0.5s ease-out forwards; }
-        `;
-        document.head.appendChild(style);
 
-        // Bind Search Input
-        document.getElementById('search-input').addEventListener('input', (e) => {
-            renderCurriculum(e.target.value);
-        });
-
-        /**
-         * 7. QUIZ ENGINE (18 Questions matching PDF)
-         */
-        const quizData = [
-            { qEn: "What is the primary responsibility of an OS?", qAr: "ماهي وظيفة نظام التشغيل الأساسية؟", opts: ["Run Games Only", "Cool CPU Fans", "Manage HW/SW Resources", "Format Hard Drives"], correct: 2 },
-            { qEn: "What is the main benefit of Expansion Slots?", qAr: "ما الفائدة الرئيسية من فتحات التوسعة؟", opts: ["Increase Internet Speed natively", "Add Extra Cards (NICs/GPUs)", "Store OS Data permanently", "Filter dust particles"], correct: 1 },
-            { qEn: "Hardware upgrades primarily aim to:", qAr: "تهدف ترقية قطع الكمبيوتر بشكل أساسي إلى:", opts: ["Enhance throughput & extend lifespan", "Change case color", "Reduce monitor glare", "Remove computer viruses"], correct: 0 },
-            { qEn: "Which System Bus is responsible for transmitting execution commands?", qAr: "أي ناقل مسؤول عن إرسال أوامر التشغيل؟", opts: ["Data Bus", "USB Bus", "Address Bus", "Control Bus"], correct: 3 },
-            { qEn: "What is typically the FIRST step in OS installation?", qAr: "ما هي الخطوة الأولى عادة في تثبيت نظام التشغيل؟", opts: ["Install GPU Drivers", "Format C: Drive", "Configure Boot Priority in BIOS", "Connect Printer"], correct: 2 },
-            { qEn: "To protect components from Electrostatic Discharge (ESD), use:", qAr: "لحماية القطع من التفريغ الكهروستاتيكي، يجب استخدام:", opts: ["Rubber Gloves", "Anti-static wrist strap", "Safety Glasses", "Magnetic screwdrivers"], correct: 1 },
-            { qEn: "A Keyboard and a Scanner are classified as:", qAr: "الكيبورد والماسح الضوئي يصنفان كـ:", opts: ["Processing Devices", "Output Devices", "Input Devices", "Storage Components"], correct: 2 },
-            { qEn: "A crucial consideration before upgrading a high-end GPU is:", qAr: "اعتبار حاسم قبل ترقية كرت شاشة قوي هو:", opts: ["Mouse sensitivity", "PSU wattage capacity", "Monitor refresh rate only", "Keyboard layout"], correct: 1 },
-            { qEn: "A primary factor leading to severe CPU overheating is:", qAr: "عامل رئيسي يؤدي لارتفاع حرارة المعالج الشديدة:", opts: ["Too many text files", "Degraded thermal paste & dust", "Outdated antivirus", "Using Ethernet instead of WiFi"], correct: 1 },
-            { qEn: "Unlike an input device, an OUTPUT device:", qAr: "على عكس جهاز الإدخال، جهاز الإخراج:", opts: ["Presents processed data to the user", "Sends physical signals to CPU", "Stores data without power", "Connects to internet"], correct: 0 },
-            { qEn: "What is the specific role of the Power Supply Unit (PSU)?", qAr: "ما هو الدور المحدد لمزود الطاقة؟", opts: ["Boost CPU clock speeds", "Convert wall AC to low-voltage DC", "Store temporary application data", "Filter software bugs"], correct: 1 },
-            { qEn: "Diagnostic utilities are primarily used to:", qAr: "تستخدم برامج الفحص والتشخيص بشكل أساسي لـ:", opts: ["Write programming code", "Play high-end games", "Monitor disk health and find hardware faults", "Increase internet bandwidth"], correct: 2 },
-            { qEn: "The component that links the CPU, RAM, and peripherals is the:", qAr: "القطعة التي تربط المعالج، الذاكرة، والملحقات هي:", opts: ["Power Supply", "Hard Disk Drive", "Motherboard", "Graphics Card"], correct: 2 },
-            { qEn: "If a computer boots but shows NO display, check the:", qAr: "إذا اشتغل الكمبيوتر ولكن لا توجد صورة، يجب فحص:", opts: ["Sound card seating", "RAM seating and display cables", "Network interface card", "Keyboard USB port"], correct: 1 },
-            { qEn: "Why MUST storage media be formatted before OS deployment?", qAr: "لماذا يجب فرمتة وحدة التخزين قبل تثبيت النظام؟", opts: ["To create necessary file systems (like NTFS)", "To physically clean the disk plates", "To increase the physical size of the disk", "To register the software online"], correct: 0 },
-            { qEn: "Which upgrade drastically reduces data loading/boot times?", qAr: "أي ترقية تقلل وقت التحميل بشكل جذري؟", opts: ["Adding more RAM", "Upgrading to a Solid State Drive (SSD)", "Installing a new Keyboard", "Upgrading the GPU"], correct: 1 },
-            { qEn: "Device drivers are best described as:", qAr: "أفضل وصف لتعريفات الأجهزة (Drivers) هو:", opts: ["Hardware protection tools", "Power management circuits", "Software translators between OS and hardware", "Tools to format USBs"], correct: 2 },
-            { qEn: "Computer Troubleshooting is defined as:", qAr: "يعرف تتبع الأعطال (Troubleshooting) بأنه:", opts: ["Guessing the broken part", "A systematic method to isolate and fix anomalies", "Reinstalling Windows every time", "Replacing the whole PC"], correct: 1 }
-        ];
-
+        // Quiz Engine
         const quizEngine = {
-            idx: 0, 
-            score: 0, 
-            timer: null, 
-            timeLeft: 25,
-            elCore: document.getElementById('quiz-core'), 
-            elRes: document.getElementById('quiz-result'), 
-            elStart: document.getElementById('quiz-start'),
+            idx: 0, score: 0, timer: null, timeLeft: 25,
+            elCore: document.getElementById('quiz-core'), elRes: document.getElementById('quiz-result'), elStart: document.getElementById('quiz-start'),
             
             start: function() {
-                this.idx = 0; 
-                this.score = 0;
-                
-                // Reset UI elements
-                this.elStart.classList.add('hidden'); 
-                this.elRes.classList.add('hidden'); 
+                this.idx = 0; this.score = 0;
+                this.elStart.classList.add('hidden'); this.elRes.classList.add('hidden'); 
                 this.elCore.classList.remove('hidden');
-                
                 this.load();
             },
             
             load: function() {
-                const q = quizData[this.idx];
+                const q = osQuizData[this.idx];
+                document.getElementById('q-counter').innerText = `Question ${this.idx+1} of ${osQuizData.length}`;
+                document.getElementById('q-progress-bar').style.width = `${((this.idx) / osQuizData.length) * 100}%`;
                 
-                // Update Progress Header
-                document.getElementById('q-counter').innerText = `Question ${this.idx+1} of ${quizData.length}`;
-                const progressPct = ((this.idx) / quizData.length) * 100;
-                document.getElementById('q-progress-bar').style.width = `${progressPct}%`;
-                
-                // Update Text
                 document.getElementById('q-text-en').innerText = q.qEn;
                 document.getElementById('q-text-ar').innerText = q.qAr;
-                document.getElementById('q-feedback').className = 'hidden mt-8 p-4 rounded-xl font-bold text-center text-lg border';
+                document.getElementById('q-feedback').className = 'hidden';
                 
-                // Populate Options (and randomize them for anti-pattern matching)
-                const optsBox = document.getElementById('q-options'); 
+                const optsBox = document.getElementById('q-options');
                 optsBox.innerHTML = '';
                 
-                // Map original index to keep track of correct answer
-                let mappedOpts = q.opts.map((text, i) => ({ text, originalIndex: i }));
-                // Simple shuffle
-                mappedOpts.sort(() => Math.random() - 0.5);
+                let mappedOpts = q.opts.map((text, i) => ({ text, origIdx: i }));
+                mappedOpts.sort(() => Math.random() - 0.5); // Shuffle
                 
-                mappedOpts.forEach((optData) => {
+                mappedOpts.forEach((opt) => {
                     const b = document.createElement('button');
-                    b.className = "group relative w-full text-left p-5 rounded-2xl border-2 border-slate-200 dark:border-slate-700 font-bold text-slate-700 dark:text-slate-200 hover:border-brand-500 hover:bg-brand-50 dark:hover:bg-brand-900/30 transition-all bg-white dark:bg-slate-800 shadow-sm flex items-center gap-4 outline-none focus:ring-4 focus:ring-brand-500/20";
-                    
-                    // Create visual radio button effect
-                    b.innerHTML = `
-                        <div class="w-6 h-6 rounded-full border-2 border-slate-300 dark:border-slate-600 flex-shrink-0 group-hover:border-brand-500 transition-colors flex items-center justify-center">
-                            <div class="w-3 h-3 bg-brand-500 rounded-full opacity-0 scale-0 transition-all"></div>
-                        </div>
-                        <span class="flex-grow text-lg">${optData.text}</span>
-                    `;
-                    
-                    b.onclick = (e) => this.answer(optData.originalIndex, b, e);
+                    b.className = "group relative w-full text-left p-6 rounded-2xl border-2 border-slate-200 dark:border-slate-700 font-bold text-slate-700 dark:text-slate-200 hover:border-brand-500 hover:bg-brand-50 dark:hover:bg-brand-900/30 transition-all bg-white dark:bg-slate-800 shadow-sm flex items-center gap-4 text-xl";
+                    b.innerHTML = `<div class="w-7 h-7 rounded-full border-2 border-slate-300 dark:border-slate-600 group-hover:border-brand-500 flex items-center justify-center flex-shrink-0"><div class="w-3.5 h-3.5 bg-brand-500 rounded-full opacity-0 scale-0 transition-all"></div></div><span>${opt.text}</span>`;
+                    b.onclick = (e) => this.answer(opt.origIdx, b, e);
                     optsBox.appendChild(b);
                 });
-                
                 this.startTimer();
             },
             
             startTimer: function() {
-                clearInterval(this.timer); 
-                this.timeLeft = 25; 
+                clearInterval(this.timer); this.timeLeft = 25; 
+                const tText = document.getElementById('timer-text');
+                const tBox = document.getElementById('q-timer');
                 
-                const timerText = document.getElementById('timer-text');
-                const timerContainer = document.getElementById('q-timer');
-                
-                timerText.innerText = this.timeLeft;
-                timerContainer.classList.remove('text-red-600', 'dark:text-red-400', 'border-red-300', 'animate-pulse');
-                timerContainer.classList.add('text-brand-600', 'dark:text-brand-400');
+                tText.innerText = this.timeLeft;
+                tBox.classList.remove('text-red-600', 'dark:text-red-400', 'border-red-300', 'animate-pulse');
+                tBox.classList.add('text-brand-600', 'dark:text-brand-400');
                 
                 this.timer = setInterval(() => {
-                    this.timeLeft--; 
-                    timerText.innerText = this.timeLeft;
-                    
-                    if(this.timeLeft <= 10 && !timerContainer.classList.contains('text-red-600')) {
-                        timerContainer.classList.remove('text-brand-600', 'dark:text-brand-400');
-                        timerContainer.classList.add('text-red-600', 'dark:text-red-400', 'border-red-300', 'animate-pulse');
+                    this.timeLeft--; tText.innerText = this.timeLeft;
+                    if(this.timeLeft <= 10 && !tBox.classList.contains('text-red-600')) {
+                        tBox.classList.remove('text-brand-600', 'dark:text-brand-400');
+                        tBox.classList.add('text-red-600', 'dark:text-red-400', 'border-red-300', 'animate-pulse');
                     }
-                    
-                    if(this.timeLeft <= 0) { 
-                        clearInterval(this.timer); 
-                        this.answer(-1, null, null); // Time up = wrong answer
-                    }
+                    if(this.timeLeft <= 0) { clearInterval(this.timer); this.answer(-1, null, null); }
                 }, 1000);
             },
             
-            answer: function(selectedIdx, btnEl, event) {
+            answer: function(selIdx, btnEl, event) {
                 clearInterval(this.timer);
-                const q = quizData[this.idx];
-                const isCorrect = (selectedIdx === q.correct);
+                const q = osQuizData[this.idx];
+                const isCorrect = (selIdx === q.correct);
                 const optsBox = document.getElementById('q-options');
-                const feedbackBox = document.getElementById('q-feedback');
+                const fbBox = document.getElementById('q-feedback');
                 
-                // Disable all buttons immediately to prevent double clicks
                 Array.from(optsBox.children).forEach(b => {
-                    b.disabled = true; 
-                    b.classList.add('cursor-not-allowed', 'opacity-60');
-                    b.classList.remove('hover:border-brand-500', 'hover:bg-brand-50', 'dark:hover:bg-brand-900/30');
+                    b.disabled = true; b.classList.add('cursor-not-allowed', 'opacity-60');
+                    b.classList.remove('hover:border-brand-500', 'hover:bg-brand-50');
                 });
 
                 if(isCorrect) {
                     if(btnEl) {
-                        btnEl.classList.remove('border-slate-200', 'dark:border-slate-700', 'opacity-60');
-                        btnEl.classList.add('border-emerald-500', 'bg-emerald-50', 'dark:bg-emerald-900/30', 'ring-4', 'ring-emerald-500/20');
-                        btnEl.querySelector('.w-6 > div').classList.remove('opacity-0', 'scale-0', 'bg-brand-500');
-                        btnEl.querySelector('.w-6 > div').classList.add('opacity-100', 'scale-100', 'bg-emerald-500');
-                        btnEl.querySelector('.w-6').classList.add('border-emerald-500');
+                        btnEl.classList.add('border-emerald-500', 'bg-emerald-50', 'dark:bg-emerald-900/30');
+                        btnEl.querySelector('.w-7 > div').classList.replace('opacity-0', 'opacity-100');
+                        btnEl.querySelector('.w-7 > div').classList.replace('scale-0', 'scale-100');
+                        btnEl.querySelector('.w-7 > div').classList.replace('bg-brand-500', 'bg-emerald-500');
+                        btnEl.querySelector('.w-7').classList.add('border-emerald-500');
                     }
-                    this.score++; 
-                    gamification.addCoins(10, event);
-                    
-                    feedbackBox.innerHTML = '✅ Correct Answer! +10 🪙';
-                    feedbackBox.className = 'mt-8 p-4 rounded-xl font-black text-center text-emerald-700 bg-emerald-100 dark:bg-emerald-900/40 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-700 animate-fade-in';
-                    
+                    this.score++; gamification.addCoins(10, event);
+                    fbBox.innerHTML = '✅ Correct! OS Process Executed. +10 ⚡';
+                    fbBox.className = 'mt-8 p-5 rounded-xl font-black text-center text-emerald-700 bg-emerald-100 dark:bg-emerald-900/40 border border-emerald-300 dark:border-emerald-700 animate-flip-in text-xl';
                 } else {
                     if(btnEl) {
-                        btnEl.classList.remove('border-slate-200', 'dark:border-slate-700', 'opacity-60');
                         btnEl.classList.add('border-red-500', 'bg-red-50', 'dark:bg-red-900/30');
-                        btnEl.querySelector('.w-6 > div').classList.remove('opacity-0', 'scale-0', 'bg-brand-500');
-                        btnEl.querySelector('.w-6 > div').classList.add('opacity-100', 'scale-100', 'bg-red-500');
-                        btnEl.querySelector('.w-6').classList.add('border-red-500');
+                        btnEl.querySelector('.w-7 > div').classList.replace('opacity-0', 'opacity-100');
+                        btnEl.querySelector('.w-7 > div').classList.replace('scale-0', 'scale-100');
+                        btnEl.querySelector('.w-7 > div').classList.replace('bg-brand-500', 'bg-red-500');
                     }
                     
-                    // Highlight correct answer structurally since DOM order != array order due to shuffle
                     Array.from(optsBox.children).forEach(b => {
                         if(b.innerText.includes(q.opts[q.correct])) {
-                            b.classList.remove('border-slate-200', 'dark:border-slate-700', 'opacity-60');
-                            b.classList.add('border-emerald-500', 'bg-emerald-50', 'dark:bg-emerald-900/30', 'border-2');
+                            b.classList.remove('opacity-60');
+                            b.classList.add('border-emerald-500', 'bg-emerald-50', 'dark:bg-emerald-900/30');
                         }
                     });
                     
                     gamification.deductCoins(2, event);
-                    
-                    let msg = selectedIdx === -1 ? '⏰ Time is up! -2 🪙' : '❌ Incorrect Answer! -2 🪙';
-                    feedbackBox.innerHTML = msg;
-                    feedbackBox.className = 'mt-8 p-4 rounded-xl font-black text-center text-red-700 bg-red-100 dark:bg-red-900/40 dark:text-red-400 border border-red-300 dark:border-red-700 animate-fade-in';
+                    fbBox.innerHTML = selIdx === -1 ? '⏰ Timeout Exception! -2 ⚡' : '❌ Fatal Error! Wrong Answer. -2 ⚡';
+                    fbBox.className = 'mt-8 p-5 rounded-xl font-black text-center text-red-700 bg-red-100 dark:bg-red-900/40 border border-red-300 dark:border-red-700 animate-flip-in text-xl';
                 }
 
-                // Proceed to next question with a slight delay for user to read feedback
                 setTimeout(() => {
                     this.idx++;
-                    if(this.idx < quizData.length) {
-                        this.load(); 
-                    } else {
-                        this.end();
-                    }
-                }, 2000); // 2 second review time
+                    if(this.idx < osQuizData.length) this.load(); else this.end();
+                }, 2500);
             },
             
             end: function() {
-                this.elCore.classList.add('hidden'); 
-                this.elRes.classList.remove('hidden');
-                
+                this.elCore.classList.add('hidden'); this.elRes.classList.remove('hidden');
                 document.getElementById('q-progress-bar').style.width = `100%`;
                 
-                const scoreDisplay = document.getElementById('res-score');
-                const titleDisplay = document.getElementById('res-title');
-                const iconDisplay = document.getElementById('res-icon');
+                document.getElementById('res-score').innerText = `${this.score}/${osQuizData.length}`;
+                const pct = (this.score / osQuizData.length) * 100;
+                const title = document.getElementById('res-title');
                 
-                scoreDisplay.innerText = `${this.score}/${quizData.length}`;
-                
-                // Dynamic Results text based on performance
-                const percentage = (this.score / quizData.length) * 100;
-                if(percentage === 100) {
-                    titleDisplay.innerText = "Flawless Architecture!";
-                    titleDisplay.className = "text-4xl font-black mb-3 text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-600";
-                    iconDisplay.innerText = "🏆";
-                    gamification.playAudio('level-up-sound');
-                } else if(percentage >= 80) {
-                    titleDisplay.innerText = "Excellent Engineer!";
-                    titleDisplay.className = "text-4xl font-black mb-3 text-brand-600 dark:text-brand-400";
-                    iconDisplay.innerText = "🎖️";
-                } else if(percentage >= 50) {
-                    titleDisplay.innerText = "Solid Base Knowledge";
-                    titleDisplay.className = "text-4xl font-black mb-3 text-sudanese-gold";
-                    iconDisplay.innerText = "👍";
-                } else {
-                    titleDisplay.innerText = "Needs More Revision";
-                    titleDisplay.className = "text-4xl font-black mb-3 text-red-600 dark:text-red-400";
-                    iconDisplay.innerText = "📚";
-                }
+                if(pct === 100) { title.innerText = "Kernel God!"; title.className = "text-5xl font-black mb-3 text-emerald-500"; }
+                else if(pct >= 80) { title.innerText = "System Admin Level!"; title.className = "text-5xl font-black mb-3 text-brand-500"; }
+                else if(pct >= 50) { title.innerText = "User Space Access"; title.className = "text-5xl font-black mb-3 text-yellow-500"; }
+                else { title.innerText = "System Crash!"; title.className = "text-5xl font-black mb-3 text-red-500"; }
             },
             
-            reset: function() {
-                this.elRes.classList.add('hidden'); 
-                this.start();
-            }
+            reset: function() { this.elRes.classList.add('hidden'); this.start(); }
         };
 
-        // Initialize App on Window Load
+        // Initialize App
         window.onload = () => {
             gamification.init();
-            renderCurriculum(); // Load the 18 modules
+            renderCurriculum();
+            renderFlashcards();
         };
     </script>
 </body>
