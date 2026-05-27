@@ -1,12 +1,12 @@
+<!DOCTYPE html>
 <html lang="en" dir="ltr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ULK OS Academy - Professional Gamified Platform for Operating Systems">
-    <meta name="author" content="Ali Khalid">
-    <title>ULK OS Academy | Operating Systems Mastery</title>
+    <meta name="description" content="ULK OS Academy - Advanced AI Bout Platform">
+    <title>ULK Academy | OS Y1 Exam AI Solver</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Changa:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Changa:wght@300;400;500;600;700;800&family=Noto+Kufi+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     
     <script>
@@ -15,26 +15,21 @@
             theme: {
                 extend: {
                     colors: {
-                        brand: { 50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc', 400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 800: '#075985', 900: '#0c4a6e' },
-                        sudanese: { light: '#fef3c7', gold: '#f59e0b', dark: '#b45309' },
-                        academic: { light: '#f3e8ff', base: '#9333ea', dark: '#581c87' },
-                        arabic: { light: '#ecfdf5', base: '#10b981', dark: '#064e3b' },
-                        paper: '#fcfcfc'
+                        brand: { 500: '#0ea5e9', 600: '#0284c7' },
+                        ai: { light: '#fdf4ff', base: '#d946ef', dark: '#86198f' }
                     },
                     fontFamily: {
-                        en: ['Outfit', 'sans-serif'],
-                        ar: ['Changa', 'sans-serif'],
+                        sans: ['ui-sans-serif', 'system-ui', 'sans-serif'],
+                        arabic: ['Noto Kufi Arabic', 'sans-serif'],
+                        heading: ['Changa', 'sans-serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'monospace'],
                     },
                     animation: {
-                        'bounce-slow': 'bounce 3s infinite',
                         'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'flip-in': 'flipIn 0.6s ease-out forwards',
+                        'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
                     },
                     keyframes: {
-                        flipIn: {
-                            '0%': { transform: 'rotateY(-90deg)', opacity: '0' },
-                            '100%': { transform: 'rotateY(0)', opacity: '1' },
-                        }
+                        fadeInUp: { '0%': { opacity: '0', transform: 'translateY(15px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }
                     }
                 }
             }
@@ -42,691 +37,562 @@
     </script>
 
     <style>
-        /* Base Styling for Reading Comfort */
-        body { 
-            font-family: 'Outfit', sans-serif;
-            background-color: #f1f5f9; 
-            transition: background-color 0.4s ease, color 0.4s ease;
-            font-size: 16px;
-            line-height: 1.6;
-        }
-        .dark body { background-color: #0b1120; color: #f8fafc; }
-        .ar-text { font-family: 'Changa', sans-serif; direction: rtl; text-align: right; }
-        
-        /* Smooth Custom Scrollbar */
-        ::-webkit-scrollbar { width: 10px; md:width: 12px; }
+        body { background-color: #f8fafc; transition: background-color 0.4s, color 0.4s; }
+        .dark body { background-color: #0f172a; color: #f8fafc; }
+        ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; border: 3px solid transparent; background-clip: padding-box; }
-        .dark ::-webkit-scrollbar-thumb { background: #334155; border: 3px solid transparent; background-clip: padding-box; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; background-clip: padding-box; }
-
-        /* Navigation Tab System with Animations */
-        .tab-content { display: none; animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-        .tab-content.active { display: block; }
-        @keyframes slideUpFade { 
-            0% { opacity: 0; transform: translateY(20px) scale(0.98); } 
-            100% { opacity: 1; transform: translateY(0) scale(1); } 
-        }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .dark ::-webkit-scrollbar-thumb { background: #334155; }
         
-        .tab-btn { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
-        .tab-btn::after {
-            content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-            width: 0; height: 4px; background-color: transparent; transition: width 0.3s ease; border-radius: 4px 4px 0 0;
-        }
-        .tab-btn.active { background-color: #0284c7; color: white; box-shadow: 0 10px 15px -3px rgba(2, 132, 199, 0.4), 0 4px 6px -2px rgba(2, 132, 199, 0.2); transform: translateY(-2px); }
-        .dark .tab-btn.active { background-color: #0ea5e9; }
-        .tab-btn.active::after { width: 50%; background-color: #fff; }
+        .glass-panel { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); border: 1px solid rgba(226, 232, 240, 0.8); }
+        .dark .glass-panel { background: rgba(30, 41, 59, 0.9); border-color: rgba(51, 65, 85, 0.8); }
 
-        /* Flashcard 3D System */
-        .flashcard-container { perspective: 1000px; height: 350px; cursor: pointer; }
-        .flashcard { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.8s; transform-style: preserve-3d; border-radius: 1.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .flashcard-container:hover .flashcard { box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
-        .flashcard.is-flipped { transform: rotateY(180deg); }
-        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 1.5rem; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 1.25rem; border: 2px solid #e2e8f0; background: #ffffff; }
-        @media (min-width: 768px) { .flashcard-front, .flashcard-back { padding: 2rem; } }
-        .dark .flashcard-front, .dark .flashcard-back { background: #1e293b; border-color: #334155; }
-        .flashcard-front { background: linear-gradient(135deg, #f8fafc, #f1f5f9); }
-        .dark .flashcard-front { background: linear-gradient(135deg, #1e293b, #0f172a); }
-        .flashcard-back { transform: rotateY(180deg); background: linear-gradient(135deg, #fef3c7, #fffbeb); border-color: #f59e0b; }
-        .dark .flashcard-back { background: linear-gradient(135deg, #422006, #1e293b); border-color: #b45309; }
-
-        /* Feature Cards */
-        .feature-card { background: white; border: 1px solid #e2e8f0; border-radius: 20px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); position: relative; z-index: 1; }
-        @media (min-width: 768px) { .feature-card { padding: 32px; } }
-        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15); border-color: #0ea5e9; }
+        .feature-card { background: white; border: 1px solid #e2e8f0; border-radius: 24px; padding: 24px; transition: all 0.3s; }
         .dark .feature-card { background: #1e293b; border-color: #334155; }
-        .dark .feature-card:hover { border-color: #38bdf8; box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.4); }
         
-        .lesson-completed { border-color: #10b981 !important; opacity: 0.8; }
-        .dark .lesson-completed { border-color: #059669 !important; }
-
-        /* Wallet UI & Gamification */
-        .wallet-ui { background: linear-gradient(135deg, #0ea5e9, #2563eb); color: white; border-radius: 50px; padding: 6px 16px; font-weight: 800; font-size: 1rem; display: flex; align-items: center; gap: 8px; box-shadow: 0 8px 12px -3px rgba(14, 165, 233, 0.4); border: 2px solid rgba(255,255,255,0.2); transition: transform 0.2s ease; }
-        @media (min-width: 768px) { .wallet-ui { padding: 10px 24px; font-size: 1.2rem; gap: 12px; } }
-        .wallet-ui:hover { transform: scale(1.05); }
-
-        @keyframes floatCoin { 0% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); } 50% { opacity: 0.8; transform: translateY(-50px) scale(1.2) rotate(15deg); } 100% { opacity: 0; transform: translateY(-100px) scale(1.5) rotate(30deg); } }
-        .coin-anim { position: fixed; font-size: 2.5rem; md:font-size: 3.5rem; font-weight: 900; z-index: 10000; animation: floatCoin 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; pointer-events: none; text-shadow: 0 5px 15px rgba(0,0,0,0.4); }
-
-        /* Hacker Theme */
-        body.matrix-theme { background-color: #000000 !important; color: #00ff00 !important; font-family: monospace !important;}
-        .matrix-theme .feature-card, .matrix-theme .flashcard-front, .matrix-theme .flashcard-back { background: #050505 !important; border: 1px solid #00ff00 !important; box-shadow: 0 0 10px rgba(0,255,0,0.2) !important; }
-        .matrix-theme .wallet-ui { background: #002200 !important; border-color: #00ff00 !important; color: #00ff00 !important; }
-
-        /* Utilities */
-        #draggable-watermark { position: fixed; bottom: 15px; right: 15px; z-index: 9998; background: rgba(15, 23, 42, 0.9); color: #fff; padding: 8px 16px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.1); font-weight: 700; font-size: 0.85rem; backdrop-filter: blur(10px); box-shadow: 0 15px 20px -5px rgba(0,0,0,0.4); cursor: grab; user-select: none; }
-        @media (min-width: 768px) { #draggable-watermark { bottom: 30px; right: 30px; padding: 12px 24px; font-size: 1rem; } }
-        #draggable-watermark:active { cursor: grabbing; transform: scale(0.95); }
+        .drop-zone { border: 2px dashed #cbd5e1; transition: all 0.3s ease; }
+        .drop-zone.dragover { border-color: #d946ef; background-color: #fdf4ff; }
+        .dark .drop-zone.dragover { background-color: rgba(217, 70, 239, 0.1); border-color: #d946ef; }
         
-        #scroll-to-top { position: fixed; bottom: 70px; right: 15px; z-index: 9999; opacity: 0; pointer-events: none; transition: all 0.3s ease; }
-        #scroll-to-top.visible { opacity: 1; pointer-events: auto; }
-        @media (min-width: 768px) { #scroll-to-top { bottom: 90px; right: 30px; } }
-
-        .hidden { display: none !important; }
+        .reader-area { 
+            background: #ffffff; border-radius: 24px; padding: 32px; 
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08); height: 750px; overflow-y: auto; scroll-behavior: smooth;
+        }
+        .dark .reader-area { background: #1e293b; box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5); }
+        
+        .progress-bar-container { width: 100%; background-color: #e2e8f0; border-radius: 999px; height: 6px; overflow: hidden; margin-top: 10px; }
+        .dark .progress-bar-container { background-color: #334155; }
+        .progress-bar { height: 100%; background-color: #0ea5e9; width: 0%; transition: width 0.3s ease; }
+        
+        .sudanese-text { font-family: 'Noto Kufi Arabic', sans-serif; direction: rtl; text-align: right; }
+        
+        /* New styles for OS tables */
+        .os-table { width: 100%; text-align: left; border-collapse: collapse; margin-top: 10px; margin-bottom: 10px;}
+        .os-table th, .os-table td { padding: 8px; border: 1px solid #e2e8f0; }
+        .dark .os-table th, .dark .os-table td { border-color: #334155; }
+        .os-table th { background-color: #f1f5f9; }
+        .dark .os-table th { background-color: #0f172a; }
     </style>
 </head>
 
-<body id="main-body" class="text-slate-800 dark:text-slate-200 antialiased">
+<body class="text-slate-800 dark:text-slate-200">
 
-    <audio id="coin-sound" src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3" preload="auto"></audio>
-    <audio id="wrong-sound" src="https://assets.mixkit.co/active_storage/sfx/2955/2955-preview.mp3" preload="auto"></audio>
-    <audio id="level-up-sound" src="https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3" preload="auto"></audio>
-    <audio id="flip-sound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
-
-    <div id="draggable-watermark" title="Drag me anywhere!">
-        <span class="text-lg md:text-xl">🎓</span> OS Master: Ali Khalid
-    </div>
-    
-    <button id="scroll-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="bg-brand-600 hover:bg-brand-500 text-white p-3 md:p-4 rounded-full shadow-lg hover:scale-110 transform border-2 border-white/20">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
-    </button>
-
-    <nav class="sticky top-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
+    <nav class="sticky top-0 z-50 glass-panel shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between md:h-20 py-2 md:py-0 items-center gap-3">
-                <div class="flex items-center gap-3 group cursor-pointer" onclick="window.scrollTo(0,0)">
-                    <div class="bg-gradient-to-br from-brand-500 to-indigo-600 text-white p-2 md:p-3 rounded-xl shadow-md group-hover:rotate-6 transition-transform">
-                        <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex items-center gap-3">
+                    <div class="bg-gradient-to-br from-brand-500 to-indigo-600 text-white p-2.5 rounded-xl shadow-lg">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                     </div>
-                    <div class="flex flex-col">
-                        <span class="font-black text-2xl md:text-3xl tracking-tight text-slate-900 dark:text-white leading-none mb-0.5">ULK <span class="text-brand-600 dark:text-brand-400">OS</span></span>
-                        <span class="text-[10px] md:text-xs font-bold text-slate-500 tracking-widest uppercase">Operating Systems</span>
+                    <div>
+                        <span class="font-black text-2xl tracking-tight">ULK <span class="text-brand-500">AI Bout</span></span>
+                        <div class="text-[10px] text-emerald-600 dark:text-emerald-400 font-mono font-bold">OS Y1 Exam Prep Engine v4.0</div>
                     </div>
                 </div>
                 
-                <div class="flex items-center gap-3 md:gap-6 w-full md:w-auto justify-between md:justify-end">
-                    <div class="text-right hidden sm:block bg-slate-50 dark:bg-slate-800 px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700">
-                        <div class="text-[10px] text-slate-400 font-black uppercase tracking-widest mb-0.5">Current Rank</div>
-                        <div class="text-sm md:text-base font-black text-brand-600 dark:text-brand-400 flex items-center justify-end gap-1" id="ui-level">
-                            User <span class="text-lg md:text-xl">👤</span>
-                        </div>
+                <div class="flex items-center gap-4">
+                    <div id="system-status" class="hidden md:flex items-center gap-2 px-3 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 rounded-full text-xs font-bold">
+                        <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span>
+                        System Ready
                     </div>
-                    
-                    <div class="flex gap-2">
-                        <div class="wallet-ui cursor-help" title="OS-Coins Balance">
-                            <span class="text-xl md:text-2xl animate-pulse-fast">⚡</span> 
-                            <span id="ui-coins" class="font-black tabular-nums tracking-wider">0</span>
-                        </div>
-                        <button id="theme-toggle" class="p-2 md:p-3 bg-slate-100 dark:bg-slate-800 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors border border-slate-200 dark:border-slate-700 text-lg md:text-xl" title="Toggle Dark Mode">
-                            <span id="theme-icon">🌙</span>
-                        </button>
-                    </div>
+                    <button id="theme-toggle" class="p-3 bg-slate-100 dark:bg-slate-800 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors text-xl" aria-label="Toggle Theme">
+                        <span id="theme-icon">🌙</span>
+                    </button>
                 </div>
-            </div>
-            
-            <div class="flex gap-1 pb-0 overflow-x-auto hide-scroll-bar border-t border-slate-100 dark:border-slate-800 pt-2 md:pt-0 md:border-none">
-                <button class="tab-btn active px-4 py-3 md:px-6 md:py-4 rounded-t-xl font-bold text-sm md:text-base text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 whitespace-nowrap flex gap-2 items-center" onclick="switchTab('tab-academy', this)">
-                    <span class="text-lg md:text-xl">📚</span> OS Concepts
-                </button>
-                <button class="tab-btn px-4 py-3 md:px-6 md:py-4 rounded-t-xl font-bold text-sm md:text-base text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 whitespace-nowrap flex gap-2 items-center" onclick="switchTab('tab-flashcards', this)">
-                    <span class="text-lg md:text-xl">🎴</span> Flashcards
-                </button>
-                <button class="tab-btn px-4 py-3 md:px-6 md:py-4 rounded-t-xl font-bold text-sm md:text-base text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 whitespace-nowrap flex gap-2 items-center" onclick="switchTab('tab-quiz', this)">
-                    <span class="text-lg md:text-xl">🎯</span> CAT2 Exam
-                </button>
-                <button class="tab-btn px-4 py-3 md:px-6 md:py-4 rounded-t-xl font-bold text-sm md:text-base text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 whitespace-nowrap flex gap-2 items-center" onclick="switchTab('tab-shop', this)">
-                    <span class="text-lg md:text-xl">🛒</span> Store
-                </button>
             </div>
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-12">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-        <div id="tab-academy" class="tab-content active">
-            <div class="bg-slate-900 text-white rounded-[2rem] p-6 md:p-16 mb-8 md:mb-12 relative overflow-hidden shadow-2xl border border-slate-800">
-                <div class="absolute -top-24 -right-24 w-96 h-96 bg-brand-600 rounded-full mix-blend-multiply filter blur-[80px] opacity-40 animate-pulse-fast"></div>
-                <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-academic-base rounded-full mix-blend-multiply filter blur-[80px] opacity-30"></div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div class="lg:col-span-4 space-y-6">
                 
-                <div class="relative z-10 max-w-4xl">
-                    <div class="flex flex-wrap items-center gap-2 mb-4 md:mb-6">
-                        <span class="inline-block px-3 py-1 bg-brand-500/20 text-brand-300 rounded-full text-xs md:text-sm font-bold tracking-widest uppercase border border-brand-500/30">Module: OS-CAT2</span>
-                        <span class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-300 rounded-full text-xs md:text-sm font-bold tracking-widest uppercase border border-emerald-500/30">ULK Computer Science</span>
+                <div class="feature-card">
+                    <h3 class="font-bold text-xl mb-4 flex items-center gap-2">
+                        <span class="text-2xl">📂</span> 1. Upload Exam PDF
+                    </h3>
+                    
+                    <div id="drop-zone" class="drop-zone rounded-xl p-8 text-center cursor-pointer bg-slate-50 hover:bg-slate-100 dark:bg-slate-800/50 dark:hover:bg-slate-800 relative overflow-hidden">
+                        <input type="file" id="file-input" class="hidden" accept=".txt,.pdf,.docx,.md">
+                        <div class="text-5xl mb-4 pointer-events-none opacity-80 transition-transform group-hover:scale-110">📄</div>
+                        <p class="font-bold text-lg pointer-events-none">Click to browse or drag file here</p>
+                        <p class="text-sm text-slate-500 mt-2 pointer-events-none">Target: EXERCISES FOR REVIEW OS Y1</p>
                     </div>
                     
-                    <h1 class="text-4xl md:text-6xl font-black mb-4 md:mb-6 leading-tight tracking-tight">
-                        Operating Systems <br>
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-indigo-400">Core Architecture</span>
-                    </h1>
-                    
-                    <p class="text-base md:text-2xl text-slate-300 mb-6 md:mb-10 font-light max-w-3xl leading-relaxed ar-text text-right border-r-4 border-brand-500 pr-4 md:pr-6">
-                    أهلاً بك في منصة مراجعة مادة أنظمة التشغيل (OS). هنا بنبسط ليك المصطلحات الإنجليزية المعقدة بالعربي، وبنشرحها ليك بلهجتنا السودانية عشان تفهمها ومستحيل تنساها في الامتحان.
-                    </p>
-                    
-                    <div class="flex flex-wrap gap-3 md:gap-4">
-                        <button onclick="switchTab('tab-quiz', document.querySelectorAll('.tab-btn')[2])" class="flex-1 md:flex-none justify-center bg-brand-600 text-white px-6 py-3 md:px-8 md:py-4 rounded-xl font-black hover:bg-brand-500 transition shadow-lg shadow-brand-500/30 flex items-center gap-2 text-base md:text-lg">
-                            Start Exam 🚀
-                        </button>
-                        <button onclick="document.getElementById('search-input').focus()" class="flex-1 md:flex-none justify-center bg-white/10 text-white backdrop-blur-md border border-white/20 px-6 py-3 md:px-8 md:py-4 rounded-xl font-bold hover:bg-white/20 transition flex items-center gap-2 text-base md:text-lg">
-                            Search 🔍
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 mb-8 border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
-                <div class="w-full md:w-1/2">
-                    <h3 class="font-black text-slate-800 dark:text-white mb-2 flex items-center gap-2"><span class="text-xl">📊</span> Study Progress</h3>
-                    <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-3 mb-1 overflow-hidden">
-                        <div id="study-progress-bar" class="bg-gradient-to-r from-emerald-400 to-emerald-600 h-3 rounded-full transition-all duration-1000" style="width: 0%"></div>
-                    </div>
-                    <p class="text-xs text-slate-500 font-bold tracking-wider" id="study-progress-text">0/12 Modules Completed</p>
-                </div>
-                <div class="w-full md:w-96 relative group">
-                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <svg class="h-5 w-5 md:h-6 md:w-6 text-slate-400 group-focus-within:text-brand-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                    </div>
-                    <input type="text" id="search-input" placeholder="Search (Deadlock, etc...)" class="w-full pl-10 md:pl-12 pr-4 py-3 border-2 border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-white focus:outline-none focus:ring-4 focus:ring-brand-500/20 focus:border-brand-500 transition-all font-medium text-base">
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8" id="lessons-container">
-                </div>
-            
-            <div id="no-results" class="hidden text-center py-12 md:py-20 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 mt-6 md:mt-8">
-                <div class="text-5xl md:text-6xl mb-4">🕵️‍♂️</div>
-                <h3 class="text-xl md:text-2xl font-bold text-slate-800 dark:text-white mb-2">Process Not Found (404)</h3>
-                <p class="text-slate-500 text-base md:text-lg">Try searching for another concept.</p>
-            </div>
-        </div>
-
-        <div id="tab-flashcards" class="tab-content">
-            <div class="text-center mb-8 md:mb-12">
-                <h2 class="text-3xl md:text-4xl font-black text-slate-800 dark:text-white mb-3">Interactive <span class="text-brand-500">Flashcards</span></h2>
-                <p class="text-slate-500 text-base md:text-lg font-medium">Click on a card to flip it and reveal the explanation. Best for quick memorization.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="flashcards-container"></div>
-        </div>
-
-        <div id="tab-quiz" class="tab-content">
-            <div class="max-w-4xl mx-auto">
-                <div class="text-center mb-8 md:mb-12">
-                    <span class="inline-block px-3 py-1 md:px-4 md:py-1.5 bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 rounded-full text-xs md:text-sm font-black tracking-widest uppercase mb-3 md:mb-4">Exam Mode</span>
-                    <h2 class="text-3xl md:text-5xl font-black text-slate-800 dark:text-white mb-4 md:mb-6">OS <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-indigo-600">CAT2 Test</span></h2>
-                    <div class="bg-white dark:bg-slate-800 inline-block px-4 py-3 md:px-8 md:py-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
-                        <p class="text-slate-600 dark:text-slate-300 font-bold ar-text flex items-center justify-center gap-4 text-sm md:text-lg">
-                            <span class="text-emerald-600 dark:text-emerald-400">✅ الصح = +10 ⚡</span>
-                            <span class="w-px h-6 md:h-8 bg-slate-300 dark:bg-slate-600"></span>
-                            <span class="text-red-600 dark:text-red-400">❌ الغلط = -2 ⚡</span>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="feature-card relative overflow-hidden" id="quiz-container">
-                    <div id="quiz-start" class="text-center py-8 md:py-16 px-2 md:px-4">
-                        <div class="w-20 h-20 md:w-28 md:h-28 bg-brand-50 dark:bg-brand-900/20 text-brand-600 dark:text-brand-400 rounded-full flex items-center justify-center mx-auto mb-6 md:mb-8 shadow-inner border border-brand-100 dark:border-brand-800">
-                            <span class="text-4xl md:text-6xl">📝</span>
-                        </div>
-                        <h3 class="text-2xl md:text-3xl font-black mb-3 dark:text-white">Comprehensive 15-Question Test</h3>
-                        <p class="text-slate-500 mb-8 md:mb-10 max-w-lg mx-auto text-base md:text-lg leading-relaxed">This test contains all Multiple Choice and Conceptual questions from the official Review Document. 25 seconds per question.</p>
-                        
-                        <button onclick="quizEngine.start()" class="w-full sm:w-auto bg-gradient-to-r from-brand-600 to-indigo-600 text-white px-8 py-4 md:px-12 md:py-5 rounded-2xl font-black text-lg md:text-xl hover:from-brand-500 hover:to-indigo-500 transform hover:scale-105 transition-all shadow-xl shadow-brand-500/30 flex items-center justify-center gap-3 mx-auto">
-                            <span>Start Execution</span>
-                            <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                        </button>
-                    </div>
-
-                    <div id="quiz-core" class="hidden py-4">
-                        <div class="flex flex-col sm:flex-row justify-between items-center mb-6 md:mb-10 pb-4 border-b border-slate-100 dark:border-slate-800 gap-4">
-                            <div class="flex items-center gap-4 w-full sm:w-auto justify-center sm:justify-start">
-                                <div class="bg-slate-100 dark:bg-slate-800 h-3 w-40 md:w-64 rounded-full overflow-hidden border border-slate-200 dark:border-slate-700">
-                                    <div id="q-progress-bar" class="bg-brand-500 h-full w-0 transition-all duration-500"></div>
+                    <div id="file-info" class="hidden mt-4 p-4 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800/50 rounded-xl">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex items-center gap-3 overflow-hidden">
+                                <div class="bg-emerald-100 dark:bg-emerald-800/50 p-2 rounded-lg">
+                                    <svg class="w-6 h-6 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                 </div>
-                                <div class="font-black text-xs md:text-base text-slate-500 uppercase tracking-widest" id="q-counter"></div>
+                                <div class="truncate max-w-[150px]">
+                                    <span id="file-name" class="font-bold text-sm block truncate">OS_Exam.pdf</span>
+                                    <span id="file-size" class="text-xs text-slate-500 font-mono">0 KB</span>
+                                </div>
                             </div>
-                            
-                            <div class="flex items-center gap-2 font-mono text-2xl md:text-3xl font-black text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/20 px-4 py-2 md:px-6 md:py-3 rounded-xl border border-brand-200 dark:border-brand-800/50 w-full sm:w-auto justify-center transition-colors" id="q-timer">
-                                ⏱️ <span id="timer-text">25</span>s
-                            </div>
-                        </div>
-
-                        <div class="mb-8 text-center sm:text-left">
-                            <h4 id="q-text-en" class="text-xl md:text-3xl font-black text-slate-800 dark:text-white mb-4 md:mb-6 leading-snug"></h4>
-                            
-                            <div class="inline-flex items-start gap-2 bg-slate-50 dark:bg-slate-800/80 p-4 md:p-5 rounded-xl border border-slate-200 dark:border-slate-700 max-w-3xl w-full">
-                                <span class="text-xl md:text-2xl mt-1">💡</span>
-                                <p id="q-text-ar" class="ar-text text-base md:text-xl font-bold text-slate-600 dark:text-slate-300 leading-relaxed"></p>
-                            </div>
-                        </div>
-
-                        <div id="q-options" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
-                        <div id="q-feedback" class="hidden mt-6 p-4 rounded-xl font-black text-center text-lg md:text-xl border"></div>
-                    </div>
-
-                    <div id="quiz-result" class="hidden text-center py-8 md:py-12 px-4">
-                        <div id="res-icon" class="text-6xl md:text-7xl mb-4 md:mb-6">🏆</div>
-                        <h3 class="text-3xl md:text-4xl font-black mb-2 dark:text-white text-slate-800" id="res-title">Test Terminated</h3>
-                        <p class="text-slate-500 mb-6 md:mb-8 text-lg md:text-xl font-medium">Here is your system diagnostic report.</p>
-                        
-                        <div class="inline-block bg-slate-50 dark:bg-slate-800 p-8 md:p-12 rounded-3xl border border-slate-200 dark:border-slate-700 mb-8 md:mb-10 shadow-inner relative group">
-                            <div class="text-[4rem] md:text-[6rem] font-black text-brand-600 dark:text-brand-400 leading-none mb-2 md:mb-4" id="res-score"></div>
-                            <div class="text-sm md:text-lg font-bold text-slate-400 uppercase tracking-widest">Questions Correct</div>
-                            <button onclick="gamification.shareScore()" class="absolute -bottom-5 left-1/2 transform -translate-x-1/2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full font-bold shadow-md flex items-center gap-2 text-sm transition-transform hover:scale-105">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"></path></svg>
-                                Share Score
-                            </button>
-                        </div>
-
-                        <div class="flex flex-col sm:flex-row justify-center gap-4 max-w-2xl mx-auto mt-4">
-                            <button onclick="quizEngine.reset()" class="flex-1 bg-white dark:bg-slate-800 text-slate-700 dark:text-white border-2 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 px-6 py-4 rounded-xl font-black text-lg md:text-xl transition flex items-center justify-center gap-2 md:gap-3">
-                                <span>↻</span> Reboot Exam
-                            </button>
-                            <button onclick="switchTab('tab-shop', document.querySelectorAll('.tab-btn')[3])" class="flex-1 bg-gradient-to-r from-brand-600 to-indigo-600 text-white hover:from-brand-700 hover:to-indigo-700 px-6 py-4 rounded-xl font-black text-lg md:text-xl transition shadow-lg shadow-brand-500/30 flex items-center justify-center gap-2 md:gap-3">
-                                <span>🛒</span> System Store
+                            <button id="btn-remove-file" title="Remove File" class="text-red-500 p-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                             </button>
                         </div>
                     </div>
                 </div>
+
+                <div class="feature-card relative overflow-hidden transition-opacity duration-300" id="ai-actions" style="opacity: 0.5; pointer-events: none;">
+                    <h3 class="font-bold text-xl mb-4 flex items-center gap-2">
+                        <span class="text-2xl">🤖</span> 2. Smart Processing
+                    </h3>
+                    <div class="grid grid-cols-1 gap-3">
+                        <button onclick="AppEngine.processRequest('full_solve')" class="action-btn bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-3.5 px-4 rounded-xl font-bold flex items-center justify-between hover:scale-[1.02] transition-transform shadow-md">
+                            <span class="flex items-center gap-3">🔍 Full Exam Solutions (Calculations)</span>
+                        </button>
+                        <button onclick="AppEngine.processRequest('explain_bilingual')" class="action-btn bg-indigo-600 text-white py-3.5 px-4 rounded-xl font-bold flex items-center justify-between hover:scale-[1.02] transition-transform shadow-md">
+                            <span class="flex items-center gap-3">💡 OS Concepts (Eng + Sudanese)</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="feature-card bg-slate-50 dark:bg-slate-900/50 border-none shadow-inner">
+                    <h4 class="text-sm font-bold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wider font-mono">System Metrics</h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-white dark:bg-slate-800 p-3 rounded-lg shadow-sm border border-slate-100 dark:border-slate-700">
+                            <span class="text-xs text-slate-500 block mb-1">Process Time</span>
+                            <span id="metric-time" class="font-mono font-bold text-indigo-600 dark:text-indigo-400">0.00s</span>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800 p-3 rounded-lg shadow-sm border border-slate-100 dark:border-slate-700">
+                            <span class="text-xs text-slate-500 block mb-1">Cache Status</span>
+                            <span id="metric-cache" class="font-mono font-bold text-emerald-600 dark:text-emerald-400">Empty</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-        </div>
 
-        <div id="tab-shop" class="tab-content">
-            <div class="max-w-5xl mx-auto">
-                <div class="text-center mb-10 md:mb-16">
-                    <span class="inline-block px-3 py-1 md:px-4 md:py-1.5 bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400 rounded-full text-xs md:text-sm font-black tracking-widest uppercase mb-3">Kernel Upgrades</span>
-                    <h2 class="text-3xl md:text-5xl font-black text-slate-800 dark:text-white mb-4 md:mb-6">System <span class="text-brand-500">Store</span></h2>
-                    <p class="text-slate-500 dark:text-slate-400 font-medium ar-text text-lg md:text-xl max-w-3xl mx-auto leading-relaxed px-4">استخدم الـ OS-Coins اللي جمعتها من إجاباتك الصحيحة عشان تشتري ميزات وحركات تخصص بيها حسابك وتسهل بيها مراجعتك.</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-                    <div class="feature-card flex flex-col items-center text-center relative overflow-hidden border-2 border-transparent hover:border-yellow-500">
-                        <div class="absolute top-0 right-0 bg-yellow-500 text-white text-xs font-black px-4 py-1.5 rounded-bl-xl z-10">Root User</div>
-                        <div class="bg-yellow-50 dark:bg-yellow-900/20 p-6 rounded-full mb-4 md:mb-6 mt-2"><div class="text-5xl md:text-7xl">👑</div></div>
-                        <h3 class="text-xl md:text-2xl font-black dark:text-white mb-3">Root Privilege Badge</h3>
-                        <p class="text-sm md:text-base text-slate-500 dark:text-slate-400 mb-6 ar-text flex-grow">بيديك علامة التاج الملكي جنب اسمك فوق، عشان توريهم إنك المتحكم في النظام.</p>
-                        <button id="btn-buy-badge" onclick="gamification.buyItem('badge', 150, this)" class="w-full bg-slate-900 dark:bg-white dark:text-slate-900 text-white py-3 md:py-4 rounded-xl font-black text-base md:text-lg flex items-center justify-center gap-2 hover:bg-slate-800 transition">Unlock • 150 ⚡</button>
+            <div class="lg:col-span-8">
+                <div class="reader-area flex flex-col relative">
+                    <div class="flex justify-between items-end border-b border-slate-100 dark:border-slate-700/50 pb-4 mb-6 sticky top-0 bg-white dark:bg-[#1e293b] z-10">
+                        <div>
+                            <h2 class="font-bold text-xl flex items-center gap-2">
+                                <span class="text-indigo-500">✨</span> Interactive Reading & Solution Terminal
+                            </h2>
+                            <p class="text-xs text-slate-500 font-medium mt-1" id="reader-status">Awaiting OS exam document...</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button id="btn-copy" class="hidden text-sm font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 px-3 py-1.5 rounded-lg transition items-center gap-1">
+                                📋 Copy All
+                            </button>
+                            <button onclick="AppEngine.clearWorkspace()" class="text-sm font-bold text-red-500 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/40 px-3 py-1.5 rounded-lg transition items-center gap-1">
+                                🗑️ Clear
+                            </button>
+                        </div>
                     </div>
-                    <div class="feature-card flex flex-col items-center text-center border-2 border-transparent hover:border-green-500">
-                        <div class="bg-green-50 dark:bg-green-900/20 p-6 rounded-full mb-4 md:mb-6 mt-2"><div class="text-5xl md:text-7xl">💻</div></div>
-                        <h3 class="text-xl md:text-2xl font-black dark:text-white mb-3">Matrix Kernel Theme</h3>
-                        <p class="text-sm md:text-base text-slate-500 dark:text-slate-400 mb-6 ar-text flex-grow">بقلب ليك الموقع كلو لنظام الهاكرز (شاشة سوداء وخطوط خضراء).</p>
-                        <button id="btn-buy-matrix" onclick="gamification.buyItem('matrix', 300, this)" class="w-full bg-slate-900 dark:bg-white dark:text-slate-900 text-white py-3 md:py-4 rounded-xl font-black text-base md:text-lg flex items-center justify-center gap-2 hover:bg-slate-800 transition">Unlock • 300 ⚡</button>
-                    </div>
-                    <div class="feature-card flex flex-col items-center text-center border-2 border-transparent hover:border-purple-500">
-                        <div class="bg-purple-50 dark:bg-purple-900/20 p-6 rounded-full mb-4 md:mb-6 mt-2"><div class="text-5xl md:text-7xl">🛡️</div></div>
-                        <h3 class="text-xl md:text-2xl font-black dark:text-white mb-3">Deadlock Shield</h3>
-                        <p class="text-sm md:text-base text-slate-500 dark:text-slate-400 mb-6 ar-text flex-grow">يسمح لك بحذف إجابتين خاطئتين أثناء الامتحان (3 مرات) لإنقاذك.</p>
-                        <button id="btn-buy-hints" onclick="gamification.buyItem('hints', 500, this)" class="w-full bg-slate-900 dark:bg-white dark:text-slate-900 text-white py-3 md:py-4 rounded-xl font-black text-base md:text-lg flex items-center justify-center gap-2 hover:bg-slate-800 transition">Unlock • 500 ⚡</button>
+                    
+                    <div id="ai-reader-content" class="flex-grow text-slate-700 dark:text-slate-300 relative">
+                        <div id="empty-state" class="absolute inset-0 flex flex-col items-center justify-center opacity-50">
+                            <svg class="w-24 h-24 mb-4 text-slate-300 dark:text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            <p class="text-xl font-bold mb-2">Workspace Empty</p>
+                            <p class="text-sm text-center">Upload the "EXERCISES FOR REVIEW OS" PDF <br> to begin full extraction.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 md:py-12 mt-10 md:mt-16 transition-colors">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <h3 class="font-black text-xl md:text-2xl text-slate-800 dark:text-white mb-2">ULK OS Academy 2026</h3>
-            <p class="text-slate-500 font-medium mb-4 text-sm md:text-lg">Designed exclusively for OS CAT2 Revision by Ali Khalid</p>
-            <div class="text-xs md:text-sm text-slate-400 tracking-widest uppercase font-bold ar-text">فهم النظام من الداخل.. هو طريقك للبرمجة الحقيقية.</div>
-        </div>
-    </footer>
-
     <script>
-        // 1. DATA: CURRICULUM
-        const osCurriculum = [
-            { id: 1, title: "1. System Calls", academic: "System calls provide the primary interface between an executing program and the operating system services.", arabic: "توفر الواجهة الأساسية التي تطلب من خلالها البرامج الخدمات من نظام التشغيل.", sudanese: "الـ System Call ده زي 'الكوبري' أو الواسطة، برنامجك ما بيقدر يلمس الهاردوير براهو، لازم يطلب من النظام يشغل ليهو الخدمة." },
-            { id: 2, title: "2. Process vs. Program", academic: "A program is a passive file on disk. A process is an active entity: a computer program in execution.", arabic: "البرنامج هو ملف ساكن على القرص، بينما العملية هي برنامج نشط وقيد التنفيذ في الذاكرة.", sudanese: "البرنامج ده زي وصفة الطبخة المكتوبة في الورقة (في الهاردسك). أما البروسيس (العملية) فهو الطبخة زاتها وهي شغالة بتغلي في النار (في المعالج)." },
-            { id: 3, title: "3. CPU Scheduling Algorithms", academic: "Methods OS uses to assign CPU time. Includes Priority, Round Robin (RR), and Shortest Job First (SJF).", arabic: "خوارزميات إدارة وقت المعالج، وتشمل الأولوية، الدوران التناوبي، والعملية الأقصر أولاً.", sudanese: "كيف المعالج بوزع وقته على البرامج المفتوحة؟ يا إما بالأولوية (الواسطة)، أو بالدور (Round Robin)، أو بيخلص الصغير أول (SJF)." },
-            { id: 4, title: "4. Round Robin (RR) Scheduling", academic: "A scheduling algorithm that gives each process a fixed time slice (quantum) before switching to the next.", arabic: "خوارزمية تمنح كل عملية شريحة زمنية ثابتة ومحددة، وإذا لم تنتهِ تعود لآخر الصف.", sudanese: "ده نظام 'الصف العادل'. كل زول بياخد 3 دقايق مثلاً، خلصت أمورك تمام، ما خلصت ترجع تقيف آخر الصف عشان غيرك يخش." },
-            { id: 5, title: "5. Process States", academic: "A process goes through Ready, Running, and Waiting (Blocked) states. 'Compiling' is NOT a state.", arabic: "تمر العملية بحالات: جاهز، قيد التشغيل، والانتظار. الترجمة (Compiling) ليست من حالاتها.", sudanese: "البرنامج إما يكون شغال (Running)، أو راجي دوره (Ready)، أو منتظر ليهو حاجة زي تحميل ملف (Waiting). الكومبايل ده ما عنده علاقة بالبروسيس الشغال." },
-            { id: 6, title: "6. Command Interpreter", academic: "Its main function is to get and execute the next user-specified command.", arabic: "وظيفته الأساسية جلب وتنفيذ الأمر التالي الذي حدده المستخدم عبر الواجهة.", sudanese: "ده شاشة الأوامر (الترمنال). شغلته الوحيدة قاعد يراجيك تكتب ليهو أمر، يشيلو وينفذو طوالي." },
-            { id: 7, title: "7. Monolithic vs Microkernel", academic: "Monolithic is faster but less secure (one crash breaks OS). Microkernel is secure but slower (more context switching).", arabic: "النواة الكتلية أسرع ولكن عطل صغير يسقط النظام، النواة المصغرة آمنة ومعزولة لكنها أبطأ في الأداء.", sudanese: "الـ Monolithic زي بيت كبير فاتح على بعضه، سريع بس لو شبت حريق البيت كلو بروح. الـ Microkernel زي غرف مقفولة، آمن بس مشوار من غرفه لغرفه بتعب." },
-            { id: 8, title: "8. Deadlock & its 4 Conditions", academic: "System halts due to: Mutual exclusion, Hold & wait, No preemption, and Circular wait.", arabic: "يتوقف النظام بسبب حلقة انتظار مغلقة. شروطه: استبعاد متبادل، احتفاظ وانتظار، عدم انتزاع، وانتظار دائري.", sudanese: "الـ Deadlock ده زي 'شكلة في كوبري ضيق'. عربيتين قابلو بعض، كل واحد راجي التاني يرجع، ومافي زول بتنازل، فالكوبري كلو بقيف." },
-            { id: 9, title: "9. Thread vs Process", academic: "A Thread is lightweight and shares resources/memory. A Process is heavyweight with its own isolated address space.", arabic: "الخيط خفيف ويتشارك الذاكرة مع خيوط عمليته. العملية ثقيلة ولها مساحة عناوين منفصلة تماماً.", sudanese: "البروسيس ده الشركة كاملة بحيطتها. الثريد (الخيط) ده الموظفين الجوه الشركة، بتشاركو نفس المكاتب والملفات، عشان كده أسرع وأخف." },
-            { id: 10, title: "10. Context Switching", academic: "Saving the state of one process and loading another. Causes overhead that negatively impacts performance.", arabic: "حفظ حالة عملية وتحميل أخرى. يسبب وقتاً ضائعاً يؤثر سلباً على أداء النظام.", sudanese: "عشان المعالج يغير من برنامج لبرنامج، بياخد زمن عشان 'يتذكر' كان واقف وين، الزمن الضائع ده بتعب الجهاز لو كان كتير." },
-            { id: 11, title: "11. Paging vs Segmentation", academic: "Paging uses fixed sizes (causes Internal Fragmentation). Segmentation uses logical variable sizes (causes External Fragmentation).", arabic: "الـ Paging تقسيم ثابت يسبب تجزؤ داخلي. الـ Segmentation تقسيم متغير يسبب تجزؤ خارجي.", sudanese: "Paging: تقطع الذاكرة غرف متساوية، ممكن الغرفة تكون كبيرة لزول واحد (مساحة ضائعة جوه). Segmentation: تبني غرف على مقاس كل زول، بس بعدين بتلقى بين الغرف مسافات ضيقة ما بتشيل زول." },
-            { id: 12, title: "12. Page Fault & Demand Paging", academic: "Page Fault occurs when data is not in RAM. Demand Paging only loads pages from disk to RAM when explicitly needed.", arabic: "يحدث خطأ الصفحة حين يطلب البرنامج صفحة غير موجودة في الـ RAM فيتم جلبها من القرص الصلب.", sudanese: "لما المعالج يفتش حاجة في الرام وما يلقاها، بيعمل (Page Fault) وبيوقف الشغل ثواني يمشي يجيبها من الهاردسك البطيء ويجي راجع." }
-        ];
-
-        // 2. DATA: QUIZ
-        const osQuizData = [
-            { qEn: "In Operating Systems, which of the following is/are CPU scheduling algorithms?", qAr: "أي من التالية يعتبر من خوارزميات جدولة المعالج؟", opts: ["Priority", "Round Robin", "Shortest Job First", "All of the mentioned"], correct: 3 },
-            { qEn: "To access the services of the operating system, the interface is provided by the:", qAr: "للوصول لخدمات نظام التشغيل، الواجهة المستخدمة هي:", opts: ["System calls", "Library", "Assembly instructions", "API"], correct: 0 },
-            { qEn: "Which scheduling algorithm gives each process a fixed time slice?", qAr: "ما الخوارزمية التي تمنح كل عملية شريحة زمنية ثابتة؟", opts: ["SJF", "FCFS", "Round Robin", "Priority Scheduling"], correct: 2 },
-            { qEn: "What is a process in an operating system?", qAr: "ما هو تعريف العملية (Process)؟", opts: ["A computer program in execution", "A file stored on disk", "A hardware device", "A compiler"], correct: 0 },
-            { qEn: "Which of the following is NOT a process state?", qAr: "أي من التالي ليست من حالات العملية؟", opts: ["Ready", "Running", "Waiting", "Compiling"], correct: 3 },
-            { qEn: "What is the main function of the command interpreter?", qAr: "ما هي الوظيفة الأساسية لمفسر الأوامر؟", opts: ["To get and execute the next user-specified command", "Provide API interface", "Handle hardware files", "Compile programs"], correct: 0 },
-            { qEn: "Which one of the following is NOT a real time operating system?", qAr: "أي من التالي ليس نظام تشغيل للوقت الفعلي (RTOS)؟", opts: ["RTLinux", "VxWorks", "QNX", "Palm OS"], correct: 3 },
-            { qEn: "What kind of kernel does OS X have?", qAr: "ما نوع النواة في نظام تشغيل ماك (OS X)؟", opts: ["Hybrid kernel", "Microkernel", "Monolithic kernel", "Monolithic with modules"], correct: 0 },
-            { qEn: "In operating system, each process has its own:", qAr: "في نظام التشغيل، كل عملية تمتلك بشكل خاص:", opts: ["open files", "pending alarms and signals", "address space", "all of the mentioned"], correct: 3 },
-            { qEn: "In a timeshare OS, when the time slot is completed, the process switches to:", qAr: "عند انتهاء الشريحة الزمنية لعملية ما، تتحول إلى حالة:", opts: ["Suspended state", "Ready state", "Terminated state", "Blocked state"], correct: 1 },
-            { qEn: "Which of the following is ONE of the 4 conditions for a Deadlock?", qAr: "أي مما يلي يعتبر شرطاً من شروط حدوث الـ Deadlock؟", opts: ["Circular Wait", "Unlimited memory", "Context Switching", "Fast CPU"], correct: 0 },
-            { qEn: "Comparing architectures, which statement is true?", qAr: "بمقارنة الهيكليات، أي عبارة صحيحة؟", opts: ["Microkernel is faster than Monolithic", "Monolithic is faster but less secure", "Both have the same speed", "Monolithic uses less memory"], correct: 1 },
-            { qEn: "What is a key difference between a Process and a Thread?", qAr: "ما الفرق الرئيسي بين العملية والخيط؟", opts: ["Processes share memory, Threads don't", "Threads are lightweight and share resources", "Processes only run on GPUs", "There is no difference"], correct: 1 },
-            { qEn: "What is the main consequence of Context Switching?", qAr: "ما النتيجة الأساسية لتبديل السياق (Context Switch)؟", opts: ["Speeds up the computer", "Generates performance overhead (wasted time)", "Cleans the hard drive", "Upgrades RAM"], correct: 1 },
-            { qEn: "When using Paging, what type of fragmentation occurs?", qAr: "عند استخدام تقنية Paging، أي نوع من التجزؤ يحدث؟", opts: ["External Fragmentation", "Internal Fragmentation", "Network Fragmentation", "No fragmentation at all"], correct: 1 }
-        ];
-
-        // 3. CORE LOGIC & NEW FEATURES
-        
-        // Window Scroll listener for "Scroll To Top" button
-        window.addEventListener('scroll', () => {
-            const btn = document.getElementById('scroll-to-top');
-            if (window.scrollY > 300) btn.classList.add('visible');
-            else btn.classList.remove('visible');
-        });
-
-        // Text to Speech Feature (New)
-        function playAudioText(text, btnElement) {
-            if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'en-US';
-                utterance.rate = 0.9;
+        const ThemeManager = {
+            init() {
+                const btn = document.getElementById('theme-toggle');
+                const icon = document.getElementById('theme-icon');
+                const isDark = localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
                 
-                // Add simple animation to the button
-                const icon = btnElement.querySelector('svg');
-                icon.classList.add('text-brand-500', 'animate-pulse');
-                utterance.onend = () => icon.classList.remove('text-brand-500', 'animate-pulse');
+                if (isDark) document.documentElement.classList.add('dark');
+                icon.innerText = isDark ? '☀️' : '🌙';
                 
-                speechSynthesis.speak(utterance);
-            } else {
-                alert("Sorry, your browser doesn't support text to speech!");
+                btn.addEventListener('click', () => {
+                    document.documentElement.classList.toggle('dark');
+                    const currentDark = document.documentElement.classList.contains('dark');
+                    localStorage.setItem('theme', currentDark ? 'dark' : 'light');
+                    icon.innerText = currentDark ? '☀️' : '🌙';
+                });
+            }
+        };
+
+        class PerformanceMonitor {
+            constructor() {
+                this.startTime = 0;
+                this.timerInterval = null;
+                this.elTime = document.getElementById('metric-time');
+            }
+            start() {
+                this.startTime = performance.now();
+                this.elTime.classList.add('animate-pulse');
+                this.timerInterval = setInterval(() => {
+                    const current = ((performance.now() - this.startTime) / 1000).toFixed(2);
+                    this.elTime.innerText = `${current}s`;
+                }, 50); 
+            }
+            stop(isCached = false) {
+                clearInterval(this.timerInterval);
+                this.elTime.classList.remove('animate-pulse');
+                const totalTime = isCached ? 0.00 : ((performance.now() - this.startTime) / 1000).toFixed(2);
+                this.elTime.innerText = `${totalTime}s`;
+                if(isCached) this.elTime.innerText += ' (Cached⚡)';
+                return totalTime;
             }
         }
 
-        // Progress Tracking (New)
-        function toggleLessonComplete(lessonId, btnElement, cardElementId) {
-            let completed = JSON.parse(localStorage.getItem('os_completed_lessons') || '[]');
-            const index = completed.indexOf(lessonId);
-            const card = document.getElementById(cardElementId);
-            
-            if (index > -1) { // Unmark
-                completed.splice(index, 1);
-                btnElement.innerHTML = '⬜ Mark as Studied';
-                btnElement.classList.replace('text-emerald-600', 'text-slate-500');
-                btnElement.classList.replace('bg-emerald-100', 'bg-slate-100');
-                card.classList.remove('lesson-completed');
-            } else { // Mark
-                completed.push(lessonId);
-                btnElement.innerHTML = '✅ Completed';
-                btnElement.classList.replace('text-slate-500', 'text-emerald-600');
-                btnElement.classList.replace('bg-slate-100', 'bg-emerald-100');
-                card.classList.add('lesson-completed');
-                gamification.playAudio('coin-sound'); // Tiny positive feedback
+        class CacheSystem {
+            constructor() {
+                this.memory = new Map();
+                this.elCache = document.getElementById('metric-cache');
             }
-            
-            localStorage.setItem('os_completed_lessons', JSON.stringify(completed));
-            updateProgressBar();
-        }
-
-        function updateProgressBar() {
-            const completed = JSON.parse(localStorage.getItem('os_completed_lessons') || '[]');
-            const total = osCurriculum.length;
-            const percentage = (completed.length / total) * 100;
-            
-            document.getElementById('study-progress-bar').style.width = percentage + '%';
-            document.getElementById('study-progress-text').innerText = `${completed.length}/${total} Modules Completed (${Math.round(percentage)}%)`;
-        }
-
-        function switchTab(tabId, btnElement) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            if(btnElement) btnElement.classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            if (tabId !== 'tab-quiz' && !document.getElementById('quiz-core').classList.contains('hidden')) {
-                clearInterval(quizEngine.timer);
+            generateKey(fileName, action) { return `${fileName}_${action}`; }
+            has(key) { return this.memory.has(key); }
+            get(key) { return this.memory.get(key); }
+            set(key, data) {
+                this.memory.set(key, data);
+                this.elCache.innerText = `${this.memory.size} Items Saved`;
+                this.elCache.classList.replace('text-emerald-600', 'text-brand-500');
+            }
+            clear() {
+                this.memory.clear();
+                this.elCache.innerText = 'Empty';
+                this.elCache.classList.replace('text-brand-500', 'text-emerald-600');
             }
         }
 
-        const themeBtn = document.getElementById('theme-toggle');
-        const themeIcon = document.getElementById('theme-icon');
-        
-        function updateThemeIcon() { themeIcon.innerText = document.documentElement.classList.contains('dark') ? '☀️' : '🌙'; }
-        if (localStorage.getItem('os_theme') === 'dark' || (!('os_theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        }
-        updateThemeIcon();
-        themeBtn.addEventListener('click', () => {
-            document.documentElement.classList.toggle('dark');
-            localStorage.setItem('os_theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
-            updateThemeIcon();
-        });
+        const AppEngine = {
+            currentFile: null,
+            isProcessing: false,
+            monitor: new PerformanceMonitor(),
+            cache: new CacheSystem(),
+            lastResponseText: "",
 
-        dragElement(document.getElementById("draggable-watermark"));
-        function dragElement(elmnt) {
-            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-            elmnt.onmousedown = dragMouseDown; elmnt.ontouchstart = dragMouseDown;
-            function dragMouseDown(e) {
-                e = e || window.event; if(e.target.tagName === 'INPUT') return;
-                if (e.type === 'touchstart') { pos3 = e.touches[0].clientX; pos4 = e.touches[0].clientY; } 
-                else { pos3 = e.clientX; pos4 = e.clientY; }
-                document.onmouseup = closeDragElement; document.onmousemove = elementDrag;
-                document.ontouchend = closeDragElement; document.ontouchmove = elementDrag;
-            }
-            function elementDrag(e) {
-                e = e || window.event;
-                let clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
-                let clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
-                pos1 = pos3 - clientX; pos2 = pos4 - clientY; pos3 = clientX; pos4 = clientY;
-                elmnt.style.top = (elmnt.offsetTop - pos2) + "px"; elmnt.style.left = (elmnt.offsetLeft - pos1) + "px"; elmnt.style.bottom = "auto"; elmnt.style.right = "auto";
-            }
-            function closeDragElement() { document.onmouseup = null; document.onmousemove = null; document.ontouchend = null; document.ontouchmove = null; }
-        }
-
-        const gamification = {
-            coins: 0,
-            levels: [ {t:0, n:"User", i:"👤"}, {t:80, n:"Admin", i:"🛡️"}, {t:150, n:"Developer", i:"👨‍💻"}, {t:300, n:"Architect", i:"🏛️"}, {t:500, n:"Kernel Master", i:"🧠"} ],
-            init: function() {
-                this.coins = parseInt(localStorage.getItem('os_coins')) || 0;
-                if(localStorage.getItem('shop_matrix') === 'true') this.applyMatrixTheme();
-                this.updateShopButtons(); this.updateUI();
+            elements: {
+                dropZone: document.getElementById('drop-zone'),
+                fileInput: document.getElementById('file-input'),
+                fileInfo: document.getElementById('file-info'),
+                fileName: document.getElementById('file-name'),
+                fileSize: document.getElementById('file-size'),
+                actionsArea: document.getElementById('ai-actions'),
+                readerContent: document.getElementById('ai-reader-content'),
+                emptyState: document.getElementById('empty-state'),
+                statusText: document.getElementById('reader-status'),
+                btnCopy: document.getElementById('btn-copy'),
+                systemStatus: document.getElementById('system-status')
             },
-            addCoins: function(amount, event) { this.coins += amount; this.save(); this.playAudio('coin-sound'); this.showAnimation(`+${amount} ⚡`, event, false); },
-            deductCoins: function(amount, event) { this.coins = Math.max(0, this.coins - amount); this.save(); this.playAudio('wrong-sound'); this.showAnimation(`-${amount} ⚡`, event, true); },
-            save: function() { localStorage.setItem('os_coins', this.coins); this.updateUI(); },
-            updateUI: function() {
-                let currentLvl = this.levels[0];
-                for(let l of this.levels) { if(this.coins >= l.t) currentLvl = l; }
-                let displayName = currentLvl.n; let displayIcon = currentLvl.i;
-                if(localStorage.getItem('shop_badge') === 'true') { displayIcon += " 👑"; }
-                const coinEl = document.getElementById('ui-coins');
-                const start = parseInt(coinEl.innerText) || 0;
-                this.animateValue(coinEl, start, this.coins, 600);
-                document.getElementById('ui-level').innerHTML = `${displayName} <span class="text-xl ml-1">${displayIcon}</span>`;
+
+            init() {
+                ThemeManager.init();
+                this.setupEventListeners();
             },
-            animateValue: function(obj, start, end, duration) {
-                if (start === end) return; let startTimestamp = null;
-                const step = (timestamp) => {
-                    if (!startTimestamp) startTimestamp = timestamp;
-                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                    obj.innerHTML = Math.floor(progress * (end - start) + start);
-                    if (progress < 1) window.requestAnimationFrame(step);
+
+            setupEventListeners() {
+                const { dropZone, fileInput, btnCopy } = this.elements;
+
+                dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+                dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+                dropZone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    dropZone.classList.remove('dragover');
+                    if (e.dataTransfer.files.length) this.handleFileSelect(e.dataTransfer.files[0]);
+                });
+                dropZone.addEventListener('click', () => fileInput.click());
+                fileInput.addEventListener('change', (e) => { 
+                    if(e.target.files.length) this.handleFileSelect(e.target.files[0]); 
+                });
+
+                document.getElementById('btn-remove-file').addEventListener('click', () => this.resetFile());
+                
+                btnCopy.addEventListener('click', () => {
+                    if(!this.lastResponseText) return;
+                    const cleanText = document.getElementById('ai-reader-content').innerText;
+                    navigator.clipboard.writeText(cleanText).then(() => {
+                        const originalText = btnCopy.innerText;
+                        btnCopy.innerText = '✅ Copied!';
+                        btnCopy.classList.add('bg-emerald-100', 'text-emerald-700');
+                        setTimeout(() => {
+                            btnCopy.innerText = originalText;
+                            btnCopy.classList.remove('bg-emerald-100', 'text-emerald-700');
+                        }, 2000);
+                    });
+                });
+            },
+
+            handleFileSelect(file) {
+                const maxSize = 50 * 1024 * 1024;
+                if(file.size > maxSize) {
+                    alert("Error: File size exceeds the 50MB limit.");
+                    return;
+                }
+
+                this.currentFile = file;
+                const { elements } = this;
+                
+                elements.fileName.innerText = file.name;
+                elements.fileSize.innerText = (file.size / 1024).toFixed(1) + ' KB';
+                elements.dropZone.classList.add('hidden');
+                elements.fileInfo.classList.remove('hidden');
+                elements.actionsArea.style.opacity = '1';
+                elements.actionsArea.style.pointerEvents = 'auto';
+
+                this.updateStatus("Exam PDF ready. Select an action.", "text-emerald-500");
+            },
+
+            resetFile() {
+                this.currentFile = null;
+                const { elements } = this;
+                elements.fileInput.value = "";
+                elements.fileInfo.classList.add('hidden');
+                elements.dropZone.classList.remove('hidden');
+                elements.actionsArea.style.opacity = '0.5';
+                elements.actionsArea.style.pointerEvents = 'none';
+                this.clearWorkspace();
+                this.updateStatus("Awaiting OS exam document...", "text-slate-500");
+            },
+
+            updateStatus(msg, colorClass = "text-brand-500") {
+                this.elements.statusText.className = `text-xs font-bold mt-1 ${colorClass}`;
+                this.elements.statusText.innerText = msg;
+            },
+
+            clearWorkspace() {
+                this.elements.readerContent.innerHTML = '';
+                this.elements.readerContent.appendChild(this.elements.emptyState);
+                this.elements.emptyState.style.display = 'flex';
+                this.elements.btnCopy.classList.add('hidden');
+                this.lastResponseText = "";
+            },
+
+            async processRequest(actionType) {
+                if(this.isProcessing || !this.currentFile) return;
+                
+                const cacheKey = this.cache.generateKey(this.currentFile.name, actionType);
+
+                if(this.cache.has(cacheKey)) {
+                    this.monitor.start();
+                    this.updateStatus("⚡ Fetching from cache...", "text-brand-500");
+                    setTimeout(() => {
+                        this.renderResult(this.cache.get(cacheKey));
+                        this.monitor.stop(true);
+                        this.updateStatus("Operation completed (Cached).", "text-emerald-500");
+                    }, 150); 
+                    return;
+                }
+
+                this.isProcessing = true;
+                this.elements.emptyState.style.display = 'none';
+                this.monitor.start();
+                this.elements.btnCopy.classList.add('hidden');
+                this.elements.systemStatus.innerHTML = `<span class="animate-spin">⚙️</span> Scanning OS Exam Data...`;
+                this.elements.systemStatus.classList.replace('bg-emerald-100', 'bg-brand-100');
+                this.elements.systemStatus.classList.replace('text-emerald-700', 'text-brand-700');
+
+                const loadingId = 'loader-' + Date.now();
+                this.elements.readerContent.innerHTML = `
+                    <div id="${loadingId}" class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 p-6 rounded-2xl shadow-sm mb-6 animate-fade-in-up">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 bg-brand-50 dark:bg-brand-900/30 rounded-full flex items-center justify-center text-brand-500">
+                                <svg class="w-6 h-6 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg text-slate-800 dark:text-white" id="step-title">Initializing OS Analysis...</h3>
+                                <p class="text-sm text-slate-500 font-mono" id="step-detail">Solving CPU Scheduling and Page Replacement...</p>
+                            </div>
+                        </div>
+                        <div class="progress-bar-container"><div class="progress-bar" id="progress-bar"></div></div>
+                    </div>
+                `;
+
+                try {
+                    await this.simulateDelay(800, 30, "Extracting Algorithms...", "Bout is calculating RR and FCFS times");
+                    await this.simulateDelay(1200, 60, "Evaluating Memory Models...", "Processing FIFO vs LRU Page Faults");
+                    await this.simulateDelay(1000, 90, "Translating Concepts...", "Applying Sudanese explanation formats");
+                    await this.simulateDelay(500, 100, "Finalizing Output...", "Rendering complete breakdown");
+
+                    const resultHTML = this.getMockData(actionType);
+                    this.cache.set(cacheKey, resultHTML);
+                    
+                    document.getElementById(loadingId).remove();
+                    this.renderResult(resultHTML);
+                    
+                    this.monitor.stop();
+                    this.updateStatus("Exam document analyzed successfully.", "text-emerald-500");
+
+                } catch (error) {
+                    console.error("Processing Error:", error);
+                    this.elements.readerContent.innerHTML = `<div class="p-4 bg-red-50 text-red-600 rounded-xl font-bold">❌ Fatal Error during processing.</div>`;
+                    this.monitor.stop();
+                    this.updateStatus("Operation Failed.", "text-red-500");
+                } finally {
+                    this.isProcessing = false;
+                    this.elements.systemStatus.innerHTML = `<span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span> System Ready`;
+                    this.elements.systemStatus.classList.replace('bg-brand-100', 'bg-emerald-100');
+                    this.elements.systemStatus.classList.replace('text-brand-700', 'text-emerald-700');
+                }
+            },
+
+            simulateDelay(ms, progressPercent, titleUpdate, detailUpdate) {
+                return new Promise(resolve => {
+                    setTimeout(() => {
+                        const pb = document.getElementById('progress-bar');
+                        const st = document.getElementById('step-title');
+                        const sd = document.getElementById('step-detail');
+                        if(pb) pb.style.width = `${progressPercent}%`;
+                        if(st) st.innerText = titleUpdate;
+                        if(sd) sd.innerText = detailUpdate;
+                        resolve();
+                    }, ms);
+                });
+            },
+
+            renderResult(htmlContent) {
+                this.lastResponseText = htmlContent;
+                this.elements.readerContent.innerHTML = `<div class="animate-fade-in-up space-y-6">${htmlContent}</div>`;
+                this.elements.btnCopy.classList.remove('hidden');
+                
+                const readerArea = document.querySelector('.reader-area');
+                setTimeout(() => readerArea.scrollTo({ top: readerArea.scrollHeight, behavior: 'smooth' }), 100);
+            },
+
+            getMockData(type) {
+                const data = {
+                    'full_solve': `
+                        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-8 rounded-2xl shadow-sm">
+                            <div class="flex justify-between items-center mb-6 border-b border-slate-100 dark:border-slate-700 pb-4">
+                                <h3 class="text-2xl font-black text-brand-600 dark:text-brand-400">📄 OS Exam - Full Mathematical Solutions</h3>
+                                <span class="bg-brand-100 text-brand-700 dark:bg-brand-900 dark:text-brand-300 text-xs font-bold px-3 py-1 rounded-full">100% Extracted</span>
+                            </div>
+                            
+                            <div class="mb-8">
+                                <h4 class="font-bold text-lg mb-2 text-slate-800 dark:text-white">Q4 & Q6: CPU Scheduling Calculations (RR & FCFS)</h4>
+                                <div class="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-lg border-l-4 border-emerald-500 mb-4 overflow-x-auto">
+                                    <p class="font-mono text-sm text-slate-700 dark:text-slate-300 mb-2"><strong>Q4 (Round Robin, TQ = 3ms):</strong></p>
+                                    <table class="os-table text-sm">
+                                        <tr><th>Process</th><th>Waiting Time (WT)</th><th>Turnaround Time (TAT)</th></tr>
+                                        <tr><td>P1</td><td>11 ms</td><td>20 ms</td></tr>
+                                        <tr><td>P2</td><td>9 ms</td><td>14 ms</td></tr>
+                                        <tr><td>P3</td><td>14 ms</td><td>21 ms</td></tr>
+                                    </table>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400 mt-2"><strong>Average WT:</strong> 11.33 ms</p>
+                                    
+                                    <p class="font-mono text-sm text-slate-700 dark:text-slate-300 mt-4 mb-2"><strong>Q6 (FCFS):</strong></p>
+                                    <table class="os-table text-sm">
+                                        <tr><th>Process</th><th>Completion Time (CT)</th><th>TAT</th><th>WT</th><th>Response Time (RT)</th></tr>
+                                        <tr><td>P1</td><td>6 ms</td><td>6 ms</td><td>0 ms</td><td>0 ms</td></tr>
+                                        <tr><td>P2</td><td>9 ms</td><td>8 ms</td><td>5 ms</td><td>5 ms</td></tr>
+                                        <tr><td>P3</td><td>11 ms</td><td>9 ms</td><td>7 ms</td><td>7 ms</td></tr>
+                                    </table>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400 mt-2"><strong>Average WT:</strong> 4 ms | <strong>Average TAT:</strong> 7.67 ms</p>
+                                </div>
+                            </div>
+
+                            <div class="mb-8">
+                                <h4 class="font-bold text-lg mb-2 text-slate-800 dark:text-white">Q9 & Q10: Page Replacement (FIFO vs LRU)</h4>
+                                <div class="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-lg border-l-4 border-indigo-500 mb-4">
+                                    <p class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Q9: FIFO (3 Frames) - String: 7, 0, 1, 2, 0, 3...</p>
+                                    <ul class="list-disc pl-5 text-sm text-slate-600 dark:text-slate-400 space-y-1 mb-3">
+                                        <li><strong>Page Faults:</strong> 10</li>
+                                        <li><strong>Hit Ratio:</strong> 3 / 13 = 23.08%</li>
+                                    </ul>
+                                    <p class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Q10: FIFO vs LRU - String: 1, 2, 3, 4, 1, 2...</p>
+                                    <ul class="list-disc pl-5 text-sm text-slate-600 dark:text-slate-400 space-y-1">
+                                        <li><strong>FIFO:</strong> 11 Faults, 3 Hits, Rate: 78.57%</li>
+                                        <li><strong>LRU:</strong> 12 Faults, 2 Hits, Rate: 85.71%</li>
+                                        <li><strong>Conclusion:</strong> For this specific reference string, <strong>FIFO performs better</strong> (11 vs 12 faults).</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h4 class="font-bold text-lg mb-2 text-slate-800 dark:text-white">Section II: Multiple Choice Answers</h4>
+                                <div class="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-lg border border-slate-200 dark:border-slate-700 text-sm text-slate-700 dark:text-slate-300">
+                                    <ol class="list-decimal pl-5 space-y-2">
+                                        <li>CPU scheduling algorithms: <strong>d. All of the mentioned</strong> (Priority, RR, SJF)</li>
+                                        <li>Interface to OS services: <strong>a. System calls</strong></li>
+                                        <li>Fixed time slice algorithm: <strong>c. Round Robin</strong></li>
+                                        <li>What is a process: <strong>a. A computer program in execution</strong></li>
+                                        <li>NOT a process state: <strong>d. Compiling</strong></li>
+                                        <li>Deadlock conditions: <strong>e. All of the mentioned</strong></li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>`,
+
+                    'explain_bilingual': `
+                        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-8 rounded-2xl shadow-sm">
+                            <div class="flex justify-between items-center mb-6 border-b border-slate-100 dark:border-slate-700 pb-4">
+                                <h3 class="text-2xl font-black text-indigo-600 dark:text-indigo-400">🧠 Core OS Concepts Deep Dive</h3>
+                                <span class="bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300 text-xs font-bold px-3 py-1 rounded-full">Bilingual Mode</span>
+                            </div>
+                            
+                            <div class="space-y-6">
+                                <div class="p-5 border border-slate-100 dark:border-slate-700 rounded-xl hover:shadow-md transition">
+                                    <div class="mb-3 border-b border-slate-100 dark:border-slate-700 pb-3">
+                                        <h4 class="font-bold text-xl font-mono text-slate-800 dark:text-white">1. Process State Transition Diagram (Q2)</h4>
+                                        <p class="text-slate-600 dark:text-slate-400 mt-2"><strong>English:</strong> The 5 main states are New, Ready, Running, Waiting/Blocked, and Terminated. A process moves from Ready to Running via the Scheduler, and from Running back to Ready upon an interrupt/timeout.</p>
+                                    </div>
+                                    <div class="sudanese-text mt-3 bg-ai-light dark:bg-ai-dark/20 p-4 rounded-xl border border-ai-base/30">
+                                        <span class="text-ai-base text-lg mb-2 block font-bold">💡 شرح الأستاذ (Bout):</span>
+                                        <p class="text-slate-700 dark:text-slate-300 text-[15px] leading-relaxed">
+                                            يا زول ركز معاي، حالات المعالجة (Process) دي عاملة زي دورة حياة الموظف: <br>
+                                            - أول ما يتعين (New).<br>
+                                            - قاعد في المكتب راجي شغل (Ready).<br>
+                                            - شغال وبكتب في التقرير (Running).<br>
+                                            - وقف شغل ومستني إمضاء المدير (Waiting / Blocked).<br>
+                                            - خلص شغله وروح (Terminated). <br>
+                                            أهم شي ترسم ليهم المخطط بأسهمه بوضوح في الامتحان عشان تضمن الدرجة!
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="p-5 border border-slate-100 dark:border-slate-700 rounded-xl hover:shadow-md transition">
+                                    <div class="mb-3 border-b border-slate-100 dark:border-slate-700 pb-3">
+                                        <h4 class="font-bold text-xl font-mono text-slate-800 dark:text-white">2. Context Switching (Q5 / Q11)</h4>
+                                        <p class="text-slate-600 dark:text-slate-400 mt-2"><strong>English:</strong> Context switching is saving the state of the current process and loading the state of another. It negatively impacts performance because it introduces "overhead" — the CPU does no useful work while switching.</p>
+                                    </div>
+                                    <div class="sudanese-text mt-3 bg-ai-light dark:bg-ai-dark/20 p-4 rounded-xl border border-ai-base/30">
+                                        <span class="text-ai-base text-lg mb-2 block font-bold">💡 شرح الأستاذ (Bout):</span>
+                                        <p class="text-slate-700 dark:text-slate-300 text-[15px] leading-relaxed">
+                                            الـ Context Switch دا عبارة عن إنو المعالج بوقف الشغل في برنامج، وبحفظ مكانه بالظبط، عشان يمشي يشغل برنامج تاني. المشكلة إنو التحويلة دي بتاخد زمن (Overhead)، يعني المعالج بضيع وقته في التبديل بدل ما ينجز الشغل. زي الزول الشغال في كذا حاجة في نفس الوقت وبضيع نصه في الترتيب بس!
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="p-5 border border-slate-100 dark:border-slate-700 rounded-xl hover:shadow-md transition">
+                                    <div class="mb-3 border-b border-slate-100 dark:border-slate-700 pb-3">
+                                        <h4 class="font-bold text-xl font-mono text-slate-800 dark:text-white">3. Deadlock Conditions (Q8)</h4>
+                                        <p class="text-slate-600 dark:text-slate-400 mt-2"><strong>English:</strong> For a deadlock to occur, four conditions must hold simultaneously: Mutual Exclusion, Hold and Wait, No Preemption, and Circular Wait.</p>
+                                    </div>
+                                    <div class="sudanese-text mt-3 bg-ai-light dark:bg-ai-dark/20 p-4 rounded-xl border border-ai-base/30">
+                                        <span class="text-ai-base text-lg mb-2 block font-bold">💡 شرح الأستاذ (Bout):</span>
+                                        <p class="text-slate-700 dark:text-slate-300 text-[15px] leading-relaxed">
+                                            الـ Deadlock (الجمود) دا عشان يحصل لازم 4 شروط يتجمعوا مع بعض. تخيلها زحمة تقاطع طرق (Circular Wait)، وكل عربية قافلة على التانية ومافي زول راضي يرجع ورا (No Preemption)، وكل زول ماسك شارعه ومستني التاني يفتح ليه (Hold and Wait). لو كسرنا أي شرط من الأربعة ديل، الزحمة حتتفك والنظام حيمشي!
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div class="p-5 border border-slate-100 dark:border-slate-700 rounded-xl hover:shadow-md transition">
+                                    <div class="mb-3 border-b border-slate-100 dark:border-slate-700 pb-3">
+                                        <h4 class="font-bold text-xl font-mono text-slate-800 dark:text-white">4. Paging vs Segmentation (Q12)</h4>
+                                        <p class="text-slate-600 dark:text-slate-400 mt-2"><strong>English:</strong> Paging divides memory into fixed-size blocks (pages), causing Internal Fragmentation. Segmentation divides memory into variable-sized blocks based on user needs, causing External Fragmentation.</p>
+                                    </div>
+                                    <div class="sudanese-text mt-3 bg-ai-light dark:bg-ai-dark/20 p-4 rounded-xl border border-ai-base/30">
+                                        <span class="text-ai-base text-lg mb-2 block font-bold">💡 شرح الأستاذ (Bout):</span>
+                                        <p class="text-slate-700 dark:text-slate-300 text-[15px] leading-relaxed">
+                                            الفرق بينهم بيتعلق بضياع المساحات (Fragmentation). الـ Paging بقسم الذاكرة لحتت ثابتة، فممكن البرنامج ما يحتاج الحتة كلها والباقي يضيع جوة (Internal). أما الـ Segmentation بقسم حسب الحوجة، لكن مع مرور الزمن بتفضل مساحات صغيرة فاضية متفرقة برا ما بنقدر نستفيد منها (External).
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`
                 };
-                window.requestAnimationFrame(step);
-            },
-            playAudio: function(id) {
-                let audio = document.getElementById(id);
-                if(audio) { audio.currentTime = 0; audio.volume = 0.6; audio.play().catch(()=>{}); }
-            },
-            showAnimation: function(text, e, isNegative) {
-                const anim = document.createElement('div'); anim.innerText = text; anim.className = `coin-anim ${isNegative ? 'text-red-500' : 'text-yellow-400'}`;
-                if(e && e.clientX) { anim.style.left = (e.clientX - 20) + 'px'; anim.style.top = (e.clientY - 20) + 'px'; } 
-                else { anim.style.left = '50%'; anim.style.top = '40%'; anim.style.transform = 'translate(-50%, -50%)'; }
-                document.body.appendChild(anim); setTimeout(() => anim.remove(), 1200);
-            },
-            buyItem: function(itemId, cost, btnEl) {
-                if(localStorage.getItem(`shop_${itemId}`) === 'true') { alert("Already unlocked!"); return; }
-                if(this.coins >= cost) {
-                    this.coins -= cost; localStorage.setItem(`shop_${itemId}`, 'true'); this.save(); this.playAudio('level-up-sound');
-                    this.updateShopButtons(); if(itemId === 'matrix') this.applyMatrixTheme(); if(itemId === 'badge') this.updateUI();
-                } else { alert(`Insufficient funds! Need ${cost - this.coins} more ⚡.`); }
-            },
-            updateShopButtons: function() {
-                ['badge', 'matrix', 'hints'].forEach(id => {
-                    if(localStorage.getItem(`shop_${id}`) === 'true') {
-                        const btn = document.getElementById(`btn-buy-${id}`);
-                        if(btn) { btn.innerHTML = "Unlocked ✅"; btn.className = "w-full bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 py-3 md:py-4 rounded-xl font-black text-base md:text-lg flex items-center justify-center gap-2 cursor-not-allowed"; btn.onclick = null; }
-                    }
-                });
-            },
-            applyMatrixTheme: function() { document.body.classList.add('matrix-theme'); document.documentElement.classList.add('dark'); updateThemeIcon(); },
-            
-            // Share Score Feature (New)
-            shareScore: function() {
-                const scoreText = document.getElementById('res-score').innerText;
-                const text = `🎯 I just scored ${scoreText} on the ULK OS Academy CAT2 Exam! Try to beat my score.`;
-                if (navigator.share) {
-                    navigator.share({ title: 'ULK OS Academy Result', text: text, url: window.location.href })
-                    .catch(console.error);
-                } else {
-                    navigator.clipboard.writeText(text);
-                    alert("Score copied to clipboard! Paste it to share with your friends.");
-                }
+                return data[type] || "<p>Invalid Request Type.</p>";
             }
         };
 
-        // Render Modules
-        function renderCurriculum(filterText = '') {
-            const lessonsBox = document.getElementById('lessons-container');
-            const noRes = document.getElementById('no-results');
-            lessonsBox.innerHTML = '';
-            
-            const lowerFilter = filterText.toLowerCase();
-            let count = 0;
-            const completedLessons = JSON.parse(localStorage.getItem('os_completed_lessons') || '[]');
-
-            osCurriculum.forEach((lec, i) => {
-                if(filterText && !lec.title.toLowerCase().includes(lowerFilter) && !lec.academic.toLowerCase().includes(lowerFilter)) return;
-                count++;
-                
-                const isCompleted = completedLessons.includes(lec.id);
-                const cardId = `lesson-card-${lec.id}`;
-                
-                lessonsBox.innerHTML += `
-                    <div id="${cardId}" class="feature-card flex flex-col h-full ${isCompleted ? 'lesson-completed' : ''}" style="animation: slideUpFade 0.5s ease forwards; animation-delay: ${count*0.05}s; opacity:0;">
-                        
-                        <div class="flex items-start justify-between mb-4 md:mb-6 border-b border-slate-100 dark:border-slate-700 pb-3 md:pb-4">
-                            <h3 class="text-xl md:text-2xl font-black text-slate-800 dark:text-white leading-tight">${lec.title}</h3>
-                            
-                            <button onclick="toggleLessonComplete(${lec.id}, this, '${cardId}')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-colors ${isCompleted ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400' : 'bg-slate-100 text-slate-500 dark:bg-slate-700 dark:text-slate-400'}">
-                                ${isCompleted ? '✅ Completed' : '⬜ Mark as Studied'}
-                            </button>
-                        </div>
-                        
-                        <div class="mb-4 bg-blue-50 dark:bg-blue-900/10 p-4 rounded-xl border-l-4 border-blue-500 relative group/audio">
-                            <button onclick="playAudioText('${lec.academic.replace(/'/g, "\\'")}', this)" class="absolute top-4 right-4 text-blue-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors" title="Listen to pronunciation">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5 10v4a2 2 0 002 2h2.586l3.707 3.707a1 1 0 001.707-.707V5a1 1 0 00-1.707-.707L9.586 8H7a2 2 0 00-2 2z"></path></svg>
-                            </button>
-                            
-                            <span class="block text-[10px] md:text-xs font-black text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-1 md:mb-2">Academic En</span>
-                            <p class="text-slate-700 dark:text-slate-300 font-medium text-sm md:text-lg pr-8">${lec.academic}</p>
-                        </div>
-                        
-                        <div class="mb-4 bg-emerald-50 dark:bg-emerald-900/10 p-4 rounded-xl border-r-4 border-emerald-500 text-right">
-                            <span class="block text-[10px] md:text-xs font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-1 md:mb-2">عربي أكاديمي</span>
-                            <p class="ar-text text-slate-700 dark:text-slate-300 font-bold text-sm md:text-lg">${lec.arabic}</p>
-                        </div>
-                        
-                        <div class="mt-auto bg-amber-50 dark:bg-amber-900/10 p-4 rounded-xl border-r-4 border-amber-500 text-right">
-                            <span class="block text-[10px] md:text-xs font-black text-amber-600 dark:text-amber-400 uppercase tracking-widest mb-1 md:mb-2">بالسوداني الفصيح</span>
-                            <p class="ar-text font-bold text-slate-800 dark:text-slate-300 text-sm md:text-lg leading-relaxed">${lec.sudanese}</p>
-                        </div>
-                    </div>`;
-            });
-            noRes.classList.toggle('hidden', count > 0);
-        }
-        
-        document.getElementById('search-input').addEventListener('input', (e) => renderCurriculum(e.target.value));
-
-        function renderFlashcards() {
-            const container = document.getElementById('flashcards-container');
-            container.innerHTML = '';
-            osCurriculum.forEach((lec) => {
-                const card = document.createElement('div'); card.className = "flashcard-container";
-                card.innerHTML = `
-                    <div class="flashcard" onclick="this.classList.toggle('is-flipped'); gamification.playAudio('flip-sound');">
-                        <div class="flashcard-front"><span class="text-4xl mb-4 text-brand-500">🤔</span><h3 class="text-xl md:text-2xl font-black text-slate-800 dark:text-white">${lec.title}</h3><p class="text-slate-400 mt-4 font-medium text-xs md:text-sm tracking-widest uppercase">Tap to flip</p></div>
-                        <div class="flashcard-back"><span class="text-3xl mb-3">💡</span><p class="text-slate-800 dark:text-slate-200 font-semibold text-sm md:text-lg mb-3 md:mb-4 px-2">${lec.academic}</p><div class="h-px w-16 bg-amber-500/50 mx-auto mb-3 md:mb-4"></div><p class="ar-text text-slate-700 dark:text-amber-100 font-bold text-sm md:text-lg px-2">${lec.sudanese}</p></div>
-                    </div>`;
-                container.appendChild(card);
-            });
-        }
-
-        const quizEngine = {
-            idx: 0, score: 0, timer: null, timeLeft: 25,
-            elCore: document.getElementById('quiz-core'), elRes: document.getElementById('quiz-result'), elStart: document.getElementById('quiz-start'),
-            start: function() { this.idx = 0; this.score = 0; this.elStart.classList.add('hidden'); this.elRes.classList.add('hidden'); this.elCore.classList.remove('hidden'); this.load(); },
-            load: function() {
-                const q = osQuizData[this.idx];
-                document.getElementById('q-counter').innerText = `Question ${this.idx+1} of ${osQuizData.length}`;
-                document.getElementById('q-progress-bar').style.width = `${((this.idx) / osQuizData.length) * 100}%`;
-                document.getElementById('q-text-en').innerText = q.qEn; document.getElementById('q-text-ar').innerText = q.qAr; document.getElementById('q-feedback').className = 'hidden';
-                const optsBox = document.getElementById('q-options'); optsBox.innerHTML = '';
-                let mappedOpts = q.opts.map((text, i) => ({ text, origIdx: i })); mappedOpts.sort(() => Math.random() - 0.5);
-                mappedOpts.forEach((opt) => {
-                    const b = document.createElement('button');
-                    b.className = "group relative w-full text-left p-4 md:p-6 rounded-2xl border-2 border-slate-200 dark:border-slate-700 font-bold text-slate-700 dark:text-slate-200 hover:border-brand-500 hover:bg-brand-50 dark:hover:bg-brand-900/30 transition-all bg-white dark:bg-slate-800 shadow-sm flex items-center gap-3 md:gap-4 text-sm md:text-xl";
-                    b.innerHTML = `<div class="w-6 h-6 md:w-7 md:h-7 rounded-full border-2 border-slate-300 dark:border-slate-600 group-hover:border-brand-500 flex items-center justify-center flex-shrink-0"><div class="w-3 h-3 md:w-3.5 md:h-3.5 bg-brand-500 rounded-full opacity-0 scale-0 transition-all"></div></div><span>${opt.text}</span>`;
-                    b.onclick = (e) => this.answer(opt.origIdx, b, e); optsBox.appendChild(b);
-                });
-                this.startTimer();
-            },
-            startTimer: function() {
-                clearInterval(this.timer); this.timeLeft = 25; 
-                const tText = document.getElementById('timer-text'); const tBox = document.getElementById('q-timer');
-                tText.innerText = this.timeLeft; tBox.classList.remove('text-red-600', 'dark:text-red-400', 'border-red-300', 'animate-pulse'); tBox.classList.add('text-brand-600', 'dark:text-brand-400');
-                this.timer = setInterval(() => {
-                    this.timeLeft--; tText.innerText = this.timeLeft;
-                    if(this.timeLeft <= 10 && !tBox.classList.contains('text-red-600')) { tBox.classList.remove('text-brand-600', 'dark:text-brand-400'); tBox.classList.add('text-red-600', 'dark:text-red-400', 'border-red-300', 'animate-pulse'); }
-                    if(this.timeLeft <= 0) { clearInterval(this.timer); this.answer(-1, null, null); }
-                }, 1000);
-            },
-            answer: function(selIdx, btnEl, event) {
-                clearInterval(this.timer); const q = osQuizData[this.idx]; const isCorrect = (selIdx === q.correct);
-                const optsBox = document.getElementById('q-options'); const fbBox = document.getElementById('q-feedback');
-                Array.from(optsBox.children).forEach(b => { b.disabled = true; b.classList.add('cursor-not-allowed', 'opacity-60'); b.classList.remove('hover:border-brand-500', 'hover:bg-brand-50'); });
-                if(isCorrect) {
-                    if(btnEl) { btnEl.classList.add('border-emerald-500', 'bg-emerald-50', 'dark:bg-emerald-900/30'); btnEl.querySelector('.w-6 > div, .w-7 > div').classList.replace('opacity-0', 'opacity-100'); btnEl.querySelector('.w-6 > div, .w-7 > div').classList.replace('scale-0', 'scale-100'); btnEl.querySelector('.w-6 > div, .w-7 > div').classList.replace('bg-brand-500', 'bg-emerald-500'); btnEl.querySelector('.w-6, .w-7').classList.add('border-emerald-500'); }
-                    this.score++; gamification.addCoins(10, event);
-                    fbBox.innerHTML = '✅ Correct! OS Process Executed. +10 ⚡'; fbBox.className = 'mt-6 p-4 md:p-5 rounded-xl font-black text-center text-emerald-700 bg-emerald-100 dark:bg-emerald-900/40 border border-emerald-300 dark:border-emerald-700 animate-flip-in text-base md:text-xl';
-                } else {
-                    if(btnEl) { btnEl.classList.add('border-red-500', 'bg-red-50', 'dark:bg-red-900/30'); btnEl.querySelector('.w-6 > div, .w-7 > div').classList.replace('opacity-0', 'opacity-100'); btnEl.querySelector('.w-6 > div, .w-7 > div').classList.replace('scale-0', 'scale-100'); btnEl.querySelector('.w-6 > div, .w-7 > div').classList.replace('bg-brand-500', 'bg-red-500'); }
-                    Array.from(optsBox.children).forEach(b => { if(b.innerText.includes(q.opts[q.correct])) { b.classList.remove('opacity-60'); b.classList.add('border-emerald-500', 'bg-emerald-50', 'dark:bg-emerald-900/30'); } });
-                    gamification.deductCoins(2, event);
-                    fbBox.innerHTML = selIdx === -1 ? '⏰ Timeout Exception! -2 ⚡' : '❌ Fatal Error! Wrong Answer. -2 ⚡'; fbBox.className = 'mt-6 p-4 md:p-5 rounded-xl font-black text-center text-red-700 bg-red-100 dark:bg-red-900/40 border border-red-300 dark:border-red-700 animate-flip-in text-base md:text-xl';
-                }
-                setTimeout(() => { this.idx++; if(this.idx < osQuizData.length) this.load(); else this.end(); }, 2500);
-            },
-            end: function() {
-                this.elCore.classList.add('hidden'); this.elRes.classList.remove('hidden'); document.getElementById('q-progress-bar').style.width = `100%`;
-                document.getElementById('res-score').innerText = `${this.score}/${osQuizData.length}`;
-                const pct = (this.score / osQuizData.length) * 100; const title = document.getElementById('res-title');
-                if(pct === 100) { title.innerText = "Kernel God!"; title.className = "text-4xl md:text-5xl font-black mb-3 text-emerald-500"; }
-                else if(pct >= 80) { title.innerText = "System Admin Level!"; title.className = "text-4xl md:text-5xl font-black mb-3 text-brand-500"; }
-                else if(pct >= 50) { title.innerText = "User Space Access"; title.className = "text-4xl md:text-5xl font-black mb-3 text-yellow-500"; }
-                else { title.innerText = "System Crash!"; title.className = "text-4xl md:text-5xl font-black mb-3 text-red-500"; }
-            },
-            reset: function() { this.elRes.classList.add('hidden'); this.start(); }
-        };
-
-        window.onload = () => {
-            gamification.init();
-            renderCurriculum();
-            renderFlashcards();
-            updateProgressBar();
-        };
+        document.addEventListener('DOMContentLoaded', () => AppEngine.init());
     </script>
 </body>
 </html>
