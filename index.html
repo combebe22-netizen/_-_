@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<index.html>
 <html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -32,9 +32,6 @@
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'spin-slow': 'spin 8s linear infinite',
                         'bounce-x': 'bounce-x 1s infinite',
-                        'fade-in': 'fadeIn 0.5s ease-out forwards',
-                        'slide-up': 'slideUp 0.5s ease-out forwards',
-                        'shake': 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both',
                         'confetti': 'confetti 2s ease-out forwards'
                     },
                     keyframes: {
@@ -51,20 +48,6 @@
                         'bounce-x': {
                             '0%, 100%': { transform: 'translateX(0)' },
                             '50%': { transform: 'translateX(-25%)' },
-                        },
-                        fadeIn: {
-                            '0%': { opacity: '0' },
-                            '100%': { opacity: '1' }
-                        },
-                        slideUp: {
-                            '0%': { transform: 'translateY(20px)', opacity: '0' },
-                            '100%': { transform: 'translateY(0)', opacity: '1' }
-                        },
-                        shake: {
-                            '10%, 90%': { transform: 'translate3d(-1px, 0, 0)' },
-                            '20%, 80%': { transform: 'translate3d(2px, 0, 0)' },
-                            '30%, 50%, 70%': { transform: 'translate3d(-4px, 0, 0)' },
-                            '40%, 60%': { transform: 'translate3d(4px, 0, 0)' }
                         },
                         confetti: {
                             '0%': { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
@@ -103,22 +86,23 @@
         .quiz-option:hover::before { transform: scaleX(1); }
         .quiz-option.correct { border-color: #22c55e; background-color: rgba(34, 197, 94, 0.1); color: #15803d; }
         .dark .quiz-option.correct { border-color: #4ade80; color: #4ade80; background-color: rgba(74, 222, 128, 0.15); }
-        .quiz-option.wrong { border-color: #ef4444; background-color: rgba(239, 68, 68, 0.1); color: #b91c1c; animation: shake 0.5s; }
+        .quiz-option.wrong { border-color: #ef4444; background-color: rgba(239, 68, 68, 0.1); color: #b91c1c; }
         .dark .quiz-option.wrong { border-color: #f87171; color: #f87171; background-color: rgba(248, 113, 113, 0.15); }
         .quiz-option.disabled { pointer-events: none; opacity: 0.7; }
         .particle { position: absolute; pointer-events: none; width: 10px; height: 10px; border-radius: 50%; animation: shoot 1s ease-out forwards; z-index: 100; }
         @keyframes shoot { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; } }
-        .explanation-box { display: none; margin-top: 1.5rem; padding: 1.5rem; border-radius: 1rem; background: linear-gradient(to left, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.05)); border-right: 4px solid #3b82f6; animation: slideUp 0.4s ease-out forwards; }
+        .explanation-box { display: none; margin-top: 1.5rem; padding: 1.5rem; border-radius: 1rem; background: linear-gradient(to left, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.05)); border-right: 4px solid #3b82f6; }
         .dark .explanation-box { background: linear-gradient(to left, rgba(59, 130, 246, 0.2), rgba(30, 64, 175, 0.1)); border-right-color: #60a5fa; }
-        .explanation-box.active { display: block; }
+        .explanation-box.active { display: block; animation: slideUp 0.4s ease-out forwards; }
+        @keyframes slideUp { 0% { transform: translateY(20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 selection:bg-brand-400 selection:text-white">
 
     <div class="fixed inset-0 w-full h-full pointer-events-none z-[-1] overflow-hidden">
         <div class="absolute top-[-10%] left-[-10%] w-[40rem] h-[40rem] bg-brand-400 rounded-full mix-blend-multiply filter blur-[100px] opacity-20 dark:opacity-10 animate-blob"></div>
-        <div class="absolute top-[20%] right-[-10%] w-[35rem] h-[35rem] bg-accent-400 rounded-full mix-blend-multiply filter blur-[100px] opacity-20 dark:opacity-10 animate-blob animation-delay-2000"></div>
-        <div class="absolute bottom-[-20%] left-[20%] w-[45rem] h-[45rem] bg-purple-400 rounded-full mix-blend-multiply filter blur-[100px] opacity-20 dark:opacity-10 animate-blob animation-delay-4000"></div>
+        <div class="absolute top-[20%] right-[-10%] w-[35rem] h-[35rem] bg-accent-400 rounded-full mix-blend-multiply filter blur-[100px] opacity-20 dark:opacity-10 animate-blob" style="animation-delay: 2s;"></div>
+        <div class="absolute bottom-[-20%] left-[20%] w-[45rem] h-[45rem] bg-purple-400 rounded-full mix-blend-multiply filter blur-[100px] opacity-20 dark:opacity-10 animate-blob" style="animation-delay: 4s;"></div>
     </div>
 
     <nav class="sticky top-0 z-50 glass-card border-none rounded-none rounded-b-[2rem]">
@@ -338,6 +322,14 @@
     <div id="toast-container"></div>
 
     <script>
+        // دالة آمنة للتعامل مع الـ LocalStorage لمنع انهيار الصفحة
+        function safeGetStorage(key, defaultValue) {
+            try { return localStorage.getItem(key) || defaultValue; } catch (e) { return defaultValue; }
+        }
+        function safeSetStorage(key, value) {
+            try { localStorage.setItem(key, value); } catch (e) {}
+        }
+
         // Theme Management
         const themeBtn = document.getElementById('theme-toggle');
         const themeIcon = document.getElementById('theme-icon');
@@ -350,19 +342,20 @@
             }
         }
         
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        let savedTheme = safeGetStorage('theme', null);
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         }
         updateTheme();
 
         themeBtn.addEventListener('click', () => {
             document.documentElement.classList.toggle('dark');
-            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+            safeSetStorage('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
             updateTheme();
         });
 
         // Gamification System
-        let totalCoins = parseInt(localStorage.getItem('gCoins')) || 0;
+        let totalCoins = parseInt(safeGetStorage('gCoins', '0')) || 0;
         let sessionScore = 0;
         
         function getLevelName(c) {
@@ -402,110 +395,41 @@
 
         // Data Source: Combining Old and New Lessons
         const lessons = [
-            // Old Content
-            {
-                id: 1, title: "1. مفهوم البيانات (Data Concept)",
-                acadAr: "البيانات (Data) هي معلومات في شكل حقائق، أرقام، أو قيم يمكن جمعها وتخزينها ومعالجتها لدعم اتخاذ القرارات. الحواسيب تعمل فقط مع البيانات.",
-                en: "Data is information in the form of facts, numbers, or values that can be collected, stored, processed, and interpreted to provide meaning or support decision-making.",
-                sud: "البيانات دي باختصار هي 'المعلومات الخام' زي الأرقام والأسماء والتواريخ. الكمبيوتر ده شغال بيها بس، يعني لو مافي داتا، الكمبيوتر ده عبارة عن حديدة ساكت ما منها فايدة."
-            },
-            {
-                id: 2, title: "2. هياكل البيانات (Data Structures)",
-                acadAr: "هيكل البيانات هو طريقة متخصصة لتنظيم وتخزين البيانات في الحاسوب بحيث يمكن الوصول إليها وتعديلها واستخدامها بكفاءة.",
-                en: "A data structure is a specialized way of organizing and storing data in a computer so it can be accessed, modified, and used efficiently.",
-                sud: "تخيل غرفتك جايطة والهدوم في حتة والكتب في حتة! 'هياكل البيانات' دي هي 'الدواليب والرفوف' البترتب ليك معلوماتك جوة الذاكرة عشان تلقاها بسرعة."
-            },
-            {
-                id: 3, title: "3. الخوارزميات (Algorithms)",
-                acadAr: "الخوارزمية هي مجموعة من التعليمات المتسلسلة خطوة بخطوة لحل مشكلة في وقت محدد. من أهم خصائصها: Finite (منتهية)، و Definite (محددة).",
-                en: "An algorithm is a step-by-step set of instructions designed to solve a problem in a finite amount of time. Must be finite and definite.",
-                sud: "الخوارزمية دي 'وصفة الطبيخ'. خطوات واضحة ومحددة. لازم تقيف في النهاية ما تشتغل للما لا نهاية، وخطواتها واضحة وما فيها لولوة."
-            },
-            {
-                id: 4, title: "4. المصفوفات (Arrays)",
-                acadAr: "المصفوفة هيكل بيانات يخزن مجموعة عناصر متجاورة في الذاكرة من نفس النوع (Homogeneous). المشكلة الرئيسية هي أن حجمها ثابت (Fixed size).",
-                en: "An array is a data structure storing contiguous elements of the same data type. Key features: Fixed size, Homogeneous elements.",
-                sud: "المصفوفة زي كرتونة البيض! مقسمة لِخانات وكل خانة عندها رقم (Index). ميزتها سريعة، بس عيبها مقاسها ثابت، لو اتملت لازم كرتونة جديدة!"
-            },
-            {
-                id: 5, title: "5. التعامل مع المصفوفات (Array Traversal)",
-                acadAr: "عملية اجتياز المصفوفة (Traversing) تعني المرور على كل عنصر فيها واحداً تلو الآخر للبحث أو الطباعة أو التعديل.",
-                en: "Traversing an array means visiting every element one by one, typically using a loop, to process or check each data point.",
-                sud: "كلمة Traversing دي معناها 'اللفة'.. يعني تمر على كل خانات المصفوفة بالدور، زي أستاذ بقرأ غياب الحضور وبنده الأسماء واحد واحد."
-            },
-            {
-                id: 6, title: "6. التكرار الذاتي (Recursion)",
-                acadAr: "الدوال التكرارية هي الدوال التي تقوم باستدعاء نفسها. يجب أن تحتوي على حالة توقف (Base Case) لتجنب التكرار اللانهائي.",
-                en: "Functions that call themselves are called recursive functions. They must have a base case to prevent infinite recursion.",
-                sud: "الـ Recursion ده زي مراية قدام مراية، بتشوف انعكاسات ما بتنتهي! لازم تعمل ليها 'فرملة' (Base Case) عشان الدالة تقيف من مناداة نفسها."
-            },
-            // New Content
-            {
-                id: 7, title: "7. تعليمة الإيقاف (Break Statement)",
-                acadAr: "في لغة C++، تُنهي تعليمة break الحلقة (Loop) بالكامل عند مواجهتها، وغالباً ما تُستخدم مع عبارات اتخاذ القرار.",
-                en: "In C++, the break statement terminates the loop when it is encountered. It is usually used with decision-making statements like if.",
-                sud: "الـ Break دي زي 'الفرملة القوية' جوا اللفة (Loop). لو بتفتش على حاجة ولقيتها، بتعمل Break عشان تقطع اللفة نهائياً وما تضيع زمن."
-            },
-            {
-                id: 8, title: "8. تعليمة التخطي (Continue Statement)",
-                acadAr: "تُستخدم تعليمة continue لتخطي الدورة الحالية للحلقة وانتقال التحكم إلى الدورة التالية. في الحلقات المتداخلة، تتخطى الدورة في الحلقة الداخلية فقط.",
-                en: "The continue statement is used to skip the current iteration of the loop and the control flow jumps to the next iteration.",
-                sud: "الـ Continue دي كأنك بتنط حفرة في الشارع وتواصل مشوارك عادي! ما بتوقف البرنامج كله، بس بتفوت اللفة الحالية وتمشي للبعدها طوالي."
-            },
-            {
-                id: 9, title: "9. تعليمة الاختيار (Switch Case)",
-                acadAr: "تسمح تعليمة switch بتنفيذ كتلة برمجية من بين عدة بدائل. في حال عدم وجود تطابق، يتم تنفيذ الكود الموجود في default.",
-                en: "The switch statement allows executing a block of code among many alternatives. If no match is found, the default code is executed.",
-                sud: "الـ Switch ده زي 'السنترال'. بتديهو التعبير، وهو بحولك للخط الصح (case) طوالي. لازم تحط break في نهاية كل case عشان ما ينفذ البعدها بالغلط!"
-            },
-            {
-                id: 10, title: "10. أساسيات الدوال (Functions Intro)",
-                acadAr: "الدالة هي كتلة صغيرة من الكود تؤدي مهمة واحدة محددة. تجعل البرنامج مكوناً من وحدات، سهل القراءة، قابل للصيانة، وإعادة الاستخدام.",
-                en: "A function is a small block of code that does one specific job. It makes code easier to read, maintain, test, and reuse.",
-                sud: "الدالة (Function) دي 'الصنايعي' بتاعك. بدل ما تتعب وتكتب الكود كل مرة، بتكتبو مرة واحدة وتناديك وقت ما تحتاجه."
-            },
-            {
-                id: 11, title: "11. التحميل الزائد (Function Overloading)",
-                acadAr: "تدعم C++ التحميل الزائد للدوال، وهو إنشاء عدة دوال بنفس الاسم بشرط اختلاف المعاملات (عددها أو نوعها).",
-                en: "C++ allows Function Overloading (multiple functions with the same name if parameters differ in count or type).",
-                sud: "الـ Overloading ده كأنك مسمي كل الصنايعية 'محمد'. الكمبيوتر بفرزهم بالعدة الشايلينها (Parameters)! الفي يده شاكوش نجار، والفي يده مفتاح سباك."
-            },
-            {
-                id: 12, title: "12. أفضل الممارسات والأخطاء الشائعة",
-                acadAr: "أفضل الممارسات: المسؤولية الواحدة، الأسماء الوصفية، وتقليل المعاملات. الأخطاء: نسيان عبارة return، التكرار اللانهائي، والمتغيرات العامة.",
-                en: "Best practices: Single responsibility, descriptive names. Common pitfalls: forgetting return statement, infinite recursion, global variables.",
-                sud: "الدالة النظيفة بتعمل حاجة واحدة بس، وما بنستخدم معاها متغيرات عامة (Global) عشان بتلخبط الشغل. ولو نسيت الـ Base case الكمبيوتر حيعلق للصباح!"
-            }
+            { id: 1, title: "1. مفهوم البيانات (Data Concept)", acadAr: "البيانات (Data) هي معلومات في شكل حقائق، أرقام، أو قيم يمكن جمعها وتخزينها ومعالجتها لدعم اتخاذ القرارات. الحواسيب تعمل فقط مع البيانات.", en: "Data is information in the form of facts, numbers, or values that can be collected, stored, processed, and interpreted to provide meaning or support decision-making.", sud: "البيانات دي باختصار هي 'المعلومات الخام' زي الأرقام والأسماء والتواريخ. الكمبيوتر ده شغال بيها بس، يعني لو مافي داتا، الكمبيوتر ده عبارة عن حديدة ساكت ما منها فايدة." },
+            { id: 2, title: "2. هياكل البيانات (Data Structures)", acadAr: "هيكل البيانات هو طريقة متخصصة لتنظيم وتخزين البيانات في الحاسوب بحيث يمكن الوصول إليها وتعديلها واستخدامها بكفاءة.", en: "A data structure is a specialized way of organizing and storing data in a computer so it can be accessed, modified, and used efficiently.", sud: "تخيل غرفتك جايطة والهدوم في حتة والكتب في حتة! 'هياكل البيانات' دي هي 'الدواليب والرفوف' البترتب ليك معلوماتك جوة الذاكرة عشان تلقاها بسرعة." },
+            { id: 3, title: "3. الخوارزميات (Algorithms)", acadAr: "الخوارزمية هي مجموعة من التعليمات المتسلسلة خطوة بخطوة لحل مشكلة في وقت محدد. من أهم خصائصها: Finite (منتهية)، و Definite (محددة).", en: "An algorithm is a step-by-step set of instructions designed to solve a problem in a finite amount of time. Must be finite and definite.", sud: "الخوارزمية دي 'وصفة الطبيخ'. خطوات واضحة ومحددة. لازم تقيف في النهاية ما تشتغل للما لا نهاية، وخطواتها واضحة وما فيها لولوة." },
+            { id: 4, title: "4. المصفوفات (Arrays)", acadAr: "المصفوفة هيكل بيانات يخزن مجموعة عناصر متجاورة في الذاكرة من نفس النوع (Homogeneous). المشكلة الرئيسية هي أن حجمها ثابت (Fixed size).", en: "An array is a data structure storing contiguous elements of the same data type. Key features: Fixed size, Homogeneous elements.", sud: "المصفوفة زي كرتونة البيض! مقسمة لِخانات وكل خانة عندها رقم (Index). ميزتها سريعة، بس عيبها مقاسها ثابت، لو اتملت لازم كرتونة جديدة!" },
+            { id: 5, title: "5. التعامل مع المصفوفات (Array Traversal)", acadAr: "عملية اجتياز المصفوفة (Traversing) تعني المرور على كل عنصر فيها واحداً تلو الآخر للبحث أو الطباعة أو التعديل.", en: "Traversing an array means visiting every element one by one, typically using a loop, to process or check each data point.", sud: "كلمة Traversing دي معناها 'اللفة'.. يعني تمر على كل خانات المصفوفة بالدور، زي أستاذ بقرأ غياب الحضور وبنده الأسماء واحد واحد." },
+            { id: 6, title: "6. التكرار الذاتي (Recursion)", acadAr: "الدوال التكرارية هي الدوال التي تقوم باستدعاء نفسها. يجب أن تحتوي على حالة توقف (Base Case) لتجنب التكرار اللانهائي.", en: "Functions that call themselves are called recursive functions. They must have a base case to prevent infinite recursion.", sud: "الـ Recursion ده زي مراية قدام مراية، بتشوف انعكاسات ما بتنتهي! لازم تعمل ليها 'فرملة' (Base Case) عشان الدالة تقيف من مناداة نفسها." },
+            { id: 7, title: "7. تعليمة الإيقاف (Break Statement)", acadAr: "في لغة C++، تُنهي تعليمة break الحلقة (Loop) بالكامل عند مواجهتها، وغالباً ما تُستخدم مع عبارات اتخاذ القرار.", en: "In C++, the break statement terminates the loop when it is encountered. It is usually used with decision-making statements like if.", sud: "الـ Break دي زي 'الفرملة القوية' جوا اللفة (Loop). لو بتفتش على حاجة ولقيتها، بتعمل Break عشان تقطع اللفة نهائياً وما تضيع زمن." },
+            { id: 8, title: "8. تعليمة التخطي (Continue Statement)", acadAr: "تُستخدم تعليمة continue لتخطي الدورة الحالية للحلقة وانتقال التحكم إلى الدورة التالية. في الحلقات المتداخلة، تتخطى الدورة في الحلقة الداخلية فقط.", en: "The continue statement is used to skip the current iteration of the loop and the control flow jumps to the next iteration.", sud: "الـ Continue دي كأنك بتنط حفرة في الشارع وتواصل مشوارك عادي! ما بتوقف البرنامج كله، بس بتفوت اللفة الحالية وتمشي للبعدها طوالي." },
+            { id: 9, title: "9. تعليمة الاختيار (Switch Case)", acadAr: "تسمح تعليمة switch بتنفيذ كتلة برمجية من بين عدة بدائل. في حال عدم وجود تطابق، يتم تنفيذ الكود الموجود في default.", en: "The switch statement allows executing a block of code among many alternatives. If no match is found, the default code is executed.", sud: "الـ Switch ده زي 'السنترال'. بتديهو التعبير، وهو بحولك للخط الصح (case) طوالي. لازم تحط break في نهاية كل case عشان ما ينفذ البعدها بالغلط!" },
+            { id: 10, title: "10. أساسيات الدوال (Functions Intro)", acadAr: "الدالة هي كتلة صغيرة من الكود تؤدي مهمة واحدة محددة. تجعل البرنامج مكوناً من وحدات، سهل القراءة، قابل للصيانة، وإعادة الاستخدام.", en: "A function is a small block of code that does one specific job. It makes code easier to read, maintain, test, and reuse.", sud: "الدالة (Function) دي 'الصنايعي' بتاعك. بدل ما تتعب وتكتب الكود كل مرة، بتكتبو مرة واحدة وتناديك وقت ما تحتاجه." },
+            { id: 11, title: "11. التحميل الزائد (Function Overloading)", acadAr: "تدعم C++ التحميل الزائد للدوال، وهو إنشاء عدة دوال بنفس الاسم بشرط اختلاف المعاملات (عددها أو نوعها).", en: "C++ allows Function Overloading (multiple functions with the same name if parameters differ in count or type).", sud: "الـ Overloading ده كأنك مسمي كل الصنايعية 'محمد'. الكمبيوتر بفرزهم بالعدة الشايلينها (Parameters)! الفي يده شاكوش نجار، والفي يده مفتاح سباك." },
+            { id: 12, title: "12. أفضل الممارسات والأخطاء الشائعة", acadAr: "أفضل الممارسات: المسؤولية الواحدة، الأسماء الوصفية، وتقليل المعاملات. الأخطاء: نسيان عبارة return، التكرار اللانهائي، والمتغيرات العامة.", en: "Best practices: Single responsibility, descriptive names. Common pitfalls: forgetting return statement, infinite recursion, global variables.", sud: "الدالة النظيفة بتعمل حاجة واحدة بس، وما بنستخدم معاها متغيرات عامة (Global) عشان بتلخبط الشغل. ولو نسيت الـ Base case الكمبيوتر حيعلق للصباح!" }
         ];
 
         const container = document.getElementById('lessons-container');
+        let htmlContent = '';
         lessons.forEach(l => {
-            container.innerHTML += `
+            htmlContent += `
                 <div class="glass-card p-6 md:p-8 rounded-[2rem] flex flex-col h-full border-t-4 border-t-accent-500 relative overflow-hidden group hover:border-t-brand-500 transition-colors">
                     <div class="absolute -right-6 -top-6 text-9xl opacity-5 group-hover:scale-110 group-hover:rotate-12 transition duration-700 pointer-events-none text-slate-900 dark:text-white">📖</div>
-                    
                     <h3 class="text-2xl font-black mb-6 text-slate-800 dark:text-white relative z-10 leading-relaxed">${l.title}</h3>
-                    
                     <div class="flex flex-wrap gap-2 mb-6 border-b border-slate-200 dark:border-slate-700 pb-4 relative z-10">
                         <button class="tab-btn active px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" onclick="switchTab(this, 'sud-${l.id}')">بالسوداني 🇸🇩</button>
                         <button class="tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" onclick="switchTab(this, 'en-${l.id}')">English 🇬🇧</button>
                         <button class="tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" onclick="switchTab(this, 'ar-${l.id}')">أكاديمي 📚</button>
                     </div>
-
                     <div class="flex-grow relative z-10">
-                        <div id="sud-${l.id}" class="tab-content active text-lg font-bold leading-relaxed bg-amber-50/80 dark:bg-amber-900/10 text-amber-900 dark:text-amber-100 p-6 rounded-2xl border-r-4 border-sudanese-gold shadow-sm">
-                            ${l.sud}
-                        </div>
-                        <div id="en-${l.id}" class="tab-content en-text text-lg font-semibold leading-relaxed bg-blue-50/80 dark:bg-blue-900/10 text-blue-900 dark:text-blue-100 p-6 rounded-2xl border-l-4 border-blue-500 shadow-sm">
-                            ${l.en}
-                        </div>
-                        <div id="ar-${l.id}" class="tab-content text-lg font-semibold leading-relaxed bg-slate-100/80 dark:bg-slate-800/50 text-slate-700 dark:text-slate-200 p-6 rounded-2xl border-r-4 border-slate-400 shadow-sm">
-                            ${l.acadAr}
-                        </div>
+                        <div id="sud-${l.id}" class="tab-content active text-lg font-bold leading-relaxed bg-amber-50/80 dark:bg-amber-900/10 text-amber-900 dark:text-amber-100 p-6 rounded-2xl border-r-4 border-sudanese-gold shadow-sm">${l.sud}</div>
+                        <div id="en-${l.id}" class="tab-content en-text text-lg font-semibold leading-relaxed bg-blue-50/80 dark:bg-blue-900/10 text-blue-900 dark:text-blue-100 p-6 rounded-2xl border-l-4 border-blue-500 shadow-sm">${l.en}</div>
+                        <div id="ar-${l.id}" class="tab-content text-lg font-semibold leading-relaxed bg-slate-100/80 dark:bg-slate-800/50 text-slate-700 dark:text-slate-200 p-6 rounded-2xl border-r-4 border-slate-400 shadow-sm">${l.acadAr}</div>
                     </div>
                 </div>
             `;
         });
+        container.innerHTML = htmlContent;
 
         function switchTab(btn, targetId) {
             const card = btn.closest('.glass-card');
@@ -566,7 +490,10 @@
             const startDiv = document.getElementById('quiz-start');
             startDiv.style.opacity = '0';
             setTimeout(() => {
+                // إصلاح خطأ الـ CSS الخاص باختفاء العنصر
+                startDiv.classList.remove('flex');
                 startDiv.classList.add('hidden');
+                
                 const coreDiv = document.getElementById('quiz-core');
                 coreDiv.classList.remove('hidden');
                 coreDiv.classList.add('flex');
@@ -675,7 +602,7 @@
                 score++;
                 sessionScore += 10;
                 totalCoins += 10;
-                localStorage.setItem('gCoins', totalCoins);
+                safeSetStorage('gCoins', totalCoins);
                 updateWallet();
                 
                 const scoreUI = document.getElementById('session-score');
@@ -714,8 +641,10 @@
             coreDiv.style.opacity = '0';
             
             setTimeout(() => {
-                coreDiv.classList.add('hidden');
+                // إصلاح إخفاء العنصر الأوسط
                 coreDiv.classList.remove('flex');
+                coreDiv.classList.add('hidden');
+                
                 const resDiv = document.getElementById('quiz-result');
                 resDiv.classList.remove('hidden');
                 resDiv.classList.add('flex');
