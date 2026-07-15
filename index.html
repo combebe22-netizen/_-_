@@ -80,11 +80,6 @@
         body { font-family: 'Cairo', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; overflow-x: hidden; }
         .en-text { font-family: 'Outfit', sans-serif; direction: ltr; text-align: left; }
         .code-block { font-family: 'Fira Code', monospace; direction: ltr; text-align: left; background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; font-size: 0.9rem; margin-top: 0.5rem; margin-bottom: 0.5rem; border: 1px solid #334155; }
-        .code-block .keyword { color: #c678dd; }
-        .code-block .string { color: #98c379; }
-        .code-block .comment { color: #5c6370; font-style: italic; }
-        .code-block .function { color: #61afef; }
-        .code-block .number { color: #d19a66; }
         .glass-card { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 15px 35px rgba(0,0,0,0.05); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         .dark .glass-card { background: rgba(30, 41, 59, 0.75); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 15px 35px rgba(0,0,0,0.4); }
         .glass-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px rgba(0,0,0,0.1); }
@@ -116,8 +111,6 @@
         .explanation-box { display: none; margin-top: 1.5rem; padding: 1.5rem; border-radius: 1rem; background: linear-gradient(to left, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.05)); border-right: 4px solid #3b82f6; animation: slideUp 0.4s ease-out forwards; }
         .dark .explanation-box { background: linear-gradient(to left, rgba(59, 130, 246, 0.2), rgba(30, 64, 175, 0.1)); border-right-color: #60a5fa; }
         .explanation-box.active { display: block; }
-        .citation { font-size: 0.75rem; background: rgba(0,0,0,0.1); padding: 0.1rem 0.4rem; border-radius: 0.25rem; font-family: 'Fira Code', monospace; vertical-align: super; }
-        .dark .citation { background: rgba(255,255,255,0.1); }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 selection:bg-brand-400 selection:text-white">
@@ -139,7 +132,7 @@
                     </div>
                     <div class="flex flex-col">
                         <span class="font-black text-3xl tracking-tight dark:text-white leading-none">أكاديمية <span class="text-brand-600 dark:text-brand-400">G10</span></span>
-                        <span class="text-xs font-bold text-slate-500 dark:text-slate-400 mt-1">الموسوعة الشاملة | C++ Functions & Loops</span>
+                        <span class="text-xs font-bold text-slate-500 dark:text-slate-400 mt-1">الموسوعة الشاملة 2026</span>
                     </div>
                 </div>
                 
@@ -166,7 +159,7 @@
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
                   <span class="relative inline-flex rounded-full h-3 w-3 bg-brand-500"></span>
                 </span>
-                تحديث جديد: الدوال والتحكم في المسار (Functions & Flow Control) 🚀
+                تحديث الشامل: جميع الدروس (قديم + جديد) في مكان واحد 🚀
             </div>
             
             <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-[1.2]">
@@ -177,12 +170,12 @@
             </h1>
             
             <p class="text-xl md:text-2xl text-slate-600 dark:text-slate-300 font-bold mb-12 max-w-3xl mx-auto leading-relaxed">
-                تم إضافة أحدث المحاضرات شاملة (Break, Continue, Switch Case, Functions) مع تحدي أسئلة ضخم ومطور بجمع ليك الـ <span class="text-sudanese-gold font-black text-3xl">G-Coins 🪙</span> عشان تكون جاهز للامتحان بنسبة 100٪.
+                منصة تعليمية متكاملة تدمج أساسيات الخوارزميات (المصفوفات، الاستدعاء الذاتي) مع التحكم المتقدم والدوال (Break, Switch, Functions) بالشرح الثلاثي المميز.
             </p>
             
             <div class="flex justify-center gap-5 flex-wrap">
                 <button onclick="document.getElementById('lessons').scrollIntoView()" class="group px-8 py-4 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-black rounded-2xl text-xl shadow-xl hover:shadow-2xl hover:scale-105 transition transform border border-slate-200 dark:border-slate-700 flex items-center gap-3">
-                    أبدى المذاكرة 📖
+                    تصفح الموسوعة 📖
                     <svg class="w-5 h-5 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                 </button>
                 <button onclick="document.getElementById('quiz').scrollIntoView()" class="px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white font-black rounded-2xl text-xl shadow-xl shadow-brand-500/30 hover:scale-105 transition transform flex items-center gap-3">
@@ -194,22 +187,22 @@
                 <div class="glass-card p-6 rounded-3xl text-center">
                     <div class="text-4xl mb-2">📚</div>
                     <div class="text-3xl font-black text-slate-800 dark:text-white" id="stat-lessons">0</div>
-                    <div class="text-sm font-bold text-slate-500">درس ملخص</div>
+                    <div class="text-sm font-bold text-slate-500">درس متكامل</div>
                 </div>
                 <div class="glass-card p-6 rounded-3xl text-center">
                     <div class="text-4xl mb-2">❓</div>
                     <div class="text-3xl font-black text-slate-800 dark:text-white" id="stat-questions">0</div>
-                    <div class="text-sm font-bold text-slate-500">سؤال امتحانات جديد</div>
+                    <div class="text-sm font-bold text-slate-500">سؤال امتحانات</div>
                 </div>
                 <div class="glass-card p-6 rounded-3xl text-center">
-                    <div class="text-4xl mb-2">⏱️</div>
-                    <div class="text-3xl font-black text-slate-800 dark:text-white">100%</div>
-                    <div class="text-sm font-bold text-slate-500">شرح وتوضيحات</div>
+                    <div class="text-4xl mb-2">🌍</div>
+                    <div class="text-3xl font-black text-slate-800 dark:text-white">3</div>
+                    <div class="text-sm font-bold text-slate-500">لغات للشرح</div>
                 </div>
                 <div class="glass-card p-6 rounded-3xl text-center">
                     <div class="text-4xl mb-2">💡</div>
                     <div class="text-3xl font-black text-slate-800 dark:text-white">جديد</div>
-                    <div class="text-sm font-bold text-slate-500">نظام الإجابات المفصلة</div>
+                    <div class="text-sm font-bold text-slate-500">توضيح الإجابات</div>
                 </div>
             </div>
         </div>
@@ -219,12 +212,12 @@
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-20 relative">
                 <span class="text-8xl absolute left-1/2 -top-10 -translate-x-1/2 opacity-10 dark:opacity-5">🧠</span>
-                <h2 class="text-5xl font-black mb-6 text-slate-900 dark:text-white relative z-10">الموسوعة الشاملة (النسخة المحدثة)</h2>
-                <p class="text-xl text-slate-500 dark:text-slate-400 font-bold max-w-2xl mx-auto">الشرح الخماسي: أكاديمي، إنجليزي، والزبدة بالسوداني مع إضافة أحدث مواضيع الدوال والمسارات.</p>
+                <h2 class="text-5xl font-black mb-6 text-slate-900 dark:text-white relative z-10">الموسوعة الشاملة (النسخة الكاملة)</h2>
+                <p class="text-xl text-slate-500 dark:text-slate-400 font-bold max-w-2xl mx-auto">الشرح الثلاثي: أكاديمي (للامتحانات)، إنجليزي (للمصطلحات)، والزبدة بالسوداني (للفهم العميق).</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10" id="lessons-container">
-                <!-- Lessons will be injected via JS -->
+                <!-- Lessons injected via JS -->
             </div>
         </div>
     </main>
@@ -235,15 +228,14 @@
         <div class="max-w-6xl mx-auto px-4">
             <div class="glass-card rounded-[3rem] p-6 md:p-12 relative overflow-hidden shadow-2xl border-t-8 border-t-brand-500 bg-white/95 dark:bg-slate-800/95 min-h-[600px] flex flex-col">
                 
-                <!-- Start Screen -->
                 <div id="quiz-start" class="text-center py-12 flex-grow flex flex-col justify-center items-center">
                     <div class="relative inline-block mb-10">
                         <div class="absolute inset-0 bg-brand-400 rounded-full blur-2xl opacity-50 animate-pulse-slow"></div>
                         <div class="text-8xl relative z-10 animate-float">🎯</div>
                     </div>
-                    <h3 class="text-4xl md:text-5xl font-black mb-6 text-slate-900 dark:text-white">بنك الأسئلة الشامل - جاهز؟</h3>
+                    <h3 class="text-4xl md:text-5xl font-black mb-6 text-slate-900 dark:text-white">بنك الأسئلة الشامل (قديم + جديد)</h3>
                     <p class="text-xl text-slate-500 dark:text-slate-400 font-bold mb-12 max-w-2xl mx-auto">
-                        يحتوي الاختبار الآن على عشرات الأسئلة المأخوذة حرفياً من المنهج والمقرر (Break, Switch, Functions). تمت إضافة ميزة الشرح التفصيلي بعد كل سؤال! كل إجابة صحيحة تمنحك <span class="text-sudanese-gold">10 عملات 🪙</span>.
+                        يحتوي الاختبار على كافة الأسئلة (هياكل البيانات، المصفوفات، الدوال، وغيرها) مع التوضيح التفصيلي. كل إجابة صحيحة تمنحك <span class="text-sudanese-gold">10 عملات 🪙</span>.
                     </p>
                     <button onclick="startQuiz()" class="w-full sm:w-auto bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white px-16 py-5 rounded-2xl font-black text-2xl shadow-xl shadow-brand-500/30 transition-all duration-300 hover:scale-105 hover:-translate-y-2 flex items-center gap-4 justify-center">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -251,16 +243,13 @@
                     </button>
                 </div>
 
-                <!-- Core Quiz Screen -->
                 <div id="quiz-core" class="hidden flex-grow flex-col justify-start">
                     <div class="flex justify-between items-center mb-8 bg-slate-50 dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm">
                         <div class="flex items-center gap-3">
                             <div class="bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-400 p-2 rounded-xl">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             </div>
-                            <div class="font-black text-lg tracking-widest text-slate-700 dark:text-slate-200" id="q-counter">
-                                <!-- Counter -->
-                            </div>
+                            <div class="font-black text-lg tracking-widest text-slate-700 dark:text-slate-200" id="q-counter"></div>
                         </div>
                         <div class="flex items-center gap-3 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 px-5 py-2.5 rounded-xl font-bold border border-amber-200 dark:border-amber-700/50 shadow-sm">
                             <span class="text-xl">🏆</span>
@@ -277,16 +266,11 @@
 
                     <div class="mb-10 bg-white dark:bg-slate-800 p-6 md:p-8 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm">
                         <span class="text-brand-500 font-bold mb-3 inline-block en-text tracking-widest uppercase text-xs bg-brand-50 dark:bg-brand-900/20 px-3 py-1 rounded-full">Current Question</span>
-                        <h4 id="q-text" class="text-2xl md:text-3xl font-black leading-relaxed en-text text-slate-800 dark:text-white">
-                            <!-- Question Text -->
-                        </h4>
+                        <h4 id="q-text" class="text-2xl md:text-3xl font-black leading-relaxed en-text text-slate-800 dark:text-white"></h4>
                     </div>
                     
-                    <div id="q-options" class="grid grid-cols-1 lg:grid-cols-2 gap-4 relative mb-6">
-                        <!-- Options -->
-                    </div>
+                    <div id="q-options" class="grid grid-cols-1 lg:grid-cols-2 gap-4 relative mb-6"></div>
 
-                    <!-- Enhanced Explanation Box -->
                     <div id="explanation-container" class="explanation-box relative">
                         <div class="absolute top-4 right-4 text-3xl opacity-20">💡</div>
                         <h5 class="font-black text-lg text-accent-600 dark:text-accent-400 mb-2 flex items-center gap-2">
@@ -302,7 +286,6 @@
                     </div>
                 </div>
 
-                <!-- Result Screen -->
                 <div id="quiz-result" class="hidden text-center py-12 flex-grow flex-col justify-center items-center">
                     <div class="text-9xl mb-8 animate-bounce" id="result-emoji">🏆</div>
                     <h3 class="text-5xl font-black mb-4 text-slate-900 dark:text-white" id="result-title">انتهى الاختبار!</h3>
@@ -355,9 +338,7 @@
     <div id="toast-container"></div>
 
     <script>
-        // ==========================================
-        // 1. Theme Management
-        // ==========================================
+        // Theme Management
         const themeBtn = document.getElementById('theme-toggle');
         const themeIcon = document.getElementById('theme-icon');
         
@@ -380,9 +361,7 @@
             updateTheme();
         });
 
-        // ==========================================
-        // 2. Gamification & User Progress
-        // ==========================================
+        // Gamification System
         let totalCoins = parseInt(localStorage.getItem('gCoins')) || 0;
         let sessionScore = 0;
         
@@ -409,10 +388,7 @@
                 toast.style.background = '#ef4444';
                 toast.style.boxShadow = '0 10px 25px rgba(239, 68, 68, 0.4)';
             }
-            toast.innerHTML = `
-                <span class="text-2xl">${isCoin ? '🪙' : '❌'}</span>
-                <span>${message}</span>
-            `;
+            toast.innerHTML = `<span class="text-2xl">${isCoin ? '🪙' : '❌'}</span><span>${message}</span>`;
             container.appendChild(toast);
             
             setTimeout(() => toast.classList.add('show'), 10);
@@ -424,82 +400,81 @@
 
         updateWallet();
 
-        // ==========================================
-        // 3. Curriculum Data (الموسوعة - Lessons 1 to 16)
-        // Includes old lessons + new comprehensive ones from Context
-        // ==========================================
+        // Data Source: Combining Old and New Lessons
         const lessons = [
+            // Old Content
             {
                 id: 1, title: "1. مفهوم البيانات (Data Concept)",
                 acadAr: "البيانات (Data) هي معلومات في شكل حقائق، أرقام، أو قيم يمكن جمعها وتخزينها ومعالجتها لدعم اتخاذ القرارات. الحواسيب تعمل فقط مع البيانات.",
                 en: "Data is information in the form of facts, numbers, or values that can be collected, stored, processed, and interpreted to provide meaning or support decision-making.",
-                sud: "البيانات دي باختصار هي 'المعلومات الخام' زي الأرقام والأسماء والتواريخ. الكمبيوتر ده شغال بيها بس، يعني لو مافي داتا، الكمبيوتر ده عبارة عن حديدة ساكت ما منها فايدة. بنستخدمها عشان ناخد قرارات صح!"
+                sud: "البيانات دي باختصار هي 'المعلومات الخام' زي الأرقام والأسماء والتواريخ. الكمبيوتر ده شغال بيها بس، يعني لو مافي داتا، الكمبيوتر ده عبارة عن حديدة ساكت ما منها فايدة."
             },
             {
                 id: 2, title: "2. هياكل البيانات (Data Structures)",
-                acadAr: "هيكل البيانات هو طريقة متخصصة لتنظيم وتخزين البيانات في الحاسوب بحيث يمكن الوصول إليها وتعديلها واستخدامها بكفاءة. تحدد كيفية ارتباط القيم ببعضها والعمليات التي يمكن تنفيذها عليها.",
-                en: "A data structure is a specialized way of organizing and storing data in a computer so it can be accessed, modified, and used efficiently. It defines how data values relate to each other.",
-                sud: "تخيل غرفتك جايطة والهدوم في حتة والكتب في حتة! 'هياكل البيانات' دي هي 'الدواليب والرفوف' البترتب ليك معلوماتك جوة الذاكرة. الترتيب الكويس بيوفر وقتك ويخليك تلقى الحاجة بسرعة (Efficiency)."
+                acadAr: "هيكل البيانات هو طريقة متخصصة لتنظيم وتخزين البيانات في الحاسوب بحيث يمكن الوصول إليها وتعديلها واستخدامها بكفاءة.",
+                en: "A data structure is a specialized way of organizing and storing data in a computer so it can be accessed, modified, and used efficiently.",
+                sud: "تخيل غرفتك جايطة والهدوم في حتة والكتب في حتة! 'هياكل البيانات' دي هي 'الدواليب والرفوف' البترتب ليك معلوماتك جوة الذاكرة عشان تلقاها بسرعة."
             },
             {
                 id: 3, title: "3. الخوارزميات (Algorithms)",
-                acadAr: "الخوارزمية هي مجموعة من التعليمات المتسلسلة خطوة بخطوة لحل مشكلة في وقت محدد. من أهم خصائصها: Finite (منتهية)، Definite (محددة)، ولها مدخلات ومخرجات.",
-                en: "An algorithm is a step-by-step set of instructions designed to solve a problem in a finite amount of time. Must be finite, definite, effective, take inputs, and produce outputs.",
-                sud: "الخوارزمية دي 'وصفة الطبيخ'. خطوات واضحة ومحددة. لازم تكون (Finite) يعني تقيف في النهاية ما تشتغل للما لا نهاية، و (Definite) يعني خطواتها واضحة وما فيها لولوة. الخوارزمية فكرة، والبرنامج هو الكود البنفذها."
+                acadAr: "الخوارزمية هي مجموعة من التعليمات المتسلسلة خطوة بخطوة لحل مشكلة في وقت محدد. من أهم خصائصها: Finite (منتهية)، و Definite (محددة).",
+                en: "An algorithm is a step-by-step set of instructions designed to solve a problem in a finite amount of time. Must be finite and definite.",
+                sud: "الخوارزمية دي 'وصفة الطبيخ'. خطوات واضحة ومحددة. لازم تقيف في النهاية ما تشتغل للما لا نهاية، وخطواتها واضحة وما فيها لولوة."
             },
             {
                 id: 4, title: "4. المصفوفات (Arrays)",
-                acadAr: "المصفوفة هيكل بيانات يخزن مجموعة عناصر متجاورة في الذاكرة من نفس النوع (Homogeneous). يتم الوصول للعنصر عبر الفهرس (Index). المشكلة الرئيسية هي أن حجمها ثابت (Fixed size).",
-                en: "An array is a data structure storing contiguous elements of the same data type. Accessed using an index. Key features: Fixed size, Homogeneous elements, Fast indexed access.",
-                sud: "المصفوفة زي كرتونة البيض! مقسمة لِخانات وكل خانة عندها رقم (Index). ميزتها إنك بتصل لأي حاجة طوالي وسريعة جداً. عيبها؟ مقاسها ثابت (Fixed size)، لو اتملت لازم تشتري كرتونة جديدة!"
+                acadAr: "المصفوفة هيكل بيانات يخزن مجموعة عناصر متجاورة في الذاكرة من نفس النوع (Homogeneous). المشكلة الرئيسية هي أن حجمها ثابت (Fixed size).",
+                en: "An array is a data structure storing contiguous elements of the same data type. Key features: Fixed size, Homogeneous elements.",
+                sud: "المصفوفة زي كرتونة البيض! مقسمة لِخانات وكل خانة عندها رقم (Index). ميزتها سريعة، بس عيبها مقاسها ثابت، لو اتملت لازم كرتونة جديدة!"
             },
             {
                 id: 5, title: "5. التعامل مع المصفوفات (Array Traversal)",
                 acadAr: "عملية اجتياز المصفوفة (Traversing) تعني المرور على كل عنصر فيها واحداً تلو الآخر للبحث أو الطباعة أو التعديل.",
                 en: "Traversing an array means visiting every element one by one, typically using a loop, to process or check each data point.",
-                sud: "كلمة Traversing دي معناها 'اللفة'.. يعني تمر على كل خانات المصفوفة بالدور، زي أستاذ بقرأ غياب الحضور وبنده الأسماء واحد واحد عشان يتاكد من الكل."
+                sud: "كلمة Traversing دي معناها 'اللفة'.. يعني تمر على كل خانات المصفوفة بالدور، زي أستاذ بقرأ غياب الحضور وبنده الأسماء واحد واحد."
             },
             {
                 id: 6, title: "6. التكرار الذاتي (Recursion)",
-                acadAr: "الدوال التكرارية (Recursive Functions) هي الدوال التي تقوم باستدعاء نفسها من داخل الكود الخاص بها. يجب أن تحتوي على حالة توقف (Base Case) لتجنب التكرار اللانهائي.",
+                acadAr: "الدوال التكرارية هي الدوال التي تقوم باستدعاء نفسها. يجب أن تحتوي على حالة توقف (Base Case) لتجنب التكرار اللانهائي.",
                 en: "Functions that call themselves are called recursive functions. They must have a base case to prevent infinite recursion.",
-                sud: "الـ Recursion ده زي لما تخت مراية قدام مراية، بتشوف انعكاسات ما بتنتهي! عشان كده في البرمجة لازم تعمل ليها 'فرملة' (Base Case) عشان الدالة تقيف من مناداة نفسها، وإلا الكمبيوتر بهنج معاك."
+                sud: "الـ Recursion ده زي مراية قدام مراية، بتشوف انعكاسات ما بتنتهي! لازم تعمل ليها 'فرملة' (Base Case) عشان الدالة تقيف من مناداة نفسها."
+            },
+            // New Content
+            {
+                id: 7, title: "7. تعليمة الإيقاف (Break Statement)",
+                acadAr: "في لغة C++، تُنهي تعليمة break الحلقة (Loop) بالكامل عند مواجهتها، وغالباً ما تُستخدم مع عبارات اتخاذ القرار.",
+                en: "In C++, the break statement terminates the loop when it is encountered. It is usually used with decision-making statements like if.",
+                sud: "الـ Break دي زي 'الفرملة القوية' جوا اللفة (Loop). لو بتفتش على حاجة ولقيتها، بتعمل Break عشان تقطع اللفة نهائياً وما تضيع زمن."
             },
             {
-                id: 11, title: "7. تعليمة الإيقاف (Break Statement) <span class='text-brand-500 text-sm'>[مُحدث]</span>",
-                acadAr: "في لغة C++، تُنهي تعليمة break الحلقة (Loop) بالكامل عند مواجهتها، وغالباً ما تُستخدم مع عبارات اتخاذ القرار[span_0](start_span)[span_0](end_span).",
-                en: "In C++, the break statement terminates the loop when it is encountered. It is usually used with decision-making statements like if[span_1](start_span)[span_1](end_span).",
-                sud: "الـ Break دي زي 'الفرملة القوية' جوا اللفة (Loop). لو شغال بتفتش على حاجة ولقيتها، بتعمل Break عشان تقطع اللفة نهائياً وما تضيع زمن الكمبيوتر[span_2](start_span)[span_2](end_span)."
+                id: 8, title: "8. تعليمة التخطي (Continue Statement)",
+                acadAr: "تُستخدم تعليمة continue لتخطي الدورة الحالية للحلقة وانتقال التحكم إلى الدورة التالية. في الحلقات المتداخلة، تتخطى الدورة في الحلقة الداخلية فقط.",
+                en: "The continue statement is used to skip the current iteration of the loop and the control flow jumps to the next iteration.",
+                sud: "الـ Continue دي كأنك بتنط حفرة في الشارع وتواصل مشوارك عادي! ما بتوقف البرنامج كله، بس بتفوت اللفة الحالية وتمشي للبعدها طوالي."
             },
             {
-                id: 12, title: "8. تعليمة التخطي (Continue Statement) <span class='text-brand-500 text-sm'>[مُحدث]</span>",
-                acadAr: "تُستخدم تعليمة continue لتخطي الدورة الحالية للحلقة وانتقال التحكم إلى الدورة التالية (أو تعبير التحديث update expression)[span_3](start_span)[span_3](end_span). في الحلقات المتداخلة (Nested)، تتخطى الدورة في الحلقة الداخلية فقط[span_4](start_span)[span_4](end_span).",
-                en: "The continue statement is used to skip the current iteration of the loop and the control flow jumps to the next iteration (update expression)[span_5](start_span)[span_5](end_span). In nested loops, it skips the current iteration of the inner loop[span_6](start_span)[span_6](end_span).",
-                sud: "الـ Continue دي كأنك بتنط حفرة في الشارع وتواصل مشوارك عادي! ما بتوقف البرنامج كله زي الـ break، بس بتفوت اللفة الحالية وتمشي للبعدها طوالي[span_7](start_span)[span_7](end_span)."
+                id: 9, title: "9. تعليمة الاختيار (Switch Case)",
+                acadAr: "تسمح تعليمة switch بتنفيذ كتلة برمجية من بين عدة بدائل. في حال عدم وجود تطابق، يتم تنفيذ الكود الموجود في default.",
+                en: "The switch statement allows executing a block of code among many alternatives. If no match is found, the default code is executed.",
+                sud: "الـ Switch ده زي 'السنترال'. بتديهو التعبير، وهو بحولك للخط الصح (case) طوالي. لازم تحط break في نهاية كل case عشان ما ينفذ البعدها بالغلط!"
             },
             {
-                id: 13, title: "9. تعليمة الاختيار (Switch Case) <span class='text-brand-500 text-sm'>[مُحدث]</span>",
-                acadAr: "تسمح تعليمة switch بتنفيذ كتلة برمجية من بين عدة بدائل. يتم تقييم التعبير مرة واحدة ومقارنته مع قيم case. في حال عدم وجود تطابق، يتم تنفيذ الكود الموجود في default[span_8](start_span)[span_8](end_span).",
-                en: "The switch statement allows executing a block of code among many alternatives. The expression is evaluated once and compared with each case label. If no match is found, the default code is executed[span_9](start_span)[span_9](end_span).",
-                sud: "الـ Switch ده زي 'السنترال'. بتديهو رقم (التعبير)، وهو بحولك للخط الصح (case) طوالي، بدل ما تسأل أسئلة كتيرة بـ if..else. ولازم تحط break في نهاية كل case عشان ما ينفذ البعدها بالغلط[span_10](start_span)[span_10](end_span)!"
+                id: 10, title: "10. أساسيات الدوال (Functions Intro)",
+                acadAr: "الدالة هي كتلة صغيرة من الكود تؤدي مهمة واحدة محددة. تجعل البرنامج مكوناً من وحدات، سهل القراءة، قابل للصيانة، وإعادة الاستخدام.",
+                en: "A function is a small block of code that does one specific job. It makes code easier to read, maintain, test, and reuse.",
+                sud: "الدالة (Function) دي 'الصنايعي' بتاعك. بدل ما تتعب وتكتب الكود كل مرة، بتكتبو مرة واحدة وتناديك وقت ما تحتاجه."
             },
             {
-                id: 14, title: "10. أساسيات الدوال (Functions Intro) <span class='text-brand-500 text-sm'>[مُحدث]</span>",
-                acadAr: "الدالة هي كتلة صغيرة من الكود تؤدي مهمة واحدة محددة. تجعل البرنامج مكوناً من وحدات (modular)، سهل القراءة (readable)، قابل للصيانة، وإعادة الاستخدام[span_11](start_span)[span_11](end_span). تتكون من: نوع الإرجاع، الاسم، المعاملات، وجسم الدالة[span_12](start_span)[span_12](end_span).",
-                en: "A function is a small block of code that does one specific job. It makes code easier to read, maintain, test, and reuse. A basic function has: return type, name, parameters, and body[span_13](start_span)[span_13](end_span).",
-                sud: "الدالة (Function) دي 'الصنايعي' بتاعك. بدل ما إنت تتعب في الشغلانة كل مرة، بتكتب الكود مرة واحدة وتناديك وقت ما تحتاجه. بتخلي الكود بتاعك نظيف ومرتب ومافيهو تكرار[span_14](start_span)[span_14](end_span)."
+                id: 11, title: "11. التحميل الزائد (Function Overloading)",
+                acadAr: "تدعم C++ التحميل الزائد للدوال، وهو إنشاء عدة دوال بنفس الاسم بشرط اختلاف المعاملات (عددها أو نوعها).",
+                en: "C++ allows Function Overloading (multiple functions with the same name if parameters differ in count or type).",
+                sud: "الـ Overloading ده كأنك مسمي كل الصنايعية 'محمد'. الكمبيوتر بفرزهم بالعدة الشايلينها (Parameters)! الفي يده شاكوش نجار، والفي يده مفتاح سباك."
             },
             {
-                id: 15, title: "11. أنواع الدوال والتحميل الزائد (Function Types & Overloading) <span class='text-brand-500 text-sm'>[مُحدث]</span>",
-                acadAr: "للدوال 4 أنواع (بناءً على المعاملات وقيم الإرجاع). وتدعم C++ التحميل الزائد (Function Overloading)، وهو إنشاء عدة دوال بنفس الاسم بشرط اختلاف المعاملات[span_15](start_span)[span_15](end_span). يمكن أيضاً استخدام وسائط افتراضية (Default Arguments)[span_16](start_span)[span_16](end_span).",
-                en: "There are 4 types of functions (combinations of parameters/returns). C++ allows Function Overloading (multiple functions with the same name if parameters differ). It also supports Default Arguments[span_17](start_span)[span_17](end_span).",
-                sud: "الـ Overloading ده كأنك مسمي كل الصنايعية المعاك 'محمد'. بس الكمبيوتر بفرزهم بالعدة الشايلينها (Parameters)! لو ناديت 'محمد' العندو شاكوش بيجيك نجار، والفي يده مفتاح بيجيك سباك[span_18](start_span)[span_18](end_span)."
-            },
-            {
-                id: 16, title: "12. أفضل الممارسات والأخطاء (Best Practices & Pitfalls) <span class='text-brand-500 text-sm'>[مُحدث]</span>",
-                acadAr: "أفضل الممارسات تشمل: المسؤولية الواحدة، الأسماء الوصفية، تقليل المعاملات (≤3)، وتجنب المتغيرات العامة[span_19](start_span)[span_19](end_span). الأخطاء الشائعة: نسيان عبارة return، التكرار اللانهائي (نقص حالة التوقف base case)، والآثار الجانبية[span_20](start_span)[span_20](end_span).",
-                en: "Best practices: Single responsibility, descriptive names, limit parameters (≤3), avoid global variables[span_21](start_span)[span_21](end_span). Common pitfalls: forgetting return statement, uninitialized params, infinite recursion[span_22](start_span)[span_22](end_span).",
-                sud: "عشان تكتب دوال نظيفة: الدالة تعمل حاجة واحدة بس (Single Responsibility)، ما تكتر مدخلاتها (أقل من 3)، وما تستخدم متغيرات عامة (Global) عشان بتلخبط الشغل. ولو نسيت الـ Base case في دالة تكرارية، الكمبيوتر حيعلق معاك للصباح[span_23](start_span)[span_23](end_span)!"
+                id: 12, title: "12. أفضل الممارسات والأخطاء الشائعة",
+                acadAr: "أفضل الممارسات: المسؤولية الواحدة، الأسماء الوصفية، وتقليل المعاملات. الأخطاء: نسيان عبارة return، التكرار اللانهائي، والمتغيرات العامة.",
+                en: "Best practices: Single responsibility, descriptive names. Common pitfalls: forgetting return statement, infinite recursion, global variables.",
+                sud: "الدالة النظيفة بتعمل حاجة واحدة بس، وما بنستخدم معاها متغيرات عامة (Global) عشان بتلخبط الشغل. ولو نسيت الـ Base case الكمبيوتر حيعلق للصباح!"
             }
         ];
 
@@ -541,27 +516,239 @@
             card.querySelector('#' + targetId).classList.add('active');
         }
 
-        // ==========================================
-        // 4. Massive Quiz Bank Engine (With explanations & citations)
-        // Highly expanded based on Source 1 and Source 2
-        // ==========================================
+        // Quiz Bank Engine
         const quizData = [
-            // Old general questions
             { q: "What is a data structure?", opts: ["A programming language", "A loop", "A way of organizing and storing data", "A compiler"], correct: 2, exp: "A data structure is a specialized way of organizing and storing data in a computer so it can be accessed, modified, and used efficiently." },
             { q: "Which best describes an algorithm?", opts: ["A programming language", "A compiler", "A hardware device", "A step-by-step procedure used to solve a problem"], correct: 3, exp: "An algorithm is a step-by-step set of instructions designed to solve a problem in a finite amount of time." },
-            
-            // Source 1: Break & Continue
-            { q: "In C++, what does the 'break' statement do when encountered inside a loop?", opts: ["Skips the current iteration", "Terminates the loop entirely", "Restarts the loop from the beginning", "Causes a syntax error"], correct: 1, exp: "In C++, the break statement terminates the loop when it is encountered <span class='citation'>[span_24](start_span)[span_24](end_span)</span>." },
-            { q: "What is the primary use of the 'break' statement in loops?", opts: ["To create an infinite loop", "To add numbers", "To stop the loop based on a specific condition", "To declare a variable"], correct: 2, exp: "The break statement terminates the loop when it is encountered. Note: The break statement is usually used with decision-making statements (like if conditions) <span class='citation'>[span_25](start_span)[span_25](end_span)</span>." },
-            { q: "What happens if a 'break' statement is executed inside a nested loop?", opts: ["It terminates all loops", "It terminates only the inner loop", "It terminates only the outer loop", "It skips the current iteration of the inner loop"], correct: 1, exp: "When break is used in nested loops, it terminates the specific loop it is placed in (usually the inner loop) without affecting the outer loop execution. <span class='citation'>[span_26](start_span)[span_26](end_span)</span>" },
-            { q: "What is the function of the 'continue' statement in C++?", opts: ["Terminates the program completely", "Skips the current iteration of the loop", "Jumps to another function", "Restarts the computer"], correct: 1, exp: "In computer programming, the continue statement is used to skip the current iteration of the loop and the control of the program goes to the next iteration <span class='citation'>[span_27](start_span)[span_27](end_span)</span>." },
-            { q: "When a 'continue' statement is executed in a 'for' loop, where does the control flow jump to?", opts: ["To the end of the program", "To the initialization step", "To the update expression", "To the break statement"], correct: 2, exp: "In a for loop, continue skips the current iteration and the control flow jumps to the update expression <span class='citation'>[span_28](start_span)[span_28](end_span)</span>." },
-            { q: "When a 'continue' statement is executed in a 'while' loop, where does the control flow jump back to?", opts: ["The while condition", "The end of the loop", "The update statement inside the loop", "The beginning of the main function"], correct: 0, exp: "In a while loop, continue skips the current iteration and control flow of the program jumps back to the while condition <span class='citation'>[span_29](start_span)[span_29](end_span)</span>." },
-            { q: "What is the difference between 'break' and 'continue'?", opts: ["They are exactly the same", "Break skips one iteration; continue stops the loop", "Break terminates the loop entirely; continue only skips the current iteration", "Continue causes an error; break does not"], correct: 2, exp: "The break statement terminates the loop entirely. However, the continue statement only skips the current iteration <span class='citation'>[span_30](start_span)[span_30](end_span)</span>." },
-            { q: "When 'continue' is used with nested loops, what does it skip?", opts: ["The current iteration of the outer loop", "The current iteration of the inner loop", "Both loops entirely", "The next iteration of the outer loop"], correct: 1, exp: "When continue is used with nested loops, it skips the current iteration of the inner loop. The control of the program moves to the update expression of the inner loop <span class='citation'>[span_31](start_span)[span_31](end_span)</span>." },
-            { q: "What is the purpose of the 'goto' statement in C++?", opts: ["To end the program", "To define a function", "To alter the normal sequence by transferring control to another part of the program", "To import a library"], correct: 2, exp: "In C++ programming, the goto statement is used for altering the normal sequence of program execution by transferring control to some other part of the program <span class='citation'>[span_32](start_span)[span_32](end_span)</span>." },
+            { q: "In C++, what does the 'break' statement do when encountered inside a loop?", opts: ["Skips the current iteration", "Terminates the loop entirely", "Restarts the loop from the beginning", "Causes a syntax error"], correct: 1, exp: "In C++, the break statement terminates the loop entirely when it is encountered." },
+            { q: "What is the primary use of the 'break' statement in loops?", opts: ["To create an infinite loop", "To add numbers", "To stop the loop based on a specific condition", "To declare a variable"], correct: 2, exp: "The break statement terminates the loop when it is encountered, usually used with decision-making statements like if conditions." },
+            { q: "What is the function of the 'continue' statement in C++?", opts: ["Terminates the program completely", "Skips the current iteration of the loop", "Jumps to another function", "Restarts the computer"], correct: 1, exp: "The continue statement is used to skip the current iteration of the loop and the control of the program goes to the next iteration." },
+            { q: "What does the 'switch' statement allow you to do?", opts: ["Create a loop", "Execute a block of code among many alternatives", "Declare multiple variables", "Read user input automatically"], correct: 1, exp: "The switch statement allows us to execute a block of code among many alternatives based on a value match." },
+            { q: "In a 'switch' statement, what happens if there is no match with any 'case' label?", opts: ["The program crashes", "The compiler throws an error", "The code after 'default:' is executed", "The program restarts"], correct: 2, exp: "If there is no match, the code after default: is executed." },
+            { q: "What happens if you do NOT use a 'break' statement inside a matching 'case' block?", opts: ["The switch statement terminates immediately", "A syntax error occurs", "All cases after the correct case are executed", "The default block is ignored"], correct: 2, exp: "If the break statement is not used, execution 'falls through' and all cases after the correct case are executed." },
+            { q: "What is a function in programming?", opts: ["A massive block of code that does everything", "A hardware component", "A small block of code that does one specific job", "A type of loop"], correct: 2, exp: "A function is a small block of code that does one specific job, making code modular and reusable." },
+            { q: "If a function's return type is 'void', what does it mean?", opts: ["It returns a boolean", "It returns a string", "It does not have a return value", "It returns zero"], correct: 2, exp: "If the return type is void, the function does not return a value back to the caller." },
+            { q: "What does 'Function Overloading' allow you to do in C++?", opts: ["Create multiple functions with the same name as long as the parameters differ", "Call a function an infinite number of times", "Give a function multiple return types", "Overload the memory with too many functions"], correct: 0, exp: "C++ lets you create multiple functions with the same name as long as their parameter lists (types or count) differ." },
+            { q: "What is the purpose of a 'base case' in a recursive function?", opts: ["To start the recursion", "To prevent infinite recursion by providing a stopping condition", "To return the final value", "To declare the variables"], correct: 1, exp: "A base case provides a stopping condition to prevent the function from calling itself infinitely." },
+            { q: "Which of the following is considered a 'Best Practice' when writing functions?", opts: ["Passing large objects by value", "Writing functions that do 10 different tasks", "Using clear, descriptive function names", "Using many global variables"], correct: 2, exp: "Best Practices include: Using descriptive names, Single Responsibility, and avoiding global variables." },
+            { q: "According to best practices, what is the recommended limit for function parameters?", opts: ["No limit", "Limit to exactly 10", "Aim for ≤3 parameters; use structures if needed", "Zero parameters only"], correct: 2, exp: "It is recommended to limit parameters to ≤3. If more are needed, group them into a struct or class." },
+            { q: "Why should you avoid using global variables in functions?", opts: ["Because they make the code too fast", "Because they use too much memory", "Because passing data as parameters keeps functions independent and predictable", "The compiler doesn't support them"], correct: 2, exp: "Avoiding global variables ensures functions remain independent, making debugging and reuse much easier." }
+        ];
 
-            // Source 1: Switch Case
-            { q: "What does the 'switch' statement allow you to do?", opts: ["Create a loop", "Execute a block of code among many alternatives", "Declare multiple variables", "Read user input automatically"], correct: 1, exp: "The switch statement allows us to execute a block of code among many alternatives <span class='citation'>[span_33](start_span)[span_33](end_span)</span>." },
-            { q: "Why might a programmer choose a 'switch' statement over an 'if...else..if' ladder?", opts: ["Switch is the only way to compare numbers", "Switch is faster to compile", "The syntax of the switch statement is cleaner and much easier to read and write", "Switch doesn't require memory"], correct: 2, exp: "We can do the same thing with the if...else..if ladder. However, the syntax of the switch statement is cleaner and much easier to read and write <span class='citation'>[span_34](start_span)[span_34](end_span)</span>." },
-            { q: "In a 'switch' statement, what happens if there is n
+        document.getElementById('stat-lessons').innerText = lessons.length;
+        document.getElementById('stat-questions').innerText = quizData.length;
+
+        function shuffle(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
+
+        let qIndex = 0;
+        let score = 0;
+        let activeQuizSet = [];
+        let isQuestionAnswered = false;
+
+        function startQuiz() {
+            activeQuizSet = shuffle([...quizData]).slice(0, 10);
+            
+            qIndex = 0; 
+            score = 0;
+            sessionScore = 0;
+            isQuestionAnswered = false;
+            
+            document.getElementById('session-score').innerText = sessionScore;
+            
+            const startDiv = document.getElementById('quiz-start');
+            startDiv.style.opacity = '0';
+            setTimeout(() => {
+                startDiv.classList.add('hidden');
+                const coreDiv = document.getElementById('quiz-core');
+                coreDiv.classList.remove('hidden');
+                coreDiv.classList.add('flex');
+                coreDiv.style.opacity = '0';
+                
+                setTimeout(() => {
+                    coreDiv.style.transition = 'opacity 0.5s ease';
+                    coreDiv.style.opacity = '1';
+                    loadQuestion();
+                }, 50);
+            }, 300);
+        }
+
+        function loadQuestion() {
+            isQuestionAnswered = false;
+            const q = activeQuizSet[qIndex];
+            
+            const progress = ((qIndex) / activeQuizSet.length) * 100;
+            document.getElementById('q-progress').style.width = `${progress}%`;
+            document.getElementById('q-counter').innerText = `Question ${qIndex + 1} of ${activeQuizSet.length}`;
+            
+            const qText = document.getElementById('q-text');
+            qText.style.opacity = 0;
+            qText.style.transform = 'translateY(10px)';
+            
+            const expBox = document.getElementById('explanation-container');
+            expBox.classList.remove('active');
+            
+            setTimeout(() => {
+                qText.innerText = q.q;
+                qText.style.transition = 'all 0.4s ease';
+                qText.style.opacity = 1;
+                qText.style.transform = 'translateY(0)';
+            }, 200);
+            
+            const optsContainer = document.getElementById('q-options');
+            optsContainer.innerHTML = '';
+            
+            q.opts.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "quiz-option w-full text-left p-5 md:p-6 rounded-2xl border-2 border-slate-200 dark:border-slate-700 en-text font-semibold text-lg bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 shadow-sm transition-all duration-200 hover:border-brand-500 hover:shadow-md hover:-translate-y-1";
+                
+                const optionLetter = String.fromCharCode(65 + idx);
+                btn.innerHTML = `<span class="inline-block w-8 h-8 text-center leading-8 rounded-lg bg-slate-100 dark:bg-slate-700 mr-3 text-slate-500 dark:text-slate-400 font-bold border border-slate-200 dark:border-slate-600">${optionLetter}</span> ${opt}`;
+                
+                btn.onclick = (e) => handleAnswer(idx, btn, e);
+                
+                btn.style.opacity = 0;
+                btn.style.transform = 'translateY(20px)';
+                optsContainer.appendChild(btn);
+                
+                setTimeout(() => {
+                    btn.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                    btn.style.opacity = 1;
+                    btn.style.transform = 'translateY(0)';
+                }, 250 + (idx * 100));
+            });
+        }
+
+        function createParticles(x, y, isCorrect) {
+            for (let i = 0; i < 15; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.backgroundColor = isCorrect ? '#22c55e' : '#ef4444';
+                p.style.left = x + 'px';
+                p.style.top = y + 'px';
+                
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = 50 + Math.random() * 100;
+                const tx = Math.cos(angle) * velocity;
+                const ty = Math.sin(angle) * velocity;
+                
+                p.style.setProperty('--tx', `${tx}px`);
+                p.style.setProperty('--ty', `${ty}px`);
+                
+                document.body.appendChild(p);
+                setTimeout(() => p.remove(), 1000);
+            }
+        }
+
+        function handleAnswer(selectedIndex, btnElement, event) {
+            if (isQuestionAnswered) return;
+            isQuestionAnswered = true;
+
+            const q = activeQuizSet[qIndex];
+            const isCorrect = selectedIndex === q.correct;
+            
+            const rect = btnElement.getBoundingClientRect();
+            const x = event.clientX || (rect.left + rect.width / 2);
+            const y = event.clientY || (rect.top + rect.height / 2);
+            
+            createParticles(x, y, isCorrect);
+            
+            const allBtns = document.getElementById('q-options').children;
+            for(let i=0; i<allBtns.length; i++){
+                allBtns[i].classList.add('disabled');
+                allBtns[i].style.transform = 'none';
+                if(i === q.correct) {
+                    allBtns[i].classList.add('correct');
+                } else if (i === selectedIndex && !isCorrect) {
+                    allBtns[i].classList.add('wrong');
+                }
+            }
+
+            if(isCorrect) {
+                score++;
+                sessionScore += 10;
+                totalCoins += 10;
+                localStorage.setItem('gCoins', totalCoins);
+                updateWallet();
+                
+                const scoreUI = document.getElementById('session-score');
+                scoreUI.innerText = sessionScore;
+                scoreUI.classList.add('text-brand-500', 'scale-150');
+                setTimeout(() => scoreUI.classList.remove('text-brand-500', 'scale-150'), 300);
+                
+                showToast('+10 G-Coins Earned!', true);
+            } else {
+                showToast('إجابة خاطئة! ركز في الشرح.', false);
+            }
+
+            const expBox = document.getElementById('explanation-container');
+            const expText = document.getElementById('q-explanation');
+            expText.innerHTML = q.exp;
+            expBox.classList.add('active');
+            
+            setTimeout(() => {
+                expBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        }
+
+        function nextQuestion() {
+            qIndex++;
+            if(qIndex < activeQuizSet.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById('q-progress').style.width = `100%`;
+            
+            const coreDiv = document.getElementById('quiz-core');
+            coreDiv.style.opacity = '0';
+            
+            setTimeout(() => {
+                coreDiv.classList.add('hidden');
+                coreDiv.classList.remove('flex');
+                const resDiv = document.getElementById('quiz-result');
+                resDiv.classList.remove('hidden');
+                resDiv.classList.add('flex');
+                
+                const percentage = Math.round((score / activeQuizSet.length) * 100);
+                document.getElementById('res-score').innerText = `${percentage}%`;
+                document.getElementById('earned-coins').innerText = sessionScore;
+                
+                let emoji, title, message;
+                if(percentage === 100) {
+                    emoji = '🏆'; title = 'علامة كاملة! أسطورة!'; message = 'أنت جاهز تماماً لامتحان الفاينل.';
+                    document.getElementById('result-emoji').classList.add('animate-confetti');
+                }
+                else if(percentage >= 80) {
+                    emoji = '🔥'; title = 'ممتاز جداً!'; message = 'مستواك رائع، ركز في الأخطاء البسيطة بس.';
+                }
+                else if(percentage >= 50) {
+                    emoji = '👍'; title = 'جيد، لكن تحتاج مراجعة'; message = 'ارجع اقرأ الموسوعة تاني عشان تضمن الـ A.';
+                }
+                else {
+                    emoji = '📚'; title = 'لا تستسلم!'; message = 'البرمجة بتحتاج ممارسة، راجع الدروس من البداية وجرب تاني.';
+                }
+                
+                document.getElementById('result-emoji').innerText = emoji;
+                document.getElementById('result-title').innerText = title;
+                document.getElementById('res-message').innerText = message;
+                
+                setTimeout(() => {
+                    resDiv.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                    resDiv.style.opacity = '1';
+                }, 50);
+            }, 500);
+        }
+    </script>
+</body>
+</html>
