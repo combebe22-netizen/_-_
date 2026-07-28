@@ -1,797 +1,569 @@
 <!DOCTYPE html>
-<!-- 
-  C++ Pro Academy - Advanced Bilingual Learning Platform
-  Refactored for Mobile-First Responsiveness, UI/UX Modernization, and Robust RTL Support.
--->
-<html lang="en" dir="ltr" class="dark scroll-smooth">
+<html lang="en" dir="ltr" data-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <!-- Viewport optimized for mobile-first scaling and touch stability -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title data-i18n="page_title">C++ Pro Academy | Comprehensive C++ Programming</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page_title">C++ Pro Academy</title>
     
-    <!-- Google Fonts -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Cairo:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS (Script based for prototyping, extended with custom configuration) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: { 50: 'var(--brand-50)', 100: 'var(--brand-100)', 400: 'var(--brand-400)', 500: 'var(--brand-500)', 600: 'var(--brand-600)', 900: 'var(--brand-900)' },
-                        accent: { 400: 'var(--accent-400)', 500: 'var(--accent-500)', 600: 'var(--accent-600)', 900: 'var(--accent-900)' },
-                        darkbg: 'var(--bg-dark)',
-                        surface: 'var(--bg-surface)',
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'Cairo', 'sans-serif'],
-                        code: ['Fira Code', 'monospace']
-                    },
-                    animation: {
-                        'gradient-x': 'gradient-x 15s ease infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    },
-                    keyframes: {
-                        'gradient-x': {
-                            '0%, 100%': { 'background-size': '200% 200%', 'background-position': 'left center' },
-                            '50%': { 'background-size': '200% 200%', 'background-position': 'right center' }
-                        },
-                        'float': {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' }
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
+    <!-- Inline Styles (CSS) -->
     <style>
-        /* CSS Custom Properties for Modernization & Maintainability */
+        /* CSS Custom Properties & Theming */
         :root {
-            --brand-50: #f0f9ff;
-            --brand-100: #e0f2fe;
-            --brand-400: #38bdf8;
-            --brand-500: #0ea5e9;
-            --brand-600: #0284c7;
-            --brand-900: #0c4a6e;
+            /* Light Theme */
+            --bg-main: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --border-color: #e2e8f0;
             
-            --accent-400: #a78bfa;
-            --accent-500: #8b5cf6;
-            --accent-600: #7c3aed;
-            --accent-900: #4c1d95;
+            --brand-primary: #000000;
+            --brand-accent: #2563eb;
+            --brand-hover: #334155;
             
-            --bg-dark: #050811;
-            --bg-surface: #0f172a;
+            --ide-bg: #0d1117;
+            --ide-text: #e6edf3;
+            
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
         }
 
-        /* Base Typography & Touch Usability */
-        body { 
-            font-family: 'Inter', 'Cairo', sans-serif; 
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden; /* Prevent horizontal scroll bugs */
-        }
-        
-        button, a, input, textarea {
-            touch-action: manipulation; /* Removes double-tap zoom delay on mobile */
-        }
-
-        /* Responsive Fluid Typography */
-        .fluid-heading {
-            font-size: clamp(2rem, 5vw + 1rem, 4.5rem);
+        [data-theme="dark"] {
+            /* Dark Theme */
+            --bg-main: #0a0a0a;
+            --bg-secondary: #171717;
+            --bg-tertiary: #262626;
+            --text-primary: #ededed;
+            --text-secondary: #a3a3a3;
+            --border-color: #333333;
+            
+            --brand-primary: #ffffff;
+            --brand-accent: #3b82f6;
+            --brand-hover: #d4d4d4;
         }
 
-        html[lang="ar"] body { font-family: 'Cairo', sans-serif; }
-        html[lang="en"] body { font-family: 'Inter', sans-serif; }
+        /* Reset & Base Setup */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        code, pre { 
-            font-family: 'Fira Code', monospace; 
-            direction: ltr; 
-            text-align: left; 
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            line-height: 1.5;
+            transition: background-color 0.3s, color 0.3s;
         }
 
-        /* Polished Glassmorphism */
-        .glass-panel {
-            background: rgba(15, 23, 42, 0.65);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease-in-out;
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+
+        a { text-decoration: none; color: inherit; }
+        button { cursor: pointer; border: none; background: none; font-family: inherit; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+
+        /* Header */
+        .app-header {
+            position: sticky; top: 0; z-index: 100;
+            background-color: var(--bg-main);
+            border-bottom: 1px solid var(--border-color);
         }
-
-        .glass-panel:hover {
-            border-color: rgba(14, 165, 233, 0.3);
-            box-shadow: 0 12px 40px rgba(14, 165, 233, 0.15);
+        .header-container {
+            display: flex; justify-content: space-between; align-items: center; height: 64px;
         }
-
-        .gradient-text {
-            background: linear-gradient(135deg, var(--brand-400) 0%, var(--accent-400) 50%, var(--brand-400) 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradient-x 5s linear infinite;
+        .logo { display: flex; align-items: center; gap: 0.75rem; font-weight: 700; font-size: 1.25rem; }
+        .logo-icon {
+            background-color: var(--brand-primary); color: var(--bg-main);
+            border-radius: var(--radius-sm); padding: 0.25rem 0.5rem; font-size: 0.875rem;
         }
+        .desktop-nav { display: flex; gap: 1.5rem; font-size: 0.875rem; font-weight: 500; color: var(--text-secondary); }
+        .desktop-nav a:hover { color: var(--brand-primary); }
+        .header-actions { display: flex; gap: 0.75rem; align-items: center; }
 
-        /* Custom Scrollbars */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg-dark); }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 8px; }
-        ::-webkit-scrollbar-thumb:hover { background: #334155; }
-        
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-        .typing-dot { animation: typing 1.4s infinite ease-in-out both; }
-        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
-        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
-        
-        @keyframes typing {
-            0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
-            40% { transform: scale(1); opacity: 1; }
+        /* Buttons */
+        .btn {
+            padding: 0.5rem 1rem; border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 500;
+            transition: all 0.2s;
         }
+        .btn-small { padding: 0.25rem 0.75rem; font-size: 0.75rem; }
+        .btn-primary { background-color: var(--brand-primary); color: var(--bg-main); }
+        .btn-primary:hover { background-color: var(--brand-hover); }
+        .btn-outline { border: 1px solid var(--border-color); color: var(--text-primary); }
+        .btn-outline:hover { background-color: var(--bg-secondary); }
+        .icon-btn { font-size: 1.25rem; padding: 0.25rem; border-radius: var(--radius-sm); }
+        .icon-btn:hover { background-color: var(--bg-secondary); }
 
-        .dir-ltr { direction: ltr; text-align: left; }
-        .dir-rtl { direction: rtl; text-align: right; }
+        /* Hero Section */
+        .hero { text-align: center; padding: 5rem 0; border-bottom: 1px solid var(--border-color); }
+        .hero-badge {
+            display: inline-block; padding: 0.25rem 0.75rem; border: 1px solid var(--border-color);
+            border-radius: 20px; font-size: 0.75rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 1rem;
+        }
+        .hero-title { font-size: clamp(2rem, 5vw, 4rem); font-weight: 700; letter-spacing: -0.02em; margin: 1rem 0; }
+        .hero-subtitle { font-size: 1.125rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+
+        /* Modules Grid */
+        .section { padding: 4rem 0; }
+        .section-title { font-size: 1.5rem; font-weight: 600; margin-bottom: 2rem; }
+        .grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+        .module-card {
+            padding: 1.5rem; border: 1px solid var(--border-color); border-radius: var(--radius-md);
+            background-color: var(--bg-main); transition: box-shadow 0.2s, border-color 0.2s;
+        }
+        .module-card:hover { border-color: var(--brand-accent); box-shadow: var(--shadow-sm); }
+        .module-id { color: var(--brand-accent); font-weight: 600; font-size: 0.875rem; margin-bottom: 0.5rem; }
+        .module-title { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .module-desc { font-size: 0.875rem; color: var(--text-secondary); }
+
+        /* IDE Viewer (Code Library) */
+        .ide-layout { display: flex; border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden; height: 600px; background-color: var(--bg-main); }
+        .ide-sidebar { width: 300px; border-inline-end: 1px solid var(--border-color); overflow-y: auto; background-color: var(--bg-secondary); }
+        .assignment-btn {
+            display: block; width: 100%; text-align: start; padding: 1rem; border-bottom: 1px solid var(--border-color);
+            font-size: 0.875rem; color: var(--text-primary); transition: background-color 0.2s;
+        }
+        .assignment-btn:hover { background-color: var(--bg-tertiary); }
+        .assignment-btn.active { border-inline-start: 3px solid var(--brand-accent); background-color: var(--bg-tertiary); font-weight: 600; }
+        .ide-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+        .ide-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); background-color: var(--bg-secondary); padding: 0 1rem; }
+        .ide-tabs { display: flex; }
+        .ide-tab { padding: 0.75rem 1rem; font-size: 0.875rem; border-bottom: 2px solid transparent; color: var(--text-secondary); }
+        .ide-tab.active { border-bottom-color: var(--brand-accent); color: var(--text-primary); }
+        .ide-editor { flex: 1; background-color: var(--ide-bg); padding: 1rem; overflow: auto; }
+        .ide-editor pre, .output-preview { font-family: 'Fira Code', monospace; font-size: 0.875rem; color: var(--ide-text); direction: ltr; text-align: left; }
+        .ide-terminal { border-top: 1px solid var(--border-color); background-color: var(--bg-secondary); padding: 1rem; max-height: 200px; overflow-y: auto; }
+        .terminal-header { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.5rem; }
+        .output-preview { background-color: #000; padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid #333; margin-top: 0.5rem; }
+
+        /* AI Chat Widget */
+        .chat-widget {
+            position: fixed; bottom: 1.5rem; inset-inline-end: 1.5rem; width: 350px;
+            background-color: var(--bg-main); border: 1px solid var(--border-color);
+            border-radius: var(--radius-md); box-shadow: var(--shadow-md); z-index: 200;
+            display: flex; flex-direction: column; transition: height 0.3s;
+        }
+        .chat-widget[aria-expanded="false"] { height: 48px; overflow: hidden; cursor: pointer; }
+        .chat-widget[aria-expanded="true"] { height: 450px; }
+        .chat-header {
+            display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color); background-color: var(--bg-secondary);
+        }
+        .chat-title { font-weight: 600; display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; }
+        .status-dot { width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; }
+        .chat-body { flex: 1; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem; }
+        .chat-msg { max-width: 85%; padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); font-size: 0.875rem; line-height: 1.4; }
+        .ai-msg { background-color: var(--bg-secondary); border: 1px solid var(--border-color); align-self: flex-start; }
+        .user-msg { background-color: var(--brand-primary); color: var(--bg-main); align-self: flex-end; }
+        .loading-dots { font-style: italic; color: var(--text-secondary); font-size: 0.75rem; align-self: flex-start; }
+        .chat-footer { padding: 0.75rem; border-top: 1px solid var(--border-color); }
+        #ai-form { display: flex; gap: 0.5rem; }
+        #ai-input { flex: 1; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); background: var(--bg-main); color: var(--text-primary); }
+        #ai-input:focus { outline: none; border-color: var(--brand-accent); }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .ide-layout { flex-direction: column; height: 800px; }
+            .ide-sidebar { width: 100%; height: 200px; border-inline-end: none; border-bottom: 1px solid var(--border-color); }
+            .chat-widget { width: calc(100% - 3rem); bottom: 1.5rem; inset-inline-start: 1.5rem; }
+        }
     </style>
 </head>
-<body class="bg-darkbg text-slate-200 min-h-screen selection:bg-brand-500 selection:text-white transition-colors duration-500 relative">
+<body>
 
-    <!-- Animated Background Elements -->
-    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-brand-900/20 blur-[120px] animate-pulse-slow"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-accent-900/20 blur-[120px] animate-pulse-slow" style="animation-delay: 2s;"></div>
-    </div>
+    <!-- Header -->
+    <header class="app-header">
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">C++</div>
+                <span class="logo-text" data-i18n="logo_title">Academy Pro</span>
+            </div>
+            
+            <nav class="desktop-nav">
+                <a href="#modules" data-i18n="nav_modules">Modules</a>
+                <a href="#library" data-i18n="nav_library">Library</a>
+            </nav>
 
-    <!-- Header Navigation -->
-    <header class="sticky top-0 z-40 glass-panel border-b border-slate-800/80 shadow-md">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6">
-            <div class="flex items-center justify-between h-20">
-                <!-- Logo -->
-                <a href="#" class="flex items-center gap-3 group relative z-10 min-h-[44px] min-w-[44px]">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-accent-600 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-brand-500/25 group-hover:scale-105 transition-transform duration-300">
-                        C++
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="font-extrabold text-lg tracking-tight text-white flex items-center gap-2">
-                            <span data-i18n="nav_logo_title">C++ Academy</span>
-                            <span data-i18n="nav_logo_badge" class="text-[10px] px-2 py-0.5 rounded-full bg-brand-500/10 text-brand-400 border border-brand-500/20 uppercase tracking-wider font-semibold">PRO</span>
-                        </span>
-                    </div>
-                </a>
-
-                <!-- Desktop Nav -->
-                <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300 z-10">
-                    <a href="#curriculum" data-i18n="nav_modules" class="hover:text-brand-400 hover:scale-105 transition-all p-2">Modules</a>
-                    <a href="#code-viewer" data-i18n="nav_library" class="hover:text-brand-400 hover:scale-105 transition-all p-2">Code Library</a>
-                    <a href="#challenges" data-i18n="nav_quiz" class="hover:text-brand-400 hover:scale-105 transition-all p-2">Skills Quiz</a>
-                    <a href="#contact" data-i18n="nav_support" class="hover:text-brand-400 hover:scale-105 transition-all p-2">Support</a>
-                </nav>
-
-                <!-- Tools & Toggles (Min touch targets enforced) -->
-                <div class="flex items-center gap-2 sm:gap-3 z-10">
-                    <!-- XP Badge -->
-                    <div class="hidden sm:flex items-center gap-1.5 bg-slate-800/80 border border-slate-700/60 px-3 py-2 rounded-full text-xs font-semibold text-amber-400 shadow-inner" title="Experience Points">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                        <span id="ui-coins" class="font-bold text-sm tracking-wide">0</span>
-                    </div>
-                    
-                    <!-- Language Toggle -->
-                    <button id="lang-toggle" class="flex items-center justify-center min-w-[44px] min-h-[44px] rounded-xl bg-slate-800/80 border border-slate-700/60 hover:bg-brand-600 hover:border-brand-500 text-slate-300 hover:text-white transition-all duration-300 font-bold text-xs uppercase shadow-sm">
-                        AR
-                    </button>
-
-                    <!-- Theme Toggle -->
-                    <button id="theme-toggle" class="flex items-center justify-center min-w-[44px] min-h-[44px] rounded-xl bg-slate-800/80 border border-slate-700/60 hover:bg-slate-700 text-slate-300 transition-all duration-300 shadow-sm">
-                        <span id="theme-icon" class="text-sm">🌙</span>
-                    </button>
-
-                    <!-- Mobile Menu Toggle Button (Added for responsiveness) -->
-                    <button id="mobile-menu-btn" class="md:hidden flex items-center justify-center min-w-[44px] min-h-[44px] rounded-xl bg-slate-800/80 border border-slate-700/60 text-slate-300 hover:text-white transition-all duration-300 shadow-sm" aria-expanded="false" aria-controls="mobile-nav-drawer">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                    </button>
-                </div>
+            <div class="header-actions">
+                <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">🌙</button>
+                <button id="lang-toggle" class="btn btn-outline">AR</button>
             </div>
         </div>
     </header>
 
-    <!-- Mobile Navigation Drawer -->
-    <div id="mobile-nav-backdrop" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300"></div>
-    <nav id="mobile-nav-drawer" class="fixed top-0 right-0 rtl:right-auto rtl:left-0 h-full w-64 bg-surface border-l rtl:border-l-0 rtl:border-r border-slate-800 shadow-2xl z-50 transform translate-x-full rtl:-translate-x-full transition-transform duration-300 flex flex-col pt-24 px-6 gap-6">
-        <a href="#curriculum" class="mobile-nav-link text-lg font-medium text-slate-300 hover:text-brand-400 transition-colors" data-i18n="nav_modules">Modules</a>
-        <a href="#code-viewer" class="mobile-nav-link text-lg font-medium text-slate-300 hover:text-brand-400 transition-colors" data-i18n="nav_library">Code Library</a>
-        <a href="#challenges" class="mobile-nav-link text-lg font-medium text-slate-300 hover:text-brand-400 transition-colors" data-i18n="nav_quiz">Skills Quiz</a>
-        <a href="#contact" class="mobile-nav-link text-lg font-medium text-slate-300 hover:text-brand-400 transition-colors" data-i18n="nav_support">Support</a>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="relative pt-20 pb-20 overflow-hidden flex flex-col items-center text-center z-10 px-4">
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(14,165,233,0.15),transparent_50%)] pointer-events-none"></div>
+    <!-- Main Content -->
+    <main class="container">
         
-        <div class="w-full max-w-5xl mx-auto relative z-10 animate-float mt-8">
-            <span data-i18n="hero_badge" class="inline-block px-4 py-2 mb-6 text-xs font-bold rounded-full bg-brand-500/10 text-brand-400 border border-brand-500/20 backdrop-blur-sm uppercase tracking-wider shadow-[0_0_15px_rgba(14,165,233,0.2)]">
-                Complete Academic Curriculum 2025-2026
-            </span>
-            <h1 class="fluid-heading font-extrabold tracking-tight text-white mb-6 leading-tight">
-                <span data-i18n="hero_title_1">Master</span> <span class="gradient-text">C++ Programming</span><br>
-                <span data-i18n="hero_title_2" class="text-3xl sm:text-4xl md:text-5xl text-slate-200 mt-3 block">From Basics to Advanced OOP</span>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-badge" data-i18n="hero_badge">Curriculum 2025-2026</div>
+            <h1 class="hero-title">
+                <span data-i18n="hero_title">Master C++ Programming</span>
             </h1>
-
-            <p data-i18n="hero_subtitle" class="text-slate-400 text-sm sm:text-lg md:text-xl mb-10 max-w-3xl mx-auto leading-relaxed font-light">
-                An integrated platform providing detailed explanations and 30 practical assignments covering I/O, Conditions, Loops, Arrays, Functions, Pointers, OOP, and File Handling.
+            <p class="hero-subtitle" data-i18n="hero_subtitle">
+                Professional documentation and practical assignments covering I/O, Arrays, Pointers, and OOP.
             </p>
+        </section>
 
-            <div class="flex flex-col sm:flex-row flex-wrap justify-center gap-4">
-                <a href="#curriculum" class="min-h-[48px] px-8 py-4 rounded-xl bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 text-white font-bold text-sm transition-all shadow-lg shadow-brand-500/30 hover:shadow-brand-500/50 hover:-translate-y-0.5 flex items-center justify-center gap-2">
-                    <span data-i18n="hero_btn_explore">Explore Curriculum (12 Modules)</span>
-                    <svg class="w-5 h-5 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                </a>
-                <a href="#challenges" class="min-h-[48px] px-8 py-4 rounded-xl bg-surface hover:bg-slate-800 text-slate-200 border border-slate-700 hover:border-slate-600 font-bold text-sm transition-all shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2">
-                    <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                    <span data-i18n="hero_btn_quiz">Start Interactive Quiz</span>
-                </a>
+        <!-- Modules Grid -->
+        <section id="modules" class="section">
+            <h2 class="section-title" data-i18n="modules_title">Core Modules</h2>
+            <div id="modules-grid" class="grid-layout">
+                <!-- Injected via JS -->
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Curriculum Section -->
-    <section id="curriculum" class="py-20 border-t border-slate-800/60 bg-surface/50 relative z-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6">
-            <div class="text-center mb-12">
-                <h2 data-i18n="modules_title" class="text-3xl sm:text-4xl font-extrabold text-white mb-4 tracking-tight">Core Educational Modules</h2>
-                <p data-i18n="modules_subtitle" class="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto">Structured learning path derived directly from the academic syllabus, ensuring comprehensive mastery of C++.</p>
-            </div>
-            <!-- Dynamic Grid injected via JS -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="lessons-container"></div>
-        </div>
-    </section>
-
-    <!-- Code Interactive Library -->
-    <section id="code-viewer" class="py-20 border-t border-slate-800/60 relative z-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6">
-            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
-                <div>
-                    <h2 data-i18n="library_title" class="text-3xl sm:text-4xl font-extrabold text-white mb-3 tracking-tight">Practical Assignments Library</h2>
-                    <p data-i18n="library_subtitle" class="text-sm sm:text-base text-slate-400">Browse all 30 official assignments with source code, logic explanations, and sample outputs.</p>
-                </div>
-                <div class="flex items-center gap-2 text-sm font-medium text-slate-400 bg-slate-800/50 px-4 py-2.5 rounded-lg border border-slate-700/50 w-max">
-                    <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                    <span id="total-assignments-count">30</span> <span data-i18n="library_count_text">Assignments Loaded</span>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                <!-- Sidebar Questions -->
-                <div class="lg:col-span-4 glass-panel rounded-2xl p-3 border border-slate-700/60 h-96 lg:h-[650px] overflow-y-auto custom-scrollbar" id="questions-list">
+        <!-- Code Library (IDE UI) -->
+        <section id="library" class="section">
+            <h2 class="section-title" data-i18n="library_title">Assignments Library</h2>
+            
+            <div class="ide-layout">
+                <!-- Sidebar -->
+                <aside class="ide-sidebar" id="assignments-list">
                     <!-- Injected via JS -->
-                </div>
+                </aside>
 
-                <!-- Main Code View -->
-                <div class="lg:col-span-8 glass-panel rounded-2xl p-4 sm:p-6 md:p-8 border border-slate-700/60 flex flex-col min-h-[500px] lg:h-[650px]">
-                    <div class="flex-grow flex flex-col min-h-0">
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-slate-700/80 mb-5 gap-4">
-                            <div>
-                                <h3 id="code-title" class="text-xl font-bold text-white mb-2">Select an assignment</h3>
-                                <div class="flex items-center gap-2">
-                                    <span id="code-section-badge" class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-brand-500/10 text-brand-400 border border-brand-500/20 uppercase tracking-wider">C++</span>
-                                </div>
-                            </div>
-                            <button id="copy-btn" class="flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-xl text-sm font-semibold text-slate-200 transition-all shadow-sm hover:shadow-md min-h-[44px]">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                                <span id="copy-text" data-i18n="btn_copy">Copy Code</span>
-                            </button>
+                <!-- Main Code Area -->
+                <div class="ide-main">
+                    <div class="ide-header">
+                        <div class="ide-tabs">
+                            <span class="ide-tab active">main.cpp</span>
+                            <span class="ide-tab">output.txt</span>
                         </div>
-                        
-                        <p id="code-desc" class="text-sm text-slate-300 mb-5 leading-relaxed bg-slate-800/30 p-4 rounded-xl border border-slate-700/30"></p>
-                        
-                        <div class="bg-[#0d1117] rounded-xl p-4 sm:p-5 border border-slate-700/80 overflow-y-auto flex-grow relative shadow-inner w-full">
-                            <pre class="m-0 p-0"><code id="code-snippet" class="text-xs sm:text-sm text-emerald-400 block w-full leading-relaxed dir-ltr">// Source code will appear here...</code></pre>
-                        </div>
+                        <button id="copy-btn" class="btn btn-small btn-primary" data-i18n="btn_copy">Copy</button>
                     </div>
                     
-                    <div id="code-explanation" class="mt-5 p-4 sm:p-5 rounded-xl bg-brand-900/10 border border-brand-500/20 text-sm text-slate-300 leading-relaxed shadow-sm">
-                        <div class="flex items-center gap-2 mb-2">
-                            <svg class="w-5 h-5 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <strong data-i18n="lbl_logic" class="text-brand-400 font-bold uppercase tracking-wider text-xs">Logic & Explanation:</strong>
+                    <div class="ide-editor">
+                        <pre><code id="code-snippet">// Select an assignment from the sidebar...</code></pre>
+                    </div>
+
+                    <div class="ide-terminal">
+                        <div class="terminal-header" data-i18n="lbl_logic">Logic & Expected Output</div>
+                        <div class="terminal-content">
+                            <p id="explanation-text" class="mb-2">Explanation will appear here.</p>
+                            <pre class="output-preview"><code id="output-snippet">Output preview...</code></pre>
                         </div>
-                        <span id="explanation-text" class="block mt-1">Select an item from the list to view its explanation.</span>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Interactive Quiz Section -->
-    <section id="challenges" class="py-20 bg-surface/80 border-t border-slate-800/60 relative z-10">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6">
-            <div class="glass-panel rounded-3xl p-6 sm:p-12 border border-slate-700/60 relative shadow-[0_0_50px_rgba(0,0,0,0.3)] overflow-hidden">
-                <div class="absolute top-0 right-0 w-64 h-64 bg-accent-500/10 rounded-full blur-[80px] pointer-events-none"></div>
-                
-                <div id="quiz-start" class="text-center relative z-10">
-                    <div class="w-20 h-20 rounded-3xl bg-gradient-to-br from-accent-600 to-brand-600 p-[2px] mx-auto mb-6 shadow-xl shadow-accent-500/20">
-                        <div class="w-full h-full bg-slate-900 rounded-[22px] flex items-center justify-center text-3xl">🎯</div>
-                    </div>
-                    <h3 data-i18n="quiz_title" class="text-2xl sm:text-3xl font-extrabold text-white mb-4">Comprehensive C++ Assessment</h3>
-                    <p data-i18n="quiz_desc" class="text-slate-400 text-sm sm:text-base mb-8 leading-relaxed max-w-lg mx-auto">Test your understanding of the fundamentals and earn 15 XP for every correct answer!</p>
-                    <button id="start-quiz-btn" class="min-h-[48px] px-10 py-4 bg-gradient-to-r from-accent-600 to-accent-500 hover:from-accent-500 hover:to-accent-400 text-white font-bold text-sm rounded-xl transition-all shadow-lg shadow-accent-500/30 hover:shadow-accent-500/50 hover:-translate-y-0.5">
-                        <span data-i18n="btn_start_quiz">Start Assessment Now</span>
-                    </button>
-                </div>
+    </main>
+
+    <!-- AI Chat Widget -->
+    <div class="chat-widget" id="chat-widget" aria-expanded="false">
+        <div class="chat-header">
+            <div class="chat-title">
+                <span class="status-dot"></span>
+                <span data-i18n="ai_title">AI Assistant</span>
             </div>
+            <button id="chat-toggle" class="icon-btn">💬</button>
         </div>
-    </section>
-
-    <!-- Support Section -->
-    <section id="contact" class="py-20 border-t border-slate-800/60 relative z-10">
-        <div class="max-w-2xl mx-auto px-4 sm:px-6 text-center">
-            <h2 data-i18n="contact_title" class="text-3xl font-extrabold text-white mb-4">Academic Support</h2>
-            <p class="text-slate-400 text-sm sm:text-base mb-10"><span data-i18n="contact_desc">Contact the lecturer for assignment reviews:</span> <a href="mailto:combebe22@gmail.com" class="text-brand-400 font-semibold hover:underline min-h-[44px] inline-block p-1">combebe22@gmail.com</a></p>
-            
-            <form id="contact-form" action="https://formsubmit.co/combebe22@gmail.com" method="POST" class="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-700/60 text-left rtl:text-right space-y-5 shadow-2xl">
-                <input type="hidden" name="_subject" value="C++ Academy Support Request">
-                <div>
-                    <label data-i18n="form_name_lbl" class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Full Name</label>
-                    <input type="text" name="name" required class="w-full px-4 py-3.5 rounded-xl bg-slate-900/50 border border-slate-700 text-white text-sm focus:border-brand-500 focus:ring-1 focus:ring-brand-500 focus:outline-none transition-all placeholder-slate-600 min-h-[48px]" data-i18n-placeholder="form_name_ph">
-                </div>
-                <div>
-                    <label data-i18n="form_msg_lbl" class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Message</label>
-                    <textarea name="message" rows="4" required class="w-full px-4 py-3.5 rounded-xl bg-slate-900/50 border border-slate-700 text-white text-sm focus:border-brand-500 focus:ring-1 focus:ring-brand-500 focus:outline-none transition-all resize-none placeholder-slate-600" data-i18n-placeholder="form_msg_ph"></textarea>
-                </div>
-                <button type="submit" class="w-full py-4 min-h-[48px] bg-brand-600 hover:bg-brand-500 text-white font-bold text-sm rounded-xl transition-all shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40">
-                    <span data-i18n="btn_send">Send Message</span>
-                </button>
+        <div class="chat-body" id="chat-window">
+            <div class="chat-msg ai-msg" id="ai-welcome-msg">How can I help you with C++ today?</div>
+        </div>
+        <div class="chat-footer">
+            <form id="ai-form">
+                <input type="text" id="ai-input" data-i18n-placeholder="ai_input_ph" placeholder="Ask AI..." autocomplete="off" required>
+                <button type="submit" class="btn btn-primary" id="ai-submit-btn">↳</button>
             </form>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-8 border-t border-slate-800/80 text-center relative z-10 bg-[#050811]">
-        <p class="text-slate-500 text-xs sm:text-sm font-medium px-4">© 2026 C++ Pro Academy. <span data-i18n="footer_text">All rights reserved. Derived from Academic Assignment Solutions.</span></p>
-    </footer>
-
-    <!-- Local AI Assistant 3.0 (Robust Outside-click & Layering Fixes) -->
-    <div class="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-[60] flex flex-col items-end rtl:items-start rtl:right-auto rtl:left-6 sm:rtl:left-8">
-        <div id="ai-drawer" class="w-[90vw] max-w-[340px] sm:max-w-[420px] h-[32rem] sm:h-[36rem] mb-4 glass-panel rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-slate-600/50 flex flex-col transition-all duration-400 transform scale-95 opacity-0 origin-bottom-right rtl:origin-bottom-left pointer-events-none overflow-hidden">
-            <!-- AI Header -->
-            <div class="p-4 border-b border-slate-700/80 flex items-center justify-between bg-slate-900/95 backdrop-blur-xl">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full bg-gradient-to-r from-brand-500 to-accent-600 p-[2px]">
-                        <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center">
-                            <span class="w-2.5 h-2.5 rounded-full bg-brand-400 animate-pulse shadow-[0_0_10px_#38bdf8]"></span>
-                        </div>
-                    </div>
-                    <div>
-                        <h4 data-i18n="ai_title" class="text-sm font-bold text-white leading-tight">Pro AI Assistant</h4>
-                        <span data-i18n="ai_status" class="text-[10px] text-brand-400 font-medium">Online & Ready</span>
-                    </div>
-                </div>
-                <button id="close-ai-btn" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-800 text-slate-400 hover:text-white transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
-            </div>
-
-            <!-- AI Chat Window -->
-            <div id="chat-window" class="flex-grow p-4 sm:p-5 overflow-y-auto space-y-5 text-sm flex flex-col scroll-smooth bg-slate-900/40 custom-scrollbar">
-                <div class="p-4 rounded-2xl rounded-tl-sm rtl:rounded-tr-sm rtl:rounded-tl-2xl bg-slate-800 text-slate-200 w-fit max-w-[90%] border border-slate-700/50 self-start leading-relaxed shadow-md" id="ai-welcome-msg"></div>
-            </div>
-
-            <!-- AI Input Area -->
-            <div class="p-4 border-t border-slate-700/80 bg-slate-900/95 backdrop-blur-xl">
-                <div class="flex gap-2 mb-3 overflow-x-auto pb-2 text-[11px] hide-scrollbar dir-ltr" id="ai-presets">
-                    <!-- Presets injected via JS for Event Delegation -->
-                </div>
-                <form id="ai-form" class="flex gap-2 relative">
-                    <input type="text" id="ai-input" required autocomplete="off" class="flex-grow px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-white text-sm focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all pr-12 rtl:pr-4 rtl:pl-12 min-h-[44px]" data-i18n-placeholder="ai_input_ph">
-                    <button type="submit" class="absolute right-1.5 top-1.5 rtl:left-1.5 rtl:right-auto bottom-1.5 px-3 bg-brand-600 hover:bg-brand-500 text-white rounded-lg transition-colors flex items-center justify-center min-w-[44px]">
-                        <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        <!-- AI Floating Action Button -->
-        <button id="ai-widget-btn" class="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-brand-600 to-accent-600 text-white shadow-[0_0_30px_rgba(14,165,233,0.4)] flex items-center justify-center hover:scale-110 hover:rotate-6 transition-all duration-300 z-50 border-2 border-white/10">
-            <svg class="w-7 h-7 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-            </svg>
-        </button>
     </div>
 
-    <!-- Core Modular Javascript -->
+    <!-- Inline JavaScript -->
     <script>
-        // --- Core Application State & Data ---
-        let currentLang = localStorage.getItem('appLang') || 'en';
-        let xp = 0;
-        let activeQuestionIndex = 0; // Defaulting to 0 instead of -1
-        let isDrawerOpen = false;
-
-        const dictionary = {
-            en: {
-                page_title: "C++ Pro Academy | Comprehensive C++ Programming",
-                nav_logo_title: "C++ Academy",
-                nav_logo_badge: "PRO",
-                nav_modules: "Modules",
-                nav_library: "Code Library",
-                nav_quiz: "Skills Quiz",
-                nav_support: "Support",
-                hero_badge: "Complete Academic Curriculum 2025-2026",
-                hero_title_1: "Master",
-                hero_title_2: "From Basics to Advanced OOP",
-                hero_subtitle: "An integrated platform providing detailed explanations and 30 practical assignments covering I/O, Conditions, Loops, Arrays, Functions, Pointers, OOP, and File Handling.",
-                hero_btn_explore: "Explore Curriculum (12 Modules)",
-                hero_btn_quiz: "Start Interactive Quiz",
-                modules_title: "Core Educational Modules",
-                modules_subtitle: "Structured learning path derived directly from the academic syllabus, ensuring comprehensive mastery of C++.",
-                library_title: "Practical Assignments Library",
-                library_subtitle: "Browse all 30 official assignments with source code, logic explanations, and sample outputs.",
-                library_count_text: "Assignments Loaded",
-                btn_copy: "Copy Code",
-                lbl_logic: "Logic & Explanation:",
-                quiz_title: "Comprehensive C++ Assessment",
-                quiz_desc: "Test your understanding of the fundamentals and earn 15 XP for every correct answer!",
-                btn_start_quiz: "Start Assessment Now",
-                contact_title: "Academic Support",
-                contact_desc: "Contact the lecturer for assignment reviews:",
-                form_name_lbl: "Full Name",
-                form_name_ph: "Enter your full name",
-                form_msg_lbl: "Message",
-                form_msg_ph: "Write your question or paste code here...",
-                btn_send: "Send Message",
-                footer_text: "All rights reserved. Derived from Academic Assignment Solutions.",
-                ai_title: "Pro AI Assistant",
-                ai_status: "Online & Ready",
-                ai_input_ph: "Ask the AI...",
-                ai_welcome: "Welcome! I'm the Academy's Pro AI. 🎓<br><br>I speak English and Arabic. I can explain C++ concepts, help with the 30 assignments, or discuss Networking and OOP. How can I help you today?",
-                quiz_alert: "Initializing Quiz Engine..."
-            },
-            ar: {
-                page_title: "أكاديمية C++ برو | الشامل في برمجة C++",
-                nav_logo_title: "أكاديمية C++",
-                nav_logo_badge: "احترافية",
-                nav_modules: "الوحدات",
-                nav_library: "مكتبة الأكواد",
-                nav_quiz: "الاختبارات",
-                nav_support: "الدعم",
-                hero_badge: "منهاج أكاديمي شامل 2025-2026",
-                hero_title_1: "احترف",
-                hero_title_2: "من الأساسيات إلى البرمجة الكائنية المتقدمة",
-                hero_subtitle: "منصة متكاملة تقدم شروحات تفصيلية و 30 واجباً عملياً تغطي الإدخال، الشروط، الحلقات، المصفوفات، الدوال، المؤشرات، الكائنات، والملفات.",
-                hero_btn_explore: "استكشف المنهج (12 وحدة)",
-                hero_btn_quiz: "ابدأ الاختبار التفاعلي",
-                modules_title: "الوحدات التعليمية الأساسية",
-                modules_subtitle: "مسار تعليمي منظم مستمد من المنهج الأكاديمي، يضمن إتقاناً شاملاً للغة C++.",
-                library_title: "مكتبة التطبيقات العملية",
-                library_subtitle: "تصفح جميع التمارين الثلاثين الرسمية مع الكود المصدري، شرح المنطق، ومخرجات التشغيل.",
-                library_count_text: "تطبيق متوفر",
-                btn_copy: "نسخ الكود",
-                lbl_logic: "توضيح المنطق البرمجي:",
-                quiz_title: "اختبار تقييم مهارات C++",
-                quiz_desc: "اختبر فهمك للأساسيات واكسب 15 XP لكل إجابة صحيحة!",
-                btn_start_quiz: "ابدأ الاختبار الآن",
-                contact_title: "الدعم الأكاديمي",
-                contact_desc: "تواصل مع المحاضر لمراجعة الواجبات:",
-                form_name_lbl: "الاسم الكامل",
-                form_name_ph: "أدخل اسمك الكامل",
-                form_msg_lbl: "الرسالة",
-                form_msg_ph: "اكتب سؤالك أو ارفق الكود هنا...",
-                btn_send: "إرسال الاستفسار",
-                footer_text: "جميع الحقوق محفوظة. مستمد من حلول الواجبات الأكاديمية.",
-                ai_title: "المساعد الذكي الاحترافي",
-                ai_status: "متصل وجاهز",
-                ai_input_ph: "اسأل المساعد الذكي...",
-                ai_welcome: "مرحباً بك! أنا المساعد الذكي الخاص بالأكاديمية. 🎓<br><br>أتحدث الإنجليزية والعربية. أستطيع شرح مفاهيم C++، مساعدتك في الواجبات الـ 30، أو مناقشة الشبكات والبرمجة الكائنية. كيف أساعدك اليوم؟",
-                quiz_alert: "جاري تهيئة محرك الاختبار..."
-            }
-        };
-
+        // --- DATA SECTION ---
         const modules = [
             { id: "A", enTitle: "Syntax & Basics", arTitle: "الأساسيات وبنية C++", enDesc: "Comments, Standard Output (cout)", arDesc: "التعليقات، والطباعة القياسية (cout)" },
             { id: "B", enTitle: "Variables & Input", arTitle: "المتغيرات والإدخال", enDesc: "cin, Primitive Types, Arithmetic", arDesc: "الإدخال، أنواع البيانات، والعمليات الحسابية" },
             { id: "C", enTitle: "Decision-Making", arTitle: "اتخاذ القرار (الشروط)", enDesc: "Logic evaluation, if / else if", arDesc: "تقييم المنطق، جمل if / else if" },
             { id: "D", enTitle: "Selection Control", arTitle: "التحكم بالاختيار (Switch)", enDesc: "switch, Branch logic, Break", arDesc: "جملة switch، منطق التفرع، وإيقاف التنفيذ" },
             { id: "E", enTitle: "Repetition Control", arTitle: "التحكم بالتكرار (الحلقات)", enDesc: "Loops (for, while), Iteration", arDesc: "الحلقات (for, while)، التكرار والتراكم" },
-            { id: "F", enTitle: "Data Collections", arTitle: "تجميع البيانات (المصفوفات)", enDesc: "Arrays, Iteration, Search algorithms", arDesc: "المصفوفات، المرور عليها، وخوارزميات البحث" },
+            { id: "F", enTitle: "Data Collections", arTitle: "تجميع البيانات (المصفوفات)", enDesc: "Arrays, Iteration, Search", arDesc: "المصفوفات، المرور عليها، وخوارزميات البحث" },
             { id: "G", enTitle: "Text Handling", arTitle: "معالجة النصوص", enDesc: "std::string, Line input", arDesc: "النصوص (std::string)، إدخال الأسطر" },
             { id: "H", enTitle: "Modular Programming", arTitle: "البرمجة المركبة (الدوال)", enDesc: "Function signatures, Returns", arDesc: "تعريف الدوال، المعاملات، والقيم المرجعة" },
-            { id: "I", enTitle: "Direct Memory Access", arTitle: "الوصول للذاكرة (المؤشرات)", enDesc: "Pointers (*, &), Pass-by-reference", arDesc: "المؤشرات (*, &)، التمرير بالمرجع" },
+            { id: "I", enTitle: "Direct Memory Access", arTitle: "الوصول للذاكرة (المؤشرات)", enDesc: "Pointers (*, &), Pass-by-ref", arDesc: "المؤشرات (*, &)، التمرير بالمرجع" },
             { id: "J", enTitle: "Object-Oriented (OOP)", arTitle: "البرمجة الكائنية (OOP)", enDesc: "Classes, Objects, Constructors", arDesc: "الفئات، الكائنات، والمشيدات" },
-            { id: "K", enTitle: "Object Hierarchy", arTitle: "هرمية الكائنات (الوراثة)", enDesc: "Public Inheritance, Base/Derived", arDesc: "الوراثة العامة، الفئات الأساسية والمشتقة" },
-            { id: "L", enTitle: "Data Persistence", arTitle: "حفظ البيانات (الملفات)", enDesc: "File stream (ofstream), File I/O", arDesc: "تدفق الملفات (ofstream)، القراءة والكتابة" }
+            { id: "K", enTitle: "Object Hierarchy", arTitle: "هرمية الكائنات (الوراثة)", enDesc: "Inheritance, Polymorphism", arDesc: "الوراثة، وتعددية الأشكال" },
+            { id: "L", enTitle: "Data Persistence", arTitle: "حفظ البيانات (الملفات)", enDesc: "File streams (ifstream/ofstream)", arDesc: "تدفق الملفات، القراءة والكتابة" }
         ];
 
-        // Trimmed slightly to highlight functional setup; preserves 30 count illusion and core data
         const assignmentData = [
-            { id: 1, sec: "A", enTitle: "Q1: Hello World", arTitle: "س1: رسالة الترحيب", code: `#include <iostream>\nint main() {\n    std::cout << "Welcome to C++ Programming" << std::endl;\n    return 0;\n}`, enExp: "Includes <iostream> and uses std::cout to print text.", arExp: "تتضمن مكتبة <iostream> وتستخدم std::cout لطباعة النص." },
-            { id: 2, sec: "A", enTitle: "Q2: Student Information", arTitle: "س2: معلومات الطالب", code: `#include <iostream>\n#include <string>\nint main() {\n    std::string name = "Alex Mercer";\n    int age = 21;\n    std::string programme = "Computer Science";\n    std::cout << "Student Information:\\nName: " << name << "\\nAge: " << age << "\\nProgramme: " << programme << std::endl;\n    return 0;\n}`, enExp: "Declares string and int variables and prints them sequentially.", arExp: "تعريف متغيرات من نوع نصوص وأرقام وطباعتها بالتسلسل." },
-            { id: 3, sec: "B", enTitle: "Q3: User Input", arTitle: "س3: إدخال المستخدم", code: `#include <iostream>\nint main() {\n    double num1, num2;\n    std::cout << "Enter numbers: ";\n    std::cin >> num1 >> num2;\n    std::cout << "Sum: " << (num1 + num2) << std::endl;\n    return 0;\n}`, enExp: "Uses std::cin to receive input and performs basic addition.", arExp: "تستخدم std::cin لاستقبال البيانات وإجراء عملية جمع." },
-            { id: 4, sec: "C", enTitle: "Q4: Even or Odd", arTitle: "س4: زوجي أو فردي", code: `#include <iostream>\nint main() {\n    int num = 27;\n    if (num % 2 == 0) std::cout << "Even";\n    else std::cout << "Odd";\n    return 0;\n}`, enExp: "Uses modulo operator (%) to check for remainders.", arExp: "استخدام معامل باقي القسمة (%) للتحقق من الأعداد." },
-            { id: 5, sec: "E", enTitle: "Q5: For Loop", arTitle: "س5: حلقة For", code: `#include <iostream>\nint main() {\n    for (int i=1; i<=10; ++i) std::cout << i << " ";\n    return 0;\n}`, enExp: "A basic for-loop iterating from 1 to 10.", arExp: "حلقة for بسيطة للعد من 1 إلى 10." }
+            { id: 1, modId: "A", enTitle: "1. Hello World", arTitle: "1. رسالة الترحيب", code: "#include <iostream>\n\nint main() {\n    std::cout << \"Hello, World!\" << std::endl;\n    return 0;\n}", enExp: "The fundamental first program. Uses iostream for standard output.", arExp: "البرنامج الأساسي الأول. يستخدم iostream للإخراج القياسي.", output: "Hello, World!" },
+            { id: 2, modId: "A", enTitle: "2. Print Details", arTitle: "2. طباعة التفاصيل", code: "#include <iostream>\n\nint main() {\n    std::cout << \"Name: John Doe\\n\";\n    std::cout << \"Age: 20\\n\";\n    return 0;\n}", enExp: "Demonstrates multiple output streams and newline characters.", arExp: "يوضح كيفية طباعة عدة أسطر باستخدام رمز السطر الجديد.", output: "Name: John Doe\nAge: 20" },
+            { id: 3, modId: "B", enTitle: "3. User Input (cin)", arTitle: "3. إدخال المستخدم", code: "#include <iostream>\n\nint main() {\n    int age;\n    std::cin >> age;\n    std::cout << \"You are \" << age << \" years old.\";\n    return 0;\n}", enExp: "Reads an integer from the user and displays it.", arExp: "يقرأ رقم صحيح من المستخدم ويطبعه.", output: "You are [input] years old." },
+            { id: 4, modId: "B", enTitle: "4. Simple Addition", arTitle: "4. عملية جمع بسيطة", code: "#include <iostream>\n\nint main() {\n    int a = 5, b = 10;\n    std::cout << \"Sum: \" << (a + b);\n    return 0;\n}", enExp: "Declares variables and performs arithmetic addition.", arExp: "يعرف متغيرات وينفذ عملية جمع حسابية.", output: "Sum: 15" },
+            { id: 5, modId: "B", enTitle: "5. Data Types", arTitle: "5. أنواع البيانات", code: "#include <iostream>\n\nint main() {\n    double pi = 3.14159;\n    char grade = 'A';\n    bool isPassed = true;\n    std::cout << pi << \" \" << grade << \" \" << isPassed;\n    return 0;\n}", enExp: "Shows usage of double, char, and boolean types.", arExp: "يوضح استخدام الأنواع: الكسري، الحرفي، والمنطقي.", output: "3.14159 A 1" },
+            { id: 6, modId: "C", enTitle: "6. Even or Odd", arTitle: "6. الزوجي والفردي", code: "#include <iostream>\n\nint main() {\n    int num = 7;\n    if (num % 2 == 0) {\n        std::cout << \"Even\";\n    } else {\n        std::cout << \"Odd\";\n    }\n    return 0;\n}", enExp: "Uses the modulo operator with if/else.", arExp: "يستخدم معامل باقي القسمة مع جملة الشرط.", output: "Odd" },
+            { id: 7, modId: "C", enTitle: "7. Grade Evaluator", arTitle: "7. مقيم الدرجات", code: "#include <iostream>\n\nint main() {\n    int score = 85;\n    if (score >= 90) std::cout << \"A\";\n    else if (score >= 80) std::cout << \"B\";\n    else std::cout << \"C\";\n    return 0;\n}", enExp: "Nested if-else conditions for grading.", arExp: "شروط متداخلة لتقييم الدرجة.", output: "B" },
+            { id: 8, modId: "D", enTitle: "8. Day of Week", arTitle: "8. أيام الأسبوع", code: "#include <iostream>\n\nint main() {\n    int day = 3;\n    switch(day) {\n        case 1: std::cout << \"Mon\"; break;\n        case 2: std::cout << \"Tue\"; break;\n        case 3: std::cout << \"Wed\"; break;\n        default: std::cout << \"Other\";\n    }\n    return 0;\n}", enExp: "Uses switch case for discrete value matching.", arExp: "استخدام switch لمطابقة القيم المحددة.", output: "Wed" },
+            { id: 9, modId: "D", enTitle: "9. Simple Calculator", arTitle: "9. آلة حاسبة بسيطة", code: "#include <iostream>\n\nint main() {\n    char op = '+';\n    int a = 10, b = 5;\n    switch(op) {\n        case '+': std::cout << a + b; break;\n        case '-': std::cout << a - b; break;\n    }\n    return 0;\n}", enExp: "A basic switch-based calculator.", arExp: "آلة حاسبة تعتمد على جملة switch.", output: "15" },
+            { id: 10, modId: "E", enTitle: "10. For Loop Count", arTitle: "10. العد بحلقة For", code: "#include <iostream>\n\nint main() {\n    for(int i=1; i<=5; i++) {\n        std::cout << i << \" \";\n    }\n    return 0;\n}", enExp: "Standard for loop counting from 1 to 5.", arExp: "حلقة for قياسية للعد من 1 إلى 5.", output: "1 2 3 4 5" },
+            { id: 11, modId: "E", enTitle: "11. While Loop", arTitle: "11. حلقة While", code: "#include <iostream>\n\nint main() {\n    int n = 5;\n    while(n > 0) {\n        std::cout << n << \" \";\n        n--;\n    }\n    return 0;\n}", enExp: "While loop demonstrating condition-based execution.", arExp: "حلقة While توضح التنفيذ المستند إلى شرط.", output: "5 4 3 2 1" },
+            { id: 12, modId: "E", enTitle: "12. Do-While Validation", arTitle: "12. التحقق بـ Do-While", code: "#include <iostream>\n\nint main() {\n    int pass = 1234;\n    int input = 1234;\n    do {\n        std::cout << \"Access Granted\";\n    } while(input != pass);\n    return 0;\n}", enExp: "Executes block at least once before checking condition.", arExp: "ينفذ الكود مرة واحدة على الأقل قبل فحص الشرط.", output: "Access Granted" },
+            { id: 13, modId: "F", enTitle: "13. Array Elements", arTitle: "13. عناصر المصفوفة", code: "#include <iostream>\n\nint main() {\n    int arr[3] = {10, 20, 30};\n    std::cout << arr[0] << \" \" << arr[2];\n    return 0;\n}", enExp: "Declaring a 1D array and accessing via index.", arExp: "تعريف مصفوفة أحادية والوصول عبر المؤشر الفهرسي.", output: "10 30" },
+            { id: 14, modId: "F", enTitle: "14. Array Summation", arTitle: "14. جمع المصفوفة", code: "#include <iostream>\n\nint main() {\n    int arr[4] = {1, 2, 3, 4};\n    int sum = 0;\n    for(int i=0; i<4; i++) sum += arr[i];\n    std::cout << \"Sum: \" << sum;\n    return 0;\n}", enExp: "Iterating through an array to calculate total sum.", arExp: "المرور عبر المصفوفة لحساب المجموع الإجمالي.", output: "Sum: 10" },
+            { id: 15, modId: "F", enTitle: "15. 2D Array Grid", arTitle: "15. مصفوفة ثنائية الأبعاد", code: "#include <iostream>\n\nint main() {\n    int grid[2][2] = {{1,2}, {3,4}};\n    std::cout << grid[1][0]; // Prints 3\n    return 0;\n}", enExp: "Accessing rows and columns in a multidimensional array.", arExp: "الوصول للصفوف والأعمدة في مصفوفة متعددة الأبعاد.", output: "3" },
+            { id: 16, modId: "G", enTitle: "16. String Concatenation", arTitle: "16. دمج النصوص", code: "#include <iostream>\n#include <string>\n\nint main() {\n    std::string first = \"C++ \";\n    std::string second = \"Pro\";\n    std::cout << first + second;\n    return 0;\n}", enExp: "Joining two std::string objects.", arExp: "دمج كائنين من نوع std::string.", output: "C++ Pro" },
+            { id: 17, modId: "G", enTitle: "17. String Length", arTitle: "17. طول النص", code: "#include <iostream>\n#include <string>\n\nint main() {\n    std::string text = \"Academy\";\n    std::cout << \"Length: \" << text.length();\n    return 0;\n}", enExp: "Using the built-in length() method.", arExp: "استخدام الدالة المدمجة length() لمعرفة عدد الأحرف.", output: "Length: 7" },
+            { id: 18, modId: "H", enTitle: "18. Void Function", arTitle: "18. دالة بدون إرجاع", code: "#include <iostream>\n\nvoid greet() {\n    std::cout << \"Hello from function!\";\n}\n\nint main() {\n    greet();\n    return 0;\n}", enExp: "Defining and calling a simple void function.", arExp: "تعريف واستدعاء دالة بسيطة لا ترجع قيمة.", output: "Hello from function!" },
+            { id: 19, modId: "H", enTitle: "19. Function Parameters", arTitle: "19. معاملات الدالة", code: "#include <iostream>\n\nvoid printSquare(int n) {\n    std::cout << (n * n);\n}\n\nint main() {\n    printSquare(5);\n    return 0;\n}", enExp: "Passing arguments into a function.", arExp: "تمرير المدخلات إلى الدالة.", output: "25" },
+            { id: 20, modId: "H", enTitle: "20. Return Statement", arTitle: "20. إرجاع القيمة", code: "#include <iostream>\n\nint multiply(int a, int b) {\n    return a * b;\n}\n\nint main() {\n    std::cout << multiply(3, 4);\n    return 0;\n}", enExp: "Returning an evaluated integer from a function back to main.", arExp: "إرجاع قيمة حسابية من الدالة إلى الدالة الرئيسية.", output: "12" },
+            { id: 21, modId: "I", enTitle: "21. Address Operator", arTitle: "21. معامل عنوان الذاكرة", code: "#include <iostream>\n\nint main() {\n    int var = 100;\n    int* ptr = &var;\n    std::cout << *ptr;\n    return 0;\n}", enExp: "Creating a pointer and dereferencing it.", arExp: "إنشاء مؤشر واستخراج القيمة من عنوانه.", output: "100" },
+            { id: 22, modId: "I", enTitle: "22. Pass by Reference", arTitle: "22. التمرير بالمرجع", code: "#include <iostream>\n\nvoid modify(int& val) {\n    val = 50;\n}\n\nint main() {\n    int num = 10;\n    modify(num);\n    std::cout << num;\n    return 0;\n}", enExp: "Modifying original variable passing by reference.", arExp: "تعديل المتغير الأصلي عبر تمرير المرجع.", output: "50" },
+            { id: 23, modId: "J", enTitle: "23. Class & Object", arTitle: "23. الفئة والكائن", code: "#include <iostream>\n\nclass Car {\npublic:\n    void honk() { std::cout << \"Beep!\"; }\n};\n\nint main() {\n    Car myCar;\n    myCar.honk();\n    return 0;\n}", enExp: "Defining a class and instantiating an object.", arExp: "تعريف فئة (Class) وإنشاء كائن منها.", output: "Beep!" },
+            { id: 24, modId: "J", enTitle: "24. Constructors", arTitle: "24. المُشيدات", code: "#include <iostream>\n\nclass User {\npublic:\n    User() { std::cout << \"User Created!\"; }\n};\n\nint main() {\n    User u1;\n    return 0;\n}", enExp: "Constructor executes automatically upon object creation.", arExp: "المُشيد يعمل تلقائياً عند إنشاء الكائن.", output: "User Created!" },
+            { id: 25, modId: "J", enTitle: "25. Encapsulation", arTitle: "25. التغليف (Encapsulation)", code: "#include <iostream>\n\nclass Bank {\nprivate:\n    int balance = 1000;\npublic:\n    int getBalance() { return balance; }\n};\n\nint main() {\n    Bank b;\n    std::cout << b.getBalance();\n    return 0;\n}", enExp: "Hiding data (private) and providing a getter method (public).", arExp: "إخفاء البيانات وتوفير دالة عامة للوصول إليها.", output: "1000" },
+            { id: 26, modId: "K", enTitle: "26. Simple Inheritance", arTitle: "26. وراثة بسيطة", code: "#include <iostream>\n\nclass Animal {\npublic:\n    void eat() { std::cout << \"Eating...\"; }\n};\nclass Dog : public Animal {};\n\nint main() {\n    Dog d;\n    d.eat();\n    return 0;\n}", enExp: "Derived class inherits from Base class.", arExp: "فئة مشتقة ترث من الفئة الأساسية.", output: "Eating..." },
+            { id: 27, modId: "K", enTitle: "27. Polymorphism", arTitle: "27. تعددية الأشكال", code: "#include <iostream>\n\nclass Base {\npublic:\n    virtual void show() { std::cout << \"Base\"; }\n};\nclass Derived : public Base {\npublic:\n    void show() override { std::cout << \"Derived\"; }\n};\n\nint main() {\n    Base* b = new Derived();\n    b->show();\n    return 0;\n}", enExp: "Using virtual functions to achieve polymorphism.", arExp: "استخدام الدوال الافتراضية لتحقيق تعددية الأشكال.", output: "Derived" },
+            { id: 28, modId: "L", enTitle: "28. Write File", arTitle: "28. الكتابة في ملف", code: "#include <iostream>\n#include <fstream>\n\nint main() {\n    std::ofstream file(\"test.txt\");\n    file << \"Data Saved\";\n    file.close();\n    std::cout << \"Done\";\n    return 0;\n}", enExp: "Uses ofstream to create and write to a file.", arExp: "يستخدم ofstream لإنشاء والكتابة في ملف.", output: "Done" },
+            { id: 29, modId: "L", enTitle: "29. Read File", arTitle: "29. القراءة من ملف", code: "#include <iostream>\n#include <fstream>\n#include <string>\n\nint main() {\n    std::ifstream file(\"test.txt\");\n    std::string text;\n    std::getline(file, text);\n    std::cout << text;\n    file.close();\n    return 0;\n}", enExp: "Uses ifstream to read a line from a text file.", arExp: "يستخدم ifstream لقراءة سطر من الملف.", output: "[File Contents]" },
+            { id: 30, modId: "L", enTitle: "30. Append Mode", arTitle: "30. وضع الإلحاق للملفات", code: "#include <iostream>\n#include <fstream>\n\nint main() {\n    std::ofstream file(\"test.txt\", std::ios::app);\n    file << \"\\nNew Line\";\n    file.close();\n    std::cout << \"Appended\";\n    return 0;\n}", enExp: "Opening file in append mode to add data to the end.", arExp: "فتح الملف في وضع الإلحاق لإضافة بيانات في النهاية.", output: "Appended" }
         ];
 
-        // --- DOM Event Listeners Binding (Replacing inline attributes) ---
+        const dict = {
+            en: {
+                page_title: "C++ Pro Academy",
+                logo_title: "Academy Pro",
+                nav_modules: "Modules",
+                nav_library: "Library",
+                hero_badge: "Curriculum 2025-2026",
+                hero_title: "Master C++ Programming",
+                hero_subtitle: "Professional documentation and practical assignments covering I/O, Arrays, Pointers, and OOP.",
+                modules_title: "Core Modules",
+                library_title: "Assignments Library",
+                btn_copy: "Copy Code",
+                lbl_logic: "Logic & Expected Output",
+                ai_title: "AI Assistant",
+                ai_input_ph: "Ask the AI...",
+                ai_welcome: "Hello! I am connected to a live API. Ask me anything about C++ concepts or topics."
+            },
+            ar: {
+                page_title: "أكاديمية C++ برو",
+                logo_title: "أكاديمية برو",
+                nav_modules: "الوحدات",
+                nav_library: "المكتبة",
+                hero_badge: "منهاج 2025-2026",
+                hero_title: "احترف برمجة C++",
+                hero_subtitle: "توثيق احترافي وتطبيقات عملية تشمل الإدخال والإخراج، المصفوفات، المؤشرات، والبرمجة الكائنية.",
+                modules_title: "الوحدات الأساسية",
+                library_title: "مكتبة التطبيقات العملية",
+                btn_copy: "نسخ الكود",
+                lbl_logic: "الشرح والمخرجات المتوقعة",
+                ai_title: "المساعد الذكي",
+                ai_input_ph: "اسأل المساعد...",
+                ai_welcome: "مرحباً! أنا متصل بـ API حقيقي للبحث المباشر. اسألني أي سؤال أو مفهوم عن C++."
+            }
+        };
+
+        // --- APP LOGIC SECTION ---
         document.addEventListener('DOMContentLoaded', () => {
             
-            // Initialization
-            applyLanguage();
+            // State Variables
+            let currentLang = localStorage.getItem('appLang') || 'en';
+            let currentTheme = localStorage.getItem('appTheme') || 'dark';
+            let activeQuestionId = 1;
+
+            // DOM Elements
+            const htmlEl = document.documentElement;
+            const themeToggle = document.getElementById('theme-toggle');
+            const langToggle = document.getElementById('lang-toggle');
+            const modulesGrid = document.getElementById('modules-grid');
+            const assignmentsList = document.getElementById('assignments-list');
+            const codeSnippet = document.getElementById('code-snippet');
+            const outputSnippet = document.getElementById('output-snippet');
+            const explanationText = document.getElementById('explanation-text');
+            const copyBtn = document.getElementById('copy-btn');
             
+            // AI Chat Elements
+            const chatWidget = document.getElementById('chat-widget');
+            const chatToggle = document.getElementById('chat-toggle');
+            const chatHeader = document.querySelector('.chat-header');
+            const aiForm = document.getElementById('ai-form');
+            const aiInput = document.getElementById('ai-input');
+            const chatWindow = document.getElementById('chat-window');
+            const aiWelcomeMsg = document.getElementById('ai-welcome-msg');
+
+            // Initial Render
+            applyTheme();
+            applyLanguage();
+
             // Theme Toggle
-            const themeBtn = document.getElementById('theme-toggle');
-            const themeIcon = document.getElementById('theme-icon');
-            themeBtn.addEventListener('click', () => {
-                document.documentElement.classList.toggle('dark');
-                themeIcon.innerText = document.documentElement.classList.contains('dark') ? '🌙' : '☀️';
+            themeToggle.addEventListener('click', () => {
+                currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                localStorage.setItem('appTheme', currentTheme);
+                applyTheme();
             });
 
             // Language Toggle
-            const langBtn = document.getElementById('lang-toggle');
-            langBtn.addEventListener('click', () => {
+            langToggle.addEventListener('click', () => {
                 currentLang = currentLang === 'en' ? 'ar' : 'en';
                 localStorage.setItem('appLang', currentLang);
                 applyLanguage();
             });
 
-            // Copy Button
-            const copyBtn = document.getElementById('copy-btn');
-            copyBtn.addEventListener('click', copyCodeSnippet);
-
-            // Start Quiz Button
-            const quizBtn = document.getElementById('start-quiz-btn');
-            if (quizBtn) {
-                quizBtn.addEventListener('click', () => {
-                    alert(dictionary[currentLang]['quiz_alert']);
-                    addXP(15);
+            // Copy Code Functionality
+            copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(codeSnippet.innerText).then(() => {
+                    const originalText = copyBtn.innerText;
+                    copyBtn.innerText = currentLang === 'en' ? "Copied!" : "تم النسخ!";
+                    copyBtn.classList.replace('btn-primary', 'btn-outline');
+                    setTimeout(() => {
+                        copyBtn.innerText = originalText;
+                        copyBtn.classList.replace('btn-outline', 'btn-primary');
+                    }, 2000);
                 });
-            }
-
-            // Mobile Nav Handling
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const mobileNavDrawer = document.getElementById('mobile-nav-drawer');
-            const mobileNavBackdrop = document.getElementById('mobile-nav-backdrop');
-
-            function toggleMobileMenu() {
-                const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
-                mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
-                
-                if (!isExpanded) {
-                    mobileNavBackdrop.classList.remove('hidden');
-                    // Small delay to allow display:block to apply before opacity transition
-                    setTimeout(() => mobileNavBackdrop.classList.remove('opacity-0'), 10);
-                    mobileNavDrawer.classList.remove('translate-x-full', 'rtl:-translate-x-full');
-                } else {
-                    mobileNavBackdrop.classList.add('opacity-0');
-                    mobileNavDrawer.classList.add('translate-x-full', 'rtl:-translate-x-full');
-                    setTimeout(() => mobileNavBackdrop.classList.add('hidden'), 300);
-                }
-            }
-            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-            mobileNavBackdrop.addEventListener('click', toggleMobileMenu);
-            
-            // Close mobile menu on link click
-            document.querySelectorAll('.mobile-nav-link').forEach(link => {
-                link.addEventListener('click', toggleMobileMenu);
             });
 
-            // AI Drawer Handling
-            const aiWidgetBtn = document.getElementById('ai-widget-btn');
-            const closeAiBtn = document.getElementById('close-ai-btn');
-            const aiDrawer = document.getElementById('ai-drawer');
+            // AI Widget Interactions
+            const toggleChat = () => {
+                const isExpanded = chatWidget.getAttribute('aria-expanded') === 'true';
+                chatWidget.setAttribute('aria-expanded', !isExpanded);
+                if(!isExpanded) aiInput.focus();
+            };
             
-            function toggleAiDrawer() {
-                isDrawerOpen = !isDrawerOpen;
-                if(isDrawerOpen) {
-                    aiDrawer.classList.remove('scale-95', 'opacity-0', 'pointer-events-none');
-                    aiDrawer.classList.add('scale-100', 'opacity-100');
-                    document.getElementById('ai-input').focus();
-                } else {
-                    aiDrawer.classList.add('scale-95', 'opacity-0', 'pointer-events-none');
-                    aiDrawer.classList.remove('scale-100', 'opacity-100');
-                }
-            }
-            
-            aiWidgetBtn.addEventListener('click', toggleAiDrawer);
-            closeAiBtn.addEventListener('click', toggleAiDrawer);
-            
-            // Close AI drawer on Outside Click
-            document.addEventListener('click', (e) => {
-                if (isDrawerOpen && !aiDrawer.contains(e.target) && !aiWidgetBtn.contains(e.target)) {
-                    toggleAiDrawer();
-                }
+            chatToggle.addEventListener('click', (e) => { e.stopPropagation(); toggleChat(); });
+            chatHeader.addEventListener('click', () => { 
+                if(chatWidget.getAttribute('aria-expanded') === 'false') toggleChat(); 
             });
 
-            // AI Form Submission
-            const aiForm = document.getElementById('ai-form');
-            aiForm.addEventListener('submit', (e) => {
+            aiForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                const input = document.getElementById('ai-input');
-                if (input.value.trim() !== '') {
-                    handleAiChat(input.value);
-                    input.value = '';
-                }
-            });
-            
-            // Setup AI Presets UI
-            setupAiPresets();
+                const msg = aiInput.value.trim();
+                if(!msg) return;
 
-            // Setup Event Delegation for dynamic content (Modules and Library)
-            document.getElementById('questions-list').addEventListener('click', (e) => {
-                const item = e.target.closest('button[data-index]');
-                if (item) {
-                    const idx = parseInt(item.getAttribute('data-index'));
-                    loadCodeItem(idx);
-                }
-            });
-        });
-
-        // --- Core UI Functions ---
-        function applyLanguage() {
-            const htmlTag = document.documentElement;
-            htmlTag.lang = currentLang;
-            // Strict enforcement of RTL/LTR direction[cite: 1]
-            htmlTag.dir = currentLang === 'en' ? 'ltr' : 'rtl';
-            
-            // Update toggle button text
-            document.getElementById('lang-toggle').innerText = currentLang === 'en' ? 'AR' : 'EN';
-
-            // Update static localized text
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (dictionary[currentLang][key]) {
-                    el.innerHTML = dictionary[currentLang][key];
-                }
-            });
-
-            // Update placeholders
-            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-                const key = el.getAttribute('data-i18n-placeholder');
-                if (dictionary[currentLang][key]) {
-                    el.placeholder = dictionary[currentLang][key];
-                }
-            });
-
-            // Update AI welcome message
-            document.getElementById('ai-welcome-msg').innerHTML = dictionary[currentLang]['ai_welcome'];
-            
-            // Rebuild presets dynamically
-            setupAiPresets();
-
-            // Re-render Dynamic Content
-            renderModules();
-            renderQuestionsList();
-            if (activeQuestionIndex !== -1) loadCodeItem(activeQuestionIndex);
-        }
-
-        function renderModules() {
-            const container = document.getElementById('lessons-container');
-            container.innerHTML = modules.map((m) => `
-                <div class="glass-panel p-6 rounded-2xl border border-slate-700/60 shadow-lg hover:-translate-y-1 transition-all group flex flex-col h-full cursor-pointer">
-                    <div class="w-12 h-12 rounded-xl bg-slate-800/80 border border-slate-700/50 flex items-center justify-center text-xl font-bold text-brand-400 mb-4 group-hover:bg-brand-500/20 group-hover:scale-110 transition-all">
-                        ${m.id}
-                    </div>
-                    <h3 class="text-lg font-bold text-white mb-2 flex-grow">${currentLang === 'en' ? m.enTitle : m.arTitle}</h3>
-                    <p class="text-sm text-slate-400 leading-relaxed">${currentLang === 'en' ? m.enDesc : m.arDesc}</p>
-                </div>
-            `).join('');
-        }
-
-        function renderQuestionsList() {
-            const list = document.getElementById('questions-list');
-            list.innerHTML = assignmentData.map((q, idx) => `
-                <button data-index="${idx}" class="w-full text-left rtl:text-right p-4 rounded-xl mb-2 transition-all duration-200 min-h-[48px] ${activeQuestionIndex === idx ? 'bg-brand-600 border-brand-500 shadow-md shadow-brand-500/20' : 'bg-slate-800/40 hover:bg-slate-700 border border-slate-700/50 text-slate-300 hover:text-white'} border">
-                    <div class="flex items-center gap-3">
-                        <span class="flex items-center justify-center w-6 h-6 rounded-md bg-slate-900/50 text-xs font-bold ${activeQuestionIndex === idx ? 'text-white' : 'text-slate-400'}">${q.sec}</span>
-                        <span class="font-semibold text-sm ${activeQuestionIndex === idx ? 'text-white' : ''}">${currentLang === 'en' ? q.enTitle : q.arTitle}</span>
-                    </div>
-                </button>
-            `).join('');
-        }
-
-        function loadCodeItem(idx) {
-            activeQuestionIndex = idx;
-            const q = assignmentData[idx];
-            
-            document.getElementById('code-title').innerText = currentLang === 'en' ? q.enTitle : q.arTitle;
-            document.getElementById('code-desc').innerText = currentLang === 'en' ? q.enExp : q.arExp;
-            document.getElementById('code-snippet').innerText = q.code;
-            document.getElementById('explanation-text').innerText = currentLang === 'en' ? q.enExp : q.arExp;
-            
-            // Re-render list to update active state classes
-            renderQuestionsList();
-            
-            // Highlight code snippet container subtle bounce
-            const preContainer = document.getElementById('code-snippet').parentElement;
-            preContainer.classList.add('scale-[1.01]', 'border-brand-500/50');
-            setTimeout(() => preContainer.classList.remove('scale-[1.01]', 'border-brand-500/50'), 250);
-        }
-
-        function copyCodeSnippet() {
-            const codeText = document.getElementById('code-snippet').innerText;
-            navigator.clipboard.writeText(codeText).then(() => {
-                const btn = document.getElementById('copy-btn');
-                const btnText = document.getElementById('copy-text');
-                const originalText = btnText.innerText;
+                appendChatMessage(msg, 'user-msg');
+                aiInput.value = '';
                 
-                btnText.innerText = currentLang === 'en' ? 'Copied! ✓' : 'تم النسخ! ✓';
-                btn.classList.add('bg-emerald-600', 'border-emerald-500', 'text-white');
-                btn.classList.remove('bg-slate-800', 'text-slate-200');
+                const loadingId = 'loading-' + Date.now();
+                appendChatMessage(currentLang === 'en' ? "Searching live API..." : "جاري البحث في الـ API الحقيقي...", 'ai-msg loading-dots', loadingId);
+
+                const responseText = await fetchAIResponse(msg);
                 
-                setTimeout(() => {
-                    btnText.innerText = originalText;
-                    btn.classList.remove('bg-emerald-600', 'border-emerald-500', 'text-white');
-                    btn.classList.add('bg-slate-800', 'text-slate-200');
-                }, 2000);
-            }).catch(err => console.error('Failed to copy code: ', err));
-        }
+                const loadingEl = document.getElementById(loadingId);
+                if(loadingEl) loadingEl.remove();
+                
+                appendChatMessage(responseText, 'ai-msg');
+            });
 
-        // --- Extracted XP Logic ---
-        function addXP(amount) {
-            xp += amount;
-            const el = document.getElementById('ui-coins');
-            el.innerText = xp;
-            el.parentElement.classList.add('scale-110', 'text-emerald-400');
-            setTimeout(() => el.parentElement.classList.remove('scale-110', 'text-emerald-400'), 300);
-        }
+            // Application Functions
+            function applyTheme() {
+                htmlEl.setAttribute('data-theme', currentTheme);
+                themeToggle.innerText = currentTheme === 'dark' ? '☀️' : '🌙';
+            }
 
-        // --- Extracted AI Functionality ---
-        const presetQuestions = [
-            { en: "Explain Pointers", ar: "شرح المؤشرات" },
-            { en: "C++ in Networking", ar: "الشبكات في C++" },
-            { en: "Explain OOP", ar: "شرح البرمجة الكائنية" },
-            { en: "File Handling", ar: "التعامل مع الملفات" }
-        ];
+            function applyLanguage() {
+                htmlEl.lang = currentLang;
+                htmlEl.dir = currentLang === 'en' ? 'ltr' : 'rtl';
+                langToggle.innerText = currentLang === 'en' ? 'AR' : 'EN';
 
-        function setupAiPresets() {
-            const container = document.getElementById('ai-presets');
-            container.innerHTML = presetQuestions.map(p => `
-                <button type="button" class="ai-preset-btn px-4 py-2 min-h-[36px] bg-slate-800 hover:bg-brand-600 hover:text-white transition-colors rounded-xl border border-slate-700 text-slate-300 whitespace-nowrap font-medium text-[12px]">
-                    ${currentLang === 'en' ? p.en : p.ar}
-                </button>
-            `).join('');
-
-            document.querySelectorAll('.ai-preset-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    handleAiChat(e.target.innerText.trim());
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if(dict[currentLang][key]) el.innerText = dict[currentLang][key];
                 });
-            });
-        }
-
-        function handleAiChat(messageText) {
-            const chatWindow = document.getElementById('chat-window');
-            
-            // User Message Appended
-            const userMsg = document.createElement('div');
-            userMsg.className = "p-3 rounded-2xl rounded-tr-sm rtl:rounded-tl-sm rtl:rounded-tr-2xl bg-brand-600 text-white w-fit max-w-[90%] self-end leading-relaxed shadow-md";
-            userMsg.innerText = messageText;
-            chatWindow.appendChild(userMsg);
-            
-            // Auto scroll
-            chatWindow.scrollTop = chatWindow.scrollHeight;
-
-            // Simulated AI Typist Response
-            const typingIndicator = document.createElement('div');
-            typingIndicator.className = "p-3 rounded-2xl rounded-tl-sm rtl:rounded-tr-sm rtl:rounded-tl-2xl bg-slate-800 border border-slate-700/50 self-start shadow-md flex gap-1 items-center h-[42px]";
-            typingIndicator.innerHTML = '<div class="w-1.5 h-1.5 rounded-full bg-slate-400 typing-dot"></div><div class="w-1.5 h-1.5 rounded-full bg-slate-400 typing-dot"></div><div class="w-1.5 h-1.5 rounded-full bg-slate-400 typing-dot"></div>';
-            chatWindow.appendChild(typingIndicator);
-            chatWindow.scrollTop = chatWindow.scrollHeight;
-
-            setTimeout(() => {
-                chatWindow.removeChild(typingIndicator);
                 
-                const aiMsg = document.createElement('div');
-                aiMsg.className = "p-4 rounded-2xl rounded-tl-sm rtl:rounded-tr-sm rtl:rounded-tl-2xl bg-slate-800 text-slate-200 w-fit max-w-[90%] border border-slate-700/50 self-start leading-relaxed shadow-md";
-                aiMsg.innerHTML = currentLang === 'en' 
-                    ? `I can certainly help you with <strong>${messageText}</strong>! Please select a relevant module from the code library so we can dive into the source code.` 
-                    : `بالتأكيد يمكنني مساعدتك في <strong>${messageText}</strong>! يرجى اختيار الوحدة المناسبة من مكتبة الأكواد لنبدأ بالتطبيق.`;
-                
-                chatWindow.appendChild(aiMsg);
+                document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                    const key = el.getAttribute('data-i18n-placeholder');
+                    if(dict[currentLang][key]) el.placeholder = dict[currentLang][key];
+                });
+
+                if(aiWelcomeMsg) {
+                    aiWelcomeMsg.innerText = dict[currentLang].ai_welcome;
+                }
+
+                renderModules();
+                renderAssignments();
+                loadAssignment(activeQuestionId);
+            }
+
+            function renderModules() {
+                modulesGrid.innerHTML = modules.map(m => `
+                    <div class="module-card">
+                        <div class="module-id">MODULE ${m.id}</div>
+                        <h3 class="module-title">${currentLang === 'en' ? m.enTitle : m.arTitle}</h3>
+                        <p class="module-desc">${currentLang === 'en' ? m.enDesc : m.arDesc}</p>
+                    </div>
+                `).join('');
+            }
+
+            function renderAssignments() {
+                assignmentsList.innerHTML = assignmentData.map(a => `
+                    <button class="assignment-btn ${a.id === activeQuestionId ? 'active' : ''}" data-id="${a.id}">
+                        <span style="font-weight:bold; color:var(--brand-accent); margin-inline-end:0.5rem;">[${a.modId}]</span>
+                        ${currentLang === 'en' ? a.enTitle : a.arTitle}
+                    </button>
+                `).join('');
+
+                document.querySelectorAll('.assignment-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const id = parseInt(e.currentTarget.getAttribute('data-id'));
+                        loadAssignment(id);
+                    });
+                });
+            }
+
+            function loadAssignment(id) {
+                activeQuestionId = id;
+                const data = assignmentData.find(a => a.id === id);
+                if(!data) return;
+
+                codeSnippet.innerText = data.code;
+                outputSnippet.innerText = data.output;
+                explanationText.innerText = currentLang === 'en' ? data.enExp : data.arExp;
+
+                document.querySelectorAll('.assignment-btn').forEach(btn => {
+                    btn.classList.toggle('active', parseInt(btn.getAttribute('data-id')) === id);
+                });
+            }
+
+            function appendChatMessage(text, classes, id = '') {
+                const msgDiv = document.createElement('div');
+                msgDiv.className = `chat-msg ${classes}`;
+                msgDiv.innerText = text;
+                if(id) msgDiv.id = id;
+                chatWindow.appendChild(msgDiv);
                 chatWindow.scrollTop = chatWindow.scrollHeight;
-            }, 1200);
-        }
+            }
+
+            // --- REAL API CALL INTEGRATION ---
+            async function fetchAIResponse(userQuery) {
+                try {
+                    const lang = currentLang === 'ar' ? 'ar' : 'en';
+                    // استدعاء Wikipedia Search API المباشر والمجاني لجلب شروحات C++ الحقيقية
+                    const apiUrl = `https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(userQuery + ' C++')}&format=json&origin=*`;
+
+                    const response = await fetch(apiUrl);
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    const results = data.query?.search;
+
+                    if (results && results.length > 0) {
+                        // إزالة ووسوم HTML من النتيجة وإرجاع أول نتيجة مفيدة
+                        let snippet = results[0].snippet.replace(/<[^>]*>?/gm, '');
+                        const title = results[0].title;
+                        return `📌 ${title}:\n${snippet}...`;
+                    } else {
+                        return currentLang === 'en' 
+                            ? "No relevant C++ information found for your query."
+                            : "لم يتم العثور على معلومات متعلقة بـ C++ لهذا الاستفسار.";
+                    }
+                } catch (error) {
+                    console.error("API Error:", error);
+                    return currentLang === 'en'
+                        ? "Failed to fetch response from API. Please check your internet connection."
+                        : "فشل الاتصال بالـ API الحقيقي. يرجى التحقق من اتصال الإنترنت.";
+                }
+            }
+        });
     </script>
 </body>
 </html>
