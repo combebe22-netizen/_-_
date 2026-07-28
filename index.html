@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" class="scroll-smooth">
+<html lang="en" class="dark scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أكاديمية الخوارزميات G10 | منصة التعلم الشاملة 2026</title>
+    <title>C++ Pro | Modern Programming Academy</title>
     
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Outfit:wght@400;600;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -16,17 +18,13 @@
             theme: {
                 extend: {
                     colors: {
-                        brand: {
-                            50: '#f0fdf4', 100: '#dcfce7', 200: '#bbf7d0', 300: '#86efac', 400: '#4ade80',
-                            500: '#22c55e', 600: '#16a34a', 700: '#15803d', 800: '#166534', 900: '#14532d'
-                        },
-                        accent: { 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' },
-                        sudanese: { gold: '#f59e0b', red: '#ef4444' }
+                        brand: { 50: '#f0f9ff', 400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7' },
+                        accent: { 500: '#8b5cf6', 600: '#7c3aed' },
+                        darkbg: '#0a0f1c',
                     },
                     fontFamily: {
-                        ar: ['Cairo', 'sans-serif'],
-                        en: ['Outfit', 'sans-serif'],
-                        code: ['Fira Code', 'monospace'],
+                        sans: ['Inter', 'sans-serif'],
+                        code: ['Fira Code', 'monospace']
                     }
                 }
             }
@@ -34,404 +32,282 @@
     </script>
 
     <style>
-        body { font-family: 'Cairo', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; }
-        .en-text { font-family: 'Outfit', sans-serif; direction: ltr; text-align: left; }
-        .glass-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(226, 232, 240, 0.8); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); }
-        .dark .glass-card { background: rgba(30, 41, 59, 0.85); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3); }
-        .tab-btn { transition: all 0.2s ease; border-bottom: 3px solid transparent; }
-        .tab-btn.active { border-bottom-color: #22c55e; color: #16a34a; font-weight: 800; background-color: rgba(34, 197, 94, 0.1); }
-        .dark .tab-btn.active { border-bottom-color: #4ade80; color: #4ade80; background-color: rgba(74, 222, 128, 0.15); }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeIn 0.3s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        .dark ::-webkit-scrollbar-thumb { background: #475569; }
-        #toast-container { position: fixed; bottom: 1.5rem; left: 1.5rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.75rem; }
-        .toast { background: #22c55e; color: white; padding: 0.85rem 1.25rem; border-radius: 0.75rem; font-weight: 700; box-shadow: 0 10px 20px rgba(34, 197, 94, 0.3); transform: translateX(-120%); opacity: 0; transition: all 0.4s ease; display: flex; align-items: center; gap: 0.5rem; }
-        .toast.show { transform: translateX(0); opacity: 1; }
-        .quiz-option.correct { border-color: #22c55e; background-color: rgba(34, 197, 94, 0.12); color: #15803d; }
-        .dark .quiz-option.correct { border-color: #4ade80; color: #4ade80; background-color: rgba(74, 222, 128, 0.15); }
-        .quiz-option.wrong { border-color: #ef4444; background-color: rgba(239, 68, 68, 0.12); color: #b91c1c; }
-        .dark .quiz-option.wrong { border-color: #f87171; color: #f87171; background-color: rgba(248, 113, 113, 0.15); }
-        .quiz-option.disabled { pointer-events: none; opacity: 0.85; }
-        .chat-bubble-user { background: #2563eb; color: white; border-radius: 1.25rem 1.25rem 0 1.25rem; }
-        .chat-bubble-ai { background: #f1f5f9; color: #0f172a; border-radius: 1.25rem 1.25rem 1.25rem 0; }
-        .dark .chat-bubble-ai { background: #334155; color: #f8fafc; }
+        body { font-family: 'Inter', sans-serif; }
+        code, pre { font-family: 'Fira Code', monospace; }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .light .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #38bdf8 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 10px; }
+
+        .watermark-ai {
+            opacity: 0.6;
+            transition: all 0.3s ease;
+            mix-blend-mode: luminosity;
+        }
+        .watermark-ai:hover {
+            opacity: 1;
+            mix-blend-mode: normal;
+            transform: scale(1.05);
+        }
+
+        /* Typing animation */
+        .typing-dot {
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen">
+<body class="bg-darkbg text-slate-200 min-h-screen selection:bg-brand-500 selection:text-white transition-colors duration-300">
 
-    <!-- Navbar -->
-    <nav class="sticky top-0 z-50 glass-card border-b border-slate-200 dark:border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20 items-center">
-                <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
-                    <div class="bg-brand-500 text-white p-2.5 rounded-xl shadow-md">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                        </svg>
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-40 glass-panel border-b border-slate-800/50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="flex items-center justify-between h-14">
+                <a href="#" class="flex items-center gap-2 group">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-accent-600 flex items-center justify-center text-white font-bold text-sm">
+                        C++
                     </div>
-                    <div>
-                        <span class="font-black text-2xl dark:text-white leading-none block">أكاديمية <span class="text-brand-500">G10</span></span>
-                        <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">علوم الحاسوب والخوارزميات</span>
-                    </div>
-                </div>
-                
+                    <span class="font-bold text-base tracking-tight text-white">C++ Pro <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-brand-500/20 text-brand-400 border border-brand-500/30">Academy</span></span>
+                </a>
+
+                <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-400">
+                    <a href="#curriculum" class="hover:text-white transition-colors">Modules</a>
+                    <a href="#challenges" class="hover:text-white transition-colors">Skill Quiz</a>
+                    <a href="#contact" class="hover:text-white transition-colors">Instructor</a>
+                </nav>
+
                 <div class="flex items-center gap-3">
-                    <a href="#ai-assistant" class="hidden sm:flex items-center gap-1.5 text-sm font-bold bg-accent-50 text-accent-600 dark:bg-accent-900/30 dark:text-accent-400 px-3.5 py-2 rounded-xl hover:bg-accent-100 transition">
-                        <span>🤖 الذكاء الاصطناعي</span>
-                    </a>
-                    <a href="#ask-teacher" class="hidden sm:flex items-center gap-1.5 text-sm font-bold bg-purple-50 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400 px-3.5 py-2 rounded-xl hover:bg-purple-100 transition">
-                        <span>✉️ اسأل الأستاذ</span>
-                    </a>
-                    <div class="flex items-center gap-2 bg-amber-500 text-white px-3.5 py-1.5 rounded-full shadow-sm text-sm font-black">
-                        <span>🪙</span>
+                    <div class="flex items-center gap-1 bg-slate-800/50 border border-slate-700/50 px-2.5 py-1 rounded-full text-xs font-semibold text-amber-400">
+                        <span>XP:</span>
                         <span id="ui-coins">0</span>
                     </div>
-                    <button id="theme-toggle" class="p-2.5 bg-white dark:bg-slate-800 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 transition border border-slate-200 dark:border-slate-700">
-                        <span id="theme-icon" class="text-lg block">🌙</span>
+                    <button id="theme-toggle" class="p-1.5 rounded-lg bg-slate-800/50 hover:bg-slate-700/50 text-slate-300 transition">
+                        <span id="theme-icon" class="text-xs block">🌙</span>
                     </button>
                 </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Header Section -->
-    <header class="py-16 md:py-24 text-center px-4">
-        <div class="max-w-4xl mx-auto">
-            <span class="inline-block bg-brand-100 text-brand-800 dark:bg-brand-900/40 dark:text-brand-300 px-4 py-1.5 rounded-full text-sm font-bold mb-6">
-                🚀 منصة خوارزميات وهياكل البيانات 2026
-            </span>
-            <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight">
-                تعلم البرمجة و الخوارزميات <br>
-                <span class="text-brand-500">ببساطة وبدون تعقيد</span>
-            </h1>
-            <p class="text-lg md:text-xl text-slate-600 dark:text-slate-300 font-semibold mb-8 max-w-2xl mx-auto leading-relaxed">
-                شرح مبسط ومباشر باللغة العربية، الإنجليزية، مع الأمثلة التوضيحية وبنك أسئلة واختبارات لضمان التفوق الدراسي.
-            </p>
-            <div class="flex justify-center gap-4 flex-wrap">
-                <a href="#lessons" class="px-6 py-3.5 bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-xl shadow-lg transition">تصفح الدروس والموسوعة 📚</a>
-                <a href="#quiz" class="px-6 py-3.5 bg-slate-800 hover:bg-slate-900 dark:bg-slate-700 dark:hover:bg-slate-600 text-white font-bold rounded-xl transition">بدء التحدي والاختبار 🎯</a>
-                <a href="#ai-assistant" class="px-6 py-3.5 bg-accent-600 hover:bg-accent-700 text-white font-bold rounded-xl transition">المساعد الذكي 🤖</a>
             </div>
         </div>
     </header>
 
-    <!-- Lessons Section -->
-    <section id="lessons" class="py-16 bg-slate-100/60 dark:bg-slate-800/40 border-y border-slate-200 dark:border-slate-800">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-black mb-3">الموسوعة الشاملة للدروس</h2>
-                <p class="text-slate-500 dark:text-slate-400 font-semibold">اختر طريقة الشرح التي تناسبك: بالسوداني، إنجليزي، أو أكاديمي</p>
-            </div>
+    <!-- Hero Section -->
+    <section class="relative pt-16 pb-16 overflow-hidden flex flex-col items-center text-center">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(14,165,233,0.1),rgba(0,0,0,0))] pointer-events-none"></div>
+        
+        <div class="max-w-3xl mx-auto px-4 relative z-10">
+            <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-4 leading-tight">
+                Master C++ Programming <br>
+                <span class="gradient-text">From Syntax to Architecture</span>
+            </h1>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="lessons-container">
-                <!-- Lessons injected via JS -->
-            </div>
-        </div>
-    </section>
+            <p class="text-slate-400 text-sm sm:text-base mb-8 max-w-xl mx-auto leading-relaxed">
+                Build a strong foundation for practical software development by mastering basic syntax, memory management, object-oriented design, and file storage.
+            </p>
 
-    <!-- TOOL 1: AI Assistant Section -->
-    <section id="ai-assistant" class="py-16 bg-white dark:bg-slate-900">
-        <div class="max-w-4xl mx-auto px-4">
-            <div class="text-center mb-8">
-                <span class="text-xs uppercase font-black tracking-widest text-accent-600 dark:text-accent-400 bg-accent-50 dark:bg-accent-900/30 px-3 py-1 rounded-full">أداة الذكاء الاصطناعي الأكاديمي</span>
-                <h2 class="text-3xl font-black mt-2 mb-2">اسأل مساعد الذكاء الاصطناعي 🤖</h2>
-                <p class="text-slate-500 dark:text-slate-400 text-sm font-semibold">يبحث المساعد في محتوى المنصة ومعلومات الكمبيوتر للإجابة فوراً بالعربية أو الإنجليزية</p>
-            </div>
-
-            <div class="glass-card rounded-3xl p-4 sm:p-6 border border-slate-200 dark:border-slate-700">
-                <!-- Chat Window -->
-                <div id="chat-window" class="h-80 overflow-y-auto space-y-4 p-4 mb-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/50">
-                    <div class="flex items-start gap-3">
-                        <div class="w-8 h-8 rounded-full bg-accent-500 text-white flex items-center justify-center font-bold text-sm shrink-0">AI</div>
-                        <div class="chat-bubble-ai p-3.5 text-sm font-semibold max-w-[85%] leading-relaxed">
-                            مرحباً بك! أنا مساعدك الذكي لمادة الخوارزميات وهياكل البيانات. يمكنني الإجابة على أسئلتك بالعربية أو الإنجليزية بناءً على دروس المنصة ومعلومات البرمجة. كيف يمكنني مساعدتك اليوم؟
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Suggestions -->
-                <div class="flex gap-2 mb-4 overflow-x-auto pb-2 text-xs font-bold text-slate-600 dark:text-slate-300">
-                    <button onclick="askPreset('ما هي المصفوفات Arrays؟')" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 rounded-lg whitespace-nowrap">ما هي المصفوفات Arrays؟</button>
-                    <button onclick="askPreset('ماهي فائدة Break و Continue؟')" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 rounded-lg whitespace-nowrap">ما الفرق بين Break و Continue؟</button>
-                    <button onclick="askPreset('Explain Recursion simply')" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 rounded-lg whitespace-nowrap">Explain Recursion</button>
-                </div>
-
-                <!-- Chat Input Form -->
-                <form id="ai-chat-form" onsubmit="handleAiChat(event)" class="flex gap-2">
-                    <input type="text" id="ai-input" placeholder="اكتب سؤالك هنا (مثال: ما هي الخوارزمية؟ أو What is a Function?)..." class="flex-grow px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:outline-none focus:border-accent-500 font-semibold text-sm">
-                    <button type="submit" class="px-6 py-3 bg-accent-600 hover:bg-accent-700 text-white font-bold rounded-xl transition text-sm flex items-center gap-1 shrink-0">
-                        <span>إرسال</span>
-                        <svg class="w-4 h-4 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </button>
-                </form>
+            <div class="flex justify-center gap-3">
+                <a href="#curriculum" class="px-5 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-medium text-sm transition-all shadow-lg shadow-brand-600/20">
+                    View Course Modules
+                </a>
+                <a href="#challenges" class="px-5 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-medium text-sm transition-all">
+                    Take Assignment Quiz
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Quiz Section -->
-    <section id="quiz" class="py-16 bg-slate-100/60 dark:bg-slate-800/40 border-y border-slate-200 dark:border-slate-800">
-        <div class="max-w-4xl mx-auto px-4">
-            <div class="glass-card rounded-3xl p-6 sm:p-10 border border-slate-200 dark:border-slate-700">
+    <!-- Curriculum Section -->
+    <section id="curriculum" class="py-12 border-t border-slate-800/40 bg-slate-900/20">
+        <div class="max-w-5xl mx-auto px-4">
+            <h2 class="text-xl font-bold text-white mb-6">Core C++ Modules</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="lessons-container">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Quiz Section -->
+    <section id="challenges" class="py-12">
+        <div class="max-w-3xl mx-auto px-4">
+            <div class="glass-panel rounded-2xl p-6 sm:p-8 border border-slate-800 relative">
                 
-                <div id="quiz-start" class="text-center py-8">
-                    <div class="text-6xl mb-4">🎯</div>
-                    <h3 class="text-3xl font-black mb-3">بنك الأسئلة والتحدي</h3>
-                    <p class="text-slate-600 dark:text-slate-300 font-semibold mb-6 max-w-lg mx-auto">
-                        اختبر معلوماتك في المفاهيم الأكاديمية والبرمجية. تحصل على <span class="text-amber-500 font-black">10 عملات 🪙</span> لكل إجابة صحيحة!
+                <div id="quiz-start" class="text-center py-4">
+                    <h3 class="text-xl font-bold text-white mb-2">C++ Knowledge Assessment</h3>
+                    <p class="text-slate-400 text-sm mb-6">
+                        Test your understanding of pointers, standard I/O, OOP, and loops. Earn XP for correct answers!
                     </p>
-                    <button onclick="startQuiz()" class="bg-brand-500 hover:bg-brand-600 text-white px-8 py-3.5 rounded-xl font-bold text-lg shadow-lg transition">
-                        ابدأ التحدي الآن
+                    <button onclick="startQuiz()" class="px-6 py-2.5 bg-accent-600 hover:bg-accent-500 text-white font-medium text-sm rounded-lg transition shadow-lg shadow-accent-600/20">
+                        Start Assessment
                     </button>
                 </div>
 
                 <div id="quiz-core" class="hidden">
-                    <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
-                        <span id="q-counter" class="font-bold text-sm text-slate-500"></span>
-                        <span class="font-black text-amber-500 text-sm">النقاط: <span id="session-score">0</span></span>
+                    <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800/50">
+                        <span id="q-counter" class="text-xs font-semibold text-slate-400 uppercase tracking-wider"></span>
+                        <span class="text-xs font-bold text-amber-400 bg-amber-400/10 px-2 py-1 rounded text-amber-400">Score: <span id="session-score">0</span></span>
                     </div>
 
-                    <h4 id="q-text" class="text-xl font-bold mb-6 text-slate-800 dark:text-white en-text leading-relaxed"></h4>
-                    <div id="q-options" class="space-y-3 mb-6"></div>
+                    <h4 id="q-text" class="text-base font-semibold text-white mb-4"></h4>
+                    <div id="q-options" class="space-y-2 mb-4"></div>
 
-                    <div id="explanation-container" class="hidden p-4 rounded-xl bg-blue-50 dark:bg-blue-900/20 border-r-4 border-blue-500">
-                        <h5 class="font-bold text-blue-700 dark:text-blue-400 text-sm mb-1">💡 التوضيح (Explanation):</h5>
-                        <p id="q-explanation" class="text-sm text-slate-700 dark:text-slate-300 font-semibold en-text leading-relaxed"></p>
-                        <button onclick="nextQuestion()" class="mt-4 bg-accent-600 hover:bg-accent-700 text-white text-sm font-bold py-2 px-5 rounded-lg transition">السؤال التالي ←</button>
+                    <div id="explanation-container" class="hidden p-3 rounded-lg bg-slate-800/60 border border-slate-700/50">
+                        <h5 class="text-[10px] font-bold text-brand-400 uppercase mb-1">Concept Explained:</h5>
+                        <p id="q-explanation" class="text-xs text-slate-300"></p>
+                        <button onclick="nextQuestion()" class="mt-3 px-4 py-1.5 bg-brand-600 hover:bg-brand-500 text-white font-medium text-xs rounded-md transition">
+                            Next →
+                        </button>
                     </div>
                 </div>
 
-                <div id="quiz-result" class="hidden text-center py-8">
-                    <div class="text-7xl mb-4" id="result-emoji">🏆</div>
-                    <h3 class="text-3xl font-black mb-2" id="result-title">انتهى الاختبار!</h3>
-                    <p class="text-slate-500 dark:text-slate-400 font-semibold mb-6" id="res-message"></p>
-                    <div class="text-4xl font-black text-brand-500 mb-6" id="res-score">0%</div>
-                    <button onclick="startQuiz()" class="bg-slate-800 dark:bg-slate-700 hover:bg-slate-900 text-white px-8 py-3 rounded-xl font-bold transition">إعادة المحاولة</button>
+                <div id="quiz-result" class="hidden text-center py-6">
+                    <h3 class="text-xl font-bold text-white mb-1">Assessment Complete</h3>
+                    <p class="text-slate-400 text-sm mb-4" id="res-message"></p>
+                    <div class="text-3xl font-bold text-brand-400 mb-5" id="res-score">0%</div>
+                    <button onclick="startQuiz()" class="px-5 py-2 bg-slate-800 hover:bg-slate-700 text-white font-medium text-sm rounded-lg border border-slate-700">
+                        Retake Quiz
+                    </button>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- TOOL 2: Direct Contact Form to combebe22@gmail.com -->
-    <section id="ask-teacher" class="py-16 bg-white dark:bg-slate-900">
-        <div class="max-w-3xl mx-auto px-4">
-            <div class="text-center mb-8">
-                <span class="text-xs uppercase font-black tracking-widest text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/30 px-3 py-1 rounded-full">طرح سؤال مباشر</span>
-                <h2 class="text-3xl font-black mt-2 mb-2">أرسل سؤالك مباشرة للأستاذ ✉️</h2>
-                <p class="text-slate-500 dark:text-slate-400 text-sm font-semibold">سيتم إرسال سؤالك مباشرة إلى البريد الإلكتروني (combebe22@gmail.com) وسيتم الرد عليك فوراً</p>
+    <!-- Instructor Section -->
+    <section id="contact" class="py-12 bg-slate-900/40 border-t border-slate-800/50">
+        <div class="max-w-2xl mx-auto px-4 text-center">
+            <h2 class="text-xl font-bold text-white mb-2">Technical Support</h2>
+            <p class="text-slate-400 text-sm mb-6">Contact the instructor regarding C++ assignments at <b>combebe22@gmail.com</b></p>
+            
+            <form action="https://formsubmit.co/combebe22@gmail.com" method="POST" class="glass-panel p-5 rounded-xl border border-slate-800 text-left space-y-3">
+                <input type="hidden" name="_subject" value="C++ Academy Student Question">
+                <input type="text" name="name" required placeholder="Student Name" class="w-full px-3 py-2 rounded-lg bg-slate-900/50 border border-slate-700 text-white text-sm focus:border-brand-500 focus:outline-none">
+                <textarea name="message" rows="3" required placeholder="Describe your C++ coding issue..." class="w-full px-3 py-2 rounded-lg bg-slate-900/50 border border-slate-700 text-white text-sm focus:border-brand-500 focus:outline-none"></textarea>
+                <button type="submit" class="w-full py-2 bg-brand-600 hover:bg-brand-500 text-white font-medium text-sm rounded-lg transition">Submit Question</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="py-6 text-center text-xs text-slate-500 border-t border-slate-800/50">
+        <p>C++ Pro Academy © 2026. Education Platform.</p>
+    </footer>
+
+    <!-- Watermark AI Assistant -->
+    <div class="fixed bottom-5 right-5 z-50 flex flex-col items-end">
+        <div id="ai-drawer" class="w-80 h-[28rem] mb-3 glass-panel rounded-2xl shadow-2xl border border-slate-700/50 flex flex-col transition-all duration-300 transform scale-95 opacity-0 origin-bottom-right pointer-events-none">
+            <div class="p-3 border-b border-slate-800 flex items-center justify-between bg-slate-900/80 rounded-t-2xl">
+                <span class="text-xs font-bold text-white flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span> C++ Smart Assistant
+                </span>
+                <button onclick="toggleAiDrawer()" class="text-slate-400 hover:text-white text-xs">✕</button>
             </div>
 
-            <div class="glass-card rounded-3xl p-6 border border-slate-200 dark:border-slate-700">
-                <form action="https://formsubmit.co/combebe22@gmail.com" method="POST" class="space-y-4">
-                    <!-- FormSubmit Configuration -->
-                    <input type="hidden" name="_subject" value="سؤال جديد من طالب - أكاديمية G10">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_template" value="table">
+            <div id="chat-window" class="flex-grow p-3 overflow-y-auto space-y-3 text-xs flex flex-col">
+                <div class="p-2.5 rounded-lg bg-slate-800 text-slate-200 w-fit max-w-[85%] border border-slate-700/50 self-start">
+                    Welcome! I can help you with C++ syntax, memory pointers, OOP concepts, or file handling. What do you need help with?
+                </div>
+            </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">الاسم الكامل</label>
-                            <input type="text" name="name" required placeholder="ادخل اسمك" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:outline-none focus:border-purple-500 font-semibold text-sm">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">بريدك الإلكتروني (لتلقي الإجابة)</label>
-                            <input type="email" name="email" required placeholder="yourname@gmail.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:outline-none focus:border-purple-500 font-semibold text-sm">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">عنوان الموضوع / الدرس</label>
-                        <input type="text" name="topic" placeholder="مثال: استفسار عن Recursion أو المصفوفات" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:outline-none focus:border-purple-500 font-semibold text-sm">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">نص السؤال أو الاستفسار بالتفصيل</label>
-                        <textarea name="message" rows="4" required placeholder="اكتب سؤالك هنا بشكل واضح..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:outline-none focus:border-purple-500 font-semibold text-sm"></textarea>
-                    </div>
-
-                    <button type="submit" class="w-full py-3.5 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl transition text-base shadow-md flex items-center justify-center gap-2">
-                        <span>إرسال السؤال إلى combebe22@gmail.com</span>
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
-                    </button>
+            <div class="p-2 border-t border-slate-800 bg-slate-900/80 rounded-b-2xl">
+                <div class="flex gap-1 mb-2 overflow-x-auto pb-1 text-[10px] hide-scrollbar">
+                    <button onclick="askPreset('Explain Pointers in C++')" class="px-2 py-1 bg-slate-800 hover:bg-slate-700 rounded border border-slate-700 text-slate-300 whitespace-nowrap">Pointers & Memory</button>
+                    <button onclick="askPreset('What is OOP in C++?')" class="px-2 py-1 bg-slate-800 hover:bg-slate-700 rounded border border-slate-700 text-slate-300 whitespace-nowrap">Classes / OOP</button>
+                </div>
+                <form onsubmit="handleAiChat(event)" class="flex gap-2">
+                    <input type="text" id="ai-input" required placeholder="Ask a C++ question..." class="flex-grow px-2.5 py-1.5 rounded-md bg-slate-800 border border-slate-700 text-white text-xs focus:outline-none focus:border-brand-500">
+                    <button type="submit" class="px-3 py-1.5 bg-brand-600 hover:bg-brand-500 text-white font-medium rounded-md text-xs transition">Send</button>
                 </form>
             </div>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="bg-slate-950 text-slate-400 py-10 text-center border-t border-slate-800 text-sm">
-        <div class="max-w-4xl mx-auto px-4">
-            <h3 class="text-2xl font-black text-white mb-2">G10 <span class="text-brand-500">Academy</span></h3>
-            <p class="font-semibold text-slate-500 mb-4">المنصة الشاملة لتعلم البرمجة والخوارزميات بسهولة</p>
-            <p class="text-xs text-slate-600">جميع الحقوق محفوظة &copy; 2026 | التواصل: combebe22@gmail.com</p>
-        </div>
-    </footer>
+        <button id="ai-widget-btn" onclick="toggleAiDrawer()" class="watermark-ai w-12 h-12 rounded-full bg-slate-800/80 border border-slate-600/50 text-brand-400 shadow-lg backdrop-blur-sm flex items-center justify-center">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+            </svg>
+        </button>
+    </div>
 
-    <div id="toast-container"></div>
-
+    <!-- Script Logic -->
     <script>
-        // LocalStorage Safe Helper
-        function safeGetStorage(key, defaultValue) {
-            try { return localStorage.getItem(key) || defaultValue; } catch (e) { return defaultValue; }
-        }
-        function safeSetStorage(key, value) {
-            try { localStorage.setItem(key, value); } catch (e) {}
-        }
+        // 🔑 أضف مفتاح API الخاص بك هنا
+        const API_KEY = 'YOUR_API_KEY'; 
 
-        // Theme Toggle
+        // Theme Management
         const themeBtn = document.getElementById('theme-toggle');
         const themeIcon = document.getElementById('theme-icon');
         
         function updateTheme() {
-            const isDark = document.documentElement.classList.contains('dark');
-            themeIcon.innerText = isDark ? '☀️' : '🌙';
+            themeIcon.innerText = document.documentElement.classList.contains('dark') ? '🌙' : '☀️';
         }
         
-        let savedTheme = safeGetStorage('theme', null);
-        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        }
-        updateTheme();
-
         themeBtn.addEventListener('click', () => {
             document.documentElement.classList.toggle('dark');
-            safeSetStorage('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
             updateTheme();
         });
 
-        // Gamification
-        let totalCoins = parseInt(safeGetStorage('gCoins', '0')) || 0;
-        function updateWallet() {
-            document.getElementById('ui-coins').innerText = totalCoins;
-        }
-        function showToast(message, isCoin = true) {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            if(!isCoin) toast.style.background = '#ef4444';
-            toast.innerHTML = `<span>${isCoin ? '🪙' : '❌'}</span><span>${message}</span>`;
-            container.appendChild(toast);
-            setTimeout(() => toast.classList.add('show'), 10);
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 400);
-            }, 3000);
-        }
-        updateWallet();
+        // Gamification logic
+        let xp = 0;
+        function updateXP() { document.getElementById('ui-coins').innerText = xp; }
 
-        // Lessons Data
-        const lessons = [
-            { id: 1, title: "1. مفهوم البيانات (Data Concept)", acadAr: "البيانات (Data) هي معلومات في شكل حقائق، أرقام، أو قيم يمكن جمعها وتخزينها ومعالجتها لدعم اتخاذ القرارات.", en: "Data is information in the form of facts, numbers, or values that can be collected, stored, and processed.", sud: "البيانات دي باختصار هي المعلومات الخام زي الأرقام والأسماء. الحواسيب بتشتغل بالبيانات دي فقط." },
-            { id: 2, title: "2. هياكل البيانات (Data Structures)", acadAr: "هيكل البيانات هو طريقة متخصصة لتنظيم وتخزين البيانات في الحاسوب بحيث يمكن الوصول إليها واستخدامها بكفاءة.", en: "A data structure is a specialized way of organizing and storing data in a computer for efficient access.", sud: "هياكل البيانات هي الدواليب والرفوف البترتب معلوماتك جوة الذاكرة عشان تلقاها وتعدلها بسرعة." },
-            { id: 3, title: "3. الخوارزميات (Algorithms)", acadAr: "الخوارزمية هي مجموعة من التعليمات المتسلسلة خطوة بخطوة لحل مشكلة معينة في وقت محدد.", en: "An algorithm is a step-by-step procedure designed to solve a problem in a finite amount of time.", sud: "الخوارزمية زي وصفة الخطوات الواضحة والمحددة لحل أي مشكلة برمجية." },
-            { id: 4, title: "4. المصفوفات (Arrays)", acadAr: "المصفوفة هيكل بيانات يخزن مجموعة عناصر متجاورة في الذاكرة من نفس النوع وحجمها ثابت.", en: "An array stores contiguous elements of the same data type with a fixed size.", sud: "المصفوفة زي كرتونة مقسمة لخانة وبترقيم (Index)، سريعة وبتاخد نفس نوع البيانات." },
-            { id: 5, title: "5. التكرار الذاتي (Recursion)", acadAr: "الدوال التكرارية هي الدوال التي تقوم باستدعاء نفسها ويجب أن تحتوي على حالة توقف (Base Case).", en: "Recursive functions call themselves and must have a Base Case to stop infinite loops.", sud: "الدالة بتنادي نفسها كذا مرة، ولازم تحط ليها فرملة (Base Case) عشان ما تعليق." },
-            { id: 6, title: "6. Break & Continue", acadAr: "تعليمة break تنهي الحلقة بالكامل، بينما continue تتخطى الدورة الحالية فقط إلى الدورة التالية.", en: "break terminates the loop completely, while continue skips only the current iteration.", sud: "الـ Break بتوقف اللفة نهائياً، والـ Continue بتنط اللفة الحالية وتمشي للبعدها طوالي." }
+        // Curriculum Data
+        const modules = [
+            { title: "Syntax & Basics", complexity: "Section A", desc: "Covers single-line (//) and multi-line (/* */) comments, primitive types, and standard I/O using std::cout and std::cin." },
+            { title: "Decision-Making", complexity: "Section C", desc: "Logic evaluation using if, else if, and else structures to check mutually exclusive conditions, along with logical AND (&&) operators." },
+            { title: "Repetition Control", complexity: "Section E", desc: "Iteration and loops (for, while) to accumulate values or display condition-driven output." },
+            { title: "Arrays & Strings", complexity: "Sections F-G", desc: "Data collections, sequential linear search algorithms, and string operations including std::getline to read entire lines with spaces." },
+            { title: "Functions & Pointers", complexity: "Sections H-I", desc: "Modular programming passing parameters, utilizing references (&) to get memory addresses, and dereferencing (*) to access stored values." },
+            { title: "OOP & File Handling", complexity: "Sections J-L", desc: "Object-Oriented design promoting reusability via classes and inheritance, plus data persistence using std::ofstream to write to files." }
         ];
 
-        // Render Lessons
-        const container = document.getElementById('lessons-container');
-        container.innerHTML = lessons.map(l => `
-            <div class="glass-card p-5 rounded-2xl border border-slate-200 dark:border-slate-700">
-                <h3 class="text-xl font-bold mb-4 text-slate-800 dark:text-white">${l.title}</h3>
-                <div class="flex gap-2 mb-4 border-b border-slate-200 dark:border-slate-700 pb-2">
-                    <button class="tab-btn active px-3 py-1 rounded-lg text-xs font-bold" onclick="switchTab(this, 'sud-${l.id}')">بالسوداني 🇸🇩</button>
-                    <button class="tab-btn px-3 py-1 rounded-lg text-xs font-bold" onclick="switchTab(this, 'en-${l.id}')">English 🇬🇧</button>
-                    <button class="tab-btn px-3 py-1 rounded-lg text-xs font-bold" onclick="switchTab(this, 'ar-${l.id}')">أكاديمي 📚</button>
+        document.getElementById('lessons-container').innerHTML = modules.map(m => `
+            <div class="glass-panel p-4 rounded-xl border border-slate-800 hover:border-slate-700 transition">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="text-sm font-bold text-white">${m.title}</h3>
+                    <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-400 border border-brand-500/20">${m.complexity}</span>
                 </div>
-                <div>
-                    <div id="sud-${l.id}" class="tab-content active text-sm font-semibold text-amber-900 dark:text-amber-200 bg-amber-50 dark:bg-amber-900/20 p-3.5 rounded-xl">${l.sud}</div>
-                    <div id="en-${l.id}" class="tab-content en-text text-sm font-semibold text-blue-900 dark:text-blue-200 bg-blue-50 dark:bg-blue-900/20 p-3.5 rounded-xl">${l.en}</div>
-                    <div id="ar-${l.id}" class="tab-content text-sm font-semibold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800/60 p-3.5 rounded-xl">${l.acadAr}</div>
-                </div>
+                <p class="text-xs text-slate-400 leading-relaxed">${m.desc}</p>
             </div>
         `).join('');
 
-        function switchTab(btn, targetId) {
-            const card = btn.closest('.glass-card');
-            card.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            card.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            btn.classList.add('active');
-            card.querySelector('#' + targetId).classList.add('active');
-        }
-
-        // TOOL 1: AI Chat Assistant Engine
-        function handleAiChat(e) {
-            e.preventDefault();
-            const input = document.getElementById('ai-input');
-            const query = input.value.trim();
-            if (!query) return;
-
-            addChatMessage(query, 'user');
-            input.value = '';
-
-            setTimeout(() => {
-                const reply = generateAiResponse(query);
-                addChatMessage(reply, 'ai');
-            }, 400);
-        }
-
-        function askPreset(text) {
-            document.getElementById('ai-input').value = text;
-            handleAiChat(new Event('submit'));
-        }
-
-        function addChatMessage(text, sender) {
-            const chatWindow = document.getElementById('chat-window');
-            const isUser = sender === 'user';
-            const msgDiv = document.createElement('div');
-            msgDiv.className = `flex items-start gap-3 ${isUser ? 'flex-row-reverse' : ''}`;
-            
-            msgDiv.innerHTML = `
-                <div class="w-8 h-8 rounded-full ${isUser ? 'bg-brand-500' : 'bg-accent-500'} text-white flex items-center justify-center font-bold text-xs shrink-0">${isUser ? 'أنت' : 'AI'}</div>
-                <div class="${isUser ? 'chat-bubble-user' : 'chat-bubble-ai'} p-3.5 text-sm font-semibold max-w-[85%] leading-relaxed">
-                    ${text}
-                </div>
-            `;
-            chatWindow.appendChild(msgDiv);
-            chatWindow.scrollTop = chatWindow.scrollHeight;
-        }
-
-        function generateAiResponse(q) {
-            const lower = q.toLowerCase();
-            
-            // Search in embedded lessons first
-            if (lower.includes('مصفوف') || lower.includes('array')) {
-                return "📌 **المصفوفة (Array):** هي هيكل بيانات يخزن مجموعة عناصر متجاورة في الذاكرة من نفس النوع وحجمها ثابت.\n\nEnglish: An array is a data structure that stores contiguous elements of the same data type with a fixed size.";
-            }
-            if (lower.includes('خوارزم') || lower.includes('algorithm')) {
-                return "📌 **الخوارزمية (Algorithm):** هي مجموعة خطوات متسلسلة ومحددة لحل مشكلة برمجية في وقت محدد.\n\nEnglish: A step-by-step procedure designed to solve a problem in a finite amount of time.";
-            }
-            if (lower.includes('بيانات') || lower.includes('data concept') || lower.includes('data structure')) {
-                return "📌 **هياكل البيانات (Data Structures):** طريقة متخصصة لتنظيم وتخزين البيانات في الحاسوب لاسترجاعها وتعديلها بكفاءة.";
-            }
-            if (lower.includes('break') || lower.includes('continue')) {
-                return "📌 **الفرق بين Break و Continue:**\n- `break`: تنهي الحلقة (Loop) فوراً وتخرج منها.\n- `continue`: تتخطى التكرار الحالي فقط وتنتقل للتكرار التالي مباشرة.";
-            }
-            if (lower.includes('recursion') || lower.includes('استدعاء ذاتي') || lower.includes('تكرار')) {
-                return "📌 **التكرار الذاتي (Recursion):** هو قيام الدالة باستدعاء نفسها، ويجب وضع حالة توقف (Base Case) لمنع التكرار اللانهائي.";
-            }
-            if (lower.includes('دالة') || lower.includes('function')) {
-                return "📌 **الدوال (Functions):** كتلة برمجية تؤدي مهمة واحدة محددة تجعل الكود مقسماً وقابلاً لإعادة الاستخدام بسهولة.";
-            }
-
-            // General Computer Science Fallback Response
-            if (/[a-zA-Z]/.test(q)) {
-                return `🤖 **AI Response:** Based on your question "${q}", in computer science, this topic relates to algorithms and data manipulation. Make sure to structure your code logically and test your logic with simple edge cases! You can also email your specific question to combebe22@gmail.com for full teacher support.`;
-            } else {
-                return `🤖 **إجابة المساعد الذكي:** سؤالك ممتاز حول "${q}". في علوم الحاسوب، يفضل دائماً تقسيم المشكلة لخطوات بسيطة (Top-down approach). يمكنك أيضاً إرسال أي سؤال معقد مباشرة للأستاذ عبر خانة "اسأل الأستاذ" ليصل على combebe22@gmail.com.`;
-            }
-        }
-
-        // Quiz Engine
+        // Quiz Logic
         const quizData = [
-            { q: "What is a data structure?", opts: ["A programming language", "A way of organizing and storing data", "A loop"], correct: 1, exp: "A data structure organizes and stores data efficiently in memory." },
-            { q: "In C++, what does the 'break' statement do?", opts: ["Terminates the loop entirely", "Skips current iteration", "Restarts loop"], correct: 0, exp: "break exits the loop immediately." },
-            { q: "What is required in a Recursive function?", opts: ["Infinite loop", "Base Case", "Global variable"], correct: 1, exp: "A Base Case is required to prevent infinite recursion." },
-            { q: "What is an Array?", opts: ["Dynamic size structure", "Fixed size contiguous memory structure", "A compiler"], correct: 1, exp: "Arrays store elements of the same type in contiguous memory with fixed size." }
+            { 
+                q: "What is the correct method to read a user's full name including spaces in C++?", 
+                opts: ["std::cin >> fullName;", "std::getline(std::cin, fullName);", "std::read(fullName);"], 
+                correct: 1, 
+                exp: "std::getline reads the entire line including spaces, preventing premature input truncation caused by standard std::cin >>." 
+            },
+            { 
+                q: "What does the dereference operator (*) do when used with a pointer?", 
+                opts: ["Gets the memory address of a variable", "Deletes the variable from memory", "Accesses the value stored at the pointer's memory address"], 
+                correct: 2, 
+                exp: "While &num gets the memory address, *ptr (dereferencing) accesses the value stored at that specific address." 
+            },
+            { 
+                q: "Which stream class is used to create and open a text file for writing data?", 
+                opts: ["std::ofstream", "std::cout", "std::ifstream"], 
+                correct: 0, 
+                exp: "std::ofstream opens or creates a text file. Input details are saved to the file, and stream resources are cleaned up with .close()." 
+            }
         ];
 
         let qIndex = 0, score = 0, sessionScore = 0;
@@ -447,13 +323,12 @@
 
         function loadQuestion() {
             const q = quizData[qIndex];
-            document.getElementById('q-counter').innerText = `السؤال ${qIndex + 1} من ${quizData.length}`;
+            document.getElementById('q-counter').innerText = `Question ${qIndex + 1}/${quizData.length}`;
             document.getElementById('q-text').innerText = q.q;
             document.getElementById('explanation-container').classList.add('hidden');
 
-            const optsDiv = document.getElementById('q-options');
-            optsDiv.innerHTML = q.opts.map((opt, idx) => `
-                <button onclick="checkAnswer(${idx}, this)" class="quiz-option w-full text-left p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-semibold en-text transition hover:border-brand-500">
+            document.getElementById('q-options').innerHTML = q.opts.map((opt, idx) => `
+                <button onclick="checkAnswer(${idx}, this)" class="w-full text-left p-2.5 rounded-lg border border-slate-700 bg-slate-800/50 hover:bg-slate-700 text-xs text-slate-300 transition">
                     ${opt}
                 </button>
             `).join('');
@@ -461,24 +336,17 @@
 
         function checkAnswer(idx, btn) {
             const q = quizData[qIndex];
-            const isCorrect = idx === q.correct;
             const allBtns = document.getElementById('q-options').children;
+            for (let b of allBtns) b.disabled = true;
 
-            for (let b of allBtns) b.classList.add('disabled');
-
-            if (isCorrect) {
-                btn.classList.add('correct');
-                score++;
-                sessionScore += 10;
-                totalCoins += 10;
-                safeSetStorage('gCoins', totalCoins);
-                updateWallet();
+            if (idx === q.correct) {
+                btn.className = "w-full text-left p-2.5 rounded-lg border border-emerald-500/50 bg-emerald-500/10 text-emerald-400 text-xs";
+                score++; sessionScore += 15; xp += 15;
+                updateXP();
                 document.getElementById('session-score').innerText = sessionScore;
-                showToast('+10 G-Coins!', true);
             } else {
-                btn.classList.add('wrong');
-                allBtns[q.correct].classList.add('correct');
-                showToast('إجابة خاطئة', false);
+                btn.className = "w-full text-left p-2.5 rounded-lg border border-rose-500/50 bg-rose-500/10 text-rose-400 text-xs";
+                allBtns[q.correct].className = "w-full text-left p-2.5 rounded-lg border border-emerald-500/50 bg-emerald-500/10 text-emerald-400 text-xs";
             }
 
             document.getElementById('q-explanation').innerText = q.exp;
@@ -494,9 +362,106 @@
         function showResult() {
             document.getElementById('quiz-core').classList.add('hidden');
             document.getElementById('quiz-result').classList.remove('hidden');
-            const pct = Math.round((score / quizData.length) * 100);
-            document.getElementById('res-score').innerText = `${pct}%`;
-            document.getElementById('res-message').innerText = pct >= 50 ? 'عمل ممتاز! تم إضافة العملات لرصيدك.' : 'حاول مرة أخرى لتحسين درجتك.';
+            document.getElementById('res-score').innerText = `${Math.round((score / quizData.length) * 100)}%`;
+            document.getElementById('res-message').innerText = score > 1 ? 'Good job completing the assignment checks!' : 'Review the C++ fundamentals and try again.';
+        }
+
+        // --- AI Assistant Logic (Updated with fetch) ---
+        let isDrawerOpen = false;
+        function toggleAiDrawer() {
+            const drawer = document.getElementById('ai-drawer');
+            const btn = document.getElementById('ai-widget-btn');
+            isDrawerOpen = !isDrawerOpen;
+            
+            if (isDrawerOpen) {
+                drawer.classList.remove('scale-95', 'opacity-0', 'pointer-events-none');
+                btn.style.opacity = '1';
+                btn.style.transform = 'scale(0.9)';
+            } else {
+                drawer.classList.add('scale-95', 'opacity-0', 'pointer-events-none');
+                btn.style.opacity = '';
+                btn.style.transform = '';
+            }
+        }
+
+        function askPreset(txt) {
+            document.getElementById('ai-input').value = txt;
+            handleAiChat(new Event('submit'));
+        }
+
+        function appendChat(html, isUser) {
+            const win = document.getElementById('chat-window');
+            const div = document.createElement('div');
+            
+            if (isUser) {
+                div.className = "p-2.5 rounded-lg text-xs w-fit max-w-[85%] self-end bg-brand-600 text-white shadow-md";
+            } else {
+                div.className = "p-2.5 rounded-lg text-xs w-fit max-w-[85%] self-start bg-slate-800 text-slate-200 border border-slate-700/50 shadow-md";
+            }
+            
+            div.innerHTML = html;
+            win.appendChild(div);
+            win.scrollTop = win.scrollHeight;
+            return div; // Return element in case we need to remove it (like typing indicator)
+        }
+
+        function showTyping() {
+            const html = `
+                <div class="flex items-center gap-1 h-4">
+                    <div class="w-1.5 h-1.5 rounded-full bg-slate-400 typing-dot"></div>
+                    <div class="w-1.5 h-1.5 rounded-full bg-slate-400 typing-dot"></div>
+                    <div class="w-1.5 h-1.5 rounded-full bg-slate-400 typing-dot"></div>
+                </div>
+            `;
+            return appendChat(html, false);
+        }
+
+        async function handleAiChat(e) {
+            e.preventDefault();
+            const input = document.getElementById('ai-input');
+            const q = input.value.trim();
+            if (!q) return;
+
+            // 1. Add User Message
+            appendChat(q, true);
+            input.value = '';
+
+            // 2. Show Typing Indicator
+            const typingIndicator = showTyping();
+
+            // 3. Fetch from Gemini API
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${API_KEY}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: q }] }]
+                    })
+                });
+                
+                const data = await response.json();
+                
+                // Remove typing indicator
+                typingIndicator.remove();
+
+                if (data.error) {
+                    throw new Error(data.error.message);
+                }
+
+                // Parse and format AI response
+                const aiReply = data.candidates[0].content.parts[0].text;
+                
+                // Format directly into the HTML structure requested by Source 2
+                const formattedHtml = `<p class="font-semibold text-indigo-400 mb-1">المساعد الذكي:</p>${aiReply.replace(/\\n/g, '<br>')}`;
+                
+                appendChat(formattedHtml, false);
+
+            } catch (error) {
+                // Handle Errors
+                typingIndicator.remove();
+                appendChat(`<p class="text-rose-400 font-semibold mb-1">خطأ:</p>تعذر الاتصال بالذكاء الاصطناعي. يرجى التأكد من إضافة مفتاح API صحيح.`, false);
+                console.error("API Error:", error);
+            }
         }
     </script>
 </body>
