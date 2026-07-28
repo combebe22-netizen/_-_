@@ -1,13 +1,15 @@
-<index.html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أكاديمية الخوارزميات G10 | الجيل الجديد - الإصدار الشامل</title>
+    <title>أكاديمية الخوارزميات G10 | منصة التعلم الشاملة 2026</title>
     
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Outfit:wght@400;600;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -18,41 +20,13 @@
                             50: '#f0fdf4', 100: '#dcfce7', 200: '#bbf7d0', 300: '#86efac', 400: '#4ade80',
                             500: '#22c55e', 600: '#16a34a', 700: '#15803d', 800: '#166534', 900: '#14532d'
                         },
-                        accent: { 500: '#3b82f6', 600: '#2563eb' },
+                        accent: { 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' },
                         sudanese: { gold: '#f59e0b', red: '#ef4444' }
                     },
                     fontFamily: {
                         ar: ['Cairo', 'sans-serif'],
                         en: ['Outfit', 'sans-serif'],
                         code: ['Fira Code', 'monospace'],
-                    },
-                    animation: {
-                        'blob': 'blob 7s infinite',
-                        'float': 'float 3s ease-in-out infinite',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'spin-slow': 'spin 8s linear infinite',
-                        'bounce-x': 'bounce-x 1s infinite',
-                        'confetti': 'confetti 2s ease-out forwards'
-                    },
-                    keyframes: {
-                        blob: {
-                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
-                        },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        },
-                        'bounce-x': {
-                            '0%, 100%': { transform: 'translateX(0)' },
-                            '50%': { transform: 'translateX(-25%)' },
-                        },
-                        confetti: {
-                            '0%': { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
-                            '100%': { transform: 'translateY(1000px) rotate(720deg)', opacity: 0 }
-                        }
                     }
                 }
             }
@@ -60,269 +34,246 @@
     </script>
 
     <style>
-        body { font-family: 'Cairo', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; overflow-x: hidden; }
+        body { font-family: 'Cairo', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; }
         .en-text { font-family: 'Outfit', sans-serif; direction: ltr; text-align: left; }
-        .code-block { font-family: 'Fira Code', monospace; direction: ltr; text-align: left; background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; font-size: 0.9rem; margin-top: 0.5rem; margin-bottom: 0.5rem; border: 1px solid #334155; }
-        .glass-card { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 15px 35px rgba(0,0,0,0.05); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .dark .glass-card { background: rgba(30, 41, 59, 0.75); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 15px 35px rgba(0,0,0,0.4); }
-        .glass-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px rgba(0,0,0,0.1); }
-        .dark .glass-card:hover { box-shadow: 0 25px 50px rgba(0,0,0,0.5); }
-        .wallet-pill { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; border-radius: 999px; padding: 8px 24px; box-shadow: 0 4px 20px rgba(245, 158, 11, 0.4); display: flex; align-items: center; gap: 12px; font-weight: 900; transition: transform 0.2s ease; }
-        .wallet-pill:hover { transform: scale(1.05); }
-        .tab-btn { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border-bottom: 3px solid transparent; position: relative; overflow: hidden; }
-        .tab-btn.active { border-bottom-color: #2563eb; color: #2563eb; font-weight: 900; background-color: rgba(37, 99, 235, 0.1); }
-        .dark .tab-btn.active { border-bottom-color: #4ade80; color: #4ade80; background-color: rgba(74, 222, 128, 0.1); }
-        .tab-content { display: none; opacity: 0; transform: translateY(15px); transition: all 0.5s ease-out; }
-        .tab-content.active { display: block; opacity: 1; transform: translateY(0); }
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 20px; border: 2px solid transparent; background-clip: content-box; }
-        .dark ::-webkit-scrollbar-thumb { background: #475569; border-radius: 20px; border: 2px solid transparent; background-clip: content-box; }
-        #toast-container { position: fixed; bottom: 2rem; left: 2rem; z-index: 9999; display: flex; flex-direction: column; gap: 1rem; }
-        .toast { background: #22c55e; color: white; padding: 1rem 1.5rem; border-radius: 1rem; font-weight: 700; box-shadow: 0 10px 25px rgba(34, 197, 94, 0.4); transform: translateX(-150%); opacity: 0; transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); display: flex; align-items: center; gap: 0.75rem; }
+        .glass-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(226, 232, 240, 0.8); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); }
+        .dark .glass-card { background: rgba(30, 41, 59, 0.85); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3); }
+        .tab-btn { transition: all 0.2s ease; border-bottom: 3px solid transparent; }
+        .tab-btn.active { border-bottom-color: #22c55e; color: #16a34a; font-weight: 800; background-color: rgba(34, 197, 94, 0.1); }
+        .dark .tab-btn.active { border-bottom-color: #4ade80; color: #4ade80; background-color: rgba(74, 222, 128, 0.15); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .dark ::-webkit-scrollbar-thumb { background: #475569; }
+        #toast-container { position: fixed; bottom: 1.5rem; left: 1.5rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.75rem; }
+        .toast { background: #22c55e; color: white; padding: 0.85rem 1.25rem; border-radius: 0.75rem; font-weight: 700; box-shadow: 0 10px 20px rgba(34, 197, 94, 0.3); transform: translateX(-120%); opacity: 0; transition: all 0.4s ease; display: flex; align-items: center; gap: 0.5rem; }
         .toast.show { transform: translateX(0); opacity: 1; }
-        .quiz-option { position: relative; overflow: hidden; z-index: 1; outline: none; border-width: 2px; }
-        .quiz-option::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(34, 197, 94, 0.1); transform: scaleX(0); transform-origin: right; transition: transform 0.3s ease; z-index: -1; }
-        .quiz-option:hover::before { transform: scaleX(1); }
-        .quiz-option.correct { border-color: #22c55e; background-color: rgba(34, 197, 94, 0.1); color: #15803d; }
+        .quiz-option.correct { border-color: #22c55e; background-color: rgba(34, 197, 94, 0.12); color: #15803d; }
         .dark .quiz-option.correct { border-color: #4ade80; color: #4ade80; background-color: rgba(74, 222, 128, 0.15); }
-        .quiz-option.wrong { border-color: #ef4444; background-color: rgba(239, 68, 68, 0.1); color: #b91c1c; }
+        .quiz-option.wrong { border-color: #ef4444; background-color: rgba(239, 68, 68, 0.12); color: #b91c1c; }
         .dark .quiz-option.wrong { border-color: #f87171; color: #f87171; background-color: rgba(248, 113, 113, 0.15); }
-        .quiz-option.disabled { pointer-events: none; opacity: 0.7; }
-        .particle { position: absolute; pointer-events: none; width: 10px; height: 10px; border-radius: 50%; animation: shoot 1s ease-out forwards; z-index: 100; }
-        @keyframes shoot { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; } }
-        .explanation-box { display: none; margin-top: 1.5rem; padding: 1.5rem; border-radius: 1rem; background: linear-gradient(to left, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.05)); border-right: 4px solid #3b82f6; }
-        .dark .explanation-box { background: linear-gradient(to left, rgba(59, 130, 246, 0.2), rgba(30, 64, 175, 0.1)); border-right-color: #60a5fa; }
-        .explanation-box.active { display: block; animation: slideUp 0.4s ease-out forwards; }
-        @keyframes slideUp { 0% { transform: translateY(20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+        .quiz-option.disabled { pointer-events: none; opacity: 0.85; }
+        .chat-bubble-user { background: #2563eb; color: white; border-radius: 1.25rem 1.25rem 0 1.25rem; }
+        .chat-bubble-ai { background: #f1f5f9; color: #0f172a; border-radius: 1.25rem 1.25rem 1.25rem 0; }
+        .dark .chat-bubble-ai { background: #334155; color: #f8fafc; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 selection:bg-brand-400 selection:text-white">
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen">
 
-    <div class="fixed inset-0 w-full h-full pointer-events-none z-[-1] overflow-hidden">
-        <div class="absolute top-[-10%] left-[-10%] w-[40rem] h-[40rem] bg-brand-400 rounded-full mix-blend-multiply filter blur-[100px] opacity-20 dark:opacity-10 animate-blob"></div>
-        <div class="absolute top-[20%] right-[-10%] w-[35rem] h-[35rem] bg-accent-400 rounded-full mix-blend-multiply filter blur-[100px] opacity-20 dark:opacity-10 animate-blob" style="animation-delay: 2s;"></div>
-        <div class="absolute bottom-[-20%] left-[20%] w-[45rem] h-[45rem] bg-purple-400 rounded-full mix-blend-multiply filter blur-[100px] opacity-20 dark:opacity-10 animate-blob" style="animation-delay: 4s;"></div>
-    </div>
-
-    <nav class="sticky top-0 z-50 glass-card border-none rounded-none rounded-b-[2rem]">
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 glass-card border-b border-slate-200 dark:border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-24 items-center">
-                <div class="flex items-center gap-4">
-                    <div class="bg-gradient-to-tr from-brand-600 to-brand-400 text-white p-3 rounded-2xl shadow-lg shadow-brand-500/30 transform transition hover:rotate-12 cursor-pointer" onclick="window.scrollTo(0,0)">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="bg-brand-500 text-white p-2.5 rounded-xl shadow-md">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
                         </svg>
                     </div>
-                    <div class="flex flex-col">
-                        <span class="font-black text-3xl tracking-tight dark:text-white leading-none">أكاديمية <span class="text-brand-600 dark:text-brand-400">G10</span></span>
-                        <span class="text-xs font-bold text-slate-500 dark:text-slate-400 mt-1">الموسوعة الشاملة 2026</span>
+                    <div>
+                        <span class="font-black text-2xl dark:text-white leading-none block">أكاديمية <span class="text-brand-500">G10</span></span>
+                        <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">علوم الحاسوب والخوارزميات</span>
                     </div>
                 </div>
                 
-                <div class="flex items-center gap-3 sm:gap-5">
-                    <div class="hidden md:flex bg-white dark:bg-slate-800 rounded-2xl px-5 py-2 text-sm font-black text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 shadow-sm transition-all" id="ui-level">
-                        طالب مستجد 🎒
+                <div class="flex items-center gap-3">
+                    <a href="#ai-assistant" class="hidden sm:flex items-center gap-1.5 text-sm font-bold bg-accent-50 text-accent-600 dark:bg-accent-900/30 dark:text-accent-400 px-3.5 py-2 rounded-xl hover:bg-accent-100 transition">
+                        <span>🤖 الذكاء الاصطناعي</span>
+                    </a>
+                    <a href="#ask-teacher" class="hidden sm:flex items-center gap-1.5 text-sm font-bold bg-purple-50 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400 px-3.5 py-2 rounded-xl hover:bg-purple-100 transition">
+                        <span>✉️ اسأل الأستاذ</span>
+                    </a>
+                    <div class="flex items-center gap-2 bg-amber-500 text-white px-3.5 py-1.5 rounded-full shadow-sm text-sm font-black">
+                        <span>🪙</span>
+                        <span id="ui-coins">0</span>
                     </div>
-                    <div class="wallet-pill cursor-help" title="رصيد عملات G-Coins - اجمعها من حل الكويزات!">
-                        <span class="text-2xl drop-shadow-md animate-bounce-x">🪙</span>
-                        <span id="ui-coins" class="text-xl">0</span>
-                    </div>
-                    <button id="theme-toggle" class="p-3 bg-white dark:bg-slate-800 rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-700 transition shadow-sm border border-slate-200 dark:border-slate-700">
-                        <span id="theme-icon" class="text-xl block">🌙</span>
+                    <button id="theme-toggle" class="p-2.5 bg-white dark:bg-slate-800 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 transition border border-slate-200 dark:border-slate-700">
+                        <span id="theme-icon" class="text-lg block">🌙</span>
                     </button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <header class="relative pt-24 pb-20 lg:pt-36 lg:pb-32 overflow-hidden">
-        <div class="relative max-w-7xl mx-auto px-4 text-center z-10">
-            <div class="inline-flex items-center gap-2 bg-brand-100 text-brand-800 dark:bg-brand-900/50 dark:text-brand-300 px-6 py-2 rounded-full text-sm font-black border border-brand-200 dark:border-brand-700/50 mb-10 animate-float shadow-sm">
-                <span class="relative flex h-3 w-3">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-3 w-3 bg-brand-500"></span>
-                </span>
-                تحديث الشامل: جميع الدروس (قديم + جديد) في مكان واحد 🚀
-            </div>
-            
-            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-[1.2]">
-                افهم البرمجة <br> 
-                <span class="text-transparent bg-clip-text bg-gradient-to-l from-brand-600 via-brand-400 to-accent-500 dark:from-brand-400 dark:via-brand-300 dark:to-accent-400">
-                    بالطريقة الصاح!
-                </span>
+    <!-- Header Section -->
+    <header class="py-16 md:py-24 text-center px-4">
+        <div class="max-w-4xl mx-auto">
+            <span class="inline-block bg-brand-100 text-brand-800 dark:bg-brand-900/40 dark:text-brand-300 px-4 py-1.5 rounded-full text-sm font-bold mb-6">
+                🚀 منصة خوارزميات وهياكل البيانات 2026
+            </span>
+            <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight">
+                تعلم البرمجة و الخوارزميات <br>
+                <span class="text-brand-500">ببساطة وبدون تعقيد</span>
             </h1>
-            
-            <p class="text-xl md:text-2xl text-slate-600 dark:text-slate-300 font-bold mb-12 max-w-3xl mx-auto leading-relaxed">
-                منصة تعليمية متكاملة تدمج أساسيات الخوارزميات (المصفوفات، الاستدعاء الذاتي) مع التحكم المتقدم والدوال (Break, Switch, Functions) بالشرح الثلاثي المميز.
+            <p class="text-lg md:text-xl text-slate-600 dark:text-slate-300 font-semibold mb-8 max-w-2xl mx-auto leading-relaxed">
+                شرح مبسط ومباشر باللغة العربية، الإنجليزية، مع الأمثلة التوضيحية وبنك أسئلة واختبارات لضمان التفوق الدراسي.
             </p>
-            
-            <div class="flex justify-center gap-5 flex-wrap">
-                <button onclick="document.getElementById('lessons').scrollIntoView()" class="group px-8 py-4 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-black rounded-2xl text-xl shadow-xl hover:shadow-2xl hover:scale-105 transition transform border border-slate-200 dark:border-slate-700 flex items-center gap-3">
-                    تصفح الموسوعة 📖
-                    <svg class="w-5 h-5 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                </button>
-                <button onclick="document.getElementById('quiz').scrollIntoView()" class="px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white font-black rounded-2xl text-xl shadow-xl shadow-brand-500/30 hover:scale-105 transition transform flex items-center gap-3">
-                    تحدي الأسئلة الشامل 🎯
-                </button>
-            </div>
-
-            <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-                <div class="glass-card p-6 rounded-3xl text-center">
-                    <div class="text-4xl mb-2">📚</div>
-                    <div class="text-3xl font-black text-slate-800 dark:text-white" id="stat-lessons">0</div>
-                    <div class="text-sm font-bold text-slate-500">درس متكامل</div>
-                </div>
-                <div class="glass-card p-6 rounded-3xl text-center">
-                    <div class="text-4xl mb-2">❓</div>
-                    <div class="text-3xl font-black text-slate-800 dark:text-white" id="stat-questions">0</div>
-                    <div class="text-sm font-bold text-slate-500">سؤال امتحانات</div>
-                </div>
-                <div class="glass-card p-6 rounded-3xl text-center">
-                    <div class="text-4xl mb-2">🌍</div>
-                    <div class="text-3xl font-black text-slate-800 dark:text-white">3</div>
-                    <div class="text-sm font-bold text-slate-500">لغات للشرح</div>
-                </div>
-                <div class="glass-card p-6 rounded-3xl text-center">
-                    <div class="text-4xl mb-2">💡</div>
-                    <div class="text-3xl font-black text-slate-800 dark:text-white">جديد</div>
-                    <div class="text-sm font-bold text-slate-500">توضيح الإجابات</div>
-                </div>
+            <div class="flex justify-center gap-4 flex-wrap">
+                <a href="#lessons" class="px-6 py-3.5 bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-xl shadow-lg transition">تصفح الدروس والموسوعة 📚</a>
+                <a href="#quiz" class="px-6 py-3.5 bg-slate-800 hover:bg-slate-900 dark:bg-slate-700 dark:hover:bg-slate-600 text-white font-bold rounded-xl transition">بدء التحدي والاختبار 🎯</a>
+                <a href="#ai-assistant" class="px-6 py-3.5 bg-accent-600 hover:bg-accent-700 text-white font-bold rounded-xl transition">المساعد الذكي 🤖</a>
             </div>
         </div>
     </header>
 
-    <main id="lessons" class="py-24 bg-slate-100/50 dark:bg-slate-800/20 border-t border-slate-200 dark:border-slate-800">
+    <!-- Lessons Section -->
+    <section id="lessons" class="py-16 bg-slate-100/60 dark:bg-slate-800/40 border-y border-slate-200 dark:border-slate-800">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center mb-20 relative">
-                <span class="text-8xl absolute left-1/2 -top-10 -translate-x-1/2 opacity-10 dark:opacity-5">🧠</span>
-                <h2 class="text-5xl font-black mb-6 text-slate-900 dark:text-white relative z-10">الموسوعة الشاملة (النسخة الكاملة)</h2>
-                <p class="text-xl text-slate-500 dark:text-slate-400 font-bold max-w-2xl mx-auto">الشرح الثلاثي: أكاديمي (للامتحانات)، إنجليزي (للمصطلحات)، والزبدة بالسوداني (للفهم العميق).</p>
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-black mb-3">الموسوعة الشاملة للدروس</h2>
+                <p class="text-slate-500 dark:text-slate-400 font-semibold">اختر طريقة الشرح التي تناسبك: بالسوداني، إنجليزي، أو أكاديمي</p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10" id="lessons-container">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="lessons-container">
                 <!-- Lessons injected via JS -->
             </div>
         </div>
-    </main>
+    </section>
 
-    <section id="quiz" class="py-24 relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-full h-full bg-slate-900 dark:bg-black -skew-y-3 origin-top-left z-[-1] opacity-5 dark:opacity-20"></div>
+    <!-- TOOL 1: AI Assistant Section -->
+    <section id="ai-assistant" class="py-16 bg-white dark:bg-slate-900">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-8">
+                <span class="text-xs uppercase font-black tracking-widest text-accent-600 dark:text-accent-400 bg-accent-50 dark:bg-accent-900/30 px-3 py-1 rounded-full">أداة الذكاء الاصطناعي الأكاديمي</span>
+                <h2 class="text-3xl font-black mt-2 mb-2">اسأل مساعد الذكاء الاصطناعي 🤖</h2>
+                <p class="text-slate-500 dark:text-slate-400 text-sm font-semibold">يبحث المساعد في محتوى المنصة ومعلومات الكمبيوتر للإجابة فوراً بالعربية أو الإنجليزية</p>
+            </div>
 
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="glass-card rounded-[3rem] p-6 md:p-12 relative overflow-hidden shadow-2xl border-t-8 border-t-brand-500 bg-white/95 dark:bg-slate-800/95 min-h-[600px] flex flex-col">
-                
-                <div id="quiz-start" class="text-center py-12 flex-grow flex flex-col justify-center items-center">
-                    <div class="relative inline-block mb-10">
-                        <div class="absolute inset-0 bg-brand-400 rounded-full blur-2xl opacity-50 animate-pulse-slow"></div>
-                        <div class="text-8xl relative z-10 animate-float">🎯</div>
+            <div class="glass-card rounded-3xl p-4 sm:p-6 border border-slate-200 dark:border-slate-700">
+                <!-- Chat Window -->
+                <div id="chat-window" class="h-80 overflow-y-auto space-y-4 p-4 mb-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/50">
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-full bg-accent-500 text-white flex items-center justify-center font-bold text-sm shrink-0">AI</div>
+                        <div class="chat-bubble-ai p-3.5 text-sm font-semibold max-w-[85%] leading-relaxed">
+                            مرحباً بك! أنا مساعدك الذكي لمادة الخوارزميات وهياكل البيانات. يمكنني الإجابة على أسئلتك بالعربية أو الإنجليزية بناءً على دروس المنصة ومعلومات البرمجة. كيف يمكنني مساعدتك اليوم؟
+                        </div>
                     </div>
-                    <h3 class="text-4xl md:text-5xl font-black mb-6 text-slate-900 dark:text-white">بنك الأسئلة الشامل (قديم + جديد)</h3>
-                    <p class="text-xl text-slate-500 dark:text-slate-400 font-bold mb-12 max-w-2xl mx-auto">
-                        يحتوي الاختبار على كافة الأسئلة (هياكل البيانات، المصفوفات، الدوال، وغيرها) مع التوضيح التفصيلي. كل إجابة صحيحة تمنحك <span class="text-sudanese-gold">10 عملات 🪙</span>.
+                </div>
+
+                <!-- Suggestions -->
+                <div class="flex gap-2 mb-4 overflow-x-auto pb-2 text-xs font-bold text-slate-600 dark:text-slate-300">
+                    <button onclick="askPreset('ما هي المصفوفات Arrays؟')" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 rounded-lg whitespace-nowrap">ما هي المصفوفات Arrays؟</button>
+                    <button onclick="askPreset('ماهي فائدة Break و Continue؟')" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 rounded-lg whitespace-nowrap">ما الفرق بين Break و Continue؟</button>
+                    <button onclick="askPreset('Explain Recursion simply')" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 rounded-lg whitespace-nowrap">Explain Recursion</button>
+                </div>
+
+                <!-- Chat Input Form -->
+                <form id="ai-chat-form" onsubmit="handleAiChat(event)" class="flex gap-2">
+                    <input type="text" id="ai-input" placeholder="اكتب سؤالك هنا (مثال: ما هي الخوارزمية؟ أو What is a Function?)..." class="flex-grow px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:outline-none focus:border-accent-500 font-semibold text-sm">
+                    <button type="submit" class="px-6 py-3 bg-accent-600 hover:bg-accent-700 text-white font-bold rounded-xl transition text-sm flex items-center gap-1 shrink-0">
+                        <span>إرسال</span>
+                        <svg class="w-4 h-4 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Section -->
+    <section id="quiz" class="py-16 bg-slate-100/60 dark:bg-slate-800/40 border-y border-slate-200 dark:border-slate-800">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="glass-card rounded-3xl p-6 sm:p-10 border border-slate-200 dark:border-slate-700">
+                
+                <div id="quiz-start" class="text-center py-8">
+                    <div class="text-6xl mb-4">🎯</div>
+                    <h3 class="text-3xl font-black mb-3">بنك الأسئلة والتحدي</h3>
+                    <p class="text-slate-600 dark:text-slate-300 font-semibold mb-6 max-w-lg mx-auto">
+                        اختبر معلوماتك في المفاهيم الأكاديمية والبرمجية. تحصل على <span class="text-amber-500 font-black">10 عملات 🪙</span> لكل إجابة صحيحة!
                     </p>
-                    <button onclick="startQuiz()" class="w-full sm:w-auto bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white px-16 py-5 rounded-2xl font-black text-2xl shadow-xl shadow-brand-500/30 transition-all duration-300 hover:scale-105 hover:-translate-y-2 flex items-center gap-4 justify-center">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        ابدأ التحدي الآن!
+                    <button onclick="startQuiz()" class="bg-brand-500 hover:bg-brand-600 text-white px-8 py-3.5 rounded-xl font-bold text-lg shadow-lg transition">
+                        ابدأ التحدي الآن
                     </button>
                 </div>
 
-                <div id="quiz-core" class="hidden flex-grow flex-col justify-start">
-                    <div class="flex justify-between items-center mb-8 bg-slate-50 dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm">
-                        <div class="flex items-center gap-3">
-                            <div class="bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-400 p-2 rounded-xl">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            </div>
-                            <div class="font-black text-lg tracking-widest text-slate-700 dark:text-slate-200" id="q-counter"></div>
-                        </div>
-                        <div class="flex items-center gap-3 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 px-5 py-2.5 rounded-xl font-bold border border-amber-200 dark:border-amber-700/50 shadow-sm">
-                            <span class="text-xl">🏆</span>
-                            <span>النقاط:</span>
-                            <span id="session-score" class="font-black text-xl w-8 text-center">0</span>
-                        </div>
-                    </div>
-                    
-                    <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-3 mb-10 overflow-hidden shadow-inner">
-                        <div id="q-progress" class="bg-gradient-to-r from-brand-400 to-brand-600 h-full rounded-full transition-all duration-700 ease-out relative" style="width: 0%">
-                            <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
-                        </div>
+                <div id="quiz-core" class="hidden">
+                    <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
+                        <span id="q-counter" class="font-bold text-sm text-slate-500"></span>
+                        <span class="font-black text-amber-500 text-sm">النقاط: <span id="session-score">0</span></span>
                     </div>
 
-                    <div class="mb-10 bg-white dark:bg-slate-800 p-6 md:p-8 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm">
-                        <span class="text-brand-500 font-bold mb-3 inline-block en-text tracking-widest uppercase text-xs bg-brand-50 dark:bg-brand-900/20 px-3 py-1 rounded-full">Current Question</span>
-                        <h4 id="q-text" class="text-2xl md:text-3xl font-black leading-relaxed en-text text-slate-800 dark:text-white"></h4>
-                    </div>
-                    
-                    <div id="q-options" class="grid grid-cols-1 lg:grid-cols-2 gap-4 relative mb-6"></div>
+                    <h4 id="q-text" class="text-xl font-bold mb-6 text-slate-800 dark:text-white en-text leading-relaxed"></h4>
+                    <div id="q-options" class="space-y-3 mb-6"></div>
 
-                    <div id="explanation-container" class="explanation-box relative">
-                        <div class="absolute top-4 right-4 text-3xl opacity-20">💡</div>
-                        <h5 class="font-black text-lg text-accent-600 dark:text-accent-400 mb-2 flex items-center gap-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            التوضيح الأكاديمي (Explanation)
-                        </h5>
-                        <p id="q-explanation" class="text-slate-700 dark:text-slate-300 font-semibold text-lg leading-relaxed en-text"></p>
-                        
-                        <button id="next-q-btn" onclick="nextQuestion()" class="mt-6 bg-accent-600 hover:bg-accent-700 text-white font-bold py-3 px-8 rounded-xl transition-all flex items-center gap-2 shadow-lg shadow-accent-500/30 w-full sm:w-auto justify-center">
-                            السؤال التالي
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                        </button>
+                    <div id="explanation-container" class="hidden p-4 rounded-xl bg-blue-50 dark:bg-blue-900/20 border-r-4 border-blue-500">
+                        <h5 class="font-bold text-blue-700 dark:text-blue-400 text-sm mb-1">💡 التوضيح (Explanation):</h5>
+                        <p id="q-explanation" class="text-sm text-slate-700 dark:text-slate-300 font-semibold en-text leading-relaxed"></p>
+                        <button onclick="nextQuestion()" class="mt-4 bg-accent-600 hover:bg-accent-700 text-white text-sm font-bold py-2 px-5 rounded-lg transition">السؤال التالي ←</button>
                     </div>
                 </div>
 
-                <div id="quiz-result" class="hidden text-center py-12 flex-grow flex-col justify-center items-center">
-                    <div class="text-9xl mb-8 animate-bounce" id="result-emoji">🏆</div>
-                    <h3 class="text-5xl font-black mb-4 text-slate-900 dark:text-white" id="result-title">انتهى الاختبار!</h3>
-                    
-                    <div class="glass-card inline-block p-10 rounded-[3rem] my-10 border-4 border-brand-500 relative overflow-hidden group">
-                        <div class="absolute inset-0 bg-brand-500/5 group-hover:bg-brand-500/10 transition-colors"></div>
-                        <div class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-3">Final Score</div>
-                        <div class="text-8xl font-black text-brand-600 dark:text-brand-400 drop-shadow-sm" id="res-score"></div>
-                        <div class="mt-4 font-bold text-lg text-slate-600 dark:text-slate-400" id="res-message"></div>
-                    </div>
-                    
-                    <div class="bg-amber-100 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-6 rounded-2xl mb-12 max-w-md mx-auto shadow-inner">
-                        <p class="text-2xl font-bold text-amber-800 dark:text-amber-400 flex items-center justify-center gap-3">
-                            <span class="animate-spin-slow text-3xl">🪙</span>
-                            تم إضافة <span id="earned-coins" class="text-sudanese-gold font-black text-4xl">0</span> عملة لرصيدك!
-                        </p>
-                    </div>
-                    
-                    <div class="flex justify-center gap-4 flex-wrap w-full">
-                        <button onclick="location.reload()" class="bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-10 py-4 rounded-2xl font-black text-xl shadow-xl hover:scale-105 transition-all flex items-center gap-3">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-                            إعادة اللعب والمذاكرة
-                        </button>
-                    </div>
+                <div id="quiz-result" class="hidden text-center py-8">
+                    <div class="text-7xl mb-4" id="result-emoji">🏆</div>
+                    <h3 class="text-3xl font-black mb-2" id="result-title">انتهى الاختبار!</h3>
+                    <p class="text-slate-500 dark:text-slate-400 font-semibold mb-6" id="res-message"></p>
+                    <div class="text-4xl font-black text-brand-500 mb-6" id="res-score">0%</div>
+                    <button onclick="startQuiz()" class="bg-slate-800 dark:bg-slate-700 hover:bg-slate-900 text-white px-8 py-3 rounded-xl font-bold transition">إعادة المحاولة</button>
                 </div>
 
             </div>
         </div>
     </section>
 
-    <footer class="bg-slate-950 text-slate-400 py-16 text-center border-t border-slate-800 relative overflow-hidden">
-        <div class="max-w-4xl mx-auto px-4 relative z-10">
-            <div class="flex justify-center mb-8">
-                <div class="bg-slate-900 p-4 rounded-3xl border border-slate-800 shadow-xl">
-                    <svg class="w-12 h-12 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-                </div>
+    <!-- TOOL 2: Direct Contact Form to combebe22@gmail.com -->
+    <section id="ask-teacher" class="py-16 bg-white dark:bg-slate-900">
+        <div class="max-w-3xl mx-auto px-4">
+            <div class="text-center mb-8">
+                <span class="text-xs uppercase font-black tracking-widest text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/30 px-3 py-1 rounded-full">طرح سؤال مباشر</span>
+                <h2 class="text-3xl font-black mt-2 mb-2">أرسل سؤالك مباشرة للأستاذ ✉️</h2>
+                <p class="text-slate-500 dark:text-slate-400 text-sm font-semibold">سيتم إرسال سؤالك مباشرة إلى البريد الإلكتروني (combebe22@gmail.com) وسيتم الرد عليك فوراً</p>
             </div>
-            <h3 class="text-4xl font-black text-white mb-4 tracking-wider">G10 <span class="text-brand-500">Academy</span></h3>
-            <p class="font-bold text-lg mb-8 max-w-lg mx-auto text-slate-500 leading-relaxed">المنصة الأولى للطلاب لتجاوز امتحانات البرمجة بامتياز وفهم عميق. مصممة لتسهيل هياكل البيانات والخوارزميات.</p>
-            <div class="flex justify-center gap-6 mb-10 text-slate-500 font-code text-sm">
-                <span class="hover:text-brand-400 transition cursor-pointer bg-slate-900 px-4 py-2 rounded-lg border border-slate-800">#C++</span>
-                <span class="hover:text-brand-400 transition cursor-pointer bg-slate-900 px-4 py-2 rounded-lg border border-slate-800">#Data_Structures</span>
-                <span class="hover:text-brand-400 transition cursor-pointer bg-slate-900 px-4 py-2 rounded-lg border border-slate-800">#Algorithms</span>
+
+            <div class="glass-card rounded-3xl p-6 border border-slate-200 dark:border-slate-700">
+                <form action="https://formsubmit.co/combebe22@gmail.com" method="POST" class="space-y-4">
+                    <!-- FormSubmit Configuration -->
+                    <input type="hidden" name="_subject" value="سؤال جديد من طالب - أكاديمية G10">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">الاسم الكامل</label>
+                            <input type="text" name="name" required placeholder="ادخل اسمك" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:outline-none focus:border-purple-500 font-semibold text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">بريدك الإلكتروني (لتلقي الإجابة)</label>
+                            <input type="email" name="email" required placeholder="yourname@gmail.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:outline-none focus:border-purple-500 font-semibold text-sm">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">عنوان الموضوع / الدرس</label>
+                        <input type="text" name="topic" placeholder="مثال: استفسار عن Recursion أو المصفوفات" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:outline-none focus:border-purple-500 font-semibold text-sm">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">نص السؤال أو الاستفسار بالتفصيل</label>
+                        <textarea name="message" rows="4" required placeholder="اكتب سؤالك هنا بشكل واضح..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:outline-none focus:border-purple-500 font-semibold text-sm"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full py-3.5 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl transition text-base shadow-md flex items-center justify-center gap-2">
+                        <span>إرسال السؤال إلى combebe22@gmail.com</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                    </button>
+                </form>
             </div>
-            <div class="w-full h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent mb-8"></div>
-            <p class="font-semibold text-sm text-slate-600 tracking-widest uppercase">Developed with ❤️ for CS Students &copy; 2026</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 py-10 text-center border-t border-slate-800 text-sm">
+        <div class="max-w-4xl mx-auto px-4">
+            <h3 class="text-2xl font-black text-white mb-2">G10 <span class="text-brand-500">Academy</span></h3>
+            <p class="font-semibold text-slate-500 mb-4">المنصة الشاملة لتعلم البرمجة والخوارزميات بسهولة</p>
+            <p class="text-xs text-slate-600">جميع الحقوق محفوظة &copy; 2026 | التواصل: combebe22@gmail.com</p>
         </div>
     </footer>
 
     <div id="toast-container"></div>
 
     <script>
-        // دالة آمنة للتعامل مع الـ LocalStorage لمنع انهيار الصفحة
+        // LocalStorage Safe Helper
         function safeGetStorage(key, defaultValue) {
             try { return localStorage.getItem(key) || defaultValue; } catch (e) { return defaultValue; }
         }
@@ -330,16 +281,13 @@
             try { localStorage.setItem(key, value); } catch (e) {}
         }
 
-        // Theme Management
+        // Theme Toggle
         const themeBtn = document.getElementById('theme-toggle');
         const themeIcon = document.getElementById('theme-icon');
         
         function updateTheme() {
-            if(document.documentElement.classList.contains('dark')){
-                themeIcon.innerText = '☀️';
-            } else {
-                themeIcon.innerText = '🌙';
-            }
+            const isDark = document.documentElement.classList.contains('dark');
+            themeIcon.innerText = isDark ? '☀️' : '🌙';
         }
         
         let savedTheme = safeGetStorage('theme', null);
@@ -354,329 +302,201 @@
             updateTheme();
         });
 
-        // Gamification System
+        // Gamification
         let totalCoins = parseInt(safeGetStorage('gCoins', '0')) || 0;
-        let sessionScore = 0;
-        
-        function getLevelName(c) {
-            if (c >= 3000) return "مخترع لغات البرمجة 🌌";
-            if (c >= 2000) return "بروفيسور الخوارزميات 🧙‍♂️";
-            if (c >= 1000) return "عميد الأكاديمية 👑";
-            if (c >= 500) return "أسطورة التقنية ⚡";
-            if (c >= 200) return "مبرمج محترف 💻";
-            if (c >= 50) return "باحث متحمس 🔍";
-            return "طالب مستجد 🎒";
-        }
-
         function updateWallet() {
             document.getElementById('ui-coins').innerText = totalCoins;
-            document.getElementById('ui-level').innerText = getLevelName(totalCoins);
         }
-        
         function showToast(message, isCoin = true) {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
             toast.className = 'toast';
-            if(!isCoin) {
-                toast.style.background = '#ef4444';
-                toast.style.boxShadow = '0 10px 25px rgba(239, 68, 68, 0.4)';
-            }
-            toast.innerHTML = `<span class="text-2xl">${isCoin ? '🪙' : '❌'}</span><span>${message}</span>`;
+            if(!isCoin) toast.style.background = '#ef4444';
+            toast.innerHTML = `<span>${isCoin ? '🪙' : '❌'}</span><span>${message}</span>`;
             container.appendChild(toast);
-            
             setTimeout(() => toast.classList.add('show'), 10);
             setTimeout(() => {
                 toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 500);
+                setTimeout(() => toast.remove(), 400);
             }, 3000);
         }
-
         updateWallet();
 
-        // Data Source: Combining Old and New Lessons
+        // Lessons Data
         const lessons = [
-            { id: 1, title: "1. مفهوم البيانات (Data Concept)", acadAr: "البيانات (Data) هي معلومات في شكل حقائق، أرقام، أو قيم يمكن جمعها وتخزينها ومعالجتها لدعم اتخاذ القرارات. الحواسيب تعمل فقط مع البيانات.", en: "Data is information in the form of facts, numbers, or values that can be collected, stored, processed, and interpreted to provide meaning or support decision-making.", sud: "البيانات دي باختصار هي 'المعلومات الخام' زي الأرقام والأسماء والتواريخ. الكمبيوتر ده شغال بيها بس، يعني لو مافي داتا، الكمبيوتر ده عبارة عن حديدة ساكت ما منها فايدة." },
-            { id: 2, title: "2. هياكل البيانات (Data Structures)", acadAr: "هيكل البيانات هو طريقة متخصصة لتنظيم وتخزين البيانات في الحاسوب بحيث يمكن الوصول إليها وتعديلها واستخدامها بكفاءة.", en: "A data structure is a specialized way of organizing and storing data in a computer so it can be accessed, modified, and used efficiently.", sud: "تخيل غرفتك جايطة والهدوم في حتة والكتب في حتة! 'هياكل البيانات' دي هي 'الدواليب والرفوف' البترتب ليك معلوماتك جوة الذاكرة عشان تلقاها بسرعة." },
-            { id: 3, title: "3. الخوارزميات (Algorithms)", acadAr: "الخوارزمية هي مجموعة من التعليمات المتسلسلة خطوة بخطوة لحل مشكلة في وقت محدد. من أهم خصائصها: Finite (منتهية)، و Definite (محددة).", en: "An algorithm is a step-by-step set of instructions designed to solve a problem in a finite amount of time. Must be finite and definite.", sud: "الخوارزمية دي 'وصفة الطبيخ'. خطوات واضحة ومحددة. لازم تقيف في النهاية ما تشتغل للما لا نهاية، وخطواتها واضحة وما فيها لولوة." },
-            { id: 4, title: "4. المصفوفات (Arrays)", acadAr: "المصفوفة هيكل بيانات يخزن مجموعة عناصر متجاورة في الذاكرة من نفس النوع (Homogeneous). المشكلة الرئيسية هي أن حجمها ثابت (Fixed size).", en: "An array is a data structure storing contiguous elements of the same data type. Key features: Fixed size, Homogeneous elements.", sud: "المصفوفة زي كرتونة البيض! مقسمة لِخانات وكل خانة عندها رقم (Index). ميزتها سريعة، بس عيبها مقاسها ثابت، لو اتملت لازم كرتونة جديدة!" },
-            { id: 5, title: "5. التعامل مع المصفوفات (Array Traversal)", acadAr: "عملية اجتياز المصفوفة (Traversing) تعني المرور على كل عنصر فيها واحداً تلو الآخر للبحث أو الطباعة أو التعديل.", en: "Traversing an array means visiting every element one by one, typically using a loop, to process or check each data point.", sud: "كلمة Traversing دي معناها 'اللفة'.. يعني تمر على كل خانات المصفوفة بالدور، زي أستاذ بقرأ غياب الحضور وبنده الأسماء واحد واحد." },
-            { id: 6, title: "6. التكرار الذاتي (Recursion)", acadAr: "الدوال التكرارية هي الدوال التي تقوم باستدعاء نفسها. يجب أن تحتوي على حالة توقف (Base Case) لتجنب التكرار اللانهائي.", en: "Functions that call themselves are called recursive functions. They must have a base case to prevent infinite recursion.", sud: "الـ Recursion ده زي مراية قدام مراية، بتشوف انعكاسات ما بتنتهي! لازم تعمل ليها 'فرملة' (Base Case) عشان الدالة تقيف من مناداة نفسها." },
-            { id: 7, title: "7. تعليمة الإيقاف (Break Statement)", acadAr: "في لغة C++، تُنهي تعليمة break الحلقة (Loop) بالكامل عند مواجهتها، وغالباً ما تُستخدم مع عبارات اتخاذ القرار.", en: "In C++, the break statement terminates the loop when it is encountered. It is usually used with decision-making statements like if.", sud: "الـ Break دي زي 'الفرملة القوية' جوا اللفة (Loop). لو بتفتش على حاجة ولقيتها، بتعمل Break عشان تقطع اللفة نهائياً وما تضيع زمن." },
-            { id: 8, title: "8. تعليمة التخطي (Continue Statement)", acadAr: "تُستخدم تعليمة continue لتخطي الدورة الحالية للحلقة وانتقال التحكم إلى الدورة التالية. في الحلقات المتداخلة، تتخطى الدورة في الحلقة الداخلية فقط.", en: "The continue statement is used to skip the current iteration of the loop and the control flow jumps to the next iteration.", sud: "الـ Continue دي كأنك بتنط حفرة في الشارع وتواصل مشوارك عادي! ما بتوقف البرنامج كله، بس بتفوت اللفة الحالية وتمشي للبعدها طوالي." },
-            { id: 9, title: "9. تعليمة الاختيار (Switch Case)", acadAr: "تسمح تعليمة switch بتنفيذ كتلة برمجية من بين عدة بدائل. في حال عدم وجود تطابق، يتم تنفيذ الكود الموجود في default.", en: "The switch statement allows executing a block of code among many alternatives. If no match is found, the default code is executed.", sud: "الـ Switch ده زي 'السنترال'. بتديهو التعبير، وهو بحولك للخط الصح (case) طوالي. لازم تحط break في نهاية كل case عشان ما ينفذ البعدها بالغلط!" },
-            { id: 10, title: "10. أساسيات الدوال (Functions Intro)", acadAr: "الدالة هي كتلة صغيرة من الكود تؤدي مهمة واحدة محددة. تجعل البرنامج مكوناً من وحدات، سهل القراءة، قابل للصيانة، وإعادة الاستخدام.", en: "A function is a small block of code that does one specific job. It makes code easier to read, maintain, test, and reuse.", sud: "الدالة (Function) دي 'الصنايعي' بتاعك. بدل ما تتعب وتكتب الكود كل مرة، بتكتبو مرة واحدة وتناديك وقت ما تحتاجه." },
-            { id: 11, title: "11. التحميل الزائد (Function Overloading)", acadAr: "تدعم C++ التحميل الزائد للدوال، وهو إنشاء عدة دوال بنفس الاسم بشرط اختلاف المعاملات (عددها أو نوعها).", en: "C++ allows Function Overloading (multiple functions with the same name if parameters differ in count or type).", sud: "الـ Overloading ده كأنك مسمي كل الصنايعية 'محمد'. الكمبيوتر بفرزهم بالعدة الشايلينها (Parameters)! الفي يده شاكوش نجار، والفي يده مفتاح سباك." },
-            { id: 12, title: "12. أفضل الممارسات والأخطاء الشائعة", acadAr: "أفضل الممارسات: المسؤولية الواحدة، الأسماء الوصفية، وتقليل المعاملات. الأخطاء: نسيان عبارة return، التكرار اللانهائي، والمتغيرات العامة.", en: "Best practices: Single responsibility, descriptive names. Common pitfalls: forgetting return statement, infinite recursion, global variables.", sud: "الدالة النظيفة بتعمل حاجة واحدة بس، وما بنستخدم معاها متغيرات عامة (Global) عشان بتلخبط الشغل. ولو نسيت الـ Base case الكمبيوتر حيعلق للصباح!" }
+            { id: 1, title: "1. مفهوم البيانات (Data Concept)", acadAr: "البيانات (Data) هي معلومات في شكل حقائق، أرقام، أو قيم يمكن جمعها وتخزينها ومعالجتها لدعم اتخاذ القرارات.", en: "Data is information in the form of facts, numbers, or values that can be collected, stored, and processed.", sud: "البيانات دي باختصار هي المعلومات الخام زي الأرقام والأسماء. الحواسيب بتشتغل بالبيانات دي فقط." },
+            { id: 2, title: "2. هياكل البيانات (Data Structures)", acadAr: "هيكل البيانات هو طريقة متخصصة لتنظيم وتخزين البيانات في الحاسوب بحيث يمكن الوصول إليها واستخدامها بكفاءة.", en: "A data structure is a specialized way of organizing and storing data in a computer for efficient access.", sud: "هياكل البيانات هي الدواليب والرفوف البترتب معلوماتك جوة الذاكرة عشان تلقاها وتعدلها بسرعة." },
+            { id: 3, title: "3. الخوارزميات (Algorithms)", acadAr: "الخوارزمية هي مجموعة من التعليمات المتسلسلة خطوة بخطوة لحل مشكلة معينة في وقت محدد.", en: "An algorithm is a step-by-step procedure designed to solve a problem in a finite amount of time.", sud: "الخوارزمية زي وصفة الخطوات الواضحة والمحددة لحل أي مشكلة برمجية." },
+            { id: 4, title: "4. المصفوفات (Arrays)", acadAr: "المصفوفة هيكل بيانات يخزن مجموعة عناصر متجاورة في الذاكرة من نفس النوع وحجمها ثابت.", en: "An array stores contiguous elements of the same data type with a fixed size.", sud: "المصفوفة زي كرتونة مقسمة لخانة وبترقيم (Index)، سريعة وبتاخد نفس نوع البيانات." },
+            { id: 5, title: "5. التكرار الذاتي (Recursion)", acadAr: "الدوال التكرارية هي الدوال التي تقوم باستدعاء نفسها ويجب أن تحتوي على حالة توقف (Base Case).", en: "Recursive functions call themselves and must have a Base Case to stop infinite loops.", sud: "الدالة بتنادي نفسها كذا مرة، ولازم تحط ليها فرملة (Base Case) عشان ما تعليق." },
+            { id: 6, title: "6. Break & Continue", acadAr: "تعليمة break تنهي الحلقة بالكامل، بينما continue تتخطى الدورة الحالية فقط إلى الدورة التالية.", en: "break terminates the loop completely, while continue skips only the current iteration.", sud: "الـ Break بتوقف اللفة نهائياً، والـ Continue بتنط اللفة الحالية وتمشي للبعدها طوالي." }
         ];
 
+        // Render Lessons
         const container = document.getElementById('lessons-container');
-        let htmlContent = '';
-        lessons.forEach(l => {
-            htmlContent += `
-                <div class="glass-card p-6 md:p-8 rounded-[2rem] flex flex-col h-full border-t-4 border-t-accent-500 relative overflow-hidden group hover:border-t-brand-500 transition-colors">
-                    <div class="absolute -right-6 -top-6 text-9xl opacity-5 group-hover:scale-110 group-hover:rotate-12 transition duration-700 pointer-events-none text-slate-900 dark:text-white">📖</div>
-                    <h3 class="text-2xl font-black mb-6 text-slate-800 dark:text-white relative z-10 leading-relaxed">${l.title}</h3>
-                    <div class="flex flex-wrap gap-2 mb-6 border-b border-slate-200 dark:border-slate-700 pb-4 relative z-10">
-                        <button class="tab-btn active px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" onclick="switchTab(this, 'sud-${l.id}')">بالسوداني 🇸🇩</button>
-                        <button class="tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" onclick="switchTab(this, 'en-${l.id}')">English 🇬🇧</button>
-                        <button class="tab-btn px-4 py-2 rounded-xl text-sm font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700" onclick="switchTab(this, 'ar-${l.id}')">أكاديمي 📚</button>
-                    </div>
-                    <div class="flex-grow relative z-10">
-                        <div id="sud-${l.id}" class="tab-content active text-lg font-bold leading-relaxed bg-amber-50/80 dark:bg-amber-900/10 text-amber-900 dark:text-amber-100 p-6 rounded-2xl border-r-4 border-sudanese-gold shadow-sm">${l.sud}</div>
-                        <div id="en-${l.id}" class="tab-content en-text text-lg font-semibold leading-relaxed bg-blue-50/80 dark:bg-blue-900/10 text-blue-900 dark:text-blue-100 p-6 rounded-2xl border-l-4 border-blue-500 shadow-sm">${l.en}</div>
-                        <div id="ar-${l.id}" class="tab-content text-lg font-semibold leading-relaxed bg-slate-100/80 dark:bg-slate-800/50 text-slate-700 dark:text-slate-200 p-6 rounded-2xl border-r-4 border-slate-400 shadow-sm">${l.acadAr}</div>
-                    </div>
+        container.innerHTML = lessons.map(l => `
+            <div class="glass-card p-5 rounded-2xl border border-slate-200 dark:border-slate-700">
+                <h3 class="text-xl font-bold mb-4 text-slate-800 dark:text-white">${l.title}</h3>
+                <div class="flex gap-2 mb-4 border-b border-slate-200 dark:border-slate-700 pb-2">
+                    <button class="tab-btn active px-3 py-1 rounded-lg text-xs font-bold" onclick="switchTab(this, 'sud-${l.id}')">بالسوداني 🇸🇩</button>
+                    <button class="tab-btn px-3 py-1 rounded-lg text-xs font-bold" onclick="switchTab(this, 'en-${l.id}')">English 🇬🇧</button>
+                    <button class="tab-btn px-3 py-1 rounded-lg text-xs font-bold" onclick="switchTab(this, 'ar-${l.id}')">أكاديمي 📚</button>
                 </div>
-            `;
-        });
-        container.innerHTML = htmlContent;
+                <div>
+                    <div id="sud-${l.id}" class="tab-content active text-sm font-semibold text-amber-900 dark:text-amber-200 bg-amber-50 dark:bg-amber-900/20 p-3.5 rounded-xl">${l.sud}</div>
+                    <div id="en-${l.id}" class="tab-content en-text text-sm font-semibold text-blue-900 dark:text-blue-200 bg-blue-50 dark:bg-blue-900/20 p-3.5 rounded-xl">${l.en}</div>
+                    <div id="ar-${l.id}" class="tab-content text-sm font-semibold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800/60 p-3.5 rounded-xl">${l.acadAr}</div>
+                </div>
+            </div>
+        `).join('');
 
         function switchTab(btn, targetId) {
             const card = btn.closest('.glass-card');
             card.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             card.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            
             btn.classList.add('active');
             card.querySelector('#' + targetId).classList.add('active');
         }
 
-        // Quiz Bank Engine
-        const quizData = [
-            { q: "What is a data structure?", opts: ["A programming language", "A loop", "A way of organizing and storing data", "A compiler"], correct: 2, exp: "A data structure is a specialized way of organizing and storing data in a computer so it can be accessed, modified, and used efficiently." },
-            { q: "Which best describes an algorithm?", opts: ["A programming language", "A compiler", "A hardware device", "A step-by-step procedure used to solve a problem"], correct: 3, exp: "An algorithm is a step-by-step set of instructions designed to solve a problem in a finite amount of time." },
-            { q: "In C++, what does the 'break' statement do when encountered inside a loop?", opts: ["Skips the current iteration", "Terminates the loop entirely", "Restarts the loop from the beginning", "Causes a syntax error"], correct: 1, exp: "In C++, the break statement terminates the loop entirely when it is encountered." },
-            { q: "What is the primary use of the 'break' statement in loops?", opts: ["To create an infinite loop", "To add numbers", "To stop the loop based on a specific condition", "To declare a variable"], correct: 2, exp: "The break statement terminates the loop when it is encountered, usually used with decision-making statements like if conditions." },
-            { q: "What is the function of the 'continue' statement in C++?", opts: ["Terminates the program completely", "Skips the current iteration of the loop", "Jumps to another function", "Restarts the computer"], correct: 1, exp: "The continue statement is used to skip the current iteration of the loop and the control of the program goes to the next iteration." },
-            { q: "What does the 'switch' statement allow you to do?", opts: ["Create a loop", "Execute a block of code among many alternatives", "Declare multiple variables", "Read user input automatically"], correct: 1, exp: "The switch statement allows us to execute a block of code among many alternatives based on a value match." },
-            { q: "In a 'switch' statement, what happens if there is no match with any 'case' label?", opts: ["The program crashes", "The compiler throws an error", "The code after 'default:' is executed", "The program restarts"], correct: 2, exp: "If there is no match, the code after default: is executed." },
-            { q: "What happens if you do NOT use a 'break' statement inside a matching 'case' block?", opts: ["The switch statement terminates immediately", "A syntax error occurs", "All cases after the correct case are executed", "The default block is ignored"], correct: 2, exp: "If the break statement is not used, execution 'falls through' and all cases after the correct case are executed." },
-            { q: "What is a function in programming?", opts: ["A massive block of code that does everything", "A hardware component", "A small block of code that does one specific job", "A type of loop"], correct: 2, exp: "A function is a small block of code that does one specific job, making code modular and reusable." },
-            { q: "If a function's return type is 'void', what does it mean?", opts: ["It returns a boolean", "It returns a string", "It does not have a return value", "It returns zero"], correct: 2, exp: "If the return type is void, the function does not return a value back to the caller." },
-            { q: "What does 'Function Overloading' allow you to do in C++?", opts: ["Create multiple functions with the same name as long as the parameters differ", "Call a function an infinite number of times", "Give a function multiple return types", "Overload the memory with too many functions"], correct: 0, exp: "C++ lets you create multiple functions with the same name as long as their parameter lists (types or count) differ." },
-            { q: "What is the purpose of a 'base case' in a recursive function?", opts: ["To start the recursion", "To prevent infinite recursion by providing a stopping condition", "To return the final value", "To declare the variables"], correct: 1, exp: "A base case provides a stopping condition to prevent the function from calling itself infinitely." },
-            { q: "Which of the following is considered a 'Best Practice' when writing functions?", opts: ["Passing large objects by value", "Writing functions that do 10 different tasks", "Using clear, descriptive function names", "Using many global variables"], correct: 2, exp: "Best Practices include: Using descriptive names, Single Responsibility, and avoiding global variables." },
-            { q: "According to best practices, what is the recommended limit for function parameters?", opts: ["No limit", "Limit to exactly 10", "Aim for ≤3 parameters; use structures if needed", "Zero parameters only"], correct: 2, exp: "It is recommended to limit parameters to ≤3. If more are needed, group them into a struct or class." },
-            { q: "Why should you avoid using global variables in functions?", opts: ["Because they make the code too fast", "Because they use too much memory", "Because passing data as parameters keeps functions independent and predictable", "The compiler doesn't support them"], correct: 2, exp: "Avoiding global variables ensures functions remain independent, making debugging and reuse much easier." }
-        ];
+        // TOOL 1: AI Chat Assistant Engine
+        function handleAiChat(e) {
+            e.preventDefault();
+            const input = document.getElementById('ai-input');
+            const query = input.value.trim();
+            if (!query) return;
 
-        document.getElementById('stat-lessons').innerText = lessons.length;
-        document.getElementById('stat-questions').innerText = quizData.length;
+            addChatMessage(query, 'user');
+            input.value = '';
 
-        function shuffle(array) {
-            let currentIndex = array.length, randomIndex;
-            while (currentIndex != 0) {
-                randomIndex = Math.floor(Math.random() * currentIndex);
-                currentIndex--;
-                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-            }
-            return array;
+            setTimeout(() => {
+                const reply = generateAiResponse(query);
+                addChatMessage(reply, 'ai');
+            }, 400);
         }
 
-        let qIndex = 0;
-        let score = 0;
-        let activeQuizSet = [];
-        let isQuestionAnswered = false;
+        function askPreset(text) {
+            document.getElementById('ai-input').value = text;
+            handleAiChat(new Event('submit'));
+        }
+
+        function addChatMessage(text, sender) {
+            const chatWindow = document.getElementById('chat-window');
+            const isUser = sender === 'user';
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `flex items-start gap-3 ${isUser ? 'flex-row-reverse' : ''}`;
+            
+            msgDiv.innerHTML = `
+                <div class="w-8 h-8 rounded-full ${isUser ? 'bg-brand-500' : 'bg-accent-500'} text-white flex items-center justify-center font-bold text-xs shrink-0">${isUser ? 'أنت' : 'AI'}</div>
+                <div class="${isUser ? 'chat-bubble-user' : 'chat-bubble-ai'} p-3.5 text-sm font-semibold max-w-[85%] leading-relaxed">
+                    ${text}
+                </div>
+            `;
+            chatWindow.appendChild(msgDiv);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        function generateAiResponse(q) {
+            const lower = q.toLowerCase();
+            
+            // Search in embedded lessons first
+            if (lower.includes('مصفوف') || lower.includes('array')) {
+                return "📌 **المصفوفة (Array):** هي هيكل بيانات يخزن مجموعة عناصر متجاورة في الذاكرة من نفس النوع وحجمها ثابت.\n\nEnglish: An array is a data structure that stores contiguous elements of the same data type with a fixed size.";
+            }
+            if (lower.includes('خوارزم') || lower.includes('algorithm')) {
+                return "📌 **الخوارزمية (Algorithm):** هي مجموعة خطوات متسلسلة ومحددة لحل مشكلة برمجية في وقت محدد.\n\nEnglish: A step-by-step procedure designed to solve a problem in a finite amount of time.";
+            }
+            if (lower.includes('بيانات') || lower.includes('data concept') || lower.includes('data structure')) {
+                return "📌 **هياكل البيانات (Data Structures):** طريقة متخصصة لتنظيم وتخزين البيانات في الحاسوب لاسترجاعها وتعديلها بكفاءة.";
+            }
+            if (lower.includes('break') || lower.includes('continue')) {
+                return "📌 **الفرق بين Break و Continue:**\n- `break`: تنهي الحلقة (Loop) فوراً وتخرج منها.\n- `continue`: تتخطى التكرار الحالي فقط وتنتقل للتكرار التالي مباشرة.";
+            }
+            if (lower.includes('recursion') || lower.includes('استدعاء ذاتي') || lower.includes('تكرار')) {
+                return "📌 **التكرار الذاتي (Recursion):** هو قيام الدالة باستدعاء نفسها، ويجب وضع حالة توقف (Base Case) لمنع التكرار اللانهائي.";
+            }
+            if (lower.includes('دالة') || lower.includes('function')) {
+                return "📌 **الدوال (Functions):** كتلة برمجية تؤدي مهمة واحدة محددة تجعل الكود مقسماً وقابلاً لإعادة الاستخدام بسهولة.";
+            }
+
+            // General Computer Science Fallback Response
+            if (/[a-zA-Z]/.test(q)) {
+                return `🤖 **AI Response:** Based on your question "${q}", in computer science, this topic relates to algorithms and data manipulation. Make sure to structure your code logically and test your logic with simple edge cases! You can also email your specific question to combebe22@gmail.com for full teacher support.`;
+            } else {
+                return `🤖 **إجابة المساعد الذكي:** سؤالك ممتاز حول "${q}". في علوم الحاسوب، يفضل دائماً تقسيم المشكلة لخطوات بسيطة (Top-down approach). يمكنك أيضاً إرسال أي سؤال معقد مباشرة للأستاذ عبر خانة "اسأل الأستاذ" ليصل على combebe22@gmail.com.`;
+            }
+        }
+
+        // Quiz Engine
+        const quizData = [
+            { q: "What is a data structure?", opts: ["A programming language", "A way of organizing and storing data", "A loop"], correct: 1, exp: "A data structure organizes and stores data efficiently in memory." },
+            { q: "In C++, what does the 'break' statement do?", opts: ["Terminates the loop entirely", "Skips current iteration", "Restarts loop"], correct: 0, exp: "break exits the loop immediately." },
+            { q: "What is required in a Recursive function?", opts: ["Infinite loop", "Base Case", "Global variable"], correct: 1, exp: "A Base Case is required to prevent infinite recursion." },
+            { q: "What is an Array?", opts: ["Dynamic size structure", "Fixed size contiguous memory structure", "A compiler"], correct: 1, exp: "Arrays store elements of the same type in contiguous memory with fixed size." }
+        ];
+
+        let qIndex = 0, score = 0, sessionScore = 0;
 
         function startQuiz() {
-            activeQuizSet = shuffle([...quizData]).slice(0, 10);
-            
-            qIndex = 0; 
-            score = 0;
-            sessionScore = 0;
-            isQuestionAnswered = false;
-            
-            document.getElementById('session-score').innerText = sessionScore;
-            
-            const startDiv = document.getElementById('quiz-start');
-            startDiv.style.opacity = '0';
-            setTimeout(() => {
-                // إصلاح خطأ الـ CSS الخاص باختفاء العنصر
-                startDiv.classList.remove('flex');
-                startDiv.classList.add('hidden');
-                
-                const coreDiv = document.getElementById('quiz-core');
-                coreDiv.classList.remove('hidden');
-                coreDiv.classList.add('flex');
-                coreDiv.style.opacity = '0';
-                
-                setTimeout(() => {
-                    coreDiv.style.transition = 'opacity 0.5s ease';
-                    coreDiv.style.opacity = '1';
-                    loadQuestion();
-                }, 50);
-            }, 300);
+            qIndex = 0; score = 0; sessionScore = 0;
+            document.getElementById('session-score').innerText = 0;
+            document.getElementById('quiz-start').classList.add('hidden');
+            document.getElementById('quiz-result').classList.add('hidden');
+            document.getElementById('quiz-core').classList.remove('hidden');
+            loadQuestion();
         }
 
         function loadQuestion() {
-            isQuestionAnswered = false;
-            const q = activeQuizSet[qIndex];
-            
-            const progress = ((qIndex) / activeQuizSet.length) * 100;
-            document.getElementById('q-progress').style.width = `${progress}%`;
-            document.getElementById('q-counter').innerText = `Question ${qIndex + 1} of ${activeQuizSet.length}`;
-            
-            const qText = document.getElementById('q-text');
-            qText.style.opacity = 0;
-            qText.style.transform = 'translateY(10px)';
-            
-            const expBox = document.getElementById('explanation-container');
-            expBox.classList.remove('active');
-            
-            setTimeout(() => {
-                qText.innerText = q.q;
-                qText.style.transition = 'all 0.4s ease';
-                qText.style.opacity = 1;
-                qText.style.transform = 'translateY(0)';
-            }, 200);
-            
-            const optsContainer = document.getElementById('q-options');
-            optsContainer.innerHTML = '';
-            
-            q.opts.forEach((opt, idx) => {
-                const btn = document.createElement('button');
-                btn.className = "quiz-option w-full text-left p-5 md:p-6 rounded-2xl border-2 border-slate-200 dark:border-slate-700 en-text font-semibold text-lg bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 shadow-sm transition-all duration-200 hover:border-brand-500 hover:shadow-md hover:-translate-y-1";
-                
-                const optionLetter = String.fromCharCode(65 + idx);
-                btn.innerHTML = `<span class="inline-block w-8 h-8 text-center leading-8 rounded-lg bg-slate-100 dark:bg-slate-700 mr-3 text-slate-500 dark:text-slate-400 font-bold border border-slate-200 dark:border-slate-600">${optionLetter}</span> ${opt}`;
-                
-                btn.onclick = (e) => handleAnswer(idx, btn, e);
-                
-                btn.style.opacity = 0;
-                btn.style.transform = 'translateY(20px)';
-                optsContainer.appendChild(btn);
-                
-                setTimeout(() => {
-                    btn.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-                    btn.style.opacity = 1;
-                    btn.style.transform = 'translateY(0)';
-                }, 250 + (idx * 100));
-            });
+            const q = quizData[qIndex];
+            document.getElementById('q-counter').innerText = `السؤال ${qIndex + 1} من ${quizData.length}`;
+            document.getElementById('q-text').innerText = q.q;
+            document.getElementById('explanation-container').classList.add('hidden');
+
+            const optsDiv = document.getElementById('q-options');
+            optsDiv.innerHTML = q.opts.map((opt, idx) => `
+                <button onclick="checkAnswer(${idx}, this)" class="quiz-option w-full text-left p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-semibold en-text transition hover:border-brand-500">
+                    ${opt}
+                </button>
+            `).join('');
         }
 
-        function createParticles(x, y, isCorrect) {
-            for (let i = 0; i < 15; i++) {
-                const p = document.createElement('div');
-                p.className = 'particle';
-                p.style.backgroundColor = isCorrect ? '#22c55e' : '#ef4444';
-                p.style.left = x + 'px';
-                p.style.top = y + 'px';
-                
-                const angle = Math.random() * Math.PI * 2;
-                const velocity = 50 + Math.random() * 100;
-                const tx = Math.cos(angle) * velocity;
-                const ty = Math.sin(angle) * velocity;
-                
-                p.style.setProperty('--tx', `${tx}px`);
-                p.style.setProperty('--ty', `${ty}px`);
-                
-                document.body.appendChild(p);
-                setTimeout(() => p.remove(), 1000);
-            }
-        }
-
-        function handleAnswer(selectedIndex, btnElement, event) {
-            if (isQuestionAnswered) return;
-            isQuestionAnswered = true;
-
-            const q = activeQuizSet[qIndex];
-            const isCorrect = selectedIndex === q.correct;
-            
-            const rect = btnElement.getBoundingClientRect();
-            const x = event.clientX || (rect.left + rect.width / 2);
-            const y = event.clientY || (rect.top + rect.height / 2);
-            
-            createParticles(x, y, isCorrect);
-            
+        function checkAnswer(idx, btn) {
+            const q = quizData[qIndex];
+            const isCorrect = idx === q.correct;
             const allBtns = document.getElementById('q-options').children;
-            for(let i=0; i<allBtns.length; i++){
-                allBtns[i].classList.add('disabled');
-                allBtns[i].style.transform = 'none';
-                if(i === q.correct) {
-                    allBtns[i].classList.add('correct');
-                } else if (i === selectedIndex && !isCorrect) {
-                    allBtns[i].classList.add('wrong');
-                }
-            }
 
-            if(isCorrect) {
+            for (let b of allBtns) b.classList.add('disabled');
+
+            if (isCorrect) {
+                btn.classList.add('correct');
                 score++;
                 sessionScore += 10;
                 totalCoins += 10;
                 safeSetStorage('gCoins', totalCoins);
                 updateWallet();
-                
-                const scoreUI = document.getElementById('session-score');
-                scoreUI.innerText = sessionScore;
-                scoreUI.classList.add('text-brand-500', 'scale-150');
-                setTimeout(() => scoreUI.classList.remove('text-brand-500', 'scale-150'), 300);
-                
-                showToast('+10 G-Coins Earned!', true);
+                document.getElementById('session-score').innerText = sessionScore;
+                showToast('+10 G-Coins!', true);
             } else {
-                showToast('إجابة خاطئة! ركز في الشرح.', false);
+                btn.classList.add('wrong');
+                allBtns[q.correct].classList.add('correct');
+                showToast('إجابة خاطئة', false);
             }
 
-            const expBox = document.getElementById('explanation-container');
-            const expText = document.getElementById('q-explanation');
-            expText.innerHTML = q.exp;
-            expBox.classList.add('active');
-            
-            setTimeout(() => {
-                expBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }, 100);
+            document.getElementById('q-explanation').innerText = q.exp;
+            document.getElementById('explanation-container').classList.remove('hidden');
         }
 
         function nextQuestion() {
             qIndex++;
-            if(qIndex < activeQuizSet.length) {
-                loadQuestion();
-            } else {
-                showResult();
-            }
+            if (qIndex < quizData.length) loadQuestion();
+            else showResult();
         }
 
         function showResult() {
-            document.getElementById('q-progress').style.width = `100%`;
-            
-            const coreDiv = document.getElementById('quiz-core');
-            coreDiv.style.opacity = '0';
-            
-            setTimeout(() => {
-                // إصلاح إخفاء العنصر الأوسط
-                coreDiv.classList.remove('flex');
-                coreDiv.classList.add('hidden');
-                
-                const resDiv = document.getElementById('quiz-result');
-                resDiv.classList.remove('hidden');
-                resDiv.classList.add('flex');
-                
-                const percentage = Math.round((score / activeQuizSet.length) * 100);
-                document.getElementById('res-score').innerText = `${percentage}%`;
-                document.getElementById('earned-coins').innerText = sessionScore;
-                
-                let emoji, title, message;
-                if(percentage === 100) {
-                    emoji = '🏆'; title = 'علامة كاملة! أسطورة!'; message = 'أنت جاهز تماماً لامتحان الفاينل.';
-                    document.getElementById('result-emoji').classList.add('animate-confetti');
-                }
-                else if(percentage >= 80) {
-                    emoji = '🔥'; title = 'ممتاز جداً!'; message = 'مستواك رائع، ركز في الأخطاء البسيطة بس.';
-                }
-                else if(percentage >= 50) {
-                    emoji = '👍'; title = 'جيد، لكن تحتاج مراجعة'; message = 'ارجع اقرأ الموسوعة تاني عشان تضمن الـ A.';
-                }
-                else {
-                    emoji = '📚'; title = 'لا تستسلم!'; message = 'البرمجة بتحتاج ممارسة، راجع الدروس من البداية وجرب تاني.';
-                }
-                
-                document.getElementById('result-emoji').innerText = emoji;
-                document.getElementById('result-title').innerText = title;
-                document.getElementById('res-message').innerText = message;
-                
-                setTimeout(() => {
-                    resDiv.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-                    resDiv.style.opacity = '1';
-                }, 50);
-            }, 500);
+            document.getElementById('quiz-core').classList.add('hidden');
+            document.getElementById('quiz-result').classList.remove('hidden');
+            const pct = Math.round((score / quizData.length) * 100);
+            document.getElementById('res-score').innerText = `${pct}%`;
+            document.getElementById('res-message').innerText = pct >= 50 ? 'عمل ممتاز! تم إضافة العملات لرصيدك.' : 'حاول مرة أخرى لتحسين درجتك.';
         }
     </script>
 </body>
