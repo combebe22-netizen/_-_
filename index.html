@@ -10,6 +10,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     
+    <!-- Professional Icons (Font Awesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Syntax Highlighting (Prism.js Theme) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
     <!-- Inline Styles (CSS) -->
     <style>
         /* CSS Custom Properties & Theming */
@@ -22,12 +28,12 @@
             --text-secondary: #475569;
             --border-color: #e2e8f0;
             
-            --brand-primary: #000000;
+            --brand-primary: #0f172a;
             --brand-accent: #2563eb;
             --brand-hover: #334155;
             
-            --ide-bg: #0d1117;
-            --ide-text: #e6edf3;
+            --ide-bg: #1e1e1e;
+            --ide-text: #d4d4d4;
             
             --radius-sm: 6px;
             --radius-md: 8px;
@@ -48,6 +54,8 @@
             --brand-primary: #ffffff;
             --brand-accent: #3b82f6;
             --brand-hover: #d4d4d4;
+            
+            --ide-bg: #0d1117;
         }
 
         /* Reset & Base Setup */
@@ -88,16 +96,19 @@
 
         /* Buttons */
         .btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
             padding: 0.5rem 1rem; border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 500;
             transition: all 0.2s;
         }
-        .btn-small { padding: 0.25rem 0.75rem; font-size: 0.75rem; }
+        .btn-small { padding: 0.35rem 0.75rem; font-size: 0.75rem; }
         .btn-primary { background-color: var(--brand-primary); color: var(--bg-main); }
         .btn-primary:hover { background-color: var(--brand-hover); }
         .btn-outline { border: 1px solid var(--border-color); color: var(--text-primary); }
         .btn-outline:hover { background-color: var(--bg-secondary); }
-        .icon-btn { font-size: 1.25rem; padding: 0.25rem; border-radius: var(--radius-sm); }
-        .icon-btn:hover { background-color: var(--bg-secondary); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        
+        .icon-btn { font-size: 1.125rem; padding: 0.4rem; border-radius: var(--radius-sm); color: var(--text-primary); transition: background 0.2s;}
+        .icon-btn:hover { background-color: var(--bg-tertiary); }
 
         /* Hero Section */
         .hero { text-align: center; padding: 5rem 0; border-bottom: 1px solid var(--border-color); }
@@ -122,24 +133,77 @@
         .module-desc { font-size: 0.875rem; color: var(--text-secondary); }
 
         /* IDE Viewer (Code Library) */
-        .ide-layout { display: flex; border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden; height: 600px; background-color: var(--bg-main); }
-        .ide-sidebar { width: 300px; border-inline-end: 1px solid var(--border-color); overflow-y: auto; background-color: var(--bg-secondary); }
+        .ide-layout { 
+            display: flex; border: 1px solid var(--border-color); 
+            border-radius: var(--radius-md); overflow: hidden; 
+            height: 680px; background-color: var(--bg-main); 
+        }
+        
+        /* Sidebar (Search & Progress added) */
+        .ide-sidebar { 
+            display: flex; flex-direction: column; width: 320px; 
+            border-inline-end: 1px solid var(--border-color); background-color: var(--bg-secondary); 
+        }
+        .sidebar-header { padding: 1rem; border-bottom: 1px solid var(--border-color); }
+        
+        .search-box {
+            position: relative; display: flex; align-items: center; margin-bottom: 1rem;
+        }
+        .search-box i { position: absolute; inset-inline-start: 10px; color: var(--text-secondary); font-size: 0.875rem; }
+        .search-box input {
+            width: 100%; padding: 0.5rem 0.5rem 0.5rem 2rem; border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color); background: var(--bg-main);
+            color: var(--text-primary); font-family: inherit; font-size: 0.875rem;
+        }
+        [dir="rtl"] .search-box input { padding: 0.5rem 2rem 0.5rem 0.5rem; }
+        .search-box input:focus { outline: none; border-color: var(--brand-accent); }
+
+        .progress-container { margin-bottom: 0.5rem; }
+        .progress-header { display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--text-secondary); }
+        .progress-bar { height: 6px; background-color: var(--border-color); border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; background-color: var(--brand-accent); width: 0%; transition: width 0.3s ease; }
+
+        .assignments-list-container { flex: 1; overflow-y: auto; }
         .assignment-btn {
-            display: block; width: 100%; text-align: start; padding: 1rem; border-bottom: 1px solid var(--border-color);
-            font-size: 0.875rem; color: var(--text-primary); transition: background-color 0.2s;
+            display: flex; align-items: center; width: 100%; text-align: start; padding: 0.875rem 1rem; 
+            border-bottom: 1px solid var(--border-color); font-size: 0.875rem; color: var(--text-primary); 
+            transition: background-color 0.2s;
         }
         .assignment-btn:hover { background-color: var(--bg-tertiary); }
         .assignment-btn.active { border-inline-start: 3px solid var(--brand-accent); background-color: var(--bg-tertiary); font-weight: 600; }
+        .assignment-btn .status-icon { margin-inline-start: auto; color: var(--text-secondary); font-size: 0.75rem; }
+        .assignment-btn.completed .status-icon { color: #10b981; }
+
+        /* Main Code Area */
         .ide-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
         .ide-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); background-color: var(--bg-secondary); padding: 0 1rem; }
         .ide-tabs { display: flex; }
-        .ide-tab { padding: 0.75rem 1rem; font-size: 0.875rem; border-bottom: 2px solid transparent; color: var(--text-secondary); }
-        .ide-tab.active { border-bottom-color: var(--brand-accent); color: var(--text-primary); }
-        .ide-editor { flex: 1; background-color: var(--ide-bg); padding: 1rem; overflow: auto; }
-        .ide-editor pre, .output-preview { font-family: 'Fira Code', monospace; font-size: 0.875rem; color: var(--ide-text); direction: ltr; text-align: left; }
-        .ide-terminal { border-top: 1px solid var(--border-color); background-color: var(--bg-secondary); padding: 1rem; max-height: 200px; overflow-y: auto; }
+        .ide-tab { padding: 0.75rem 1rem; font-size: 0.875rem; border-bottom: 2px solid transparent; color: var(--text-secondary); cursor: pointer; user-select: none; }
+        .ide-tab:hover { color: var(--text-primary); }
+        .ide-tab.active { border-bottom-color: var(--brand-accent); color: var(--text-primary); font-weight: 500; }
+        
+        .ide-editor-container { flex: 1; background-color: var(--ide-bg); overflow: auto; position: relative; }
+        .tab-content { display: none; height: 100%; padding: 1rem; }
+        .tab-content.active { display: block; }
+        
+        pre[class*="language-"] { margin: 0 !important; padding: 0 !important; background: transparent !important; }
+        .ide-editor-container code { font-family: 'Fira Code', monospace; font-size: 0.875rem; direction: ltr !important; text-align: left; }
+        
+        .output-console { color: #a3a3a3; font-family: 'Fira Code', monospace; direction: ltr; white-space: pre-wrap; font-size: 0.875rem; }
+
+        /* Next/Prev Nav */
+        .ide-nav-footer {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0.75rem 1rem; border-top: 1px solid var(--border-color);
+            background-color: var(--bg-secondary);
+        }
+        
+        .completion-toggle { display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: 500; cursor: pointer; color: var(--text-secondary); }
+        .completion-toggle input[type="checkbox"] { accent-color: var(--brand-accent); width: 16px; height: 16px; cursor: pointer; }
+        .completion-toggle:hover { color: var(--text-primary); }
+
+        .ide-terminal { border-top: 1px solid var(--border-color); background-color: var(--bg-secondary); padding: 1rem; max-height: 150px; overflow-y: auto; }
         .terminal-header { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.5rem; }
-        .output-preview { background-color: #000; padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid #333; margin-top: 0.5rem; }
 
         /* AI Chat Widget */
         .chat-widget {
@@ -148,28 +212,28 @@
             border-radius: var(--radius-md); box-shadow: var(--shadow-md); z-index: 200;
             display: flex; flex-direction: column; transition: height 0.3s;
         }
-        .chat-widget[aria-expanded="false"] { height: 48px; overflow: hidden; cursor: pointer; }
+        .chat-widget[aria-expanded="false"] { height: 54px; overflow: hidden; cursor: pointer; }
         .chat-widget[aria-expanded="true"] { height: 450px; }
         .chat-header {
             display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem;
             border-bottom: 1px solid var(--border-color); background-color: var(--bg-secondary);
         }
         .chat-title { font-weight: 600; display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; }
-        .status-dot { width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; }
+        .status-dot { width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; box-shadow: 0 0 5px rgba(16, 185, 129, 0.5); }
         .chat-body { flex: 1; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem; }
-        .chat-msg { max-width: 85%; padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); font-size: 0.875rem; line-height: 1.4; }
+        .chat-msg { max-width: 85%; padding: 0.6rem 0.85rem; border-radius: var(--radius-sm); font-size: 0.875rem; line-height: 1.5; }
         .ai-msg { background-color: var(--bg-secondary); border: 1px solid var(--border-color); align-self: flex-start; }
         .user-msg { background-color: var(--brand-primary); color: var(--bg-main); align-self: flex-end; }
         .loading-dots { font-style: italic; color: var(--text-secondary); font-size: 0.75rem; align-self: flex-start; }
         .chat-footer { padding: 0.75rem; border-top: 1px solid var(--border-color); }
         #ai-form { display: flex; gap: 0.5rem; }
-        #ai-input { flex: 1; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); background: var(--bg-main); color: var(--text-primary); }
+        #ai-input { flex: 1; padding: 0.5rem 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); background: var(--bg-main); color: var(--text-primary); font-family: inherit; }
         #ai-input:focus { outline: none; border-color: var(--brand-accent); }
 
         /* Responsive adjustments */
         @media (max-width: 768px) {
-            .ide-layout { flex-direction: column; height: 800px; }
-            .ide-sidebar { width: 100%; height: 200px; border-inline-end: none; border-bottom: 1px solid var(--border-color); }
+            .ide-layout { flex-direction: column; height: 900px; }
+            .ide-sidebar { width: 100%; height: 300px; border-inline-end: none; border-bottom: 1px solid var(--border-color); }
             .chat-widget { width: calc(100% - 3rem); bottom: 1.5rem; inset-inline-start: 1.5rem; }
         }
     </style>
@@ -180,7 +244,7 @@
     <header class="app-header">
         <div class="container header-container">
             <div class="logo">
-                <div class="logo-icon">C++</div>
+                <div class="logo-icon"><i class="fa-solid fa-code"></i> C++</div>
                 <span class="logo-text" data-i18n="logo_title">Academy Pro</span>
             </div>
             
@@ -190,8 +254,8 @@
             </nav>
 
             <div class="header-actions">
-                <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">🌙</button>
-                <button id="lang-toggle" class="btn btn-outline">AR</button>
+                <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme"><i class="fa-solid fa-moon"></i></button>
+                <button id="lang-toggle" class="btn btn-outline btn-small"><i class="fa-solid fa-language"></i> AR</button>
             </div>
         </div>
     </header>
@@ -224,30 +288,70 @@
             
             <div class="ide-layout">
                 <!-- Sidebar -->
-                <aside class="ide-sidebar" id="assignments-list">
-                    <!-- Injected via JS -->
+                <aside class="ide-sidebar">
+                    <div class="sidebar-header">
+                        <!-- Search Bar -->
+                        <div class="search-box">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="assignment-search" data-i18n-placeholder="search_ph" placeholder="Search assignments...">
+                        </div>
+                        <!-- Progress Tracker -->
+                        <div class="progress-container">
+                            <div class="progress-header">
+                                <span data-i18n="progress_title">Course Progress</span>
+                                <span id="progress-text">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progress-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="assignments-list-container" id="assignments-list">
+                        <!-- Injected via JS -->
+                    </div>
                 </aside>
 
                 <!-- Main Code Area -->
                 <div class="ide-main">
+                    <!-- Tabs Header -->
                     <div class="ide-header">
                         <div class="ide-tabs">
-                            <span class="ide-tab active">main.cpp</span>
-                            <span class="ide-tab">output.txt</span>
+                            <div class="ide-tab active" data-target="tab-code"><i class="fa-solid fa-file-code"></i> main.cpp</div>
+                            <div class="ide-tab" data-target="tab-output"><i class="fa-solid fa-terminal"></i> output.txt</div>
                         </div>
-                        <button id="copy-btn" class="btn btn-small btn-primary" data-i18n="btn_copy">Copy</button>
+                        <button id="copy-btn" class="btn btn-small btn-primary"><i class="fa-regular fa-copy"></i> <span data-i18n="btn_copy">Copy</span></button>
                     </div>
                     
-                    <div class="ide-editor">
-                        <pre><code id="code-snippet">// Select an assignment from the sidebar...</code></pre>
+                    <!-- Editor Views -->
+                    <div class="ide-editor-container">
+                        <!-- Code Tab Content -->
+                        <div id="tab-code" class="tab-content active">
+                            <pre><code id="code-snippet" class="language-cpp">// Select an assignment from the sidebar...</code></pre>
+                        </div>
+                        
+                        <!-- Output Tab Content -->
+                        <div id="tab-output" class="tab-content">
+                            <div class="output-console" id="output-snippet">Output preview...</div>
+                        </div>
                     </div>
 
+                    <!-- IDE Footer Nav -->
+                    <div class="ide-nav-footer">
+                        <button id="prev-btn" class="btn btn-outline btn-small"><i class="fa-solid fa-chevron-left"></i> <span data-i18n="btn_prev">Prev</span></button>
+                        
+                        <label class="completion-toggle">
+                            <input type="checkbox" id="mark-complete">
+                            <span data-i18n="lbl_complete">Mark as Complete</span>
+                        </label>
+                        
+                        <button id="next-btn" class="btn btn-primary btn-small"><span data-i18n="btn_next">Next</span> <i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+
+                    <!-- Explanation Terminal -->
                     <div class="ide-terminal">
-                        <div class="terminal-header" data-i18n="lbl_logic">Logic & Expected Output</div>
-                        <div class="terminal-content">
-                            <p id="explanation-text" class="mb-2">Explanation will appear here.</p>
-                            <pre class="output-preview"><code id="output-snippet">Output preview...</code></pre>
-                        </div>
+                        <div class="terminal-header"><i class="fa-solid fa-circle-info"></i> <span data-i18n="lbl_logic">Logic & Expected Output</span></div>
+                        <p id="explanation-text" style="font-size: 0.875rem;">Explanation will appear here.</p>
                     </div>
                 </div>
             </div>
@@ -262,18 +366,23 @@
                 <span class="status-dot"></span>
                 <span data-i18n="ai_title">AI Assistant</span>
             </div>
-            <button id="chat-toggle" class="icon-btn">💬</button>
+            <button id="chat-toggle" class="icon-btn"><i class="fa-solid fa-chevron-up" id="chat-icon"></i></button>
         </div>
         <div class="chat-body" id="chat-window">
-            <div class="chat-msg ai-msg" id="ai-welcome-msg">How can I help you with C++ today?</div>
+            <div class="chat-msg ai-msg" id="ai-welcome-msg">Hello! How can I help you with C++ today?</div>
         </div>
         <div class="chat-footer">
             <form id="ai-form">
                 <input type="text" id="ai-input" data-i18n-placeholder="ai_input_ph" placeholder="Ask AI..." autocomplete="off" required>
-                <button type="submit" class="btn btn-primary" id="ai-submit-btn">↳</button>
+                <button type="submit" class="btn btn-primary" id="ai-submit-btn"><i class="fa-solid fa-paper-plane"></i></button>
             </form>
         </div>
     </div>
+
+    <!-- Syntax Highlighting Core (Prism.js) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
 
     <!-- Inline JavaScript -->
     <script>
@@ -341,7 +450,12 @@
                 lbl_logic: "Logic & Expected Output",
                 ai_title: "AI Assistant",
                 ai_input_ph: "Ask the AI...",
-                ai_welcome: "Hello! I am connected to a live API. Ask me anything about C++ concepts or topics."
+                ai_welcome: "Hello! How can I help you with C++ today?",
+                search_ph: "Search assignments...",
+                progress_title: "Course Progress",
+                btn_prev: "Previous",
+                btn_next: "Next",
+                lbl_complete: "Mark as Complete"
             },
             ar: {
                 page_title: "أكاديمية C++ برو",
@@ -357,7 +471,12 @@
                 lbl_logic: "الشرح والمخرجات المتوقعة",
                 ai_title: "المساعد الذكي",
                 ai_input_ph: "اسأل المساعد...",
-                ai_welcome: "مرحباً! أنا متصل بـ API حقيقي للبحث المباشر. اسألني أي سؤال أو مفهوم عن C++."
+                ai_welcome: "مرحباً! كيف يمكنني مساعدتك في مفاهيم C++ اليوم؟",
+                search_ph: "ابحث في التمارين...",
+                progress_title: "نسبة الإنجاز",
+                btn_prev: "السابق",
+                btn_next: "التالي",
+                lbl_complete: "تحديد كمكتمل"
             }
         };
 
@@ -368,6 +487,7 @@
             let currentLang = localStorage.getItem('appLang') || 'en';
             let currentTheme = localStorage.getItem('appTheme') || 'dark';
             let activeQuestionId = 1;
+            let completedAssignments = JSON.parse(localStorage.getItem('cpp_progress')) || [];
 
             // DOM Elements
             const htmlEl = document.documentElement;
@@ -379,10 +499,15 @@
             const outputSnippet = document.getElementById('output-snippet');
             const explanationText = document.getElementById('explanation-text');
             const copyBtn = document.getElementById('copy-btn');
+            const searchInput = document.getElementById('assignment-search');
+            const markCompleteCheckbox = document.getElementById('mark-complete');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
             
             // AI Chat Elements
             const chatWidget = document.getElementById('chat-widget');
             const chatToggle = document.getElementById('chat-toggle');
+            const chatIcon = document.getElementById('chat-icon');
             const chatHeader = document.querySelector('.chat-header');
             const aiForm = document.getElementById('ai-form');
             const aiInput = document.getElementById('ai-input');
@@ -392,6 +517,7 @@
             // Initial Render
             applyTheme();
             applyLanguage();
+            updateProgress();
 
             // Theme Toggle
             themeToggle.addEventListener('click', () => {
@@ -407,23 +533,68 @@
                 applyLanguage();
             });
 
+            // IDE Tabs Logic
+            document.querySelectorAll('.ide-tab').forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    document.querySelectorAll('.ide-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    e.currentTarget.classList.add('active');
+                    const target = e.currentTarget.getAttribute('data-target');
+                    document.getElementById(target).classList.add('active');
+                });
+            });
+
             // Copy Code Functionality
             copyBtn.addEventListener('click', () => {
                 navigator.clipboard.writeText(codeSnippet.innerText).then(() => {
-                    const originalText = copyBtn.innerText;
-                    copyBtn.innerText = currentLang === 'en' ? "Copied!" : "تم النسخ!";
+                    const originalHTML = copyBtn.innerHTML;
+                    copyBtn.innerHTML = currentLang === 'en' ? `<i class="fa-solid fa-check"></i> Copied!` : `<i class="fa-solid fa-check"></i> تم النسخ!`;
                     copyBtn.classList.replace('btn-primary', 'btn-outline');
                     setTimeout(() => {
-                        copyBtn.innerText = originalText;
+                        copyBtn.innerHTML = originalHTML;
                         copyBtn.classList.replace('btn-outline', 'btn-primary');
                     }, 2000);
                 });
+            });
+
+            // Search Functionality
+            searchInput.addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase();
+                document.querySelectorAll('.assignment-btn').forEach(btn => {
+                    const text = btn.innerText.toLowerCase();
+                    btn.style.display = text.includes(term) ? 'flex' : 'none';
+                });
+            });
+
+            // Next / Prev Navigation
+            prevBtn.addEventListener('click', () => {
+                if (activeQuestionId > 1) loadAssignment(activeQuestionId - 1);
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                if (activeQuestionId < assignmentData.length) loadAssignment(activeQuestionId + 1);
+            });
+
+            // Progress Tracker Checkbox
+            markCompleteCheckbox.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    if (!completedAssignments.includes(activeQuestionId)) {
+                        completedAssignments.push(activeQuestionId);
+                    }
+                } else {
+                    completedAssignments = completedAssignments.filter(id => id !== activeQuestionId);
+                }
+                localStorage.setItem('cpp_progress', JSON.stringify(completedAssignments));
+                updateProgress();
+                renderAssignments(); // re-render to show checkmarks
             });
 
             // AI Widget Interactions
             const toggleChat = () => {
                 const isExpanded = chatWidget.getAttribute('aria-expanded') === 'true';
                 chatWidget.setAttribute('aria-expanded', !isExpanded);
+                chatIcon.className = isExpanded ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down';
                 if(!isExpanded) aiInput.focus();
             };
             
@@ -441,7 +612,7 @@
                 aiInput.value = '';
                 
                 const loadingId = 'loading-' + Date.now();
-                appendChatMessage(currentLang === 'en' ? "Searching live API..." : "جاري البحث في الـ API الحقيقي...", 'ai-msg loading-dots', loadingId);
+                appendChatMessage(currentLang === 'en' ? "Thinking..." : "يكتب...", 'ai-msg loading-dots', loadingId);
 
                 const responseText = await fetchAIResponse(msg);
                 
@@ -451,20 +622,21 @@
                 appendChatMessage(responseText, 'ai-msg');
             });
 
-            // Application Functions
+            // --- Core Functions ---
+            
             function applyTheme() {
                 htmlEl.setAttribute('data-theme', currentTheme);
-                themeToggle.innerText = currentTheme === 'dark' ? '☀️' : '🌙';
+                themeToggle.innerHTML = currentTheme === 'dark' ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
             }
 
             function applyLanguage() {
                 htmlEl.lang = currentLang;
                 htmlEl.dir = currentLang === 'en' ? 'ltr' : 'rtl';
-                langToggle.innerText = currentLang === 'en' ? 'AR' : 'EN';
+                langToggle.innerHTML = currentLang === 'en' ? '<i class="fa-solid fa-language"></i> AR' : '<i class="fa-solid fa-language"></i> EN';
 
                 document.querySelectorAll('[data-i18n]').forEach(el => {
                     const key = el.getAttribute('data-i18n');
-                    if(dict[currentLang][key]) el.innerText = dict[currentLang][key];
+                    if(dict[currentLang][key]) el.innerHTML = dict[currentLang][key]; // innerHTML handles nested icons
                 });
                 
                 document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
@@ -472,9 +644,7 @@
                     if(dict[currentLang][key]) el.placeholder = dict[currentLang][key];
                 });
 
-                if(aiWelcomeMsg) {
-                    aiWelcomeMsg.innerText = dict[currentLang].ai_welcome;
-                }
+                if(aiWelcomeMsg) aiWelcomeMsg.innerText = dict[currentLang].ai_welcome;
 
                 renderModules();
                 renderAssignments();
@@ -492,12 +662,16 @@
             }
 
             function renderAssignments() {
-                assignmentsList.innerHTML = assignmentData.map(a => `
-                    <button class="assignment-btn ${a.id === activeQuestionId ? 'active' : ''}" data-id="${a.id}">
+                assignmentsList.innerHTML = assignmentData.map(a => {
+                    const isCompleted = completedAssignments.includes(a.id);
+                    return `
+                    <button class="assignment-btn ${a.id === activeQuestionId ? 'active' : ''} ${isCompleted ? 'completed' : ''}" data-id="${a.id}">
                         <span style="font-weight:bold; color:var(--brand-accent); margin-inline-end:0.5rem;">[${a.modId}]</span>
                         ${currentLang === 'en' ? a.enTitle : a.arTitle}
+                        ${isCompleted ? '<i class="fa-solid fa-circle-check status-icon"></i>' : ''}
                     </button>
-                `).join('');
+                    `;
+                }).join('');
 
                 document.querySelectorAll('.assignment-btn').forEach(btn => {
                     btn.addEventListener('click', (e) => {
@@ -512,13 +686,32 @@
                 const data = assignmentData.find(a => a.id === id);
                 if(!data) return;
 
-                codeSnippet.innerText = data.code;
-                outputSnippet.innerText = data.output;
+                // Load content
+                codeSnippet.textContent = data.code;
+                outputSnippet.textContent = data.output;
                 explanationText.innerText = currentLang === 'en' ? data.enExp : data.arExp;
+                
+                // Syntax Highlighting execution
+                Prism.highlightElement(codeSnippet);
 
+                // Update UI state
                 document.querySelectorAll('.assignment-btn').forEach(btn => {
                     btn.classList.toggle('active', parseInt(btn.getAttribute('data-id')) === id);
                 });
+                
+                markCompleteCheckbox.checked = completedAssignments.includes(id);
+                
+                prevBtn.disabled = id === 1;
+                nextBtn.disabled = id === assignmentData.length;
+            }
+
+            function updateProgress() {
+                const total = assignmentData.length;
+                const completed = completedAssignments.length;
+                const percentage = Math.round((completed / total) * 100);
+                
+                document.getElementById('progress-text').innerText = `${percentage}%`;
+                document.getElementById('progress-fill').style.width = `${percentage}%`;
             }
 
             function appendChatMessage(text, classes, id = '') {
@@ -530,37 +723,29 @@
                 chatWindow.scrollTop = chatWindow.scrollHeight;
             }
 
-            // --- REAL API CALL INTEGRATION ---
             async function fetchAIResponse(userQuery) {
                 try {
                     const lang = currentLang === 'ar' ? 'ar' : 'en';
-                    // استدعاء Wikipedia Search API المباشر والمجاني لجلب شروحات C++ الحقيقية
                     const apiUrl = `https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(userQuery + ' C++')}&format=json&origin=*`;
 
                     const response = await fetch(apiUrl);
-                    
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
+                    if (!response.ok) throw new Error();
 
                     const data = await response.json();
                     const results = data.query?.search;
 
                     if (results && results.length > 0) {
-                        // إزالة ووسوم HTML من النتيجة وإرجاع أول نتيجة مفيدة
                         let snippet = results[0].snippet.replace(/<[^>]*>?/gm, '');
-                        const title = results[0].title;
-                        return `📌 ${title}:\n${snippet}...`;
+                        return `📌 ${results[0].title}:\n${snippet}...`;
                     } else {
                         return currentLang === 'en' 
-                            ? "No relevant C++ information found for your query."
-                            : "لم يتم العثور على معلومات متعلقة بـ C++ لهذا الاستفسار.";
+                            ? "I couldn't find specific C++ information for that. Could you rephrase?"
+                            : "عذراً، لم أجد معلومات دقيقة حول C++ لهذا السؤال. هل يمكنك إعادة صياغته؟";
                     }
                 } catch (error) {
-                    console.error("API Error:", error);
                     return currentLang === 'en'
-                        ? "Failed to fetch response from API. Please check your internet connection."
-                        : "فشل الاتصال بالـ API الحقيقي. يرجى التحقق من اتصال الإنترنت.";
+                        ? "I'm having trouble connecting to my knowledge base right now."
+                        : "أواجه مشكلة في الاتصال بقاعدة بياناتي في الوقت الحالي.";
                 }
             }
         });
