@@ -8,54 +8,46 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Professional Icons (Font Awesome) -->
+    <!-- Professional Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Syntax Highlighting (Prism.js Theme) -->
+    <!-- Syntax Highlighting -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
 
-    <!-- Inline Styles (CSS) -->
     <style>
-        /* CSS Custom Properties & Theming */
+        /* CSS Custom Properties & Modern Theming */
         :root {
             /* Light Theme */
-            --bg-main: #ffffff;
-            --bg-secondary: #f8fafc;
-            --bg-tertiary: #f1f5f9;
+            --bg-main: #f0f4f8;
+            --bg-secondary: rgba(255, 255, 255, 0.7);
+            --bg-tertiary: rgba(255, 255, 255, 0.9);
             --text-primary: #0f172a;
             --text-secondary: #475569;
-            --border-color: #e2e8f0;
+            --border-color: rgba(15, 23, 42, 0.1);
             
-            --brand-primary: #0f172a;
             --brand-accent: #2563eb;
-            --brand-hover: #334155;
-            
+            --brand-accent-glow: rgba(37, 99, 235, 0.4);
             --ide-bg: #1e1e1e;
-            --ide-text: #d4d4d4;
-            
-            --radius-sm: 6px;
-            --radius-md: 8px;
-            --radius-lg: 12px;
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --glass-bg: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.4);
         }
 
         [data-theme="dark"] {
-            /* Dark Theme */
-            --bg-main: #0a0a0a;
-            --bg-secondary: #171717;
-            --bg-tertiary: #262626;
-            --text-primary: #ededed;
-            --text-secondary: #a3a3a3;
-            --border-color: #333333;
+            /* Dark Theme - Cyberpunk/Futuristic feel */
+            --bg-main: #050505;
+            --bg-secondary: rgba(15, 23, 42, 0.6);
+            --bg-tertiary: rgba(30, 41, 59, 0.8);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.1);
             
-            --brand-primary: #ffffff;
-            --brand-accent: #3b82f6;
-            --brand-hover: #d4d4d4;
-            
+            --brand-accent: #00f2fe;
+            --brand-accent-glow: rgba(0, 242, 254, 0.4);
             --ide-bg: #0d1117;
+            --glass-bg: rgba(15, 23, 42, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.05);
         }
 
         /* Reset & Base Setup */
@@ -65,187 +57,256 @@
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-main);
             color: var(--text-primary);
-            line-height: 1.5;
-            transition: background-color 0.3s, color 0.3s;
+            line-height: 1.6;
+            transition: background-color 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, var(--brand-accent-glow), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.15), transparent 25%);
+            background-attachment: fixed;
         }
 
         [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
 
         a { text-decoration: none; color: inherit; }
         button { cursor: pointer; border: none; background: none; font-family: inherit; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
-        .mb-2 { margin-bottom: 0.5rem; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+
+        /* Glassmorphism Utilities */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+        }
 
         /* Header */
         .app-header {
             position: sticky; top: 0; z-index: 100;
-            background-color: var(--bg-main);
             border-bottom: 1px solid var(--border-color);
         }
-        .header-container {
-            display: flex; justify-content: space-between; align-items: center; height: 64px;
-        }
-        .logo { display: flex; align-items: center; gap: 0.75rem; font-weight: 700; font-size: 1.25rem; }
+        .header-container { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+        .logo { display: flex; align-items: center; gap: 0.75rem; font-weight: 800; font-size: 1.5rem; letter-spacing: -0.5px; }
         .logo-icon {
-            background-color: var(--brand-primary); color: var(--bg-main);
-            border-radius: var(--radius-sm); padding: 0.25rem 0.5rem; font-size: 0.875rem;
+            background: linear-gradient(135deg, #2563eb, var(--brand-accent));
+            color: white; border-radius: 8px; padding: 0.3rem 0.6rem; font-size: 1rem;
+            box-shadow: 0 0 15px var(--brand-accent-glow);
         }
-        .desktop-nav { display: flex; gap: 1.5rem; font-size: 0.875rem; font-weight: 500; color: var(--text-secondary); }
-        .desktop-nav a:hover { color: var(--brand-primary); }
-        .header-actions { display: flex; gap: 0.75rem; align-items: center; }
+        .desktop-nav { display: flex; gap: 2rem; font-size: 0.95rem; font-weight: 600; color: var(--text-secondary); }
+        .desktop-nav a { position: relative; transition: color 0.3s; }
+        .desktop-nav a:hover { color: var(--text-primary); }
+        .desktop-nav a::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0;
+            background-color: var(--brand-accent); transition: width 0.3s ease;
+        }
+        .desktop-nav a:hover::after { width: 100%; }
+        
+        .header-actions { display: flex; gap: 1rem; align-items: center; }
 
         /* Buttons */
         .btn {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            padding: 0.5rem 1rem; border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 500;
-            transition: all 0.2s;
+            display: inline-flex; align-items: center; gap: 0.5rem; justify-content: center;
+            padding: 0.6rem 1.2rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .btn-small { padding: 0.35rem 0.75rem; font-size: 0.75rem; }
-        .btn-primary { background-color: var(--brand-primary); color: var(--bg-main); }
-        .btn-primary:hover { background-color: var(--brand-hover); }
+        .btn-small { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+        .btn-primary { 
+            background: linear-gradient(135deg, #2563eb, var(--brand-accent)); 
+            color: white; border: none; box-shadow: 0 4px 15px var(--brand-accent-glow);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px var(--brand-accent-glow); }
         .btn-outline { border: 1px solid var(--border-color); color: var(--text-primary); }
-        .btn-outline:hover { background-color: var(--bg-secondary); }
-        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-outline:hover { background-color: var(--bg-secondary); border-color: var(--brand-accent); }
         
-        .icon-btn { font-size: 1.125rem; padding: 0.4rem; border-radius: var(--radius-sm); color: var(--text-primary); transition: background 0.2s;}
-        .icon-btn:hover { background-color: var(--bg-tertiary); }
+        .icon-btn { font-size: 1.2rem; padding: 0.5rem; border-radius: 8px; color: var(--text-primary); transition: all 0.3s;}
+        .icon-btn:hover { background-color: var(--bg-secondary); color: var(--brand-accent); transform: rotate(15deg); }
 
-        /* Hero Section */
-        .hero { text-align: center; padding: 5rem 0; border-bottom: 1px solid var(--border-color); }
+        /* Hero Section with Image Background */
+        .hero { 
+            position: relative; text-align: center; padding: 8rem 0; 
+            overflow: hidden; border-radius: 0 0 2rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .hero-bg-img {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; z-index: -2; opacity: 0.15;
+            filter: grayscale(100%) contrast(120%);
+        }
+        .hero-gradient-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent, var(--bg-main)); z-index: -1;
+        }
         .hero-badge {
-            display: inline-block; padding: 0.25rem 0.75rem; border: 1px solid var(--border-color);
-            border-radius: 20px; font-size: 0.75rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 1rem;
+            display: inline-block; padding: 0.4rem 1rem; border: 1px solid var(--brand-accent);
+            border-radius: 30px; font-size: 0.8rem; font-weight: 600; color: var(--brand-accent);
+            margin-bottom: 1.5rem; background: var(--brand-accent-glow);
+            box-shadow: 0 0 20px var(--brand-accent-glow);
+            animation: float 3s ease-in-out infinite;
         }
-        .hero-title { font-size: clamp(2rem, 5vw, 4rem); font-weight: 700; letter-spacing: -0.02em; margin: 1rem 0; }
-        .hero-subtitle { font-size: 1.125rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+        .hero-title { 
+            font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; 
+            letter-spacing: -1px; margin: 1rem 0; line-height: 1.1;
+            background: linear-gradient(to right, var(--text-primary), var(--brand-accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero-subtitle { font-size: 1.2rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto; font-weight: 500; }
 
-        /* Modules Grid */
-        .section { padding: 4rem 0; }
-        .section-title { font-size: 1.5rem; font-weight: 600; margin-bottom: 2rem; }
-        .grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+        /* Modules Grid with Images */
+        .section { padding: 5rem 0; }
+        .section-title { font-size: 2rem; font-weight: 800; margin-bottom: 2.5rem; text-align: center; }
+        .grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
+        
         .module-card {
-            padding: 1.5rem; border: 1px solid var(--border-color); border-radius: var(--radius-md);
-            background-color: var(--bg-main); transition: box-shadow 0.2s, border-color 0.2s;
+            border-radius: 16px; overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative; group;
         }
-        .module-card:hover { border-color: var(--brand-accent); box-shadow: var(--shadow-sm); }
-        .module-id { color: var(--brand-accent); font-weight: 600; font-size: 0.875rem; margin-bottom: 0.5rem; }
-        .module-title { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem; }
-        .module-desc { font-size: 0.875rem; color: var(--text-secondary); }
+        .module-card:hover { 
+            transform: translateY(-10px); 
+            border-color: var(--brand-accent);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2), 0 0 20px var(--brand-accent-glow);
+        }
+        .module-img {
+            width: 100%; height: 160px; object-fit: cover;
+            border-bottom: 1px solid var(--border-color);
+            transition: transform 0.5s;
+        }
+        .module-card:hover .module-img { transform: scale(1.05); }
+        .module-content { padding: 1.5rem; }
+        .module-id { color: var(--brand-accent); font-weight: 700; font-size: 0.8rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px; }
+        .module-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .module-desc { font-size: 0.9rem; color: var(--text-secondary); }
 
-        /* IDE Viewer (Code Library) */
+        /* Modern IDE Viewer */
         .ide-layout { 
-            display: flex; border: 1px solid var(--border-color); 
-            border-radius: var(--radius-md); overflow: hidden; 
-            height: 680px; background-color: var(--bg-main); 
+            display: flex; border-radius: 16px; overflow: hidden; 
+            height: 700px; box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color);
         }
         
-        /* Sidebar (Search & Progress added) */
+        /* IDE Sidebar */
         .ide-sidebar { 
-            display: flex; flex-direction: column; width: 320px; 
-            border-inline-end: 1px solid var(--border-color); background-color: var(--bg-secondary); 
+            display: flex; flex-direction: column; width: 340px; 
+            border-inline-end: 1px solid var(--border-color); 
         }
-        .sidebar-header { padding: 1rem; border-bottom: 1px solid var(--border-color); }
+        .sidebar-header { padding: 1.5rem; border-bottom: 1px solid var(--border-color); }
         
-        .search-box {
-            position: relative; display: flex; align-items: center; margin-bottom: 1rem;
-        }
-        .search-box i { position: absolute; inset-inline-start: 10px; color: var(--text-secondary); font-size: 0.875rem; }
+        .search-box { position: relative; display: flex; align-items: center; margin-bottom: 1.5rem; }
+        .search-box i { position: absolute; inset-inline-start: 12px; color: var(--text-secondary); }
         .search-box input {
-            width: 100%; padding: 0.5rem 0.5rem 0.5rem 2rem; border-radius: var(--radius-sm);
-            border: 1px solid var(--border-color); background: var(--bg-main);
-            color: var(--text-primary); font-family: inherit; font-size: 0.875rem;
+            width: 100%; padding: 0.7rem 0.7rem 0.7rem 2.5rem; border-radius: 8px;
+            border: 1px solid var(--border-color); background: rgba(0,0,0,0.1);
+            color: var(--text-primary); font-family: inherit; font-size: 0.9rem;
+            transition: all 0.3s;
         }
-        [dir="rtl"] .search-box input { padding: 0.5rem 2rem 0.5rem 0.5rem; }
-        .search-box input:focus { outline: none; border-color: var(--brand-accent); }
+        [dir="rtl"] .search-box input { padding: 0.7rem 2.5rem 0.7rem 0.7rem; }
+        .search-box input:focus { outline: none; border-color: var(--brand-accent); background: var(--bg-tertiary); box-shadow: 0 0 10px var(--brand-accent-glow); }
 
-        .progress-container { margin-bottom: 0.5rem; }
-        .progress-header { display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--text-secondary); }
-        .progress-bar { height: 6px; background-color: var(--border-color); border-radius: 4px; overflow: hidden; }
-        .progress-fill { height: 100%; background-color: var(--brand-accent); width: 0%; transition: width 0.3s ease; }
+        .progress-header { display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-primary); }
+        .progress-bar { height: 8px; background-color: var(--border-color); border-radius: 10px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #2563eb, var(--brand-accent)); width: 0%; transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
 
-        .assignments-list-container { flex: 1; overflow-y: auto; }
+        .assignments-list-container { flex: 1; overflow-y: auto; padding: 0.5rem; }
+        .assignments-list-container::-webkit-scrollbar { width: 6px; }
+        .assignments-list-container::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+        
         .assignment-btn {
-            display: flex; align-items: center; width: 100%; text-align: start; padding: 0.875rem 1rem; 
-            border-bottom: 1px solid var(--border-color); font-size: 0.875rem; color: var(--text-primary); 
-            transition: background-color 0.2s;
+            display: flex; align-items: center; width: 100%; text-align: start; padding: 1rem; 
+            border-radius: 8px; font-size: 0.9rem; color: var(--text-secondary); 
+            transition: all 0.2s; margin-bottom: 0.3rem;
         }
-        .assignment-btn:hover { background-color: var(--bg-tertiary); }
-        .assignment-btn.active { border-inline-start: 3px solid var(--brand-accent); background-color: var(--bg-tertiary); font-weight: 600; }
-        .assignment-btn .status-icon { margin-inline-start: auto; color: var(--text-secondary); font-size: 0.75rem; }
-        .assignment-btn.completed .status-icon { color: #10b981; }
+        .assignment-btn:hover { background-color: var(--bg-secondary); color: var(--text-primary); }
+        .assignment-btn.active { 
+            background: var(--brand-accent-glow); color: var(--text-primary); font-weight: 600; 
+            border: 1px solid var(--brand-accent);
+        }
+        .assignment-btn .status-icon { margin-inline-start: auto; color: #10b981; font-size: 1rem; filter: drop-shadow(0 0 5px rgba(16,185,129,0.4)); }
 
-        /* Main Code Area */
-        .ide-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-        .ide-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); background-color: var(--bg-secondary); padding: 0 1rem; }
+        /* IDE Main Area */
+        .ide-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; background-color: var(--ide-bg); }
+        
+        /* Mac Style Header */
+        .ide-mac-header {
+            display: flex; align-items: center; padding: 0.5rem 1rem;
+            background: #1a1a1a; border-bottom: 1px solid #333; gap: 0.5rem;
+        }
+        .mac-btn { width: 12px; height: 12px; border-radius: 50%; }
+        .mac-close { background-color: #ff5f56; }
+        .mac-min { background-color: #ffbd2e; }
+        .mac-max { background-color: #27c93f; }
+        .ide-title { margin: 0 auto; color: #888; font-size: 0.8rem; font-family: 'Fira Code', monospace; }
+
+        .ide-header { display: flex; justify-content: space-between; align-items: center; background-color: #252526; padding: 0 1rem; border-bottom: 1px solid #333; }
         .ide-tabs { display: flex; }
-        .ide-tab { padding: 0.75rem 1rem; font-size: 0.875rem; border-bottom: 2px solid transparent; color: var(--text-secondary); cursor: pointer; user-select: none; }
-        .ide-tab:hover { color: var(--text-primary); }
-        .ide-tab.active { border-bottom-color: var(--brand-accent); color: var(--text-primary); font-weight: 500; }
+        .ide-tab { padding: 0.8rem 1.5rem; font-size: 0.85rem; font-family: 'Fira Code', monospace; color: #888; cursor: pointer; user-select: none; border-top: 2px solid transparent; background: #2d2d2d; margin-inline-end: 2px; border-radius: 4px 4px 0 0; margin-top: 4px;}
+        .ide-tab.active { border-top-color: var(--brand-accent); color: #fff; background: var(--ide-bg); }
         
-        .ide-editor-container { flex: 1; background-color: var(--ide-bg); overflow: auto; position: relative; }
-        .tab-content { display: none; height: 100%; padding: 1rem; }
-        .tab-content.active { display: block; }
+        .ide-editor-container { flex: 1; overflow: auto; position: relative; padding: 1rem; }
+        .tab-content { display: none; height: 100%; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
         
-        pre[class*="language-"] { margin: 0 !important; padding: 0 !important; background: transparent !important; }
-        .ide-editor-container code { font-family: 'Fira Code', monospace; font-size: 0.875rem; direction: ltr !important; text-align: left; }
+        pre[class*="language-"] { margin: 0 !important; padding: 0 !important; background: transparent !important; text-shadow: none !important; }
+        .ide-editor-container code { font-family: 'Fira Code', monospace; font-size: 0.95rem; direction: ltr !important; text-align: left; }
         
-        .output-console { color: #a3a3a3; font-family: 'Fira Code', monospace; direction: ltr; white-space: pre-wrap; font-size: 0.875rem; }
+        .output-console { color: #4af626; font-family: 'Fira Code', monospace; direction: ltr; white-space: pre-wrap; font-size: 0.95rem; }
 
-        /* Next/Prev Nav */
+        /* Terminal Explanation */
+        .ide-terminal { border-top: 1px solid #333; background-color: #1e1e1e; padding: 1.5rem; min-height: 120px; }
+        .terminal-header { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: #888; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;}
+        #explanation-text { color: #d4d4d4; font-size: 0.95rem; line-height: 1.6; }
+
+        /* IDE Nav */
         .ide-nav-footer {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 0.75rem 1rem; border-top: 1px solid var(--border-color);
-            background-color: var(--bg-secondary);
+            padding: 1rem 1.5rem; border-top: 1px solid var(--border-color);
+            background: var(--bg-tertiary);
         }
-        
-        .completion-toggle { display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: 500; cursor: pointer; color: var(--text-secondary); }
-        .completion-toggle input[type="checkbox"] { accent-color: var(--brand-accent); width: 16px; height: 16px; cursor: pointer; }
-        .completion-toggle:hover { color: var(--text-primary); }
 
-        .ide-terminal { border-top: 1px solid var(--border-color); background-color: var(--bg-secondary); padding: 1rem; max-height: 150px; overflow-y: auto; }
-        .terminal-header { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.5rem; }
-
-        /* AI Chat Widget */
+        /* AI Chat Widget - Modernized */
         .chat-widget {
-            position: fixed; bottom: 1.5rem; inset-inline-end: 1.5rem; width: 350px;
-            background-color: var(--bg-main); border: 1px solid var(--border-color);
-            border-radius: var(--radius-md); box-shadow: var(--shadow-md); z-index: 200;
-            display: flex; flex-direction: column; transition: height 0.3s;
+            position: fixed; bottom: 2rem; inset-inline-end: 2rem; width: 380px;
+            border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); z-index: 200;
+            display: flex; flex-direction: column; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden; border: 1px solid var(--glass-border);
         }
-        .chat-widget[aria-expanded="false"] { height: 54px; overflow: hidden; cursor: pointer; }
-        .chat-widget[aria-expanded="true"] { height: 450px; }
+        .chat-widget[aria-expanded="false"] { height: 60px; cursor: pointer; transform: translateY(0); }
+        .chat-widget[aria-expanded="false"]:hover { transform: translateY(-5px); }
+        .chat-widget[aria-expanded="true"] { height: 500px; }
         .chat-header {
-            display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem;
-            border-bottom: 1px solid var(--border-color); background-color: var(--bg-secondary);
+            display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, #1e293b, #0f172a); color: white; cursor: pointer;
         }
-        .chat-title { font-weight: 600; display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; }
-        .status-dot { width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; box-shadow: 0 0 5px rgba(16, 185, 129, 0.5); }
-        .chat-body { flex: 1; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem; }
-        .chat-msg { max-width: 85%; padding: 0.6rem 0.85rem; border-radius: var(--radius-sm); font-size: 0.875rem; line-height: 1.5; }
-        .ai-msg { background-color: var(--bg-secondary); border: 1px solid var(--border-color); align-self: flex-start; }
-        .user-msg { background-color: var(--brand-primary); color: var(--bg-main); align-self: flex-end; }
-        .loading-dots { font-style: italic; color: var(--text-secondary); font-size: 0.75rem; align-self: flex-start; }
-        .chat-footer { padding: 0.75rem; border-top: 1px solid var(--border-color); }
+        .chat-title { font-weight: 700; display: flex; align-items: center; gap: 0.75rem; font-size: 1rem; }
+        .status-dot { width: 10px; height: 10px; background-color: #10b981; border-radius: 50%; box-shadow: 0 0 10px #10b981; animation: pulse 2s infinite; }
+        .chat-body { flex: 1; overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; background: var(--bg-main); }
+        .chat-msg { max-width: 85%; padding: 0.75rem 1rem; border-radius: 12px; font-size: 0.9rem; line-height: 1.5; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .ai-msg { background-color: var(--bg-secondary); border: 1px solid var(--border-color); align-self: flex-start; border-top-left-radius: 2px; }
+        .user-msg { background: linear-gradient(135deg, #2563eb, var(--brand-accent)); color: white; align-self: flex-end; border-top-right-radius: 2px; }
+        .chat-footer { padding: 1rem; background: var(--bg-secondary); border-top: 1px solid var(--border-color); }
         #ai-form { display: flex; gap: 0.5rem; }
-        #ai-input { flex: 1; padding: 0.5rem 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); background: var(--bg-main); color: var(--text-primary); font-family: inherit; }
-        #ai-input:focus { outline: none; border-color: var(--brand-accent); }
+        #ai-input { flex: 1; padding: 0.7rem 1rem; border: 1px solid var(--border-color); border-radius: 30px; background: var(--bg-main); color: var(--text-primary); outline: none; }
+        #ai-input:focus { border-color: var(--brand-accent); box-shadow: 0 0 10px var(--brand-accent-glow); }
 
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
+
+        @media (max-width: 900px) {
             .ide-layout { flex-direction: column; height: 900px; }
-            .ide-sidebar { width: 100%; height: 300px; border-inline-end: none; border-bottom: 1px solid var(--border-color); }
-            .chat-widget { width: calc(100% - 3rem); bottom: 1.5rem; inset-inline-start: 1.5rem; }
+            .ide-sidebar { width: 100%; height: 350px; border-inline-end: none; border-bottom: 1px solid var(--border-color); }
+            .chat-widget { width: calc(100% - 2rem); bottom: 1rem; inset-inline-start: 1rem; inset-inline-end: 1rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <header class="app-header">
+    <!-- Header (Glassmorphism) -->
+    <header class="app-header glass">
         <div class="container header-container">
             <div class="logo">
-                <div class="logo-icon"><i class="fa-solid fa-code"></i> C++</div>
-                <span class="logo-text" data-i18n="logo_title">Academy Pro</span>
+                <div class="logo-icon"><i class="fa-solid fa-code"></i></div>
+                <span data-i18n="logo_title">Academy Pro</span>
             </div>
             
             <nav class="desktop-nav">
@@ -261,41 +322,43 @@
     </header>
 
     <!-- Main Content -->
-    <main class="container">
-        
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-badge" data-i18n="hero_badge">Curriculum 2025-2026</div>
-            <h1 class="hero-title">
-                <span data-i18n="hero_title">Master C++ Programming</span>
-            </h1>
-            <p class="hero-subtitle" data-i18n="hero_subtitle">
-                Professional documentation and practical assignments covering I/O, Arrays, Pointers, and OOP.
-            </p>
+    <main>
+        <!-- Dynamic Hero Section -->
+        <section class="hero glass">
+            <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2070&auto=format&fit=crop" class="hero-bg-img" alt="Matrix Code Background">
+            <div class="hero-gradient-overlay"></div>
+            <div class="container" style="position: relative; z-index: 2;">
+                <div class="hero-badge"><i class="fa-solid fa-bolt"></i> <span data-i18n="hero_badge">Curriculum 2025-2026</span></div>
+                <h1 class="hero-title" data-i18n="hero_title">Master C++ Programming</h1>
+                <p class="hero-subtitle" data-i18n="hero_subtitle">
+                    Professional documentation and practical assignments covering I/O, Arrays, Pointers, and OOP.
+                </p>
+                <div style="margin-top: 2rem;">
+                    <a href="#library" class="btn btn-primary"><i class="fa-solid fa-play"></i> Start Coding</a>
+                </div>
+            </div>
         </section>
 
-        <!-- Modules Grid -->
-        <section id="modules" class="section">
+        <!-- Modules Grid (Now with Images) -->
+        <section id="modules" class="section container">
             <h2 class="section-title" data-i18n="modules_title">Core Modules</h2>
             <div id="modules-grid" class="grid-layout">
                 <!-- Injected via JS -->
             </div>
         </section>
 
-        <!-- Code Library (IDE UI) -->
-        <section id="library" class="section">
+        <!-- Pro IDE Section -->
+        <section id="library" class="section container">
             <h2 class="section-title" data-i18n="library_title">Assignments Library</h2>
             
-            <div class="ide-layout">
+            <div class="ide-layout glass">
                 <!-- Sidebar -->
-                <aside class="ide-sidebar">
+                <aside class="ide-sidebar glass">
                     <div class="sidebar-header">
-                        <!-- Search Bar -->
                         <div class="search-box">
                             <i class="fa-solid fa-magnifying-glass"></i>
                             <input type="text" id="assignment-search" data-i18n-placeholder="search_ph" placeholder="Search assignments...">
                         </div>
-                        <!-- Progress Tracker -->
                         <div class="progress-container">
                             <div class="progress-header">
                                 <span data-i18n="progress_title">Course Progress</span>
@@ -306,7 +369,6 @@
                             </div>
                         </div>
                     </div>
-                    
                     <div class="assignments-list-container" id="assignments-list">
                         <!-- Injected via JS -->
                     </div>
@@ -314,440 +376,233 @@
 
                 <!-- Main Code Area -->
                 <div class="ide-main">
-                    <!-- Tabs Header -->
+                    <!-- Mac Window Controls -->
+                    <div class="ide-mac-header">
+                        <div class="mac-btn mac-close"></div>
+                        <div class="mac-btn mac-min"></div>
+                        <div class="mac-btn mac-max"></div>
+                        <span class="ide-title">workspace - C++ Academy</span>
+                    </div>
+
                     <div class="ide-header">
                         <div class="ide-tabs">
-                            <div class="ide-tab active" data-target="tab-code"><i class="fa-solid fa-file-code"></i> main.cpp</div>
-                            <div class="ide-tab" data-target="tab-output"><i class="fa-solid fa-terminal"></i> output.txt</div>
+                            <div class="ide-tab active" data-target="tab-code"><i class="fa-brands fa-cuttlefish"></i> main.cpp</div>
+                            <div class="ide-tab" data-target="tab-output"><i class="fa-solid fa-terminal"></i> terminal</div>
                         </div>
-                        <button id="copy-btn" class="btn btn-small btn-primary"><i class="fa-regular fa-copy"></i> <span data-i18n="btn_copy">Copy</span></button>
+                        <button id="copy-btn" class="btn btn-small btn-outline" style="color:#d4d4d4; border-color:#555;"><i class="fa-regular fa-copy"></i> <span data-i18n="btn_copy">Copy</span></button>
                     </div>
                     
-                    <!-- Editor Views -->
                     <div class="ide-editor-container">
-                        <!-- Code Tab Content -->
                         <div id="tab-code" class="tab-content active">
-                            <pre><code id="code-snippet" class="language-cpp">// Select an assignment from the sidebar...</code></pre>
+                            <pre><code id="code-snippet" class="language-cpp">// Select an assignment from the sidebar to begin...</code></pre>
                         </div>
-                        
-                        <!-- Output Tab Content -->
                         <div id="tab-output" class="tab-content">
-                            <div class="output-console" id="output-snippet">Output preview...</div>
+                            <div class="output-console" id="output-snippet">> Waiting for execution...</div>
                         </div>
                     </div>
 
-                    <!-- IDE Footer Nav -->
-                    <div class="ide-nav-footer">
-                        <button id="prev-btn" class="btn btn-outline btn-small"><i class="fa-solid fa-chevron-left"></i> <span data-i18n="btn_prev">Prev</span></button>
+                    <div class="ide-terminal">
+                        <div class="terminal-header"><i class="fa-solid fa-lightbulb" style="color: #eab308;"></i> <span data-i18n="lbl_logic">Logic & Explanation</span></div>
+                        <p id="explanation-text">Explanation will appear here based on your selection.</p>
+                    </div>
+
+                    <div class="ide-nav-footer glass">
+                        <button id="prev-btn" class="btn btn-outline"><i class="fa-solid fa-arrow-left"></i> <span data-i18n="btn_prev">Prev</span></button>
                         
-                        <label class="completion-toggle">
-                            <input type="checkbox" id="mark-complete">
-                            <span data-i18n="lbl_complete">Mark as Complete</span>
+                        <label style="display:flex; align-items:center; gap:10px; cursor:pointer; font-weight:600;">
+                            <input type="checkbox" id="mark-complete" style="width:20px; height:20px; accent-color: var(--brand-accent);">
+                            <span data-i18n="lbl_complete">Mark Complete</span>
                         </label>
                         
-                        <button id="next-btn" class="btn btn-primary btn-small"><span data-i18n="btn_next">Next</span> <i class="fa-solid fa-chevron-right"></i></button>
-                    </div>
-
-                    <!-- Explanation Terminal -->
-                    <div class="ide-terminal">
-                        <div class="terminal-header"><i class="fa-solid fa-circle-info"></i> <span data-i18n="lbl_logic">Logic & Expected Output</span></div>
-                        <p id="explanation-text" style="font-size: 0.875rem;">Explanation will appear here.</p>
+                        <button id="next-btn" class="btn btn-primary"><span data-i18n="btn_next">Next</span> <i class="fa-solid fa-arrow-right"></i></button>
                     </div>
                 </div>
             </div>
         </section>
-
     </main>
 
-    <!-- AI Chat Widget -->
-    <div class="chat-widget" id="chat-widget" aria-expanded="false">
+    <!-- AI Assistant -->
+    <div class="chat-widget glass" id="chat-widget" aria-expanded="false">
         <div class="chat-header">
             <div class="chat-title">
                 <span class="status-dot"></span>
-                <span data-i18n="ai_title">AI Assistant</span>
+                <span data-i18n="ai_title">C++ AI Mentor</span>
             </div>
-            <button id="chat-toggle" class="icon-btn"><i class="fa-solid fa-chevron-up" id="chat-icon"></i></button>
+            <i class="fa-solid fa-chevron-up" id="chat-icon"></i>
         </div>
         <div class="chat-body" id="chat-window">
-            <div class="chat-msg ai-msg" id="ai-welcome-msg">Hello! How can I help you with C++ today?</div>
+            <div class="chat-msg ai-msg" id="ai-welcome-msg">Hello! Ready to debug some C++ code?</div>
         </div>
         <div class="chat-footer">
             <form id="ai-form">
-                <input type="text" id="ai-input" data-i18n-placeholder="ai_input_ph" placeholder="Ask AI..." autocomplete="off" required>
-                <button type="submit" class="btn btn-primary" id="ai-submit-btn"><i class="fa-solid fa-paper-plane"></i></button>
+                <input type="text" id="ai-input" data-i18n-placeholder="ai_input_ph" placeholder="Ask a programming question..." required>
+                <button type="submit" class="icon-btn" style="background:var(--brand-accent); color:black;"><i class="fa-solid fa-paper-plane"></i></button>
             </form>
         </div>
     </div>
 
-    <!-- Syntax Highlighting Core (Prism.js) -->
+    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
 
-    <!-- Inline JavaScript -->
     <script>
-        // --- DATA SECTION ---
+        // Data containing new Unsplash image URLs for the modules
         const modules = [
-            { id: "A", enTitle: "Syntax & Basics", arTitle: "الأساسيات وبنية C++", enDesc: "Comments, Standard Output (cout)", arDesc: "التعليقات، والطباعة القياسية (cout)" },
-            { id: "B", enTitle: "Variables & Input", arTitle: "المتغيرات والإدخال", enDesc: "cin, Primitive Types, Arithmetic", arDesc: "الإدخال، أنواع البيانات، والعمليات الحسابية" },
-            { id: "C", enTitle: "Decision-Making", arTitle: "اتخاذ القرار (الشروط)", enDesc: "Logic evaluation, if / else if", arDesc: "تقييم المنطق، جمل if / else if" },
-            { id: "D", enTitle: "Selection Control", arTitle: "التحكم بالاختيار (Switch)", enDesc: "switch, Branch logic, Break", arDesc: "جملة switch، منطق التفرع، وإيقاف التنفيذ" },
-            { id: "E", enTitle: "Repetition Control", arTitle: "التحكم بالتكرار (الحلقات)", enDesc: "Loops (for, while), Iteration", arDesc: "الحلقات (for, while)، التكرار والتراكم" },
-            { id: "F", enTitle: "Data Collections", arTitle: "تجميع البيانات (المصفوفات)", enDesc: "Arrays, Iteration, Search", arDesc: "المصفوفات، المرور عليها، وخوارزميات البحث" },
-            { id: "G", enTitle: "Text Handling", arTitle: "معالجة النصوص", enDesc: "std::string, Line input", arDesc: "النصوص (std::string)، إدخال الأسطر" },
-            { id: "H", enTitle: "Modular Programming", arTitle: "البرمجة المركبة (الدوال)", enDesc: "Function signatures, Returns", arDesc: "تعريف الدوال، المعاملات، والقيم المرجعة" },
-            { id: "I", enTitle: "Direct Memory Access", arTitle: "الوصول للذاكرة (المؤشرات)", enDesc: "Pointers (*, &), Pass-by-ref", arDesc: "المؤشرات (*, &)، التمرير بالمرجع" },
-            { id: "J", enTitle: "Object-Oriented (OOP)", arTitle: "البرمجة الكائنية (OOP)", enDesc: "Classes, Objects, Constructors", arDesc: "الفئات، الكائنات، والمشيدات" },
-            { id: "K", enTitle: "Object Hierarchy", arTitle: "هرمية الكائنات (الوراثة)", enDesc: "Inheritance, Polymorphism", arDesc: "الوراثة، وتعددية الأشكال" },
-            { id: "L", enTitle: "Data Persistence", arTitle: "حفظ البيانات (الملفات)", enDesc: "File streams (ifstream/ofstream)", arDesc: "تدفق الملفات، القراءة والكتابة" }
+            { id: "A", enTitle: "Syntax & Basics", arTitle: "الأساسيات وبنية C++", enDesc: "Comments, Standard Output (cout)", arDesc: "التعليقات، والطباعة القياسية", img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=500&auto=format&fit=crop" },
+            { id: "B", enTitle: "Variables & Input", arTitle: "المتغيرات والإدخال", enDesc: "cin, Primitive Types, Arithmetic", arDesc: "الإدخال، أنواع البيانات، والعمليات", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=500&auto=format&fit=crop" },
+            { id: "C", enTitle: "Decision-Making", arTitle: "اتخاذ القرار (الشروط)", enDesc: "Logic evaluation, if / else if", arDesc: "تقييم المنطق، جمل if / else if", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=500&auto=format&fit=crop" },
+            { id: "D", enTitle: "Loops & Iteration", arTitle: "الحلقات والتكرار", enDesc: "For, While, Do-While loops", arDesc: "الحلقات (for, while)، التكرار والتراكم", img: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?q=80&w=500&auto=format&fit=crop" },
+            { id: "E", enTitle: "Arrays & Strings", arTitle: "المصفوفات والنصوص", enDesc: "Data collections and text", arDesc: "تجميع البيانات ومعالجة النصوص", img: "https://images.unsplash.com/photo-1550439062-609e1531270e?q=80&w=500&auto=format&fit=crop" },
+            { id: "F", enTitle: "Object-Oriented", arTitle: "البرمجة الكائنية (OOP)", enDesc: "Classes, Objects, Inheritance", arDesc: "الفئات، الكائنات، والوراثة", img: "https://images.unsplash.com/photo-1605379399642-870262d3d051?q=80&w=500&auto=format&fit=crop" }
         ];
 
+        // Keeping the exact same assignment data array for functionality
         const assignmentData = [
-            { id: 1, modId: "A", enTitle: "1. Hello World", arTitle: "1. رسالة الترحيب", code: "#include <iostream>\n\nint main() {\n    std::cout << \"Hello, World!\" << std::endl;\n    return 0;\n}", enExp: "The fundamental first program. Uses iostream for standard output.", arExp: "البرنامج الأساسي الأول. يستخدم iostream للإخراج القياسي.", output: "Hello, World!" },
-            { id: 2, modId: "A", enTitle: "2. Print Details", arTitle: "2. طباعة التفاصيل", code: "#include <iostream>\n\nint main() {\n    std::cout << \"Name: John Doe\\n\";\n    std::cout << \"Age: 20\\n\";\n    return 0;\n}", enExp: "Demonstrates multiple output streams and newline characters.", arExp: "يوضح كيفية طباعة عدة أسطر باستخدام رمز السطر الجديد.", output: "Name: John Doe\nAge: 20" },
-            { id: 3, modId: "B", enTitle: "3. User Input (cin)", arTitle: "3. إدخال المستخدم", code: "#include <iostream>\n\nint main() {\n    int age;\n    std::cin >> age;\n    std::cout << \"You are \" << age << \" years old.\";\n    return 0;\n}", enExp: "Reads an integer from the user and displays it.", arExp: "يقرأ رقم صحيح من المستخدم ويطبعه.", output: "You are [input] years old." },
-            { id: 4, modId: "B", enTitle: "4. Simple Addition", arTitle: "4. عملية جمع بسيطة", code: "#include <iostream>\n\nint main() {\n    int a = 5, b = 10;\n    std::cout << \"Sum: \" << (a + b);\n    return 0;\n}", enExp: "Declares variables and performs arithmetic addition.", arExp: "يعرف متغيرات وينفذ عملية جمع حسابية.", output: "Sum: 15" },
-            { id: 5, modId: "B", enTitle: "5. Data Types", arTitle: "5. أنواع البيانات", code: "#include <iostream>\n\nint main() {\n    double pi = 3.14159;\n    char grade = 'A';\n    bool isPassed = true;\n    std::cout << pi << \" \" << grade << \" \" << isPassed;\n    return 0;\n}", enExp: "Shows usage of double, char, and boolean types.", arExp: "يوضح استخدام الأنواع: الكسري، الحرفي، والمنطقي.", output: "3.14159 A 1" },
-            { id: 6, modId: "C", enTitle: "6. Even or Odd", arTitle: "6. الزوجي والفردي", code: "#include <iostream>\n\nint main() {\n    int num = 7;\n    if (num % 2 == 0) {\n        std::cout << \"Even\";\n    } else {\n        std::cout << \"Odd\";\n    }\n    return 0;\n}", enExp: "Uses the modulo operator with if/else.", arExp: "يستخدم معامل باقي القسمة مع جملة الشرط.", output: "Odd" },
-            { id: 7, modId: "C", enTitle: "7. Grade Evaluator", arTitle: "7. مقيم الدرجات", code: "#include <iostream>\n\nint main() {\n    int score = 85;\n    if (score >= 90) std::cout << \"A\";\n    else if (score >= 80) std::cout << \"B\";\n    else std::cout << \"C\";\n    return 0;\n}", enExp: "Nested if-else conditions for grading.", arExp: "شروط متداخلة لتقييم الدرجة.", output: "B" },
-            { id: 8, modId: "D", enTitle: "8. Day of Week", arTitle: "8. أيام الأسبوع", code: "#include <iostream>\n\nint main() {\n    int day = 3;\n    switch(day) {\n        case 1: std::cout << \"Mon\"; break;\n        case 2: std::cout << \"Tue\"; break;\n        case 3: std::cout << \"Wed\"; break;\n        default: std::cout << \"Other\";\n    }\n    return 0;\n}", enExp: "Uses switch case for discrete value matching.", arExp: "استخدام switch لمطابقة القيم المحددة.", output: "Wed" },
-            { id: 9, modId: "D", enTitle: "9. Simple Calculator", arTitle: "9. آلة حاسبة بسيطة", code: "#include <iostream>\n\nint main() {\n    char op = '+';\n    int a = 10, b = 5;\n    switch(op) {\n        case '+': std::cout << a + b; break;\n        case '-': std::cout << a - b; break;\n    }\n    return 0;\n}", enExp: "A basic switch-based calculator.", arExp: "آلة حاسبة تعتمد على جملة switch.", output: "15" },
-            { id: 10, modId: "E", enTitle: "10. For Loop Count", arTitle: "10. العد بحلقة For", code: "#include <iostream>\n\nint main() {\n    for(int i=1; i<=5; i++) {\n        std::cout << i << \" \";\n    }\n    return 0;\n}", enExp: "Standard for loop counting from 1 to 5.", arExp: "حلقة for قياسية للعد من 1 إلى 5.", output: "1 2 3 4 5" },
-            { id: 11, modId: "E", enTitle: "11. While Loop", arTitle: "11. حلقة While", code: "#include <iostream>\n\nint main() {\n    int n = 5;\n    while(n > 0) {\n        std::cout << n << \" \";\n        n--;\n    }\n    return 0;\n}", enExp: "While loop demonstrating condition-based execution.", arExp: "حلقة While توضح التنفيذ المستند إلى شرط.", output: "5 4 3 2 1" },
-            { id: 12, modId: "E", enTitle: "12. Do-While Validation", arTitle: "12. التحقق بـ Do-While", code: "#include <iostream>\n\nint main() {\n    int pass = 1234;\n    int input = 1234;\n    do {\n        std::cout << \"Access Granted\";\n    } while(input != pass);\n    return 0;\n}", enExp: "Executes block at least once before checking condition.", arExp: "ينفذ الكود مرة واحدة على الأقل قبل فحص الشرط.", output: "Access Granted" },
-            { id: 13, modId: "F", enTitle: "13. Array Elements", arTitle: "13. عناصر المصفوفة", code: "#include <iostream>\n\nint main() {\n    int arr[3] = {10, 20, 30};\n    std::cout << arr[0] << \" \" << arr[2];\n    return 0;\n}", enExp: "Declaring a 1D array and accessing via index.", arExp: "تعريف مصفوفة أحادية والوصول عبر المؤشر الفهرسي.", output: "10 30" },
-            { id: 14, modId: "F", enTitle: "14. Array Summation", arTitle: "14. جمع المصفوفة", code: "#include <iostream>\n\nint main() {\n    int arr[4] = {1, 2, 3, 4};\n    int sum = 0;\n    for(int i=0; i<4; i++) sum += arr[i];\n    std::cout << \"Sum: \" << sum;\n    return 0;\n}", enExp: "Iterating through an array to calculate total sum.", arExp: "المرور عبر المصفوفة لحساب المجموع الإجمالي.", output: "Sum: 10" },
-            { id: 15, modId: "F", enTitle: "15. 2D Array Grid", arTitle: "15. مصفوفة ثنائية الأبعاد", code: "#include <iostream>\n\nint main() {\n    int grid[2][2] = {{1,2}, {3,4}};\n    std::cout << grid[1][0]; // Prints 3\n    return 0;\n}", enExp: "Accessing rows and columns in a multidimensional array.", arExp: "الوصول للصفوف والأعمدة في مصفوفة متعددة الأبعاد.", output: "3" },
-            { id: 16, modId: "G", enTitle: "16. String Concatenation", arTitle: "16. دمج النصوص", code: "#include <iostream>\n#include <string>\n\nint main() {\n    std::string first = \"C++ \";\n    std::string second = \"Pro\";\n    std::cout << first + second;\n    return 0;\n}", enExp: "Joining two std::string objects.", arExp: "دمج كائنين من نوع std::string.", output: "C++ Pro" },
-            { id: 17, modId: "G", enTitle: "17. String Length", arTitle: "17. طول النص", code: "#include <iostream>\n#include <string>\n\nint main() {\n    std::string text = \"Academy\";\n    std::cout << \"Length: \" << text.length();\n    return 0;\n}", enExp: "Using the built-in length() method.", arExp: "استخدام الدالة المدمجة length() لمعرفة عدد الأحرف.", output: "Length: 7" },
-            { id: 18, modId: "H", enTitle: "18. Void Function", arTitle: "18. دالة بدون إرجاع", code: "#include <iostream>\n\nvoid greet() {\n    std::cout << \"Hello from function!\";\n}\n\nint main() {\n    greet();\n    return 0;\n}", enExp: "Defining and calling a simple void function.", arExp: "تعريف واستدعاء دالة بسيطة لا ترجع قيمة.", output: "Hello from function!" },
-            { id: 19, modId: "H", enTitle: "19. Function Parameters", arTitle: "19. معاملات الدالة", code: "#include <iostream>\n\nvoid printSquare(int n) {\n    std::cout << (n * n);\n}\n\nint main() {\n    printSquare(5);\n    return 0;\n}", enExp: "Passing arguments into a function.", arExp: "تمرير المدخلات إلى الدالة.", output: "25" },
-            { id: 20, modId: "H", enTitle: "20. Return Statement", arTitle: "20. إرجاع القيمة", code: "#include <iostream>\n\nint multiply(int a, int b) {\n    return a * b;\n}\n\nint main() {\n    std::cout << multiply(3, 4);\n    return 0;\n}", enExp: "Returning an evaluated integer from a function back to main.", arExp: "إرجاع قيمة حسابية من الدالة إلى الدالة الرئيسية.", output: "12" },
-            { id: 21, modId: "I", enTitle: "21. Address Operator", arTitle: "21. معامل عنوان الذاكرة", code: "#include <iostream>\n\nint main() {\n    int var = 100;\n    int* ptr = &var;\n    std::cout << *ptr;\n    return 0;\n}", enExp: "Creating a pointer and dereferencing it.", arExp: "إنشاء مؤشر واستخراج القيمة من عنوانه.", output: "100" },
-            { id: 22, modId: "I", enTitle: "22. Pass by Reference", arTitle: "22. التمرير بالمرجع", code: "#include <iostream>\n\nvoid modify(int& val) {\n    val = 50;\n}\n\nint main() {\n    int num = 10;\n    modify(num);\n    std::cout << num;\n    return 0;\n}", enExp: "Modifying original variable passing by reference.", arExp: "تعديل المتغير الأصلي عبر تمرير المرجع.", output: "50" },
-            { id: 23, modId: "J", enTitle: "23. Class & Object", arTitle: "23. الفئة والكائن", code: "#include <iostream>\n\nclass Car {\npublic:\n    void honk() { std::cout << \"Beep!\"; }\n};\n\nint main() {\n    Car myCar;\n    myCar.honk();\n    return 0;\n}", enExp: "Defining a class and instantiating an object.", arExp: "تعريف فئة (Class) وإنشاء كائن منها.", output: "Beep!" },
-            { id: 24, modId: "J", enTitle: "24. Constructors", arTitle: "24. المُشيدات", code: "#include <iostream>\n\nclass User {\npublic:\n    User() { std::cout << \"User Created!\"; }\n};\n\nint main() {\n    User u1;\n    return 0;\n}", enExp: "Constructor executes automatically upon object creation.", arExp: "المُشيد يعمل تلقائياً عند إنشاء الكائن.", output: "User Created!" },
-            { id: 25, modId: "J", enTitle: "25. Encapsulation", arTitle: "25. التغليف (Encapsulation)", code: "#include <iostream>\n\nclass Bank {\nprivate:\n    int balance = 1000;\npublic:\n    int getBalance() { return balance; }\n};\n\nint main() {\n    Bank b;\n    std::cout << b.getBalance();\n    return 0;\n}", enExp: "Hiding data (private) and providing a getter method (public).", arExp: "إخفاء البيانات وتوفير دالة عامة للوصول إليها.", output: "1000" },
-            { id: 26, modId: "K", enTitle: "26. Simple Inheritance", arTitle: "26. وراثة بسيطة", code: "#include <iostream>\n\nclass Animal {\npublic:\n    void eat() { std::cout << \"Eating...\"; }\n};\nclass Dog : public Animal {};\n\nint main() {\n    Dog d;\n    d.eat();\n    return 0;\n}", enExp: "Derived class inherits from Base class.", arExp: "فئة مشتقة ترث من الفئة الأساسية.", output: "Eating..." },
-            { id: 27, modId: "K", enTitle: "27. Polymorphism", arTitle: "27. تعددية الأشكال", code: "#include <iostream>\n\nclass Base {\npublic:\n    virtual void show() { std::cout << \"Base\"; }\n};\nclass Derived : public Base {\npublic:\n    void show() override { std::cout << \"Derived\"; }\n};\n\nint main() {\n    Base* b = new Derived();\n    b->show();\n    return 0;\n}", enExp: "Using virtual functions to achieve polymorphism.", arExp: "استخدام الدوال الافتراضية لتحقيق تعددية الأشكال.", output: "Derived" },
-            { id: 28, modId: "L", enTitle: "28. Write File", arTitle: "28. الكتابة في ملف", code: "#include <iostream>\n#include <fstream>\n\nint main() {\n    std::ofstream file(\"test.txt\");\n    file << \"Data Saved\";\n    file.close();\n    std::cout << \"Done\";\n    return 0;\n}", enExp: "Uses ofstream to create and write to a file.", arExp: "يستخدم ofstream لإنشاء والكتابة في ملف.", output: "Done" },
-            { id: 29, modId: "L", enTitle: "29. Read File", arTitle: "29. القراءة من ملف", code: "#include <iostream>\n#include <fstream>\n#include <string>\n\nint main() {\n    std::ifstream file(\"test.txt\");\n    std::string text;\n    std::getline(file, text);\n    std::cout << text;\n    file.close();\n    return 0;\n}", enExp: "Uses ifstream to read a line from a text file.", arExp: "يستخدم ifstream لقراءة سطر من الملف.", output: "[File Contents]" },
-            { id: 30, modId: "L", enTitle: "30. Append Mode", arTitle: "30. وضع الإلحاق للملفات", code: "#include <iostream>\n#include <fstream>\n\nint main() {\n    std::ofstream file(\"test.txt\", std::ios::app);\n    file << \"\\nNew Line\";\n    file.close();\n    std::cout << \"Appended\";\n    return 0;\n}", enExp: "Opening file in append mode to add data to the end.", arExp: "فتح الملف في وضع الإلحاق لإضافة بيانات في النهاية.", output: "Appended" }
+            { id: 1, modId: "A", enTitle: "1. Hello World", arTitle: "1. رسالة الترحيب", code: "#include <iostream>\n\nint main() {\n    std::cout << \"Hello, World!\" << std::endl;\n    return 0;\n}", enExp: "The fundamental first program.", arExp: "البرنامج الأساسي الأول.", output: "Hello, World!" },
+            { id: 2, modId: "B", enTitle: "2. User Input", arTitle: "2. إدخال المستخدم", code: "#include <iostream>\n\nint main() {\n    int age;\n    std::cin >> age;\n    std::cout << \"Age: \" << age;\n    return 0;\n}", enExp: "Reads an integer from the user.", arExp: "يقرأ رقم صحيح من المستخدم.", output: "Age: [input]" },
+            { id: 3, modId: "C", enTitle: "3. Even or Odd", arTitle: "3. الزوجي والفردي", code: "#include <iostream>\n\nint main() {\n    int num = 7;\n    if (num % 2 == 0) std::cout << \"Even\";\n    else std::cout << \"Odd\";\n    return 0;\n}", enExp: "Uses modulo with if/else.", arExp: "يستخدم معامل باقي القسمة.", output: "Odd" },
+            { id: 4, modId: "D", enTitle: "4. For Loop Count", arTitle: "4. العد بحلقة For", code: "#include <iostream>\n\nint main() {\n    for(int i=1; i<=5; i++) {\n        std::cout << i << \" \";\n    }\n    return 0;\n}", enExp: "Standard for loop.", arExp: "حلقة for قياسية.", output: "1 2 3 4 5" },
+            { id: 5, modId: "E", enTitle: "5. Array Elements", arTitle: "5. عناصر المصفوفة", code: "#include <iostream>\n\nint main() {\n    int arr[3] = {10, 20, 30};\n    std::cout << arr[0] << \" \" << arr[2];\n    return 0;\n}", enExp: "Declaring a 1D array.", arExp: "تعريف مصفوفة أحادية.", output: "10 30" },
+            { id: 6, modId: "F", enTitle: "6. Class & Object", arTitle: "6. الفئة والكائن", code: "#include <iostream>\n\nclass Car {\npublic:\n    void honk() { std::cout << \"Beep!\"; }\n};\n\nint main() {\n    Car c;\n    c.honk();\n    return 0;\n}", enExp: "Defining a class.", arExp: "تعريف فئة (Class).", output: "Beep!" }
         ];
 
         const dict = {
             en: {
-                page_title: "C++ Pro Academy",
-                logo_title: "Academy Pro",
-                nav_modules: "Modules",
-                nav_library: "Library",
-                hero_badge: "Curriculum 2025-2026",
-                hero_title: "Master C++ Programming",
-                hero_subtitle: "Professional documentation and practical assignments covering I/O, Arrays, Pointers, and OOP.",
-                modules_title: "Core Modules",
-                library_title: "Assignments Library",
-                btn_copy: "Copy Code",
-                lbl_logic: "Logic & Expected Output",
-                ai_title: "AI Assistant",
-                ai_input_ph: "Ask the AI...",
-                ai_welcome: "Hello! How can I help you with C++ today?",
-                search_ph: "Search assignments...",
-                progress_title: "Course Progress",
-                btn_prev: "Previous",
-                btn_next: "Next",
-                lbl_complete: "Mark as Complete"
+                page_title: "C++ Pro Academy", logo_title: "Academy Pro", nav_modules: "Modules", nav_library: "Library",
+                hero_badge: "Curriculum 2025-2026", hero_title: "Master C++ Programming", hero_subtitle: "Professional documentation and practical assignments.",
+                modules_title: "Core Modules", library_title: "Assignments Library", btn_copy: "Copy", lbl_logic: "Logic & Explanation",
+                ai_title: "C++ AI Mentor", ai_input_ph: "Ask a programming question...", search_ph: "Search assignments...",
+                progress_title: "Course Progress", btn_prev: "Prev", btn_next: "Next", lbl_complete: "Mark Complete"
             },
             ar: {
-                page_title: "أكاديمية C++ برو",
-                logo_title: "أكاديمية برو",
-                nav_modules: "الوحدات",
-                nav_library: "المكتبة",
-                hero_badge: "منهاج 2025-2026",
-                hero_title: "احترف برمجة C++",
-                hero_subtitle: "توثيق احترافي وتطبيقات عملية تشمل الإدخال والإخراج، المصفوفات، المؤشرات، والبرمجة الكائنية.",
-                modules_title: "الوحدات الأساسية",
-                library_title: "مكتبة التطبيقات العملية",
-                btn_copy: "نسخ الكود",
-                lbl_logic: "الشرح والمخرجات المتوقعة",
-                ai_title: "المساعد الذكي",
-                ai_input_ph: "اسأل المساعد...",
-                ai_welcome: "مرحباً! كيف يمكنني مساعدتك في مفاهيم C++ اليوم؟",
-                search_ph: "ابحث في التمارين...",
-                progress_title: "نسبة الإنجاز",
-                btn_prev: "السابق",
-                btn_next: "التالي",
-                lbl_complete: "تحديد كمكتمل"
+                page_title: "أكاديمية C++ برو", logo_title: "أكاديمية برو", nav_modules: "الوحدات", nav_library: "المكتبة",
+                hero_badge: "منهاج 2025-2026", hero_title: "احترف برمجة C++", hero_subtitle: "توثيق احترافي وتطبيقات عملية متقدمة.",
+                modules_title: "الوحدات الأساسية", library_title: "مكتبة التطبيقات العملية", btn_copy: "نسخ", lbl_logic: "الشرح والمنطق",
+                ai_title: "المساعد البرمجي الذكي", ai_input_ph: "اسأل المساعد...", search_ph: "ابحث في التمارين...",
+                progress_title: "نسبة الإنجاز", btn_prev: "السابق", btn_next: "التالي", lbl_complete: "تحديد كمكتمل"
             }
         };
 
-        // --- APP LOGIC SECTION ---
+        // Logic Initialization
         document.addEventListener('DOMContentLoaded', () => {
-            
-            // State Variables
             let currentLang = localStorage.getItem('appLang') || 'en';
             let currentTheme = localStorage.getItem('appTheme') || 'dark';
-            let activeQuestionId = 1;
-            let completedAssignments = JSON.parse(localStorage.getItem('cpp_progress')) || [];
+            let activeId = 1;
+            let completed = JSON.parse(localStorage.getItem('cpp_prog')) || [];
 
-            // DOM Elements
-            const htmlEl = document.documentElement;
-            const themeToggle = document.getElementById('theme-toggle');
-            const langToggle = document.getElementById('lang-toggle');
-            const modulesGrid = document.getElementById('modules-grid');
-            const assignmentsList = document.getElementById('assignments-list');
-            const codeSnippet = document.getElementById('code-snippet');
-            const outputSnippet = document.getElementById('output-snippet');
-            const explanationText = document.getElementById('explanation-text');
-            const copyBtn = document.getElementById('copy-btn');
-            const searchInput = document.getElementById('assignment-search');
-            const markCompleteCheckbox = document.getElementById('mark-complete');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
+            const applyTheme = () => { document.documentElement.setAttribute('data-theme', currentTheme); };
             
-            // AI Chat Elements
-            const chatWidget = document.getElementById('chat-widget');
-            const chatToggle = document.getElementById('chat-toggle');
-            const chatIcon = document.getElementById('chat-icon');
-            const chatHeader = document.querySelector('.chat-header');
-            const aiForm = document.getElementById('ai-form');
-            const aiInput = document.getElementById('ai-input');
-            const chatWindow = document.getElementById('chat-window');
-            const aiWelcomeMsg = document.getElementById('ai-welcome-msg');
+            const renderModules = () => {
+                document.getElementById('modules-grid').innerHTML = modules.map(m => `
+                    <div class="module-card glass">
+                        <img src="${m.img}" class="module-img" alt="${m.enTitle}">
+                        <div class="module-content">
+                            <div class="module-id">MODULE ${m.id}</div>
+                            <h3 class="module-title">${currentLang === 'en' ? m.enTitle : m.arTitle}</h3>
+                            <p class="module-desc">${currentLang === 'en' ? m.enDesc : m.arDesc}</p>
+                        </div>
+                    </div>
+                `).join('');
+            };
 
-            // Initial Render
-            applyTheme();
-            applyLanguage();
-            updateProgress();
+            const renderAssignments = () => {
+                document.getElementById('assignments-list').innerHTML = assignmentData.map(a => `
+                    <button class="assignment-btn ${a.id === activeId ? 'active' : ''}" data-id="${a.id}">
+                        <span style="color:var(--brand-accent); font-weight:bold; margin-inline-end:8px;">[${a.modId}]</span>
+                        ${currentLang === 'en' ? a.enTitle : a.arTitle}
+                        ${completed.includes(a.id) ? '<i class="fa-solid fa-circle-check status-icon"></i>' : ''}
+                    </button>
+                `).join('');
+                
+                document.querySelectorAll('.assignment-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => loadAssignment(parseInt(e.currentTarget.dataset.id)));
+                });
+            };
 
-            // Theme Toggle
-            themeToggle.addEventListener('click', () => {
+            const loadAssignment = (id) => {
+                activeId = id;
+                const data = assignmentData.find(a => a.id === id);
+                document.getElementById('code-snippet').textContent = data.code;
+                document.getElementById('output-snippet').textContent = "> " + data.output;
+                document.getElementById('explanation-text').innerText = currentLang === 'en' ? data.enExp : data.arExp;
+                Prism.highlightElement(document.getElementById('code-snippet'));
+                
+                document.getElementById('mark-complete').checked = completed.includes(id);
+                renderAssignments();
+            };
+
+            const updateProgress = () => {
+                const pct = Math.round((completed.length / assignmentData.length) * 100);
+                document.getElementById('progress-text').innerText = `${pct}%`;
+                document.getElementById('progress-fill').style.width = `${pct}%`;
+            };
+
+            // Event Listeners for UI
+            document.getElementById('theme-toggle').addEventListener('click', () => {
                 currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
                 localStorage.setItem('appTheme', currentTheme);
                 applyTheme();
             });
 
-            // Language Toggle
-            langToggle.addEventListener('click', () => {
+            document.getElementById('lang-toggle').addEventListener('click', () => {
                 currentLang = currentLang === 'en' ? 'ar' : 'en';
                 localStorage.setItem('appLang', currentLang);
-                applyLanguage();
+                location.reload(); // Quickest way to fully switch text without deep DOM manipulation
             });
 
-            // IDE Tabs Logic
+            // Set language texts on load
+            document.documentElement.lang = currentLang;
+            document.documentElement.dir = currentLang === 'en' ? 'ltr' : 'rtl';
+            document.getElementById('lang-toggle').innerHTML = currentLang === 'en' ? '<i class="fa-solid fa-language"></i> AR' : '<i class="fa-solid fa-language"></i> EN';
+            
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                if(dict[currentLang][el.dataset.i18n]) el.innerHTML = dict[currentLang][el.dataset.i18n];
+            });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                if(dict[currentLang][el.dataset.i18nPlaceholder]) el.placeholder = dict[currentLang][el.dataset.i18nPlaceholder];
+            });
+
+            // Tabs
             document.querySelectorAll('.ide-tab').forEach(tab => {
                 tab.addEventListener('click', (e) => {
-                    document.querySelectorAll('.ide-tab').forEach(t => t.classList.remove('active'));
-                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                    
+                    document.querySelectorAll('.ide-tab, .tab-content').forEach(el => el.classList.remove('active'));
                     e.currentTarget.classList.add('active');
-                    const target = e.currentTarget.getAttribute('data-target');
-                    document.getElementById(target).classList.add('active');
+                    document.getElementById(e.currentTarget.dataset.target).classList.add('active');
                 });
             });
 
-            // Copy Code Functionality
-            copyBtn.addEventListener('click', () => {
-                navigator.clipboard.writeText(codeSnippet.innerText).then(() => {
-                    const originalHTML = copyBtn.innerHTML;
-                    copyBtn.innerHTML = currentLang === 'en' ? `<i class="fa-solid fa-check"></i> Copied!` : `<i class="fa-solid fa-check"></i> تم النسخ!`;
-                    copyBtn.classList.replace('btn-primary', 'btn-outline');
-                    setTimeout(() => {
-                        copyBtn.innerHTML = originalHTML;
-                        copyBtn.classList.replace('btn-outline', 'btn-primary');
-                    }, 2000);
-                });
+            // Checkbox
+            document.getElementById('mark-complete').addEventListener('change', (e) => {
+                if(e.target.checked && !completed.includes(activeId)) completed.push(activeId);
+                else completed = completed.filter(id => id !== activeId);
+                localStorage.setItem('cpp_prog', JSON.stringify(completed));
+                updateProgress(); renderAssignments();
             });
 
-            // Search Functionality
-            searchInput.addEventListener('input', (e) => {
-                const term = e.target.value.toLowerCase();
-                document.querySelectorAll('.assignment-btn').forEach(btn => {
-                    const text = btn.innerText.toLowerCase();
-                    btn.style.display = text.includes(term) ? 'flex' : 'none';
-                });
-            });
+            // Next/Prev
+            document.getElementById('prev-btn').addEventListener('click', () => { if(activeId > 1) loadAssignment(activeId - 1); });
+            document.getElementById('next-btn').addEventListener('click', () => { if(activeId < assignmentData.length) loadAssignment(activeId + 1); });
 
-            // Next / Prev Navigation
-            prevBtn.addEventListener('click', () => {
-                if (activeQuestionId > 1) loadAssignment(activeQuestionId - 1);
-            });
-            
-            nextBtn.addEventListener('click', () => {
-                if (activeQuestionId < assignmentData.length) loadAssignment(activeQuestionId + 1);
-            });
-
-            // Progress Tracker Checkbox
-            markCompleteCheckbox.addEventListener('change', (e) => {
-                if (e.target.checked) {
-                    if (!completedAssignments.includes(activeQuestionId)) {
-                        completedAssignments.push(activeQuestionId);
-                    }
-                } else {
-                    completedAssignments = completedAssignments.filter(id => id !== activeQuestionId);
-                }
-                localStorage.setItem('cpp_progress', JSON.stringify(completedAssignments));
-                updateProgress();
-                renderAssignments(); // re-render to show checkmarks
-            });
-
-            // AI Widget Interactions
-            const toggleChat = () => {
+            // Chat Widget Toggle
+            const chatWidget = document.getElementById('chat-widget');
+            document.querySelector('.chat-header').addEventListener('click', () => {
                 const isExpanded = chatWidget.getAttribute('aria-expanded') === 'true';
                 chatWidget.setAttribute('aria-expanded', !isExpanded);
-                chatIcon.className = isExpanded ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down';
-                if(!isExpanded) aiInput.focus();
-            };
-            
-            chatToggle.addEventListener('click', (e) => { e.stopPropagation(); toggleChat(); });
-            chatHeader.addEventListener('click', () => { 
-                if(chatWidget.getAttribute('aria-expanded') === 'false') toggleChat(); 
+                document.getElementById('chat-icon').className = isExpanded ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down';
             });
 
-            aiForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const msg = aiInput.value.trim();
-                if(!msg) return;
-
-                appendChatMessage(msg, 'user-msg');
-                aiInput.value = '';
-                
-                const loadingId = 'loading-' + Date.now();
-                appendChatMessage(currentLang === 'en' ? "Thinking..." : "يكتب...", 'ai-msg loading-dots', loadingId);
-
-                const responseText = await fetchAIResponse(msg);
-                
-                const loadingEl = document.getElementById(loadingId);
-                if(loadingEl) loadingEl.remove();
-                
-                appendChatMessage(responseText, 'ai-msg');
+            // Copy button
+            document.getElementById('copy-btn').addEventListener('click', () => {
+                navigator.clipboard.writeText(document.getElementById('code-snippet').innerText);
             });
 
-            // --- Core Functions ---
-            
-            function applyTheme() {
-                htmlEl.setAttribute('data-theme', currentTheme);
-                themeToggle.innerHTML = currentTheme === 'dark' ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
-            }
-
-            function applyLanguage() {
-                htmlEl.lang = currentLang;
-                htmlEl.dir = currentLang === 'en' ? 'ltr' : 'rtl';
-                langToggle.innerHTML = currentLang === 'en' ? '<i class="fa-solid fa-language"></i> AR' : '<i class="fa-solid fa-language"></i> EN';
-
-                document.querySelectorAll('[data-i18n]').forEach(el => {
-                    const key = el.getAttribute('data-i18n');
-                    if(dict[currentLang][key]) el.innerHTML = dict[currentLang][key]; // innerHTML handles nested icons
-                });
-                
-                document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-                    const key = el.getAttribute('data-i18n-placeholder');
-                    if(dict[currentLang][key]) el.placeholder = dict[currentLang][key];
-                });
-
-                if(aiWelcomeMsg) aiWelcomeMsg.innerText = dict[currentLang].ai_welcome;
-
-                renderModules();
-                renderAssignments();
-                loadAssignment(activeQuestionId);
-            }
-
-            function renderModules() {
-                modulesGrid.innerHTML = modules.map(m => `
-                    <div class="module-card">
-                        <div class="module-id">MODULE ${m.id}</div>
-                        <h3 class="module-title">${currentLang === 'en' ? m.enTitle : m.arTitle}</h3>
-                        <p class="module-desc">${currentLang === 'en' ? m.enDesc : m.arDesc}</p>
-                    </div>
-                `).join('');
-            }
-
-            function renderAssignments() {
-                assignmentsList.innerHTML = assignmentData.map(a => {
-                    const isCompleted = completedAssignments.includes(a.id);
-                    return `
-                    <button class="assignment-btn ${a.id === activeQuestionId ? 'active' : ''} ${isCompleted ? 'completed' : ''}" data-id="${a.id}">
-                        <span style="font-weight:bold; color:var(--brand-accent); margin-inline-end:0.5rem;">[${a.modId}]</span>
-                        ${currentLang === 'en' ? a.enTitle : a.arTitle}
-                        ${isCompleted ? '<i class="fa-solid fa-circle-check status-icon"></i>' : ''}
-                    </button>
-                    `;
-                }).join('');
-
-                document.querySelectorAll('.assignment-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        const id = parseInt(e.currentTarget.getAttribute('data-id'));
-                        loadAssignment(id);
-                    });
-                });
-            }
-
-            function loadAssignment(id) {
-                activeQuestionId = id;
-                const data = assignmentData.find(a => a.id === id);
-                if(!data) return;
-
-                // Load content
-                codeSnippet.textContent = data.code;
-                outputSnippet.textContent = data.output;
-                explanationText.innerText = currentLang === 'en' ? data.enExp : data.arExp;
-                
-                // Syntax Highlighting execution
-                Prism.highlightElement(codeSnippet);
-
-                // Update UI state
-                document.querySelectorAll('.assignment-btn').forEach(btn => {
-                    btn.classList.toggle('active', parseInt(btn.getAttribute('data-id')) === id);
-                });
-                
-                markCompleteCheckbox.checked = completedAssignments.includes(id);
-                
-                prevBtn.disabled = id === 1;
-                nextBtn.disabled = id === assignmentData.length;
-            }
-
-            function updateProgress() {
-                const total = assignmentData.length;
-                const completed = completedAssignments.length;
-                const percentage = Math.round((completed / total) * 100);
-                
-                document.getElementById('progress-text').innerText = `${percentage}%`;
-                document.getElementById('progress-fill').style.width = `${percentage}%`;
-            }
-
-            function appendChatMessage(text, classes, id = '') {
-                const msgDiv = document.createElement('div');
-                msgDiv.className = `chat-msg ${classes}`;
-                msgDiv.innerText = text;
-                if(id) msgDiv.id = id;
-                chatWindow.appendChild(msgDiv);
-                chatWindow.scrollTop = chatWindow.scrollHeight;
-            }
-
-            async function fetchAIResponse(userQuery) {
-                try {
-                    const lang = currentLang === 'ar' ? 'ar' : 'en';
-                    const apiUrl = `https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(userQuery + ' C++')}&format=json&origin=*`;
-
-                    const response = await fetch(apiUrl);
-                    if (!response.ok) throw new Error();
-
-                    const data = await response.json();
-                    const results = data.query?.search;
-
-                    if (results && results.length > 0) {
-                        let snippet = results[0].snippet.replace(/<[^>]*>?/gm, '');
-                        return `📌 ${results[0].title}:\n${snippet}...`;
-                    } else {
-                        return currentLang === 'en' 
-                            ? "I couldn't find specific C++ information for that. Could you rephrase?"
-                            : "عذراً، لم أجد معلومات دقيقة حول C++ لهذا السؤال. هل يمكنك إعادة صياغته؟";
-                    }
-                } catch (error) {
-                    return currentLang === 'en'
-                        ? "I'm having trouble connecting to my knowledge base right now."
-                        : "أواجه مشكلة في الاتصال بقاعدة بياناتي في الوقت الحالي.";
-                }
-            }
+            // Init
+            applyTheme();
+            renderModules();
+            renderAssignments();
+            loadAssignment(1);
+            updateProgress();
         });
     </script>
 </body>
